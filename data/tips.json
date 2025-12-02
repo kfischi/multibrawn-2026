@@ -1,0 +1,77 @@
+{
+  "tips": [
+    {
+      "id": "1",
+      "title": "שבת חתן בראש שקט",
+      "slug": "shabbat-chatan",
+      "category": "planning",
+      "thumbnail": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png",
+      "duration": "1:30",
+      "views": "8.2K",
+      "description": "טיפים חשובים לתכנון שבת חתן מושלמת",
+      "content": [
+        "בחירת מקום שקט ופרטי",
+        "תכנון פעילויות מהנות",
+        "ארוחות איכותיות",
+        "אטרקציות באזור"
+      ],
+      "videoUrl": "https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684490/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_gamaqi.mp4",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "title": "מחפשים זול? שימו לב לזה",
+      "slug": "cheap-vacation-tips",
+      "category": "budget",
+      "thumbnail": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828638/%D7%96%D7%95%D7%9C_t7cops.png",
+      "duration": "2:15",
+      "views": "15.3K",
+      "description": "איך למצוא עסקאות משתלמות ולחסוך כסף",
+      "content": [
+        "מתי כדאי להזמין",
+        "איך למצוא מבצעים",
+        "על מה אפשר לוותר",
+        "טיפים לחיסכון"
+      ],
+      "videoUrl": "https://res.cloudinary.com/dptyfvwyo/video/upload/v1763718107/%D7%96%D7%95%D7%9C_lcwakc.mp4",
+      "featured": true
+    },
+    {
+      "id": "3",
+      "title": "נוסעים לאילת? שימו לב",
+      "slug": "eilat-tips",
+      "category": "planning",
+      "thumbnail": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828637/%D7%90%D7%99%D7%9C%D7%AA_rtmczk.png",
+      "duration": "1:45",
+      "views": "12.7K",
+      "description": "כל מה שצריך לדעת לפני נסיעה לאילת",
+      "content": [
+        "מתי העונה הטובה ביותר",
+        "מה לקחת איתכם",
+        "אטרקציות מומלצות",
+        "טיפים לחיסכון באילת"
+      ],
+      "videoUrl": "https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684426/%D7%90%D7%99%D7%9C%D7%AA_ba7jjj.mp4",
+      "featured": true
+    },
+    {
+      "id": "4",
+      "title": "ממה להיזהר כשמזמינים וילה",
+      "slug": "villa-booking-warnings",
+      "category": "planning",
+      "thumbnail": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg",
+      "duration": "3:00",
+      "views": "18.9K",
+      "description": "5 דברים שחייבים לבדוק לפני ההזמנה",
+      "content": [
+        "בדיקת תמונות אמיתיות",
+        "קריאת ביקורות",
+        "בדיקת מדיניות ביטולים",
+        "וידוא גודל המקום",
+        "בדיקת ציוד ומתקנים"
+      ],
+      "videoUrl": "https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684101/Video3_omgivy.mp4",
+      "featured": false
+    }
+  ]
+}
