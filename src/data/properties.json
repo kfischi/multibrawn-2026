@@ -1,0 +1,104 @@
+{
+  "properties": [
+    {
+      "id": "event-1",
+      "name": "מתחם אירועים יוקרתי",
+      "type": "event",
+      "location": "מרכז הארץ",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg",
+      "features": ["חצר ענקית", "אולם מפואר", "מטבח מקצועי", "חניה רחבה"],
+      "price": "לפי הזמנה",
+      "description": "מתחם אירועים מושלם לחתונות, בר מצוות ואירועים עסקיים"
+    },
+    {
+      "id": "apartment-1",
+      "name": "פנטהאוז יוקרתי עם נוף",
+      "type": "villa",
+      "location": "תל אביב",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_u9fsdk.jpg",
+      "features": ["מרפסת גדולה", "נוף לים", "מעלית", "חניה"],
+      "price": "1,500₪ ללילה",
+      "description": "פנטהאוז מעוצב ברמה הגבוהה ביותר עם נוף פנורמי מדהים לים"
+    },
+    {
+      "id": "apartment-2",
+      "name": "דירת נופש מודרנית",
+      "type": "villa",
+      "location": "תל אביב",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg",
+      "features": ["מטבח מאובזר", "2 חדרי שינה", "מרפסת", "WiFi"],
+      "price": "900₪ ללילה",
+      "description": "דירת נופש מרווחה ומעוצבת במרכז תל אביב"
+    },
+    {
+      "id": "zimmer-1",
+      "name": "צימר רומנטי עם ג'קוזי",
+      "type": "zimmer",
+      "location": "גליל עליון",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726074/A7_rwzsuo.jpg",
+      "features": ["ג'קוזי פרטי", "נוף להרים", "קמין", "ארוחת בוקר"],
+      "price": "800₪ ללילה",
+      "description": "צימר אינטימי ורומנטי עם ג'קוזי פרטי ונוף מרהיב"
+    },
+    {
+      "id": "zimmer-2",
+      "name": "סוויטה עם נוף פנורמי",
+      "type": "zimmer",
+      "location": "גליל מערבי",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A6_h6irii.jpg",
+      "features": ["מרפסת פרטית", "ג'קוזי", "מטבחון", "נוף מדהים"],
+      "price": "750₪ ללילה",
+      "description": "סוויטה מעוצבת בטוב טעם עם נוף פנורמי לים ולהרים"
+    },
+    {
+      "id": "zimmer-3",
+      "name": "צימר יוקרתי בכרמים",
+      "type": "zimmer",
+      "location": "כרמי יוסף",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A5_irr575.jpg",
+      "features": ["בריכה מחוממת", "ג'קוזי ספא", "גינה", "פרטיות"],
+      "price": "900₪ ללילה",
+      "description": "צימר יוקרתי בלב הכרמים עם בריכה מחוממת וספא"
+    },
+    {
+      "id": "villa-1",
+      "name": "וילה יוקרתית עם בריכה",
+      "type": "villa",
+      "location": "מגדל העמק",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg",
+      "features": ["בריכה גדולה", "5 חדרי שינה", "גינה", "ברביקיו"],
+      "price": "2,500₪ ללילה",
+      "description": "וילה מפוארת עם בריכה גדולה, מושלמת למשפחות"
+    },
+    {
+      "id": "villa-2",
+      "name": "וילת יוקרה עם נוף",
+      "type": "villa",
+      "location": "הכנרת",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/21_f14cql.jpg",
+      "features": ["נוף לכנרת", "בריכה", "6 חדרים", "סלון ענק"],
+      "price": "3,000₪ ללילה",
+      "description": "וילת יוקרה עם נוף מרהיב לכנרת וכל השירותים"
+    },
+    {
+      "id": "hotel-1",
+      "name": "מלון בוטיק יוקרתי",
+      "type": "hotel",
+      "location": "תל אביב",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg",
+      "features": ["חדרים מעוצבים", "ארוחת בוקר", "ספא", "מרכז כושר"],
+      "price": "1,200₪ ללילה",
+      "description": "מלון בוטיק יוקרתי במרכז תל אביב עם שירות מעולה"
+    },
+    {
+      "id": "hotel-2",
+      "name": "מלון בוטיק בלב העיר",
+      "type": "hotel",
+      "location": "ירושלים",
+      "image": "https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg",
+      "features": ["מיקום מרכזי", "חדרים מפוארים", "ארוחת בוקר", "WiFi"],
+      "price": "1,100₪ ללילה",
+      "description": "מלון בוטיק מקסים בלב ירושלים עם אווירה ייחודית"
+    }
+  ]
+}

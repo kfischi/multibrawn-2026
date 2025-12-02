@@ -1,0 +1,114 @@
+/* Stats Section */
+
+.stats {
+  padding: var(--spacing-2xl) 0;
+  background: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.statCard {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-base);
+  opacity: 0;
+  transform: translateY(30px);
+  border: 2px solid transparent;
+}
+
+.statCard.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.statCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+  border-color: var(--color-cyan-light);
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-sm);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.statCard:nth-child(1) .icon { animation-delay: 0s; }
+.statCard:nth-child(2) .icon { animation-delay: 0.2s; }
+.statCard:nth-child(3) .icon { animation-delay: 0.4s; }
+.statCard:nth-child(4) .icon { animation-delay: 0.6s; }
+
+.value {
+  font-family: var(--font-heebo);
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.label {
+  font-family: var(--font-assistant);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .stats {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .statCard {
+    padding: var(--spacing-lg);
+  }
+  
+  .icon {
+    font-size: 2.5rem;
+  }
+  
+  .value {
+    font-size: 2.5rem;
+  }
+  
+  .label {
+    font-size: 1rem;
+  }
+}
