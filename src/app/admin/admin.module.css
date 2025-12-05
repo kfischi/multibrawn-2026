@@ -1,0 +1,236 @@
+/* Admin Layout Styles */
+
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 280px;
+  background: white;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar.closed {
+  width: 80px;
+}
+
+.sidebarHeader {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.sidebarTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sidebarSubtitle {
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0;
+  opacity: 0.9;
+}
+
+.sidebar.closed .sidebarSubtitle {
+  display: none;
+}
+
+/* === Navigation === */
+.sidebarNav {
+  flex: 1;
+  padding: 1.5rem 0;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  color: #4b5563;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-right: 3px solid transparent;
+  font-weight: 500;
+}
+
+.navItem:hover {
+  background: #f9fafb;
+  color: var(--site-accent);
+}
+
+.navItem.active {
+  background: rgba(255, 94, 161, 0.1);
+  color: var(--site-accent);
+  border-right-color: var(--site-accent);
+}
+
+.navIcon {
+  font-size: 1.5rem;
+  min-width: 24px;
+  text-align: center;
+}
+
+.navLabel {
+  white-space: nowrap;
+}
+
+.sidebar.closed .navLabel {
+  display: none;
+}
+
+/* === Sidebar Footer === */
+.sidebarFooter {
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.backToSite,
+.logoutBtn {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+}
+
+.backToSite {
+  background: #f3f4f6;
+  color: #374151;
+  text-decoration: none;
+}
+
+.backToSite:hover {
+  background: #e5e7eb;
+}
+
+.logoutBtn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.logoutBtn:hover {
+  background: #fecaca;
+}
+
+.sidebar.closed .backToSite,
+.sidebar.closed .logoutBtn {
+  padding: 0.75rem 0.5rem;
+  font-size: 1.2rem;
+}
+
+.sidebar.closed .backToSite span,
+.sidebar.closed .logoutBtn span {
+  display: none;
+}
+
+/* === Main Content === */
+.mainContent {
+  flex: 1;
+  margin-right: 280px;
+  display: flex;
+  flex-direction: column;
+  transition: margin 0.3s ease;
+}
+
+.sidebar.closed ~ .mainContent {
+  margin-right: 80px;
+}
+
+/* === Top Bar === */
+.topBar {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.menuToggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.menuToggle:hover {
+  color: var(--site-accent);
+}
+
+.topBarRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.userName {
+  font-weight: 600;
+  color: #374151;
+}
+
+/* === Page Content === */
+.pageContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* === Responsive === */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .mainContent {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .topBar {
+    padding: 0 1rem;
+  }
+
+  .pageContent {
+    padding: 1rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-width: 280px;
+  }
+}
