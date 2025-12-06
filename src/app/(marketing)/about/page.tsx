@@ -18,17 +18,20 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Story Section */}
+      {/* Story Section with Video */}
       <section className={styles.storySection}>
         <div className={styles.storyGrid}>
-          <div className={styles.storyImage}>
-            <Image
-              src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762012646/Ardit_znq9aj.jpg"
-              alt="ערדית בראון"
-              width={600}
-              height={700}
-              className={styles.arditImage}
-            />
+          <div className={styles.storyVideoBox}>
+            <div className={styles.videoWrapper}>
+              <iframe
+                src="https://player.cloudinary.com/embed/?cloud_name=dptyfvwyo&public_id=V2_cj6div&profile=cld-default"
+                className={styles.storyVideo}
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+                title="הכירו את ערדית"
+              ></iframe>
+            </div>
           </div>
           <div className={styles.storyText}>
             <h2 className={styles.storyHeading}>שלום, שמי ערדית בראון</h2>
@@ -76,23 +79,6 @@ export default function AboutPage() {
             <div className={styles.statNumber}>100%</div>
             <div className={styles.statLabel}>אמינות</div>
           </div>
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section className={styles.videoSection}>
-        <h2 className={styles.videoHeading}>הכירו את ערדית</h2>
-        <div className={styles.videoContainer}>
-          <video
-            className={styles.videoPlayer}
-            controls
-            poster="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762012646/Ardit_znq9aj.jpg"
-          >
-            <source
-              src="https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4"
-              type="video/mp4"
-            />
-          </video>
         </div>
       </section>
 
