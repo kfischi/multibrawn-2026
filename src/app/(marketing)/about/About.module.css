@@ -1,675 +1,212 @@
-/* About Page Styles */
-
-.aboutPage {
-  min-height: 100vh;
-}
-
-/* === Hero Section === */
-.heroAbout {
-  text-align: center;
-  padding: 6rem 2rem;
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 1.5rem;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin-bottom: 1rem;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.heroTitle {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.heroSubtitle {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  opacity: 0.95;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* === Story Section === */
-.storySection {
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.storyGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
-.storyImage {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
-}
-
-.storyVideoBox {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.storyVideoBox .videoWrapper {
-  width: 100%;
-  max-width: 400px;
-  aspect-ratio: 9 / 16;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.storyVideo {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-.arditImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-}
-
-.storyText {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.storyHeading {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--site-text);
-}
-
-.storyParagraph {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-}
-
-.quoteBox {
-  padding: 1.5rem;
-  background: rgba(255, 94, 161, 0.05);
-  border-right: 4px solid var(--site-accent);
-  border-radius: var(--radius-md);
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1.6;
-  color: var(--site-text);
-}
-
-.socialSection {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.socialHeading {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--site-text);
-}
-
-/* === Stats Section === */
-.statsSection {
-  padding: 4rem 2rem;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.statBox {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.statBox:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.statNumber {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--site-accent);
-  margin-bottom: 0.5rem;
-}
-
-.statLabel {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--site-text);
-}
-
-/* === Video Section === */
-.videoSection {
-  padding: 4rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.videoHeading {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--site-text);
-}
-
-.videoContainer {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.videoWrapper {
-  width: 100%;
-  position: relative;
-  aspect-ratio: 9 / 16;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.videoPlayer {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-/* === Responsive === */
-@media (max-width: 1024px) {
-  .storyGrid {
-    gap: 3rem;
-  }
-
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .heroAbout {
-    padding: 4rem 1.5rem;
-  }
-
-  .storyGrid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .storyImage {
-    min-height: 400px;
-  }
-
-  .statsGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .statBox {
-    padding: 1.5rem;
-  }
-
-  .statNumber {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .quoteBox {
-    font-size: 1.1rem;
-    padding: 1rem;
-  }
-}
-
-/* === NEW SECTIONS CSS === */
-
-.contentContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.differenceSection {
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,249,250,0.95));
-}
-
-.mainHeading {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: var(--color-text-primary);
-}
-
-.subHeading {
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--color-text-secondary);
-}
-
-.problemParagraph {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto 1.5rem;
-  color: var(--color-text-secondary);
-}
-
-.problemHighlight {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 2rem 0;
-  color: var(--color-pink);
-}
-
-.solutionHeading {
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 3rem 0 2rem;
-  color: var(--color-text-primary);
-}
-
-.solutionGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.solutionBox {
-  background: white;
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.solutionBox:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.solutionBox h4 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--color-text-primary);
-}
-
-.solutionBox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.solutionBox li {
-  padding: 0.6rem 0 0.6rem 1.5rem;
-  position: relative;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-.solutionBox li::before {
-  content: '✓';
-  position: absolute;
-  right: 0;
-  color: var(--color-pink);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.comparisonSection {
-  padding: 4rem 2rem;
-  background: white;
-}
-
-.compareGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.compareBoxNegative,
-.compareBoxPositive {
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.compareBoxNegative {
-  background: #f8f9fa;
-  border: 2px solid #e9ecef;
-}
-
-.compareBoxPositive {
-  background: linear-gradient(135deg, rgba(255, 94, 161, 0.05), rgba(160, 107, 255, 0.05));
-  border: 2px solid var(--color-pink);
-}
-
-.compareBoxNegative h3,
-.compareBoxPositive h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: var(--color-text-primary);
-}
-
-.compareBoxNegative ul,
-.compareBoxPositive ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.compareBoxNegative li,
-.compareBoxPositive li {
-  padding: 0.7rem 0 0.7rem 1.5rem;
-  position: relative;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-.compareBoxNegative li::before {
-  content: '✗';
-  position: absolute;
-  right: 0;
-  color: #dc3545;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.compareBoxPositive li::before {
-  content: '✓';
-  position: absolute;
-  right: 0;
-  color: var(--color-pink);
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-/* Add these new styles to About.module.css */
-
-/* === Story Subheading === */
-.storySubheading {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  color: var(--color-text-primary);
-}
-
-/* === Offer Section === */
-.offerSection {
-  padding: 4rem 2rem;
-  background: white;
-}
-
-.offerGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.offerBox {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.9));
-  padding: 2.5rem;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 94, 161, 0.1);
-  transition: all 0.3s ease;
-}
-
-.offerBox:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(255, 94, 161, 0.15);
-  border-color: var(--color-pink);
-}
-
-.offerBox h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: var(--color-text-primary);
-  line-height: 1.4;
-}
-
-.offerBox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.offerBox li {
-  padding: 0.7rem 0 0.7rem 2rem;
-  position: relative;
-  line-height: 1.7;
-  color: var(--color-text-secondary);
-}
-
-.offerBox li::before {
-  content: '✓';
-  position: absolute;
-  right: auto;
-  left: 0;
-  color: var(--color-pink);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-/* === Unique Section === */
-.uniqueSection {
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(248, 249, 250, 0.5));
-}
-
-.uniqueGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.uniqueBox {
-  background: white;
-  padding: 2.5rem;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.uniqueBox:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.uniqueBox h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--color-pink);
-}
-
-.uniqueBox p {
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-}
-
-/* === Clients Section === */
-.clientsSection {
-  padding: 4rem 2rem;
-  background: white;
-}
-
-.clientsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.clientCard {
-  background: linear-gradient(135deg, rgba(255, 94, 161, 0.05), rgba(160, 107, 255, 0.05));
-  padding: 2.5rem;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-}
-
-.clientCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-pink);
-  box-shadow: 0 8px 20px rgba(255, 94, 161, 0.2);
-}
-
-.clientIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.clientCard h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--color-text-primary);
-}
-
-.clientCard p {
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-/* === CTA Section === */
-.ctaSection {
-  padding: 5rem 2rem;
-  background: var(--gradient-primary);
-  color: white;
-  text-align: center;
-}
-
-.ctaHeading {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-}
-
-.ctaParagraph {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-  opacity: 0.95;
-}
-
-.ctaButton {
-  display: inline-block;
-  padding: 1.2rem 3rem;
-  background: white;
-  color: var(--color-pink);
-  font-size: 1.2rem;
-  font-weight: 700;
-  border-radius: var(--radius-full);
-  text-decoration: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.ctaButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  background: rgba(255, 255, 255, 0.95);
-}
-
-/* === Social Section === */
-.socialSection {
-  padding: 3rem 2rem;
-  background: white;
-}
-
-/* === Responsive === */
-@media (max-width: 768px) {
-  .offerGrid,
-  .uniqueGrid,
-  .clientsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .offerBox,
-  .uniqueBox,
-  .clientCard {
-    padding: 2rem;
-  }
-
-  .ctaSection {
-    padding: 3rem 1.5rem;
-  }
-
-  .ctaButton {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-  }
+'use client';
+
+import SocialLinks from '@/components/ui/SocialLinks/SocialLinks';
+import styles from './About.module.css';
+
+export default function AboutPage() {
+  return (
+    <div className={styles.aboutPage}>
+      {/* Hero Section */}
+      <section className={styles.heroAbout}>
+        <span className={styles.badge}>הסיפור שלנו</span>
+        <h1 className={styles.heroTitle}>
+          מתסכול אישי<br />לחזון משנה מציאות
+        </h1>
+        <p className={styles.heroSubtitle}>
+          &quot;לכל אדם מגיע שירות אישי שחוסך לו זמן ומבטיח לו 100% אמינות&quot;
+        </p>
+      </section>
+
+      {/* Story Section with Video */}
+      <section className={styles.storySection}>
+        <div className={styles.storyGrid}>
+          <div className={styles.storyVideoBox}>
+            <div className={styles.videoWrapper}>
+              <iframe
+                src="https://player.cloudinary.com/embed/?cloud_name=dptyfvwyo&public_id=V2_cj6div&profile=cld-default"
+                className={styles.storyVideo}
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+                title="הכירו את ערדית"
+              ></iframe>
+            </div>
+          </div>
+          <div className={styles.storyText}>
+            <h2 className={styles.storyHeading}>שלום, שמי ערדית בראון</h2>
+            <p className={styles.storyParagraph}>
+              יזמית עם מעל <strong>10 שנות ניסיון</strong> בחיבורים בין אנשים לחלומות שלהם.
+            </p>
+            <p className={styles.storyParagraph}>
+              מחברת משפחות, זוגות וקבוצות לוילות, צימרים, דירות נופש ומתחמי שבת חתן שמתאימים באמת לאנשים – לא רק לתמונות.
+            </p>
+            
+            <h3 className={styles.storySubheading}>הכל התחיל בתקופת הקורונה</h3>
+            <p className={styles.storyParagraph}>
+              לפני כן עבדתי שנים מאחורי הקלעים – בהפקות, בעבודה עם אמני במה ובאירועים. ואז הגיעו הסגרים, ההפגנות, אירועים בוטלו – והעולם נעצר.
+            </p>
+            <p className={styles.storyParagraph}>
+              במקום לשבת בבית ולהגיד &quot;אין עבודה&quot;, שאלתי את עצמי: איך אני יכולה להשתמש בהיכרות שלי עם אנשים, לוקיישנים וקשרים – כדי לעזור למשפחות ולמצוא פרנסה מכובדת?
+            </p>
+            
+            <div className={styles.quoteBox}>
+              הקמתי את Multibrawn על עיקרון פשוט: לכל אדם מגיע שירות אישי שחוסך לו זמן ומבטיח לו 100% אמינות.
+            </div>
+            
+            <p className={styles.storyParagraph}>
+              לא כמפיקה, אלא כמי שמכירה את השטח, האנשים והמתחמים, ומחברת ביניהם בצורה חכמה, מדויקת ושקופה.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={styles.statsSection}>
+        <div className={styles.statsGrid}>
+          <div className={styles.statBox}>
+            <div className={styles.statNumber}>10+</div>
+            <div className={styles.statLabel}>שנות ניסיון</div>
+          </div>
+          <div className={styles.statBox}>
+            <div className={styles.statNumber}>500+</div>
+            <div className={styles.statLabel}>אירועים</div>
+          </div>
+          <div className={styles.statBox}>
+            <div className={styles.statNumber}>50+</div>
+            <div className={styles.statLabel}>לוקיישנים</div>
+          </div>
+          <div className={styles.statBox}>
+            <div className={styles.statNumber}>100%</div>
+            <div className={styles.statLabel}>אמינות</div>
+          </div>
+        </div>
+      </section>
+
+      {/* What I Offer Section */}
+      <section className={styles.offerSection}>
+        <div className={styles.contentContainer}>
+          <h2 className={styles.mainHeading}>מה אני מציעה?</h2>
+          
+          <div className={styles.offerGrid}>
+            <div className={styles.offerBox}>
+              <h3>התאמה אישית לנופש ואירועים</h3>
+              <ul>
+                <li>וילות, צימרים, דירות נופש ומתחמים בכל הארץ</li>
+                <li>דגש על משפחות, זוגות ושבתות חתן</li>
+                <li>התאמה מיוחדת לציבור דתי וחרדי</li>
+                <li>בדיקה מדויקת: כמות חדרים, בריכה, פרטיות, כשרות, קרבה לבית כנסת</li>
+              </ul>
+            </div>
+
+            <div className={styles.offerBox}>
+              <h3>ליווי אישי – לא עוד &quot;קבוצה של לינקים&quot;</h3>
+              <ul>
+                <li>אני שואלת שאלות: מי אתם? כמה נפשות? מה האופי? מה התקציב?</li>
+                <li>מתאימה רק מקומות שיש בהם היגיון עבורכם</li>
+                <li>לא מה שהכי נוצץ בתמונות – מה שבאמת מתאים</li>
+              </ul>
+            </div>
+
+            <div className={styles.offerBox}>
+              <h3>חיסכון בזמן, כסף ועצבים</h3>
+              <ul>
+                <li>לא עוד להתרוצץ בין מאות מודעות וסוכנים</li>
+                <li>אני מסננת, מדברת עם בעלי המתחמים</li>
+                <li>מוודאת פרטים ומגישה רק הצעות רלוונטיות</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Makes Me Different Section */}
+      <section className={styles.uniqueSection}>
+        <div className={styles.contentContainer}>
+          <h2 className={styles.mainHeading}>מה מייחד אותי?</h2>
+          
+          <div className={styles.uniqueGrid}>
+            <div className={styles.uniqueBox}>
+              <h3>עבר של &quot;מאחורי הקלעים&quot;</h3>
+              <p>
+                מהעולם של ההפקות הבאתי איתי הבנה של לוגיסטיקה, אנשים, תזמון ופרטים קטנים שעושים את ההבדל בין &quot;יהיה בסדר&quot; לבין &quot;היה מושלם&quot;.
+              </p>
+            </div>
+
+            <div className={styles.uniqueBox}>
+              <h3>אני לא מפיקה – אני מחברת</h3>
+              <p>
+                אני לא מפיקה אירועים, לא מתערבת באוכל, לא מעצבת ולא מוכרת חלומות. התפקיד שלי ממוקד וברור: למצוא לכם את המקום הנכון – ולהגיד בכנות גם כשמשהו לא מתאים.
+              </p>
+            </div>
+
+            <div className={styles.uniqueBox}>
+              <h3>רגישות אמיתית לדתי/חרדי</h3>
+              <p>
+                אני יודעת כמה חשוב: כשרות, צניעות, טלוויזיות, מוזיקה, שבת, מניין, מרחק מהשכונה. אלה לא &quot;תוספות&quot; – זה חלק מהשירות.
+              </p>
+            </div>
+
+            <div className={styles.uniqueBox}>
+              <h3>קהילה ולא רק עסק</h3>
+              <p>
+                יש סביבי קהילות בפייסבוק, אינסטגרם וטיקטוק – שם אני משתפת מתחמים מומלצים, טעויות נפוצות, ואומרת ביושר כשמשהו לא נראה לי.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who I Work With Section */}
+      <section className={styles.clientsSection}>
+        <div className={styles.contentContainer}>
+          <h2 className={styles.mainHeading}>עם מי אני עובדת?</h2>
+          
+          <div className={styles.clientsGrid}>
+            <div className={styles.clientCard}>
+              <div className={styles.clientIcon}>👨‍👩‍👧‍👦</div>
+              <h3>משפחות</h3>
+              <p>נופש, סופ&quot;שים, חגים וחופשות קיץ</p>
+            </div>
+
+            <div className={styles.clientCard}>
+              <div className={styles.clientIcon}>💍</div>
+              <h3>שבתות חתן ובר־מצווה</h3>
+              <p>במיוחד למשפחות דתיות וחרדיות</p>
+            </div>
+
+            <div className={styles.clientCard}>
+              <div className={styles.clientIcon}>💑</div>
+              <h3>זוגות</h3>
+              <p>חופשות, ימי נישואין, ימי הולדת</p>
+            </div>
+
+            <div className={styles.clientCard}>
+              <div className={styles.clientIcon}>👥</div>
+              <h3>קבוצות קטנות</h3>
+              <p>חברות, קבוצות נשים, חברותות, גיבושי צוות</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className={styles.ctaSection}>
+        <div className={styles.contentContainer}>
+          <h2 className={styles.ctaHeading}>איך ממשיכים מכאן?</h2>
+          <p className={styles.ctaParagraph}>
+            אם אתם מתכננים נופש, שבת חתן או חופשה משפחתית<br />
+            ורוצים לחסוך זמן, אכזבות וכאב ראש
+          </p>
+          <a href="/contact" className={styles.ctaButton}>
+            צרו קשר עכשיו
+          </a>
+        </div>
+      </section>
+
+      {/* Social Links */}
+      <section className={styles.socialSection}>
+        <SocialLinks />
+      </section>
+    </div>
+  );
 }
