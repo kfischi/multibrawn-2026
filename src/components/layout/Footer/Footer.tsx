@@ -15,9 +15,10 @@ export default function Footer() {
             <Image
               src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png"
               alt="MULTIBRAWN Logo"
-              width={150}
-              height={60}
+              width={180}
+              height={70}
             />
+            <span className={styles.logoText}>MULTIBRAWN</span>
           </div>
         </div>
 
