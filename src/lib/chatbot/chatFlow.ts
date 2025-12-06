@@ -186,9 +186,9 @@ export const chatFlow: Record<string, ChatStep> = {
   whatsappCTA: {
     id: 'whatsappCTA',
     type: 'action',
-    message: '💬 רוצים לדבר עם ערדית ישירות?\nלחצו כאן לפתוח שיחה בוואטסאפ:',
+    message: '🎉 תודה רבה!\n\nקיבלנו את כל הפרטים שלכם.\n\n💬 **כדי שנחזור אליכם מהר**, לחצו על הכפתור הירוק ושלחו את הפרטים לוואטסאפ של MULTIBRAWN:',
     action: (context) => {
-      const { name, propertyType, guestCount, budget, dateFlexibility } = context.data;
+      const { name, propertyType, guestCount, budget, dateFlexibility, features = [] } = context.data;
       
       const typeNames: Record<string, string> = {
         zimmer: 'צימר',
@@ -197,20 +197,39 @@ export const chatFlow: Record<string, ChatStep> = {
         event: 'מתחם אירוע',
       };
       
+      const featuresList = features.length > 0 
+        ? `\nתכונות: ${features.join(', ')}`
+        : '';
+      
       const message = encodeURIComponent(
-        `היי מולטיבראון! אני ${name}
-        
-מחפש ${typeNames[propertyType]} ל-${guestCount} אנשים
-תאריכים: ${dateFlexibility}
-תקציב: ${budget}
+        `היי מולטיבראון! אני ${name} 👋
 
-מתאים לשוחח? 😊`
+סוג נכס: ${typeNames[propertyType]}
+מספר אנשים: ${guestCount}
+תאריכים: ${dateFlexibility}
+תקציב: ${budget}${featuresList}
+
+אשמח לקבל הצעות מתאימות! 😊`
       );
       
       return {
         type: 'whatsapp',
         url: `https://wa.me/972523983394?text=${message}`,
-        buttonText: 'פתח וואטסאפ 💬',
+        buttonText: '💬 שלח לערדית בוואטסאפ',
+        buttonStyle: {
+          background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+          color: 'white',
+          padding: '1.2rem 2.5rem',
+          fontSize: '1.2rem',
+          fontWeight: '700',
+          borderRadius: '50px',
+          border: 'none',
+          boxShadow: '0 10px 30px rgba(37, 211, 102, 0.4)',
+          animation: 'pulse 2s infinite',
+          cursor: 'pointer',
+          width: '100%',
+          marginTop: '1rem',
+        },
       };
     },
   },
