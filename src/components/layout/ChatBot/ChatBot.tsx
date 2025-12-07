@@ -183,7 +183,20 @@ export default function ChatBot() {
             ...prev,
             features: [...(prev.features || []), userInput]
           }));
-          // Stay on same step to allow multiple selections
+          // Show options again for multiple selection
+          setTimeout(() => {
+            addBotMessage(
+              'מעולה! רוצים לבחור עוד תכונות? ✨',
+              [
+                '🏊 בריכה פרטית',
+                '🛁 ג\'קוזי',
+                '🌅 נוף מדהים',
+                '♿ נגישות',
+                '🐕 ידידותי לחיות',
+                '✅ סיימתי לבחור'
+              ]
+            );
+          }, 300);
         }
         break;
 
@@ -252,7 +265,7 @@ export default function ChatBot() {
         >
           <div className={styles.avatarWrapper}>
             <Image
-              src="/images/ardit-avatar.jpg"
+              src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1733058671/ardit-avatar_zso1ac.jpg"
               alt="ערדית"
               width={70}
               height={70}
@@ -270,7 +283,7 @@ export default function ChatBot() {
           <div className={styles.header}>
             <div className={styles.headerContent}>
               <Image
-                src="/images/ardit-avatar.jpg"
+                src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1733058671/ardit-avatar_zso1ac.jpg"
                 alt="ערדית"
                 width={45}
                 height={45}
@@ -300,7 +313,7 @@ export default function ChatBot() {
                 {msg.role === 'assistant' && (
                   <div className={styles.messageGroup}>
                     <Image
-                      src="/images/ardit-avatar.jpg"
+                      src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1733058671/ardit-avatar_zso1ac.jpg"
                       alt="ערדית"
                       width={32}
                       height={32}
@@ -361,7 +374,7 @@ export default function ChatBot() {
             {isTyping && (
               <div className={styles.messageGroup}>
                 <Image
-                  src="/images/ardit-avatar.jpg"
+                  src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1733058671/ardit-avatar_zso1ac.jpg"
                   alt="ערדית"
                   width={32}
                   height={32}
