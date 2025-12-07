@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage - Highest Priority + Rich Media -->
+  <url>
+    <loc>https://multibrawn.co.il/</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png</image:loc>
+      <image:caption>ערדית - העוזרת הדיגיטלית של MULTIBRAWN לצימרים ווילות</image:caption>
+      <image:title>MULTIBRAWN - השכרת צימרים ווילות יוקרה בישראל</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4</video:thumbnail_loc>
+      <video:title>MULTIBRAWN - הלוקיישן המושלם מחכה לכם | צימרים ווילות יוקרה</video:title>
+      <video:description>גלו את מגוון הצימרים, הוילות, דירות הנופש ומתחמי האירועים המדהימים של MULTIBRAWN. 10+ שנות ניסיון, 500+ לקוחות מרוצים, נכסים מאומתים בלבד.</video:description>
+      <video:content_loc>https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4</video:content_loc>
+      <video:player_loc>https://multibrawn.co.il/</video:player_loc>
+      <video:duration>30</video:duration>
+      <video:publication_date>2024-12-07T00:00:00+02:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
+
+  <!-- Gallery Main -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Gallery - Villas -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=villa</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg</image:loc>
+      <image:caption>וילות יוקרה מפוארות עם בריכה פרטית מחוממת לאירוח משפחתי</image:caption>
+      <image:title>וילות יוקרה בישראל | MULTIBRAWN</image:title>
+    </image:image>
+  </url>
+
+  <!-- Gallery - Zimmers -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=zimmer</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg</image:loc>
+      <image:caption>צימרים רומנטיים לזוגות עם ג'קוזי פרטי, בריכה ונוף מדהים</image:caption>
+      <image:title>צימרים רומנטיים בישראל | MULTIBRAWN</image:title>
+    </image:image>
+  </url>
+
+  <!-- Gallery - Apartments -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=apartment</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg</image:loc>
+      <image:caption>דירות נופש מעוצבות ומאובזרות במלואן במרכז הארץ</image:caption>
+      <image:title>דירות נופש בישראל | MULTIBRAWN</image:title>
+    </image:image>
+  </url>
+
+  <!-- Gallery - Hotels -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=hotel</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg</image:loc>
+      <image:caption>מלונות בוטיק יוקרתיים עם שירות מלא ואווירה מפנקת</image:caption>
+      <image:title>מלונות בוטיק בישראל | MULTIBRAWN</image:title>
+    </image:image>
+  </url>
+
+  <!-- Gallery - Events -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=event</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg</image:loc>
+      <image:caption>מתחמי אירועים מרהיבים לחתונות, בר מצוות ואירועי חברה</image:caption>
+      <image:title>מתחמי אירועים בישראל | MULTIBRAWN</image:title>
+    </image:image>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://multibrawn.co.il/about</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tips -->
+  <url>
+    <loc>https://multibrawn.co.il/tips</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://multibrawn.co.il/contact</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Privacy -->
+  <url>
+    <loc>https://multibrawn.co.il/privacy</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Accessibility -->
+  <url>
+    <loc>https://multibrawn.co.il/accessibility-statement</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- SEO Landing Pages - Long-tail Keywords -->
+  
+  <!-- צימרים לפי אזור -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=zimmer&amp;location=north</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=zimmer&amp;location=kinneret</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=zimmer&amp;location=desert</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- וילות לפי גודל -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=villa&amp;guests=10plus</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=villa&amp;guests=6to10</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- צימרים עם תכונות -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=zimmer&amp;feature=pool</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=zimmer&amp;feature=jacuzzi</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- מתחמי אירועים לפי סוג -->
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=event&amp;type=wedding</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://multibrawn.co.il/gallery?category=event&amp;type=corporate</loc>
+    <lastmod>2024-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+</urlset>
