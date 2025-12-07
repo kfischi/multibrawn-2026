@@ -2,19 +2,31 @@
 
 import { useState, useRef, useEffect } from "react";
 import styles from './ChatBot.module.css';
-import { chatFlow, translations } from '@/lib/chatbot/chatFlow';
-import { ChatMessage as ChatMessageType } from '@/types/chatbot';
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+  quickReplies?: QuickReply[];
+  showWhatsAppButton?: boolean;
+}
+
+interface QuickReply {
+  text: string;
+  value: string;
+}
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const [currentStep, setCurrentStep] = useState('start');
-  const [userData, setUserData] = useState<Record<string, any>>({});
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [conversationHistory, setConversationHistory] = useState<any[]>([]);
+  const [userInfo, setUserInfo] = useState<Record<string, any>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -22,352 +34,261 @@ export default function ChatBot() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isOpen]);
+  }, [messages]);
 
   // Show button after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 10000);
-
     return () => clearTimeout(timer);
   }, []);
 
   // Initialize chat when opened
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const welcomeStep = chatFlow.start;
-      addBotMessage(welcomeStep, 'start');
+      startConversation();
     }
-  }, [isOpen, messages.length]);
+  }, [isOpen]);
 
-  const addBotMessage = (step: any, stepId: string) => {
-    const message = typeof step.message === 'function' 
-      ? step.message({ data: userData, metadata: {} })
-      : step.message;
-
-    const botMsg: ChatMessageType = {
+  const startConversation = () => {
+    const welcomeMsg: Message = {
       id: Date.now().toString(),
-      type: 'bot',
-      content: message,
+      role: 'assistant',
+      content: 'היי! 👋 אני ערדית, העוזרת הדיגיטלית של MULTIBRAWN.\n\n🎯 המשימה שלי: למצוא לכם את המקום המושלם לחופשה!\n\nבואו נתחיל - איזה סוג מקום אתם מחפשים?',
       timestamp: new Date(),
-      step: stepId,
+      quickReplies: [
+        { text: '💑 צימר רומנטי', value: 'צימר רומנטי' },
+        { text: '🏛️ וילה משפחתית', value: 'וילה משפחתית' },
+        { text: '🏨 מלון בוטיק', value: 'מלון בוטיק' },
+        { text: '🏢 דירת נופש', value: 'דירת נופש' },
+        { text: '💍 מתחם לאירוע', value: 'מתחם לאירוע' },
+      ],
     };
-
-    setMessages(prev => [...prev, botMsg]);
+    setMessages([welcomeMsg]);
   };
 
-  const handleButtonClick = (button: any) => {
-    const currentStepData = chatFlow[currentStep];
-    
-    // Handle multi-select
-    if (currentStepData.type === 'multi-select') {
-      const index = selectedFeatures.indexOf(button.value);
-      if (index > -1) {
-        setSelectedFeatures(selectedFeatures.filter(v => v !== button.value));
-      } else {
-        setSelectedFeatures([...selectedFeatures, button.value]);
-      }
-      return;
-    }
-
-    // Save data
-    const stepData: Record<string, any> = {};
-    const fieldName = currentStepData.field || currentStepData.id;
-    stepData[fieldName] = button.value;
-    
-    const newUserData = { ...userData, ...stepData };
-    setUserData(newUserData);
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || isLoading) return;
 
     // Add user message
-    const userMsg: ChatMessageType = {
+    const userMsg: Message = {
       id: Date.now().toString(),
-      type: 'user',
-      content: button.text,
+      role: 'user',
+      content: text,
       timestamp: new Date(),
     };
+
     setMessages(prev => [...prev, userMsg]);
-
-    // Move to next step
-    setTimeout(() => {
-      const nextStepId = button.next;
-      const nextStep = chatFlow[nextStepId];
-      
-      if (nextStep) {
-        addBotMessage(nextStep, nextStepId);
-        setCurrentStep(nextStepId);
-      }
-    }, 500);
-  };
-
-  const handleMultiSelectSubmit = () => {
-    if (selectedFeatures.length === 0) return;
-
-    const currentStepData = chatFlow[currentStep];
-    const stepData: Record<string, any> = {};
-    const fieldName = currentStepData.field || currentStepData.id;
-    stepData[fieldName] = selectedFeatures;
-    
-    const newUserData = { ...userData, ...stepData };
-    setUserData(newUserData);
-
-    // Create readable text
-    const featuresText = selectedFeatures.map(f => {
-      const options = typeof currentStepData.options === 'function' 
-        ? currentStepData.options({ data: userData, metadata: {} })
-        : currentStepData.options;
-      const btn = options?.find((b: any) => b.value === f) as any;
-      return btn ? btn.text : f;
-    }).join(', ');
-
-    const userMsg: ChatMessageType = {
-      id: Date.now().toString(),
-      type: 'user',
-      content: featuresText,
-      timestamp: new Date(),
-    };
-    setMessages(prev => [...prev, userMsg]);
-
-    setSelectedFeatures([]);
-
-    // Move to next step
-    setTimeout(() => {
-      const nextStepId = currentStepData.next as string;
-      const nextStep = chatFlow[nextStepId];
-      
-      if (nextStep) {
-        addBotMessage(nextStep, nextStepId);
-        setCurrentStep(nextStepId);
-      }
-    }, 500);
-  };
-
-  const handleTextSubmit = async () => {
-    if (!input.trim()) return;
-
-    const currentStepData = chatFlow[currentStep];
-    
-    // Add user message
-    const userMsg: ChatMessageType = {
-      id: Date.now().toString(),
-      type: 'user',
-      content: input.trim(),
-      timestamp: new Date(),
-    };
-    setMessages(prev => [...prev, userMsg]);
-
-    // Save data
-    const stepData: Record<string, any> = {};
-    const fieldName = currentStepData.field || currentStepData.id;
-    stepData[fieldName] = input.trim();
-
-    const newUserData = { ...userData, ...stepData };
-    setUserData(newUserData);
     setInput("");
-
-    // Move to next step
     setIsLoading(true);
-    
-    setTimeout(() => {
-      const nextStepId = currentStepData.next as string;
-      const nextStep = chatFlow[nextStepId];
-      
-      if (nextStep) {
-        addBotMessage(nextStep, nextStepId);
-        setCurrentStep(nextStepId);
+
+    try {
+      // Call Gemini API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: text,
+          conversationHistory,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
       }
+
+      const data = await response.json();
+
+      // Update conversation history
+      setConversationHistory(data.conversationHistory || []);
+
+      // Add AI response
+      const aiMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: data.message,
+        timestamp: new Date(),
+        showWhatsAppButton: data.isSummary,
+      };
+
+      setMessages(prev => [...prev, aiMsg]);
+
+    } catch (error) {
+      console.error('Chat error:', error);
+      
+      // Fallback message
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: 'אופס! משהו השתבש 😅\nאפשר לנסות שוב, או לכתוב לנו ישירות בוואטסאפ!',
+        timestamp: new Date(),
+        showWhatsAppButton: true,
+      };
+      
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
-  const renderCurrentInput = () => {
-    const step = chatFlow[currentStep];
-    
-    if (!step) return null;
-    
-    switch (step.type) {
-      case 'options':
-        const options = typeof step.options === 'function' 
-          ? step.options({ data: userData, metadata: {} })
-          : step.options;
-          
-        return (
-          <div className={styles.buttonsContainer}>
-            {options?.map((btn: any, idx: number) => (
-              <button
-                key={idx}
-                onClick={() => handleButtonClick(btn)}
-                className={styles.choiceButton}
-              >
-                {btn.text}
-              </button>
-            ))}
-          </div>
-        );
-        
-      case 'multi-select':
-        const multiOptions = typeof step.options === 'function' 
-          ? step.options({ data: userData, metadata: {} })
-          : step.options;
-          
-        return (
-          <div className={styles.buttonsContainer}>
-            {multiOptions?.map((btn: any, idx: number) => (
-              <button
-                key={idx}
-                onClick={() => handleButtonClick(btn)}
-                className={`${styles.choiceButton} ${
-                  selectedFeatures.includes(btn.value)
-                    ? styles.choiceButtonSelected
-                    : ''
-                }`}
-              >
-                {selectedFeatures.includes(btn.value) && '✓ '}
-                {btn.text}
-              </button>
-            ))}
-            {selectedFeatures.length > 0 && (
-              <button
-                onClick={handleMultiSelectSubmit}
-                className={styles.submitMultiButton}
-              >
-                שלח ({selectedFeatures.length}) ✓
-              </button>
-            )}
-          </div>
-        );
-        
-      case 'text':
-      case 'phone':
-      case 'email':
-        return (
-          <div className={styles.textInputContainer}>
-            <input
-              type={step.type === 'email' ? 'email' : step.type === 'phone' ? 'tel' : 'text'}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleTextSubmit()}
-              placeholder={step.placeholder}
-              className={styles.textInput}
-            />
-            <button 
-              onClick={handleTextSubmit}
-              disabled={isLoading}
-              className={styles.submitButton}
-            >
-              {isLoading ? '...' : 'שלח 📤'}
-            </button>
-          </div>
-        );
-        
-      case 'action':
-        const actionData = step.action?.({ data: userData, metadata: {} });
-        return (
-          <div className={styles.actionButtonContainer}>
-            <a
-              href={actionData?.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.whatsappButton}
-            >
-              {actionData?.buttonText || 'פתח וואטסאפ 💬'}
-            </a>
-          </div>
-        );
-        
-      default:
-        return null;
-    }
+  const handleQuickReply = (value: string) => {
+    sendMessage(value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessage(input);
+  };
+
+  const handleWhatsApp = () => {
+    // Extract conversation for WhatsApp
+    const conversation = messages
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => `${m.role === 'user' ? '👤' : '🤖'} ${m.content}`)
+      .join('\n\n');
+
+    const message = encodeURIComponent(
+      `היי MULTIBRAWN! 👋\n\nזה סיכום השיחה שלי עם ערדית:\n\n${conversation}\n\nאשמח לקבל הצעות מתאימות!`
+    );
+
+    window.open(`https://wa.me/972523983394?text=${message}`, '_blank');
+  };
+
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
     <>
-      {/* Floating Button */}
-      {isVisible && (
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={styles.chatButton}
-          aria-label="פתח צ'אט עם ערדית"
-        >
-          <div className={styles.chatButtonCircle}>
-            {isOpen ? (
-              <div className={styles.closeIcon}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </div>
-            ) : (
-              <img 
-                src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png"
-                alt="ערדית"
-                className={styles.avatarImage}
-              />
-            )}
-          </div>
-          {!isOpen && (
-            <>
-              <span className={styles.chatButtonText}>
-                צ'אט עם ערדית
-              </span>
-              <span className={styles.notification}></span>
-            </>
-          )}
-        </button>
-      )}
+      {/* Chat Button */}
+      <button
+        onClick={toggleChat}
+        className={`${styles.chatButton} ${isVisible ? styles.visible : ''}`}
+        data-chatbot
+        aria-label="פתח צ'אט עם ערדית"
+      >
+        {isOpen ? (
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+        {!isOpen && <span className={styles.badge}>ערדית</span>}
+      </button>
 
       {/* Chat Window */}
       {isOpen && (
         <div className={styles.chatWindow}>
+          {/* Header */}
           <div className={styles.chatHeader}>
-            <div className={styles.headerIcon}>
-              <img 
-                src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png"
-                alt="ערדית"
-                className={styles.avatarImage}
-              />
+            <div className={styles.headerInfo}>
+              <div className={styles.avatar}>
+                <span>ע</span>
+              </div>
+              <div>
+                <h3>ערדית</h3>
+                <p>העוזרת הדיגיטלית של MULTIBRAWN</p>
+              </div>
             </div>
-            <div>
-              <h3 className={styles.headerTitle}>ערדית - MULTIBRAWN</h3>
-              <p className={styles.headerStatus}>
-                <span className={styles.statusDot}></span> זמינה כעת
-              </p>
-            </div>
+            <button onClick={toggleChat} className={styles.closeButton} aria-label="סגור">
+              ✕
+            </button>
           </div>
 
-          <div className={styles.messagesArea}>
+          {/* Messages */}
+          <div className={styles.messages}>
             {messages.map((msg) => (
-              <div key={msg.id}>
-                <div className={msg.type === 'user' ? styles.userMessage : styles.botMessage}>
-                  <div className={styles.messageAvatar}>
-                    {msg.type === 'user' ? (
-                      '👤'
-                    ) : (
-                      <img 
-                        src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762012646/Ardit_znq9aj.jpg"
-                        alt="ערדית"
-                        className={styles.avatarImage}
-                      />
-                    )}
+              <div key={msg.id} className={styles.messageWrapper}>
+                <div className={`${styles.message} ${styles[msg.role]}`}>
+                  <div className={styles.messageContent}>
+                    {msg.content.split('\n').map((line, i) => (
+                      <p key={i}>{line}</p>
+                    ))}
                   </div>
-                  <div className={styles.messageBubble}>
-                    {msg.content}
-                  </div>
+                  <span className={styles.timestamp}>
+                    {msg.timestamp.toLocaleTimeString('he-IL', { 
+                      hour: '2-digit', 
+                      minute: '2-digit' 
+                    })}
+                  </span>
                 </div>
 
-                {msg.type === 'bot' && msg.step === currentStep && renderCurrentInput()}
+                {/* Quick Replies */}
+                {msg.quickReplies && msg.quickReplies.length > 0 && (
+                  <div className={styles.quickReplies}>
+                    {msg.quickReplies.map((reply, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleQuickReply(reply.value)}
+                        className={styles.quickReply}
+                        disabled={isLoading}
+                      >
+                        {reply.text}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* WhatsApp Button */}
+                {msg.showWhatsAppButton && (
+                  <div className={styles.actionButtonContainer}>
+                    <button
+                      onClick={handleWhatsApp}
+                      className={styles.whatsappButton}
+                    >
+                      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                      </svg>
+                      💬 שלח לערדית בוואטסאפ
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
-            
+
             {isLoading && (
-              <div className={styles.typing}>
-                <span>מעבדת</span>
-                <span className={styles.dots}>
-                  <span>.</span><span>.</span><span>.</span>
-                </span>
+              <div className={`${styles.message} ${styles.assistant}`}>
+                <div className={styles.typing}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             )}
+
             <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input */}
+          <form onSubmit={handleSubmit} className={styles.inputContainer}>
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="כתבו כאן... 💬"
+              className={styles.input}
+              disabled={isLoading}
+            />
+            <button
+              type="submit"
+              className={styles.sendButton}
+              disabled={!input.trim() || isLoading}
+              aria-label="שלח"
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 8L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </form>
+
+          {/* Powered by */}
+          <div className={styles.poweredBy}>
+            מופעל על ידי Google Gemini AI ✨
           </div>
         </div>
       )}
