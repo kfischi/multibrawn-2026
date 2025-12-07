@@ -86,15 +86,33 @@ export default function GalleryPage() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ type: '', src: '' });
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [filteredGalleryItems, setFilteredGalleryItems] = useState<any[]>([]);
 
-  const openModal = (type: string, src: string) => {
+  const openModal = (type: string, src: string, index: number, items: any[]) => {
     setModalContent({ type, src });
+    setCurrentImageIndex(index);
+    setFilteredGalleryItems(items);
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
     setModalContent({ type: '', src: '' });
+  };
+
+  const nextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % filteredGalleryItems.length;
+    const nextItem = filteredGalleryItems[nextIndex];
+    setCurrentImageIndex(nextIndex);
+    setModalContent({ type: nextItem.type, src: nextItem.src });
+  };
+
+  const prevImage = () => {
+    const prevIndex = (currentImageIndex - 1 + filteredGalleryItems.length) % filteredGalleryItems.length;
+    const prevItem = filteredGalleryItems[prevIndex];
+    setCurrentImageIndex(prevIndex);
+    setModalContent({ type: prevItem.type, src: prevItem.src });
   };
 
   const getFilteredItems = () => {
@@ -221,7 +239,7 @@ export default function GalleryPage() {
                 <div
                   key={idx}
                   className={styles.galleryCard}
-                  onClick={() => openModal(item.type, item.src)}
+                  onClick={() => openModal(item.type, item.src, idx, items)}
                 >
                   {item.type === 'image' ? (
                     <Image
@@ -251,9 +269,46 @@ export default function GalleryPage() {
       {/* Modal */}
       {modalOpen && (
         <div className={styles.videoModal} onClick={closeModal}>
-          <div className={styles.modalCloseBtn}>
-            <i className="fas fa-times"></i>
+          <div className={styles.modalCloseBtn} onClick={closeModal}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
           </div>
+          
+          {/* Previous Button */}
+          {filteredGalleryItems.length > 1 && (
+            <button 
+              className={styles.modalNavBtn + ' ' + styles.modalPrevBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+              aria-label="תמונה קודמת"
+            >
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+          )}
+
+          {/* Next Button */}
+          {filteredGalleryItems.length > 1 && (
+            <button 
+              className={styles.modalNavBtn + ' ' + styles.modalNextBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              aria-label="תמונה הבאה"
+            >
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          )}
+
+          <div onClick={(e) => e.stopPropagation()}>
           {modalContent.type === 'image' ? (
             <Image
               src={modalContent.src}
@@ -267,6 +322,7 @@ export default function GalleryPage() {
               <source src={modalContent.src} type="video/mp4" />
             </video>
           )}
+          </div>
         </div>
       )}
     </div>
