@@ -27,6 +27,27 @@ export default function Footer() {
           <SocialLinks />
         </div>
 
+        {/* Sitemap Links */}
+        <div className={styles.sitemapSection}>
+          <div className={styles.sitemapColumn}>
+            <h4 className={styles.sitemapTitle}>דפים</h4>
+            <Link href="/" className={styles.sitemapLink}>דף הבית</Link>
+            <Link href="/gallery" className={styles.sitemapLink}>גלריה</Link>
+            <Link href="/about" className={styles.sitemapLink}>אודות</Link>
+            <Link href="/tips" className={styles.sitemapLink}>טיפים</Link>
+            <Link href="/contact" className={styles.sitemapLink}>צור קשר</Link>
+          </div>
+          
+          <div className={styles.sitemapColumn}>
+            <h4 className={styles.sitemapTitle}>קטגוריות</h4>
+            <Link href="/gallery?category=villa" className={styles.sitemapLink}>וילות יוקרה</Link>
+            <Link href="/gallery?category=zimmer" className={styles.sitemapLink}>צימרים רומנטיים</Link>
+            <Link href="/gallery?category=apartment" className={styles.sitemapLink}>דירות נופש</Link>
+            <Link href="/gallery?category=hotel" className={styles.sitemapLink}>מלונות בוטיק</Link>
+            <Link href="/gallery?category=event" className={styles.sitemapLink}>מתחמי אירועים</Link>
+          </div>
+        </div>
+
         {/* Footer Links */}
         <div className={styles.linksSection}>
           <Link href="/privacy" className={styles.footerLink}>
