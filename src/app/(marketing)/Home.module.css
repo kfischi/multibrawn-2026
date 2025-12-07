@@ -1130,19 +1130,21 @@
 
 .ctaBtnPrimary {
   background: white;
-  color: var(--color-cyan);
+  color: #1a0b2e;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
 }
 
 .ctaBtnPrimary:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .ctaBtnPrimary svg {
   width: 24px;
   height: 24px;
-  stroke: var(--color-cyan);
+  stroke: #00d4ff;
 }
 
 .ctaBtnSecondary {
