@@ -2,7 +2,7 @@
 .floatingButton {
   position: fixed;
   bottom: 24px;
-  left: 24px;
+  right: 24px;
   z-index: 9999;
   background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 50%, #ff006e 100%);
   border: none;
@@ -78,7 +78,7 @@
 .chatWindow {
   position: fixed;
   bottom: 24px;
-  left: 24px;
+  right: 24px;
   width: 420px;
   height: 650px;
   background: white;
@@ -431,7 +431,7 @@
 @media (max-width: 768px) {
   .floatingButton {
     bottom: 16px;
-    left: 16px;
+    right: 16px;
     width: 60px;
     height: 60px;
   }
