@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize Gemini AI with the latest model
+// Initialize Gemini AI with stable model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+const model = genAI.getGenerativeModel({ 
+  model: 'gemini-1.5-flash',
+  generationConfig: {
+    temperature: 0.9,
+    topP: 0.95,
+    topK: 40,
+    maxOutputTokens: 512,
+  }
+});
 
 // System prompt - Ardit's personality and instructions
 const SYSTEM_PROMPT = `אתה ערדית, העוזרת הדיגיטלית של MULTIBRAWN - חברת השכרת נכסים יוקרתיים בישראל.
@@ -88,12 +96,6 @@ export async function POST(request: NextRequest) {
         },
         ...history,
       ],
-      generationConfig: {
-        temperature: 0.9,
-        topP: 0.95,
-        topK: 40,
-        maxOutputTokens: 256,
-      },
     });
 
     // Send message and get response
