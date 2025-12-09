@@ -4,12 +4,12 @@
 .chatButton {
   position: fixed; /* CRITICAL: FIXED not absolute! */
   bottom: 24px;
-  left: 24px;
+  right: 24px; /* שונה מ-left ל-right! */
   z-index: 9998; /* Below modal (10000) but above content */
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
-  border: none;
+  background: white; /* רקע לבן לתמונה */
+  border: 3px solid #FF5EA1; /* מסגרת ורודה */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -21,6 +21,7 @@
   opacity: 0;
   transform: scale(0);
   padding: 0;
+  overflow: hidden;
 }
 
 .chatButton.visible {
@@ -46,6 +47,19 @@
 .chatButton svg {
   width: 28px;
   height: 28px;
+}
+
+/* רקע ורוד רק כשהבוט פתוח (יש X) */
+.chatButton:has(svg) {
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
+  border: none;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .badge {
@@ -76,7 +90,7 @@
 .chatWindow {
   position: fixed; /* CRITICAL: FIXED not absolute! */
   bottom: 100px;
-  left: 24px;
+  right: 24px; /* שונה מ-left ל-right! */
   width: 400px;
   max-height: 600px;
   background: white;
@@ -129,6 +143,13 @@
   font-size: 18px;
   font-weight: 800;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatar .avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .headerInfo h3 {
