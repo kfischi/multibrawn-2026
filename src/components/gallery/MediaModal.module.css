@@ -1,4 +1,5 @@
-/* Overlay */
+/* Media Modal Styles - WITH VIDEO EMBED */
+
 .overlay {
   position: fixed;
   top: 0;
@@ -10,26 +11,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.3s ease-out;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* Modal */
 .modal {
   position: relative;
-  max-width: 90vw;
+  width: 100%;
+  max-width: 1200px;
   max-height: 90vh;
-  animation: scaleIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.3s ease;
 }
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
@@ -41,24 +49,24 @@
 .closeButton {
   position: absolute;
   top: -50px;
-  left: 0;
+  right: 0;
   background: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
-  color: white;
-  width: 40px;
-  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  cursor: pointer;
-  font-size: 24px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 10001;
+  color: white;
+  z-index: 10;
 }
 
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: rotate(90deg);
 }
 
@@ -68,106 +76,234 @@
   top: 50%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
-  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 10001;
+  color: white;
+  z-index: 10;
 }
 
 .navButton:hover {
   background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-50%) scale(1.1);
 }
 
-.prevButton {
-  right: -70px;
+.navButton.prev {
+  left: -60px;
 }
 
-.nextButton {
-  left: -70px;
+.navButton.next {
+  right: -60px;
 }
 
-/* Media Container */
-.mediaContainer {
-  background: black;
-  border-radius: 12px;
+/* Content Area */
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  background: #000;
 }
 
 /* Image */
 .image {
-  display: block;
-  max-width: 90vw;
-  max-height: 80vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Video */
-.video {
-  display: block;
-  max-width: 90vw;
-  max-height: 80vh;
   width: 100%;
   height: auto;
+  max-height: 70vh;
+  object-fit: contain;
   border-radius: 12px;
 }
 
-/* Title */
-.title {
-  position: absolute;
-  bottom: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  white-space: nowrap;
-  max-width: 80vw;
+/* Video Wrapper - KEY FOR EMBED! */
+.videoWrapper {
+  width: 100%;
+  height: 100%;
+  max-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  border-radius: 12px;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* Mobile */
+.video {
+  width: 100%;
+  height: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* Counter */
+.counter {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* Thumbnails */
+.thumbnails {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.thumbnails::-webkit-scrollbar {
+  height: 6px;
+}
+
+.thumbnails::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thumbnails::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0;
+}
+
+.thumbnail:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  border-color: #00E0FF;
+  box-shadow: 0 0 12px rgba(0, 224, 255, 0.5);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoThumbnail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile Adjustments */
 @media (max-width: 768px) {
+  .overlay {
+    padding: 10px;
+  }
+
+  .modal {
+    max-height: 95vh;
+  }
+
   .closeButton {
     top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .navButton {
+    width: 44px;
+    height: 44px;
+  }
+
+  .navButton.prev {
     left: 10px;
+  }
+
+  .navButton.next {
+    right: 10px;
+  }
+
+  .content {
+    margin-bottom: 10px;
+  }
+
+  .image,
+  .video {
+    max-height: 60vh;
+    border-radius: 8px;
+  }
+
+  .counter {
+    bottom: 90px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .thumbnails {
+    padding: 12px 8px;
+    gap: 6px;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .closeButton {
+    width: 36px;
+    height: 36px;
   }
 
   .navButton {
     width: 40px;
     height: 40px;
-    font-size: 20px;
-  }
-
-  .prevButton {
-    right: 10px;
-  }
-
-  .nextButton {
-    left: 10px;
-  }
-
-  .title {
-    bottom: 10px;
-    font-size: 16px;
   }
 
   .image,
   .video {
-    max-width: 100vw;
-    max-height: 90vh;
+    max-height: 50vh;
+  }
+
+  .counter {
+    bottom: 80px;
+    font-size: 11px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 38px;
   }
 }
