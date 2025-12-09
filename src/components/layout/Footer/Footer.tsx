@@ -12,9 +12,13 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className={styles.brand}>
             <Link href="/" className={styles.logo}>
-              <span className={styles.logoText}>MULTIBRAWN</span>
-              <span className={styles.logoSubtext}>מולטיבראון</span>
+              <img 
+                src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png"
+                alt="MULTIBRAWN מולטיבראון"
+                className={styles.logoImage}
+              />
             </Link>
+            <h2 className={styles.brandName}>MULTIBRAWN | מולטיבראון</h2>
             <p className={styles.description}>
               השותף שלכם למציאת המקום המושלם לחופשה!
               צימרים, וילות, מלונות בוטיק ומתחמי אירועים ברחבי הארץ.
