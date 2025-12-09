@@ -23,7 +23,7 @@ export default function AboutPage() {
           <div className={styles.storyVideoBox}>
             <div className={styles.videoWrapper}>
               <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dptyfvwyo&public_id=V2_cj6div&profile=cld-default"
+                src="https://player.cloudinary.com/embed/?cloud_name=dptyfvwyo&public_id=V2_cj6div&profile=cld-default&poster=https://res.cloudinary.com/dptyfvwyo/image/upload/v1764795231/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_dit9ju.jpg"
                 className={styles.storyVideo}
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowFullScreen
