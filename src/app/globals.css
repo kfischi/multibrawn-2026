@@ -26,10 +26,10 @@
   --color-bg-secondary: #f8f9fa;
   --color-bg-dark: #1a0b2e;
   
-  /* Text Colors */
-  --color-text-primary: #1a0b2e;
-  --color-text-secondary: #4a4a68;
-  --color-text-muted: #8e8e9e;
+  /* Text Colors - DARKER FOR BETTER READABILITY */
+  --color-text-primary: #0f172a;  /* Very dark - was #1a0b2e */
+  --color-text-secondary: #1e293b;  /* Dark - was #4a4a68 */
+  --color-text-muted: #64748b;  /* Medium - was #8e8e9e */
   --color-text-light: #ffffff;
   
   /* Gradients */
@@ -90,7 +90,8 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 800; /* Bold יותר - was 700 */
+  color: var(--color-text-primary);
 }
 
 h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
@@ -101,6 +102,8 @@ h4 { font-size: clamp(1.25rem, 3vw, 2rem); }
 p {
   font-size: 1rem;
   line-height: 1.8;
+  color: var(--color-text-secondary);
+  font-weight: 500; /* קצת יותר bold */
 }
 
 /* Links */
