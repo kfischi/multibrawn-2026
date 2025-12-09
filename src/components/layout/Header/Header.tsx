@@ -29,10 +29,13 @@ export default function Header() {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        {/* Logo - BIGGER */}
+        {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoText}>MULTIBRAWN</span>
-          <span className={styles.logoSubtext}>מולטיבראון</span>
+          <img 
+            src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png"
+            alt="MULTIBRAWN מולטיבראון"
+            className={styles.logoImage}
+          />
         </Link>
 
         {/* Desktop Navigation */}
