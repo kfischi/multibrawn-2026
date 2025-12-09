@@ -3,33 +3,42 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import styles from './Tips.module.css';
-import tipsData from '@/data/tips.json';
+import SocialLinks from '@/components/ui/SocialLinks/SocialLinks';
 
 export default function TipsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const categories = [
-    { id: 'all', label: 'הכל' },
-    { id: 'planning', label: 'תכנון' },
-    { id: 'budget', label: 'תקציב' },
-    { id: 'destinations', label: 'יעדים' },
-    { id: 'accommodations', label: 'לינה' },
-    { id: 'events', label: 'אירועים' },
-    { id: 'amenities', label: 'שירותים' },
-    { id: 'special-needs', label: 'צרכים מיוחדים' },
+  const reels = [
+    {
+      id: 'reel1',
+      title: '✡️ שבת חתן בראש שקט',
+      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684490/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_gamaqi.mp4',
+    },
+    {
+      id: 'reel2',
+      title: '🌴 נוסעים לאילת? תיזהרו',
+      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828637/%D7%90%D7%99%D7%9C%D7%AA_rtmczk.png',
+      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684426/%D7%90%D7%99%D7%9C%D7%AA_ba7jjj.mp4',
+    },
+    {
+      id: 'reel3',
+      title: '💰 מחפשים זול?',
+      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828638/%D7%96%D7%95%D7%9C_t7cops.png',
+      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763718107/%D7%96%D7%95%D7%9C_lcwakc.mp4',
+    },
+    {
+      id: 'reel4',
+      title: '⚠️ ממה להיזהר בוילה',
+      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
+      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684101/Video3_omgivy.mp4',
+    },
   ];
 
-  const filteredTips = selectedCategory === 'all' 
-    ? tipsData.tips 
-    : tipsData.tips.filter(tip => tip.category === selectedCategory);
-
   const openReel = (videoSrc: string) => {
-    if (videoSrc) {
-      setCurrentVideo(videoSrc);
-      setModalOpen(true);
-    }
+    setCurrentVideo(videoSrc);
+    setModalOpen(true);
   };
 
   const closeReel = () => {
@@ -40,72 +49,51 @@ export default function TipsPage() {
   return (
     <div className={styles.tipsPage}>
       <div className={styles.contentSection}>
+        {/* Header */}
         <div className={styles.header}>
-          <h1 className={styles.mainTitle}>טיפים וידע</h1>
+          <h1 className={styles.mainTitle}>טיפים מקצועיים</h1>
           <p className={styles.subtitle}>
-            כל הטיפים שצריך לדעת לפני שמזמינים נופש, וילה או צימר
+            פינת הטיפים של מולטיבראון<br />
+            שלא תשמעו בשום מקום
           </p>
         </div>
 
-        {/* Categories Filter */}
-        <div className={styles.categories}>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              className={`${styles.categoryBtn} ${selectedCategory === cat.id ? styles.active : ''}`}
-              onClick={() => setSelectedCategory(cat.id)}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Tips Grid */}
+        {/* Reels Grid */}
         <div className={styles.reelsGrid}>
-          {filteredTips.map((tip) => (
-            <div key={tip.id} className={styles.reelCard}>
-              <div 
-                className={styles.reelThumbnail}
-                onClick={() => tip.videoUrl && openReel(tip.videoUrl)}
-                style={{ cursor: tip.videoUrl ? 'pointer' : 'default' }}
-              >
+          {reels.map((reel) => (
+            <div
+              key={reel.id}
+              className={styles.reelCard}
+              onClick={() => openReel(reel.video)}
+            >
+              <div className={styles.reelThumbnail}>
                 <Image
-                  src={tip.thumbnail}
-                  alt={tip.title}
+                  src={reel.thumbnail}
+                  alt={reel.title}
                   width={300}
                   height={400}
                   className={styles.thumbnail}
                 />
-                {tip.videoUrl && (
-                  <div className={styles.playButton}>
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                )}
-                {!tip.videoUrl && (
-                  <div className={styles.noVideoLabel}>
-                    <span>📝 טיפ כתוב</span>
-                  </div>
-                )}
+                <div className={styles.playButton}>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
               </div>
-              <div className={styles.reelInfo}>
-                <h3 className={styles.reelTitle}>{tip.title}</h3>
-                <p className={styles.reelDescription}>{tip.description}</p>
-                <div className={styles.reelMeta}>
-                  {tip.duration && <span>⏱️ {tip.duration}</span>}
-                  <span>👁️ {tip.views}</span>
-                </div>
-                <div className={styles.tipContent}>
-                  <ul>
-                    {tip.content.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
+              <div className={styles.reelOverlay}>
+                <h3 className={styles.reelTitle}>{reel.title}</h3>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Social CTA */}
+        <div className={styles.socialCTA}>
+          <h2 className={styles.ctaTitle}>לטיפים נוספים ועוד מידע</h2>
+          <p className={styles.ctaSubtitle}>כנסו לערוצים שלנו</p>
+          <div className={styles.socialWrapper}>
+            <SocialLinks />
+          </div>
         </div>
       </div>
 
