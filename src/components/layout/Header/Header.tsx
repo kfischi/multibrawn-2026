@@ -36,6 +36,7 @@ export default function Header() {
             alt="MULTIBRAWN מולטיבראון"
             className={styles.logoImage}
           />
+          <span className={styles.logoSubtext}>מולטיבראון</span>
         </Link>
 
         {/* Desktop Navigation */}
