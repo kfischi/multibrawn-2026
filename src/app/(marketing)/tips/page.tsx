@@ -3,41 +3,33 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import styles from './Tips.module.css';
+import tipsData from '@/data/tips.json';
 
 export default function TipsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const reels = [
-    {
-      id: 'reel1',
-      title: '✡️ שבת חתן בראש שקט',
-      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
-      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763722048/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_neqhs1.mp4',
-    },
-    {
-      id: 'reel2',
-      title: '🌴 נוסעים לאילת? תיזהרו',
-      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828637/%D7%90%D7%99%D7%9C%D7%AA_rtmczk.png',
-      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684426/%D7%90%D7%99%D7%9C%D7%AA_ba7jjj.mp4',
-    },
-    {
-      id: 'reel3',
-      title: '💰 מחפשים זול?',
-      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828638/%D7%96%D7%95%D7%9C_t7cops.png',
-      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763718107/%D7%96%D7%95%D7%9C_lcwakc.mp4',
-    },
-    {
-      id: 'reel4',
-      title: '⚠️ ממה להיזהר בוילה',
-      thumbnail: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
-      video: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763684101/Video3_omgivy.mp4',
-    },
+  const categories = [
+    { id: 'all', label: 'הכל' },
+    { id: 'planning', label: 'תכנון' },
+    { id: 'budget', label: 'תקציב' },
+    { id: 'destinations', label: 'יעדים' },
+    { id: 'accommodations', label: 'לינה' },
+    { id: 'events', label: 'אירועים' },
+    { id: 'amenities', label: 'שירותים' },
+    { id: 'special-needs', label: 'צרכים מיוחדים' },
   ];
 
+  const filteredTips = selectedCategory === 'all' 
+    ? tipsData.tips 
+    : tipsData.tips.filter(tip => tip.category === selectedCategory);
+
   const openReel = (videoSrc: string) => {
-    setCurrentVideo(videoSrc);
-    setModalOpen(true);
+    if (videoSrc) {
+      setCurrentVideo(videoSrc);
+      setModalOpen(true);
+    }
   };
 
   const closeReel = () => {
@@ -48,43 +40,89 @@ export default function TipsPage() {
   return (
     <div className={styles.tipsPage}>
       <div className={styles.contentSection}>
-        <h1 className={styles.pageTitle}>טיפים חשובים שחוסכים לכם כסף</h1>
-        
-        <div className={styles.reelsContainer}>
-          <div className={styles.reelsGrid}>
-            {reels.map((reel) => (
-              <div
-                key={reel.id}
-                className={styles.reelCard}
-                onClick={() => openReel(reel.video)}
+        <div className={styles.header}>
+          <h1 className={styles.mainTitle}>טיפים וידע</h1>
+          <p className={styles.subtitle}>
+            כל הטיפים שצריך לדעת לפני שמזמינים נופש, וילה או צימר
+          </p>
+        </div>
+
+        {/* Categories Filter */}
+        <div className={styles.categories}>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className={`${styles.categoryBtn} ${selectedCategory === cat.id ? styles.active : ''}`}
+              onClick={() => setSelectedCategory(cat.id)}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tips Grid */}
+        <div className={styles.reelsGrid}>
+          {filteredTips.map((tip) => (
+            <div key={tip.id} className={styles.reelCard}>
+              <div 
+                className={styles.reelThumbnail}
+                onClick={() => tip.videoUrl && openReel(tip.videoUrl)}
+                style={{ cursor: tip.videoUrl ? 'pointer' : 'default' }}
               >
                 <Image
-                  src={reel.thumbnail}
-                  alt={reel.title}
-                  fill
-                  className={styles.reelThumbnail}
+                  src={tip.thumbnail}
+                  alt={tip.title}
+                  width={300}
+                  height={400}
+                  className={styles.thumbnail}
                 />
-                <div className={styles.playButton}>
-                  <i className="fas fa-play"></i>
+                {tip.videoUrl && (
+                  <div className={styles.playButton}>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                )}
+                {!tip.videoUrl && (
+                  <div className={styles.noVideoLabel}>
+                    <span>📝 טיפ כתוב</span>
+                  </div>
+                )}
+              </div>
+              <div className={styles.reelInfo}>
+                <h3 className={styles.reelTitle}>{tip.title}</h3>
+                <p className={styles.reelDescription}>{tip.description}</p>
+                <div className={styles.reelMeta}>
+                  {tip.duration && <span>⏱️ {tip.duration}</span>}
+                  <span>👁️ {tip.views}</span>
                 </div>
-                <div className={styles.reelOverlay}>
-                  <div className={styles.reelTitle}>{reel.title}</div>
+                <div className={styles.tipContent}>
+                  <ul>
+                    {tip.content.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Video Modal */}
       {modalOpen && (
-        <div className={styles.videoModal} onClick={closeReel}>
-          <div className={styles.modalCloseBtn}>
-            <i className="fas fa-times"></i>
+        <div className={styles.modal} onClick={closeReel}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeBtn} onClick={closeReel}>
+              ✕
+            </button>
+            <video
+              src={currentVideo}
+              controls
+              autoPlay
+              className={styles.video}
+            />
           </div>
-          <video className={styles.modalVideo} controls autoPlay playsInline>
-            <source src={currentVideo} type="video/mp4" />
-          </video>
         </div>
       )}
     </div>
