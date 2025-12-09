@@ -236,7 +236,7 @@ export default function ChatBot() {
           </svg>
         ) : (
           <img 
-            src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1765311654/%D7%A2%D7%A8%D7%93%D7%99%D7%AA2_zsjhdi.jpg"
+            src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png"
             alt="ערדית"
             className={styles.avatarImage}
           />
@@ -252,7 +252,7 @@ export default function ChatBot() {
             <div className={styles.headerInfo}>
               <div className={styles.avatar}>
                 <img 
-                  src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1765311654/%D7%A2%D7%A8%D7%93%D7%99%D7%AA2_zsjhdi.jpg"
+                  src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png"
                   alt="ערדית"
                   className={styles.avatarImage}
                 />
