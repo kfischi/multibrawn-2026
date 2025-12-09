@@ -69,7 +69,7 @@
 
 .introText p {
   font-size: 17px;
-  color: #4a4a68;
+  color: #1e293b;
   line-height: 1.8;
   margin-bottom: 16px;
 }
@@ -164,7 +164,7 @@
 
 .hoursList li {
   font-size: 17px;
-  color: #4a4a68;
+  color: #1e293b;
   padding: 12px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -217,7 +217,7 @@
 
 .whyList li {
   font-size: 16px;
-  color: #4a4a68;
+  color: #1e293b;
   line-height: 1.6;
 }
 
@@ -261,7 +261,7 @@
 
 .chatPlaceholder p {
   font-size: 16px;
-  color: #4a4a68;
+  color: #1e293b;
   line-height: 1.6;
   margin-bottom: 24px;
 }
