@@ -224,25 +224,27 @@ export default function ChatBot() {
   return (
     <>
       {/* Chat Button - FIXED POSITION! */}
-      <button
-        onClick={toggleChat}
-        className={`${styles.chatButton} ${isVisible ? styles.visible : ''}`}
-        data-chatbot
-        aria-label="פתח צ'אט עם ערדית"
-      >
-        {isOpen ? (
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-        ) : (
-          <img 
-            src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png"
-            alt="ערדית"
-            className={styles.avatarImage}
-          />
-        )}
-        {!isOpen && <span className={styles.badge}>ערדית</span>}
-      </button>
+      <div className={styles.chatButtonWrapper}>
+        <button
+          onClick={toggleChat}
+          className={`${styles.chatButton} ${isVisible ? styles.visible : ''}`}
+          data-chatbot
+          aria-label="פתח צ'אט עם ערדית"
+        >
+          {isOpen ? (
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <img 
+              src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1764669572/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%91%D7%95%D7%98_dl5w3z.png"
+              alt="ערדית"
+              className={styles.avatarImage}
+            />
+          )}
+        </button>
+        {!isOpen && <div className={styles.chatLabel}>צ'אט עם ערדית</div>}
+      </div>
 
       {/* Chat Window - FIXED POSITION! */}
       {isOpen && (
