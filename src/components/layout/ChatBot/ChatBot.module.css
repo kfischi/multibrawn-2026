@@ -1,15 +1,23 @@
 /* ChatBot Styles - STATIC (FIXED POSITION) */
 
+/* Chat Button Wrapper */
+.chatButtonWrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 /* Chat Button - FIXED! */
 .chatButton {
-  position: fixed; /* CRITICAL: FIXED not absolute! */
-  bottom: 24px;
-  right: 24px; /* שונה מ-left ל-right! */
-  z-index: 9998; /* Below modal (10000) but above content */
   width: 64px;
   height: 64px;
-  background: white; /* רקע לבן לתמונה */
-  border: 3px solid #FF5EA1; /* מסגרת ורודה */
+  background: white;
+  border: 3px solid #FF5EA1;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -18,10 +26,8 @@
   box-shadow: 0 8px 24px rgba(255, 94, 161, 0.4);
   transition: all 0.3s ease;
   color: white;
-  opacity: 0;
-  transform: scale(0);
-  padding: 0;
   overflow: hidden;
+  padding: 0;
 }
 
 .chatButton.visible {
@@ -62,21 +68,29 @@
   border-radius: 50%;
 }
 
-.badge {
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Chat Label - OUTSIDE button */
+.chatLabel {
   background: white;
   color: #FF5EA1;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 2px solid #FF5EA1;
-  animation: pulse 2s ease-in-out infinite;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulse {
@@ -544,4 +558,22 @@
 body:has(.chatWindow) {
   /* Optional: uncomment if you want to prevent body scroll */
   /* overflow: hidden; */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .chatButtonWrapper {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .chatButton {
+    width: 56px;
+    height: 56px;
+  }
+
+  .chatLabel {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
 }
