@@ -206,12 +206,14 @@ export default function ChatBot() {
   };
 
   const sendToWhatsApp = () => {
-    const conversation = messages
-      .map((m) => `${m.role === 'user' ? '👤' : '🤖'} ${m.content}`)
-      .join('\n\n');
+    // Get only user responses (answers), not bot questions
+    const userResponses = messages
+      .filter((m) => m.role === 'user')
+      .map((m) => m.content)
+      .join('\n');
 
     const message = encodeURIComponent(
-      `היי MULTIBRAWN! 👋\n\nזה סיכום השיחה שלי עם ערדית:\n\n${conversation}\n\nאשמח לקבל הצעות מתאימות!`
+      `היי MULTIBRAWN! 👋\n\nזה סיכום התשובות שלי מהצ'אט:\n\n${userResponses}\n\nאשמח לקבל הצעות מתאימות!`
     );
 
     window.open(`https://wa.me/972523983394?text=${message}`, '_blank');
