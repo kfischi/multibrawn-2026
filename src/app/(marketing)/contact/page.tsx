@@ -49,7 +49,7 @@ export default function ContactPage() {
                 העוזרת הדיגיטלית החכמה שלנו תעזור לכם למצוא את הנכס המושלם תוך דקות ספורות!
               </p>
               <button onClick={openChatBot} className={styles.aiBotButton}>
-                <span>התחילו צ'אט עם ערdית</span>
+                <span>התחילו צ'אט עם ערדית</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
