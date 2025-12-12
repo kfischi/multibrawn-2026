@@ -2,20 +2,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
 import propertiesData from '@/data/properties.json';
 import styles from './dashboard.module.css';
 
-// CRITICAL: Force dynamic rendering - don't prerender at build time
+// CRITICAL: Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-// Get the array from the JSON
 const allProperties = propertiesData.properties;
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
-    totalProperties: 0,
-    featuredProperties: 0,
+    totalProperties: allProperties.length,
+    featuredProperties: allProperties.filter((p: any) => p.featured).length,
     totalLeads: 0,
     recentLeads: 0,
   });
@@ -28,7 +26,9 @@ export default function AdminDashboard() {
 
   const loadData = async () => {
     try {
-      // Get leads from Supabase
+      // Import Supabase dynamically - only in browser!
+      const { supabase } = await import('@/lib/supabase/client');
+      
       const { data: leads, error } = await supabase
         .from('chatbot_leads')
         .select('*')
@@ -37,8 +37,6 @@ export default function AdminDashboard() {
 
       if (error) throw error;
 
-      // Calculate stats
-      const featured = allProperties.filter((p: any) => p.featured).length;
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
@@ -46,12 +44,11 @@ export default function AdminDashboard() {
         new Date(lead.created_at) >= today
       ).length || 0;
 
-      setStats({
-        totalProperties: allProperties.length,
-        featuredProperties: featured,
+      setStats(prev => ({
+        ...prev,
         totalLeads: leads?.length || 0,
         recentLeads: todayLeads,
-      });
+      }));
 
       setRecentLeads(leads || []);
     } catch (error) {
@@ -72,7 +69,6 @@ export default function AdminDashboard() {
 
   return (
     <div className={styles.dashboard}>
-      {/* Header */}
       <div className={styles.header}>
         <div>
           <h1 className={styles.title}>Dashboard</h1>
@@ -88,7 +84,6 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
           <div className={styles.statIcon} style={{ background: 'linear-gradient(135deg, #00E0FF 0%, #0891b2 100%)' }}>
@@ -148,7 +143,6 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Recent Leads */}
       <div className={styles.section}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>לקוחות אחרונים מ-ChatBot</h2>
@@ -214,58 +208,6 @@ export default function AdminDashboard() {
             </table>
           </div>
         )}
-      </div>
-
-      {/* Quick Actions */}
-      <div className={styles.quickActions}>
-        <h2 className={styles.sectionTitle}>פעולות מהירות</h2>
-        <div className={styles.actionsGrid}>
-          <a href="/admin/properties?action=new" className={styles.actionCard}>
-            <div className={styles.actionIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
-            </div>
-            <h3>הוסף נכס חדש</h3>
-            <p>הוסף צימר, וילה או מתחם</p>
-          </a>
-
-          <a href="/admin/media" className={styles.actionCard}>
-            <div className={styles.actionIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
-            </div>
-            <h3>העלה תמונות</h3>
-            <p>נהל את ספריית המדיה</p>
-          </a>
-
-          <a href="/admin/settings" className={styles.actionCard}>
-            <div className={styles.actionIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M12 1v6m0 6v6"/>
-              </svg>
-            </div>
-            <h3>הגדרות</h3>
-            <p>ערוך פרטי האתר</p>
-          </a>
-
-          <a href="/" target="_blank" className={styles.actionCard}>
-            <div className={styles.actionIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/>
-                <line x1="10" y1="14" x2="21" y2="3"/>
-              </svg>
-            </div>
-            <h3>צפה באתר</h3>
-            <p>פתח את האתר בטאב חדש</p>
-          </a>
-        </div>
       </div>
     </div>
   );
