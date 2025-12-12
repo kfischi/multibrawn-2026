@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { supabase } from '@/lib/supabase/client';
 import styles from './admin.module.css';
 
 // FORCE DYNAMIC FOR ENTIRE ADMIN SECTION
@@ -25,6 +24,9 @@ export default function AdminLayout({
 
   const checkAuth = async () => {
     try {
+      // Import Supabase dynamically - only in browser!
+      const { supabase } = await import('@/lib/supabase/client');
+      
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user && pathname !== '/admin/login') {
@@ -41,40 +43,34 @@ export default function AdminLayout({
   };
 
   const handleLogout = async () => {
+    const { supabase } = await import('@/lib/supabase/client');
     await supabase.auth.signOut();
     router.push('/admin/login');
   };
 
-  // Don't render anything while checking auth
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        height: '100vh',
-        background: '#0a0e27'
-      }}>
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
         <div style={{ color: 'white' }}>טוען...</div>
       </div>
     );
   }
 
-  // Login page - no layout
   if (pathname === '/admin/login') {
     return <>{children}</>;
   }
 
-  // Admin pages - with layout
   return (
-    <div className={styles.adminLayout}>
+    <div className={styles.adminContainer}>
       <aside className={styles.sidebar}>
         <div className={styles.sidebarHeader}>
           <img 
             src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1733583123/multibrawn-logo_wvmkbd.png"
             alt="MULTIBRAWN"
-            className={styles.logo}
+            className={styles.sidebarLogo}
           />
+          <h2>Admin Panel</h2>
         </div>
 
         <nav className={styles.nav}>
@@ -147,22 +143,31 @@ export default function AdminLayout({
             </div>
             <div className={styles.userDetails}>
               <div className={styles.userName}>{user?.email}</div>
-              <button onClick={handleLogout} className={styles.logoutButton}>
-                התנתק
-              </button>
             </div>
           </div>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            התנתק
+          </button>
         </div>
       </aside>
 
       <main className={styles.mainContent}>
         <div className={styles.topBar}>
-          <a href="/" target="_blank" className={styles.viewSiteButton}>
-            צפה באתר →
-          </a>
+          <div className={styles.topBarActions}>
+            <a href="/" target="_blank" className={styles.viewSiteButton}>
+              צפה באתר →
+            </a>
+          </div>
         </div>
         
-        {children}
+        <div className={styles.content}>
+          {children}
+        </div>
       </main>
     </div>
   );
