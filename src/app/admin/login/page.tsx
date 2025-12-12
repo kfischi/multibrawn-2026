@@ -3,10 +3,9 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase/client';
 import styles from './login.module.css';
 
-// CRITICAL: Force dynamic rendering - don't prerender at build time
+// CRITICAL: Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
 export default function AdminLogin() {
@@ -22,7 +21,9 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      // Direct Supabase call instead of helper
+      // Import Supabase dynamically - only in browser!
+      const { supabase } = await import('@/lib/supabase/client');
+      
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -34,7 +35,6 @@ export default function AdminLogin() {
         return;
       }
 
-      // Success - redirect to dashboard
       router.push('/admin');
     } catch (err) {
       setError('שגיאה בהתחברות. נסה שוב.');
@@ -43,8 +43,14 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.loginCard}>
+    <div className={styles.container}>
+      <div className={styles.background}>
+        <div className={styles.gradientOrb1}></div>
+        <div className={styles.gradientOrb2}></div>
+        <div className={styles.gradientOrb3}></div>
+      </div>
+
+      <div className={styles.card}>
         <div className={styles.logoContainer}>
           <img 
             src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1733583123/multibrawn-logo_wvmkbd.png"
@@ -58,12 +64,17 @@ export default function AdminLogin() {
 
         {error && (
           <div className={styles.error}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
+          <div className={styles.inputGroup}>
             <label htmlFor="email" className={styles.label}>
               אימייל
             </label>
@@ -79,7 +90,7 @@ export default function AdminLogin() {
             />
           </div>
 
-          <div className={styles.formGroup}>
+          <div className={styles.inputGroup}>
             <label htmlFor="password" className={styles.label}>
               סיסמה
             </label>
@@ -109,9 +120,7 @@ export default function AdminLogin() {
         </form>
 
         <div className={styles.footer}>
-          <a href="/" className={styles.backLink}>
-            ← חזרה לאתר
-          </a>
+          <p>© 2025 MULTIBRAWN. All rights reserved.</p>
         </div>
       </div>
     </div>
