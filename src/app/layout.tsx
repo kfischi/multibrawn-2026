@@ -80,7 +80,6 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <head>
-  <head>
      <meta name="google-site-verification: google566cd679430f73f1.html" />
         <link 
           rel="stylesheet" 
