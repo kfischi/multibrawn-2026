@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import ChatBot from '@/components/layout/ChatBot/ChatBot';
 import WhatsAppButton from '@/components/ui/WhatsAppButton/WhatsAppButton';
@@ -34,6 +35,9 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  verification: {
+    google: 'Yh_NVBxWdeqAprLZ9SusdwIh8oIyCAmLuXtZI',
   },
   openGraph: {
     type: 'website',
@@ -80,13 +84,26 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <head>
-     <meta name="google-site-verification: google566cd679430f73f1.html" />
         <link 
           rel="stylesheet" 
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
         />
       </head>
       <body>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TER4JG2GT1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TER4JG2GT1');
+          `}
+        </Script>
+
         {children}
         <ChatBot />
         <WhatsAppButton />
