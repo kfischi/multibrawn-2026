@@ -1,0 +1,982 @@
+/* ===================================
+   שבת חתן - CSS מקצועי ומתקדם
+   =================================== */
+
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+/* ===================================
+   Breadcrumb Navigation
+   =================================== */
+
+.breadcrumb {
+  background: transparent;
+  padding: 1.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.breadcrumb ol {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: '‹';
+  margin: 0 0.5rem;
+  color: #64748b;
+  transform: rotate(180deg);
+}
+
+.breadcrumb a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.breadcrumb a:hover {
+  color: #5E63D8;
+}
+
+.breadcrumb li[aria-current='page'] {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* ===================================
+   Hero Section
+   =================================== */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.heroContent {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 50%, #FF4B8C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: #475569;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.heroCta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.heroImage {
+  position: relative;
+  animation: fadeIn 1s ease-out 0.3s backwards;
+}
+
+.heroImg {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s ease;
+}
+
+.heroImg:hover {
+  transform: scale(1.02);
+}
+
+/* ===================================
+   Buttons
+   =================================== */
+
+.btnPrimary,
+.btnPrimaryLarge {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(94, 99, 216, 0.3);
+  text-align: center;
+}
+
+.btnPrimaryLarge {
+  font-size: 1.2rem;
+  padding: 1.25rem 3rem;
+}
+
+.btnPrimary:hover,
+.btnPrimaryLarge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(94, 99, 216, 0.4);
+}
+
+.btnSecondary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: white;
+  color: #5E63D8;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2px solid #5E63D8;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btnSecondary:hover {
+  background: #5E63D8;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.btnWhatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+}
+
+.btnWhatsapp::before {
+  content: '📱';
+  font-size: 1.3rem;
+}
+
+.btnWhatsapp:hover {
+  background: #1FAD4F;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+}
+
+.btnLink {
+  display: inline-block;
+  color: #5E63D8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.btnLink:hover {
+  color: #FF4B8C;
+  text-decoration: underline;
+}
+
+/* ===================================
+   Container & Section Styles
+   =================================== */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1e293b;
+}
+
+.sectionIntro {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+/* ===================================
+   Intro Section
+   =================================== */
+
+.intro {
+  padding: 4rem 0;
+  background: white;
+}
+
+.introContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.leadParagraph {
+  font-size: 1.25rem;
+  color: #1e293b;
+  line-height: 1.9;
+  margin-bottom: 2rem;
+}
+
+.introContent p {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* ===================================
+   Video Section
+   =================================== */
+
+.videoSection {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.videoHeader {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.videoSubtitle {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.videoContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.videoContainer:hover {
+  transform: scale(1.01);
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.videoCta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ===================================
+   Kashrut Section
+   =================================== */
+
+.kashrut {
+  padding: 5rem 0;
+  background: white;
+}
+
+.kashrut Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.kashrut Card {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.kashrut Card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cardIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.kashrut Card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.kashrut Card p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.kashrut Footer {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  border-radius: 16px;
+  border-right: 4px solid #00D4FF;
+}
+
+.kashrut Footer p {
+  margin: 0;
+  color: #0f172a;
+  line-height: 1.7;
+}
+
+/* ===================================
+   Accommodation Section
+   =================================== */
+
+.accommodation {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+
+.accommodationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.accommodationCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.accommodationCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cardNumber {
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(94, 99, 216, 0.3);
+}
+
+.accommodationCard h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #1e293b;
+  margin-top: 1rem;
+}
+
+.accommodationCard p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.calloutBox {
+  background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-top: 3rem;
+  border-right: 4px solid #FF4B8C;
+}
+
+.calloutBox h4 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.calloutBox p {
+  color: #475569;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.calloutBox a {
+  color: #5E63D8;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ===================================
+   Why Us Section
+   =================================== */
+
+.whyUs {
+  padding: 5rem 0;
+  background: white;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.benefitCard {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.benefitIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.benefitCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.benefitCard p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.testimonialHighlight {
+  margin-top: 4rem;
+  max-width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.testimonialHighlight blockquote {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  border-right: 4px solid #00D4FF;
+  margin: 0;
+}
+
+.testimonialHighlight p {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #1e293b;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.testimonialHighlight cite {
+  font-style: normal;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* ===================================
+   How It Works Section
+   =================================== */
+
+.howItWorks {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.step {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.stepNumber {
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #FF4B8C 0%, #5E63D8 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(255, 75, 140, 0.3);
+}
+
+.step h3 {
+  font-size: 1.3rem;
+  margin: 1rem 0;
+  color: #1e293b;
+}
+
+.step p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.processFooter {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.processNote {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* ===================================
+   FAQ Section
+   =================================== */
+
+.faq {
+  padding: 5rem 0;
+  background: white;
+}
+
+.faqIntro {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+.faqIntro a {
+  color: #5E63D8;
+  font-weight: 600;
+}
+
+.faqGrid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.faqItem {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.faqItem summary {
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.3s;
+}
+
+.faqItem summary:hover {
+  color: #5E63D8;
+}
+
+.faqItem summary::after {
+  content: '▼';
+  font-size: 0.9rem;
+  color: #5E63D8;
+  transition: transform 0.3s;
+}
+
+.faqItem[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.faqItem summary h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.faqAnswer {
+  padding: 0 2rem 1.5rem 2rem;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.faqAnswer p {
+  margin-bottom: 1rem;
+}
+
+.faqAnswer strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.faqAnswer ul {
+  margin: 1rem 0;
+  padding-right: 1.5rem;
+}
+
+.faqAnswer li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.faqFooter {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}
+
+.faqFooter a {
+  color: #5E63D8;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ===================================
+   Related Properties Section
+   =================================== */
+
+.relatedProperties {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+
+.propertiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.propertyCard {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.propertyCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.propertyImage {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.propertyImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.propertyCard:hover .propertyImage img {
+  transform: scale(1.1);
+}
+
+.propertyCard h3 {
+  font-size: 1.4rem;
+  padding: 1.5rem 1.5rem 0.5rem;
+  color: #1e293b;
+}
+
+.propertyCard p {
+  padding: 0 1.5rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.propertyLink {
+  display: block;
+  padding: 1rem 1.5rem 1.5rem;
+  color: #5E63D8;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.propertyLink:hover {
+  color: #FF4B8C;
+}
+
+.propertiesCta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* ===================================
+   Final CTA Section
+   =================================== */
+
+.finalCta {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+}
+
+.ctaContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ctaContent h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.ctaContent p {
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.ctaNote {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.ctaStats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 4rem;
+  flex-wrap: wrap;
+}
+
+.ctaStat {
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 1rem;
+  color: #cbd5e1;
+}
+
+/* ===================================
+   Related Links Section
+   =================================== */
+
+.relatedLinks {
+  padding: 3rem 0;
+  background: #f8fafc;
+}
+
+.relatedLinks h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  text-align: center;
+}
+
+.relatedLinks ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.relatedLinks li {
+  margin: 0;
+}
+
+.relatedLinks a {
+  color: #5E63D8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.relatedLinks a:hover {
+  color: #FF4B8C;
+  text-decoration: underline;
+}
+
+/* ===================================
+   Animations
+   =================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 968px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .heroImage {
+    order: -1;
+  }
+
+  .heroCta {
+    justify-content: center;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnPrimary,
+  .btnSecondary,
+  .btnWhatsapp {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .ctaStats {
+    gap: 2rem;
+  }
+
+  .statNumber {
+    font-size: 2.5rem;
+  }
+}
