@@ -14,6 +14,7 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -21,6 +22,7 @@ export default function Header() {
   const navLinks = [
     { href: '/', label: 'בית' },
     { href: '/gallery', label: 'גלריה' },
+    { href: '/shabbat-hatan', label: 'שבת חתן' }, // ← 🆕 הקישור החדש!
     { href: '/tips', label: 'טיפים' },
     { href: '/about', label: 'אודות' },
     { href: '/contact', label: 'צור קשר' },
