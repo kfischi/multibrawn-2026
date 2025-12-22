@@ -1,0 +1,287 @@
+/* Blog Article - Universal Styles */
+
+.article {
+  min-height: 100vh;
+  background: #fff;
+  padding: 2rem 0 4rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.breadcrumb a {
+  color: #FF5EA1;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.breadcrumb a:hover {
+  opacity: 0.7;
+}
+
+/* Header */
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.category {
+  display: inline-block;
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: #1a0b2e;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.95rem;
+  color: #999;
+}
+
+.date {
+  font-weight: 500;
+}
+
+.readTime {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Featured Image */
+.featuredImage {
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.featuredImage img {
+  object-fit: cover;
+}
+
+/* Content */
+.content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a0b2e;
+  margin: 3rem 0 1.5rem;
+  line-height: 1.3;
+}
+
+.content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a0b2e;
+  margin: 2.5rem 0 1rem;
+  line-height: 1.4;
+}
+
+.content p {
+  margin-bottom: 1.5rem;
+}
+
+.content strong {
+  color: #FF5EA1;
+  font-weight: 700;
+}
+
+.content ul,
+.content ol {
+  margin: 1.5rem 0;
+  padding-right: 2rem;
+}
+
+.content li {
+  margin-bottom: 0.75rem;
+}
+
+.content a {
+  color: #FF5EA1;
+  text-decoration: underline;
+  transition: opacity 0.3s;
+}
+
+.content a:hover {
+  opacity: 0.7;
+}
+
+.content blockquote {
+  background: linear-gradient(135deg, rgba(0, 224, 255, 0.05) 0%, rgba(160, 107, 255, 0.05) 100%);
+  border-right: 4px solid #FF5EA1;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  font-style: italic;
+  color: #555;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg, #00E0FF 0%, #A06BFF 50%, #FF5EA1 100%);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: white;
+  margin: 4rem 0 0;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaButton,
+.ctaButtonWhatsapp {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.ctaButton {
+  background: white;
+  color: #FF5EA1;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+}
+
+.ctaButtonWhatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.ctaButtonWhatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .article {
+    padding: 1rem 0 3rem;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .featuredImage {
+    height: 300px;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    font-size: 1rem;
+  }
+
+  .content h2 {
+    font-size: 1.6rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .content h3 {
+    font-size: 1.3rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .content ul,
+  .content ol {
+    padding-right: 1.5rem;
+  }
+
+  .cta {
+    padding: 2rem 1.5rem;
+  }
+
+  .cta h2 {
+    font-size: 1.5rem;
+  }
+
+  .cta p {
+    font-size: 1rem;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+  }
+
+  .ctaButton,
+  .ctaButtonWhatsapp {
+    width: 100%;
+  }
+}
