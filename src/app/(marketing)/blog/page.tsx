@@ -7,7 +7,7 @@ import styles from './Blog.module.css';
 export const metadata: Metadata = {
   title: 'בלוג MULTIBRAWN - מדריכים וטיפים לנופש מושלם',
   description: 'כל מה שצריך לדעת על צימרים ונופש בישראל',
-  keywords: ['בלוג צימרים', 'מדריכי נופש', 'טיפים'],
+  keywords: ['בלוג צימרים', 'מדריכי נופש', 'טיפים', 'וילות יוקרה'],
   openGraph: {
     title: 'בלוג MULTIBRAWN',
     description: 'מדריכים וטיפים לנופש מושלם בישראל',
@@ -16,7 +16,9 @@ export const metadata: Metadata = {
   },
 };
 
+// 👇 כאן נמצא החיבור בין התיקיות לרשימה בדף
 const blogPosts = [
+  // --- המאמרים הישנים (צימרים) ---
   {
     slug: 'heated-pool-guide',
     title: 'המדריך המלא לבריכות מחוממות',
@@ -98,9 +100,57 @@ const blogPosts = [
     date: '2024-12-20',
     readTime: '4 דקות',
   },
+  
+  // --- 👇 המאמרים החדשים (וילות יוקרה) שהוספנו עכשיו ---
+  {
+    slug: 'villa-fridge-logistics', // חייב להיות זהה לשם התיקייה!
+    title: 'המקרר שלא מספיק',
+    excerpt: 'הבאתם בשרים לגדוד אבל המקרר קטן? המדריך ללוגיסטיקה',
+    // שמתי כאן את הלוגו באופן זמני עד שתחליף לתמונה אמיתית
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/f_auto,q_auto/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+    category: 'לוגיסטיקה',
+    date: '2025-01-01',
+    readTime: '5 דקות',
+  },
+  {
+    slug: 'beds-to-baths-ratio',
+    title: 'מלכודת ה-30 איש',
+    excerpt: '30 מיטות אבל רק 3 מקלחות? איך להימנע מהתור בבוקר',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/f_auto,q_auto/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+    category: 'מדריכים',
+    date: '2025-01-01',
+    readTime: '6 דקות',
+  },
+  {
+    slug: 'pool-safety-toddlers',
+    title: 'בטיחות בבריכה לפעוטות',
+    excerpt: 'הוילה חלומית, אבל הבריכה היא סכנה. המדריך להורים',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/f_auto,q_auto/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+    category: 'בטיחות',
+    date: '2025-01-01',
+    readTime: '5 דקות',
+  },
+  {
+    slug: 'hidden-villa-costs',
+    title: 'עלויות נסתרות בוילה',
+    excerpt: 'סגרתם ב-4,000 שילמתם 5,500? כל התוספות שלא סיפרו לכם',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/f_auto,q_auto/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+    category: 'טיפים',
+    date: '2025-01-01',
+    readTime: '4 דקות',
+  },
+  {
+    slug: 'luxury-villa-wear-and-tear',
+    title: 'האמת בפרצוף (בלאי)',
+    excerpt: 'בתמונות הכל חדש, במציאות הספה קרועה. איך בודקים?',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/f_auto,q_auto/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+    category: 'טיפים',
+    date: '2025-01-01',
+    readTime: '5 דקות',
+  },
 ];
 
-const categories = ['הכל', 'מדריכים', 'טיפים'];
+const categories = ['הכל', 'מדריכים', 'טיפים', 'בטיחות', 'לוגיסטיקה'];
 
 export default function BlogPage() {
   return (
@@ -126,6 +176,7 @@ export default function BlogPage() {
         <section className={styles.posts}>
           <div className={styles.grid}>
             {blogPosts.map((post) => (
+              // כאן נוצר הקישור: /blog/ + שם-התיקייה
               <Link key={post.slug} href={`/blog/${post.slug}`} className={styles.card}>
                 <div className={styles.imageWrapper}>
                   <Image
