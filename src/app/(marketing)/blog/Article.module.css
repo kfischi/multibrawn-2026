@@ -1,0 +1,129 @@
+.article {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.breadcrumb a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.category {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.meta {
+  display: flex;
+  gap: 20px;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.featuredImage {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.content h2 {
+  font-size: 1.8rem;
+  margin: 40px 0 20px;
+}
+
+.content h3 {
+  font-size: 1.4rem;
+  margin: 30px 0 15px;
+}
+
+.content p {
+  margin-bottom: 20px;
+}
+
+.content ul {
+  margin: 20px 0;
+  padding-right: 20px;
+}
+
+.content li {
+  margin-bottom: 10px;
+}
+
+.cta {
+  margin-top: 60px;
+  padding: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+}
+
+.cta h2 {
+  margin-bottom: 15px;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.ctaButton,
+.ctaButtonWhatsapp {
+  padding: 15px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.ctaButton {
+  background: white;
+  color: #667eea;
+}
+
+.ctaButtonWhatsapp {
+  background: #25D366;
+  color: white;
+}
