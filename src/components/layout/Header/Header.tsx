@@ -23,8 +23,7 @@ export default function Header() {
     { href: '/', label: 'בית' },
     { href: '/gallery', label: 'גלריה' },
     { href: '/shabbat-hatan', label: 'שבת חתן' },
-    // 👇 השינוי כאן: הקישור מוביל ל-#, הטקסט שונה, והוספנו דגל לזיהוי
-    { href: '#', label: 'בלוג (בקרוב...)', isComingSoon: true }, 
+    { href: '/blog', label: 'בלוג' },
     { href: '/tips', label: 'טיפים' },
     { href: '/about', label: 'אודות' },
     { href: '/contact', label: 'צור קשר' },
@@ -33,7 +32,6 @@ export default function Header() {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        {/* Logo */}
         <Link href="/" className={styles.logo}>
           <img 
             src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png"
@@ -43,23 +41,18 @@ export default function Header() {
           <span className={styles.logoText}>MULTIBRAWN</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className={styles.desktopNav}>
           {navLinks.map((link) => (
             <Link
-              key={link.label} // שיניתי ל-label כי ה-href יכול להיות זהה (#)
+              key={link.href}
               href={link.href}
               className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}
-              // 👇 אם זה "בקרוב", נוסיף סטייל שמבטל לחיצה ומשנה שקיפות
-              style={link.isComingSoon ? { pointerEvents: 'none', opacity: 0.6, cursor: 'default' } : {}}
-              aria-disabled={link.isComingSoon}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           className={styles.menuButton}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -69,24 +62,15 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className={styles.mobileMenu}>
           <nav className={styles.mobileNav}>
             {navLinks.map((link) => (
               <Link
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 className={`${styles.mobileNavLink} ${pathname === link.href ? styles.active : ''}`}
-                onClick={(e) => {
-                    // 👇 מונע סגירה של התפריט או מעבר דף אם זה "בקרוב"
-                    if (link.isComingSoon) {
-                        e.preventDefault();
-                    } else {
-                        setIsMenuOpen(false);
-                    }
-                }}
-                style={link.isComingSoon ? { opacity: 0.6, color: '#888' } : {}}
+                onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
               </Link>
