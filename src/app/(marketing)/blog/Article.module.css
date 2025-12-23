@@ -1,129 +1,227 @@
 .article {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px 20px;
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+  direction: rtl;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
-  background: white;
-  border-radius: 15px;
-  padding: 40px;
+  padding: 2rem 1.5rem;
 }
 
 .breadcrumb {
   display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 0.5rem;
+  align-items: center;
   font-size: 0.9rem;
-  color: #666;
+  color: #6c757d;
+  margin-bottom: 2rem;
 }
 
 .breadcrumb a {
-  color: #667eea;
+  color: #0ea5e9;
   text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #0284c7;
 }
 
 .header {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .category {
   display: inline-block;
-  background: #667eea;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
   color: white;
-  padding: 5px 15px;
+  padding: 0.4rem 1rem;
   border-radius: 20px;
   font-size: 0.85rem;
-  margin-bottom: 15px;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .title {
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-weight: 800;
+  color: #1e293b;
   line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .meta {
   display: flex;
-  gap: 20px;
-  color: #999;
+  gap: 1.5rem;
+  color: #64748b;
   font-size: 0.9rem;
+}
+
+.date {
+  font-weight: 500;
+}
+
+.readTime {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .featuredImage {
   position: relative;
   width: 100%;
   height: 400px;
-  margin-bottom: 40px;
-  border-radius: 10px;
+  border-radius: 16px;
   overflow: hidden;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .content {
   font-size: 1.1rem;
   line-height: 1.8;
+  color: #334155;
+}
+
+.content p {
+  margin-bottom: 1.5rem;
 }
 
 .content h2 {
   font-size: 1.8rem;
-  margin: 40px 0 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .content h3 {
   font-size: 1.4rem;
-  margin: 30px 0 15px;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
 }
 
-.content p {
-  margin-bottom: 20px;
-}
-
-.content ul {
-  margin: 20px 0;
-  padding-right: 20px;
+.content ul,
+.content ol {
+  margin: 1.5rem 0;
+  padding-right: 2rem;
 }
 
 .content li {
-  margin-bottom: 10px;
+  margin-bottom: 0.8rem;
+}
+
+.content strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-right: 4px solid #f59e0b;
+  margin: 2rem 0;
+  font-weight: 500;
+}
+
+.tip {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-right: 4px solid #3b82f6;
+  margin: 2rem 0;
 }
 
 .cta {
-  margin-top: 60px;
-  padding: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 15px;
+  margin-top: 4rem;
+  padding: 3rem;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  border-radius: 20px;
   text-align: center;
   color: white;
 }
 
 .cta h2 {
-  margin-bottom: 15px;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
 }
 
 .ctaButtons {
   display: flex;
-  gap: 20px;
+  gap: 1rem;
   justify-content: center;
-  margin-top: 30px;
+  flex-wrap: wrap;
 }
 
 .ctaButton,
 .ctaButtonWhatsapp {
-  padding: 15px 30px;
-  border-radius: 30px;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
   text-decoration: none;
-  font-weight: bold;
   transition: all 0.3s;
+  display: inline-block;
 }
 
 .ctaButton {
   background: white;
-  color: #667eea;
+  color: #8b5cf6;
+  border: 2px solid white;
+}
+
+.ctaButton:hover {
+  background: transparent;
+  color: white;
+  transform: translateY(-2px);
 }
 
 .ctaButtonWhatsapp {
-  background: #25D366;
+  background: #25d366;
   color: white;
+  border: 2px solid #25d366;
+}
+
+.ctaButtonWhatsapp:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .featuredImage {
+    height: 250px;
+  }
+
+  .content {
+    font-size: 1rem;
+  }
+
+  .cta {
+    padding: 2rem 1.5rem;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+  }
+
+  .ctaButton,
+  .ctaButtonWhatsapp {
+    width: 100%;
+  }
 }
