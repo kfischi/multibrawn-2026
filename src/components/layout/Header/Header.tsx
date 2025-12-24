@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './Blog.module.css';
+import styles from './Header.module.css';
 
 export const metadata: Metadata = {
   title: 'בלוג - טיפים ומדריכים לצימרים | MULTIBRAWN',
