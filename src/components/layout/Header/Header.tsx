@@ -48,9 +48,10 @@ export default function Header() {
             <Image
               src="https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg"
               alt="MULTIBRAWN לוגו - צימרים וילות ואירועים"
-              width={180}
-              height={60}
+              width={140}
+              height={47}
               priority
+              style={{ maxWidth: '140px', height: 'auto' }}
             />
           </div>
         </Link>
