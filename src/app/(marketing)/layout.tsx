@@ -1,5 +1,10 @@
-import Header from '@/components/layout/Header/Header';
-import Footer from '@/components/layout/Footer/Footer';
+// src/app/(marketing)/layout.tsx
+// העתק את כל התוכן הזה!
+
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import ChatWidget from '@/components/ChatWidget';
 
 export default function MarketingLayout({
   children,
@@ -13,6 +18,10 @@ export default function MarketingLayout({
         {children}
       </main>
       <Footer />
+      
+      {/* כפתורים צפים */}
+      <FloatingWhatsApp />  {/* WhatsApp למעלה */}
+      <ChatWidget />        {/* צ'אטבוט למטה */}
     </>
   );
 }
