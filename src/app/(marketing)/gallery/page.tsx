@@ -52,45 +52,150 @@ export default function GalleryPage() {
 
   const galleryItems = {
     villa: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/21_f14cql.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818933/18_uwsdum.jpg' },
-      { type: 'video', src: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1760818935/villa4.1_dhev1f.mp4' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/20_t6yw8m.jpg' },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/21_f14cql.jpg',
+        title: 'וילה מפוארת עם בריכה פרטית',
+        description: 'וילה יוקרתית בצפון עם בריכה מחוממת, גינה מטופחת ונוף פנורמי'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg',
+        title: 'וילה עם עיצוב מודרני',
+        description: 'עיצוב יוקרתי, מטבח מאובזר ואזור ישיבה מרווח'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818933/18_uwsdum.jpg',
+        title: 'סלון מרווח בוילה',
+        description: 'סלון יוקרתי עם קמין, טלוויזיה גדולה וריהוט איכותי'
+      },
+      { 
+        type: 'video', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1760818935/villa4.1_dhev1f.mp4',
+        title: 'סיור בוילה מפנקת',
+        description: 'סיור וידאו מלא בוילה יוקרתית עם כל הפינוקים'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
+        title: 'חצר אחורית מרהיבה',
+        description: 'גינה מעוצבת, פינת ברביקיו ואזור ישיבה חיצוני'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/20_t6yw8m.jpg',
+        title: 'בריכה פרטית מחוממת',
+        description: 'בריכה גדולה עם מערכת חימום, נוף ואזור שיזוף'
+      },
     ],
     zimmer: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726074/A7_rwzsuo.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A6_h6irii.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A5_irr575.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726070/A4_mtzg9u.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818996/Zimmer2_ge7g6h.jpg' },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg',
+        title: 'צימר רומנטי עם ג\'קוזי',
+        description: 'צימר יוקרתי לזוגות עם ג\'קוזי ספא פרטי ונוף מרהיב'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726074/A7_rwzsuo.jpg',
+        title: 'חדר שינה זוגי מפנק',
+        description: 'מיטה זוגית גדולה, מצעים איכותיים ואווירה רומנטית'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A6_h6irii.jpg',
+        title: 'אמבטיה ספא פרטית',
+        description: 'אמבטיה מפנקת, ג\'קוזי זוגי ומוצרי טיפוח איכותיים'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A5_irr575.jpg',
+        title: 'פינת ישיבה נעימה',
+        description: 'ספה נוחה, טלוויזיה ופינת קפה לזוגות'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726070/A4_mtzg9u.jpg',
+        title: 'מרפסת עם נוף',
+        description: 'מרפסת פרטית עם נוף למרחבים, כורסאות נוח וצמחייה'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818996/Zimmer2_ge7g6h.jpg',
+        title: 'צימר עם קמין',
+        description: 'קמין אמיתי, אווירה חמימה ורומנטית לערבי חורף'
+      },
     ],
     apartment: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_u9fsdk.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/20_t6yw8m.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763724320/2_tlbzz1.jpg' },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg',
+        title: 'דירת נופש מרווחת',
+        description: 'דירה מאובזרת במלואה עם 3 חדרי שינה ומטבח מלא'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_u9fsdk.jpg',
+        title: 'סלון מעוצב',
+        description: 'סלון נוח עם ספה גדולה, טלוויזיה ופינת אוכל'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/20_t6yw8m.jpg',
+        title: 'מטבח מאובזר',
+        description: 'מטבח מלא עם כל המכשירים והכלים הדרושים'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763724320/2_tlbzz1.jpg',
+        title: 'חדר שינה מרגיע',
+        description: 'חדר שינה שקט עם מיטה זוגית ומצעים איכותיים'
+      },
     ],
     hotel: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1764666932/1_dywsb8.jpg' },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg',
+        title: 'לובי מלון בוטיק',
+        description: 'לובי מעוצב בטוב טעם עם פינת קבלה ואזור ישיבה'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg',
+        title: 'חדר מלון יוקרתי',
+        description: 'חדר מעוצב בסטנדרט גבוה עם כל השירותים'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1764666932/1_dywsb8.jpg',
+        title: 'מתקני ספא במלון',
+        description: 'בריכה מחוממת, סאונה וחדר כושר מאובזר'
+      },
     ],
     event: [
-      { type: 'video', src: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1762002985/1_s3cpd8.mp4' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg' },
+      { 
+        type: 'video', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1762002985/1_s3cpd8.mp4',
+        title: 'סיור במתחם אירועים',
+        description: 'סיור מלא במתחם מפואר לאירועים ושבתות חתן'
+      },
+      { 
+        type: 'image', 
+        src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg',
+        title: 'אולם אירועים מרהיב',
+        description: 'אולם גדול ומעוצב לאירועים משפחתיים וחתונות'
+      },
     ],
   };
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ type: '', src: '' });
+  const [modalContent, setModalContent] = useState({ type: '', src: '', title: '', description: '' });
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [filteredGalleryItems, setFilteredGalleryItems] = useState<any[]>([]);
 
-  const openModal = (type: string, src: string, index: number, items: any[]) => {
-    setModalContent({ type, src });
+  const openModal = (item: any, index: number, items: any[]) => {
+    setModalContent(item);
     setCurrentImageIndex(index);
     setFilteredGalleryItems(items);
     setModalOpen(true);
@@ -98,21 +203,21 @@ export default function GalleryPage() {
 
   const closeModal = () => {
     setModalOpen(false);
-    setModalContent({ type: '', src: '' });
+    setModalContent({ type: '', src: '', title: '', description: '' });
   };
 
   const nextImage = () => {
     const nextIndex = (currentImageIndex + 1) % filteredGalleryItems.length;
     const nextItem = filteredGalleryItems[nextIndex];
     setCurrentImageIndex(nextIndex);
-    setModalContent({ type: nextItem.type, src: nextItem.src });
+    setModalContent(nextItem);
   };
 
   const prevImage = () => {
     const prevIndex = (currentImageIndex - 1 + filteredGalleryItems.length) % filteredGalleryItems.length;
     const prevItem = filteredGalleryItems[prevIndex];
     setCurrentImageIndex(prevIndex);
-    setModalContent({ type: prevItem.type, src: prevItem.src });
+    setModalContent(prevItem);
   };
 
   const getFilteredItems = () => {
@@ -239,22 +344,36 @@ export default function GalleryPage() {
                 <div
                   key={idx}
                   className={styles.galleryCard}
-                  onClick={() => openModal(item.type, item.src, idx, items)}
+                  onClick={() => openModal(item, idx, items)}
                 >
                   {item.type === 'image' ? (
-                    <Image
-                      src={item.src}
-                      alt="Gallery item"
-                      fill
-                      className={styles.galleryImage}
-                    />
+                    <>
+                      <Image
+                        src={item.src}
+                        alt={item.title || 'תמונת גלריה'}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className={styles.galleryImage}
+                        loading="lazy"
+                      />
+                      <div className={styles.imageOverlay}>
+                        <h3 className={styles.imageTitle}>{item.title}</h3>
+                        <p className={styles.imageDescription}>{item.description}</p>
+                      </div>
+                    </>
                   ) : (
                     <>
                       <video className={styles.galleryImage} muted playsInline>
                         <source src={`${item.src}#t=0.1`} type="video/mp4" />
                       </video>
                       <div className={styles.videoPlayOverlay}>
-                        <i className="fas fa-play"></i>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <div className={styles.imageOverlay}>
+                        <h3 className={styles.imageTitle}>{item.title}</h3>
+                        <p className={styles.imageDescription}>{item.description}</p>
                       </div>
                     </>
                   )}
@@ -308,11 +427,11 @@ export default function GalleryPage() {
             </button>
           )}
 
-          <div onClick={(e) => e.stopPropagation()}>
+          <div onClick={(e) => e.stopPropagation()} className={styles.modalContentWrapper}>
           {modalContent.type === 'image' ? (
             <Image
               src={modalContent.src}
-              alt="Gallery"
+              alt={modalContent.title || 'תמונת גלריה'}
               width={1200}
               height={800}
               className={styles.modalImage}
@@ -322,6 +441,12 @@ export default function GalleryPage() {
               <source src={modalContent.src} type="video/mp4" />
             </video>
           )}
+          
+          {/* תיאור במודאל */}
+          <div className={styles.modalInfo}>
+            <h3 className={styles.modalTitle}>{modalContent.title}</h3>
+            <p className={styles.modalDescription}>{modalContent.description}</p>
+          </div>
           </div>
         </div>
       )}
