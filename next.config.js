@@ -1,17 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    NEXT_PUBLIC_SUPABASE_URL: 'https://cfulruffxneijmcvpclz.supabase.co',
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmdWxydWZmeG5laWptY3ZwY2x6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTE4MDAsImV4cCI6MjA0OTU4NzgwMH0.NeyDg6C8yeFfdHMFXrVVdkurO-9K-hon0E98yAWG-V0',
-  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+  // Optimize build
+  swcMinify: true,
+  // React strict mode
+  reactStrictMode: true,
+  // Optimize for production
+  compress: true,
+  // Add trailing slash to URLs
+  trailingSlash: false,
 };
 
 module.exports = nextConfig;
