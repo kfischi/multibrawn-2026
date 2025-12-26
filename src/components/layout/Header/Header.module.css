@@ -38,15 +38,18 @@
 .logo {
   display: flex;
   align-items: center;
-  max-width: 140px; /* מקסימום רוחב */
+  max-width: 100px;
   height: auto;
+  background: transparent; /* ללא רקע */
 }
 
 .logo img {
   width: 100%;
   height: auto;
-  max-width: 140px !important; /* חשוב! */
+  max-width: 100px !important;
   object-fit: contain;
+  background: transparent !important; /* ללא רקע */
+  mix-blend-mode: multiply; /* מסיר רקע לבן */
 }
 
 /* Desktop Navigation */
@@ -130,10 +133,10 @@
 .mobileMenu {
   display: none;
   position: fixed;
-  top: 80px;
+  top: 70px;
   right: -100%;
   width: 280px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 70px);
   background: white;
   box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
@@ -176,10 +179,10 @@
 .overlay {
   display: none;
   position: fixed;
-  top: 80px;
+  top: 70px;
   left: 0;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 70px);
   background: rgba(0, 0, 0, 0.5);
   z-index: 998;
 }
@@ -209,21 +212,21 @@
   }
 
   .logo {
-    max-width: 120px; /* קטן יותר במובייל */
+    max-width: 85px; /* קטן יותר במובייל */
   }
 
   .logo img {
-    max-width: 120px !important;
+    max-width: 85px !important;
   }
 
   .mobileMenu {
-    top: 70px;
-    height: calc(100vh - 70px);
+    top: 60px;
+    height: calc(100vh - 60px);
   }
 
   .overlay {
-    top: 70px;
-    height: calc(100vh - 70px);
+    top: 60px;
+    height: calc(100vh - 60px);
   }
 }
 
@@ -233,11 +236,11 @@
   }
 
   .logo {
-    max-width: 100px; /* עוד יותר קטן במובייל קטן */
+    max-width: 75px; /* עוד יותר קטן */
   }
 
   .logo img {
-    max-width: 100px !important;
+    max-width: 75px !important;
   }
 
   .mobileMenu {
