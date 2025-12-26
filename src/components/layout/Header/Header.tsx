@@ -20,6 +20,11 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   const navLinks = [
     { href: '/', label: 'בית' },
     { href: '/gallery', label: 'גלריה' },
@@ -37,6 +42,7 @@ export default function Header() {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
+        {/* Logo */}
         <Link href="/" className={styles.logoLink}>
           <div className={styles.logo}>
             <Image
@@ -49,7 +55,8 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className={styles.nav}>
+        {/* Desktop Navigation */}
+        <nav className={styles.desktopNav}>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -61,33 +68,42 @@ export default function Header() {
           ))}
         </nav>
 
+        {/* Mobile Hamburger Button */}
         <button
-          className={styles.mobileMenuButton}
+          className={styles.hamburger}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="תפריט"
+          aria-expanded={isMobileMenuOpen}
         >
-          <span className={styles.hamburger}></span>
-          <span className={styles.hamburger}></span>
-          <span className={styles.hamburger}></span>
+          <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
+          <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
+          <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
         </button>
-
-        {isMobileMenuOpen && (
-          <div className={styles.mobileMenu}>
-            <nav className={styles.mobileNav}>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`${styles.mobileNavLink} ${isActive(link.href) ? styles.active : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu */}
+      <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
+        <nav className={styles.mobileNav}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`${styles.mobileNavLink} ${isActive(link.href) ? styles.active : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className={styles.overlay}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </header>
   );
 }
