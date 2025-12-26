@@ -1,0 +1,26 @@
+{
+  "name": "MULTIBRAWN - צימרים וילות ואירועים",
+  "short_name": "MULTIBRAWN",
+  "description": "מומחים למציאת צימרים, וילות ומתחמי אירועים בישראל",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00bcd4",
+  "orientation": "portrait-primary",
+  "lang": "he",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/decirk3zb/image/upload/v1766175006/MULTIBRAWN_LOGO_wcxrbt.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/decirk3zb/image/upload/v1766175006/MULTIBRAWN_LOGO_wcxrbt.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
