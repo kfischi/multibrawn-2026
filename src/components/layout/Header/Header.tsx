@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './Blog.module.css';
+import styles from './Header.module.css';
 
 const articles = [
   {
