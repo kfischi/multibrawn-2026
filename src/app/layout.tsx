@@ -1,30 +1,40 @@
+// src/app/layout.tsx
+
 import type { Metadata } from 'next';
+import { Heebo } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
-import ChatBot from '@/components/layout/ChatBot/ChatBot';
-import WhatsAppButton from '@/components/ui/WhatsAppButton/WhatsAppButton';
-import AccessibilityMenu from '@/components/ui/AccessibilityMenu/AccessibilityMenu';
+
+const heebo = Heebo({ 
+  subsets: ['latin', 'hebrew'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-heebo',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'MULTIBRAWN | מולטיבראון - צימרים, וילות ודירות נופש',
-  description: 'מולטיבראון - השותף שלכם למציאת המקום המושלם לחופשה! צימרים רומנטיים, וילות משפחתיות, דירות נופש, מלונות בוטיק ומתחמי אירועים ברחבי הארץ. שירות אישי מהיר ומקצועי.',
-  keywords: [
-    'צימרים',
-    'וילות',
-    'מלונות בוטיק',
-    'מתחמי אירועים',
-    'חופשה',
-    'נופש',
-    'צימר רומנטי',
-    'וילה משפחתית',
-    'סופ"ש',
-    'multibrawn',
-    'מולטיבראון',
-    'ערדית',
-  ],
+  metadataBase: new URL('https://multibrawn.co.il'),
+  title: {
+    default: 'MULTIBRAWN - צימרים, וילות ומתחמי אירועים בישראל',
+    template: '%s | MULTIBRAWN'
+  },
+  description: 'מומחים למציאת הצימר, הוילה או מתחם האירועים המושלם עבורכם. 10+ שנות ניסיון, 500+ לקוחות מרוצים',
+  keywords: ['צימרים', 'וילות', 'מתחמי אירועים', 'שבת חתן', 'צפון', 'ישראל'],
   authors: [{ name: 'MULTIBRAWN' }],
-  creator: 'MULTIBRAWN',
-  publisher: 'MULTIBRAWN',
+  openGraph: {
+    type: 'website',
+    locale: 'he_IL',
+    url: 'https://multibrawn.co.il',
+    siteName: 'MULTIBRAWN',
+    title: 'MULTIBRAWN - צימרים, וילות ומתחמי אירועים',
+    description: 'מומחים למציאת הצימר המושלם',
+    images: [{
+      url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'MULTIBRAWN לוגו',
+    }],
+  },
   robots: {
     index: true,
     follow: true,
@@ -37,43 +47,9 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'Yh_NVBxWdeqAprLZ9SusdwIh8oIyCAmLuXtZI',
+    // תוסיף את זה אחרי שתקבל מ-Google Search Console
+    google: 'YOUR-VERIFICATION-CODE-HERE',
   },
-  openGraph: {
-    type: 'website',
-    locale: 'he_IL',
-    url: 'https://multibrawn.co.il',
-    title: 'MULTIBRAWN | מולטיבראון - צימרים, וילות ודירות נופש',
-    description: 'השותף שלכם למציאת המקום המושלם לחופשה! צימרים, וילות, דירות נופש ומתחמי אירועים',
-    siteName: 'MULTIBRAWN',
-    images: [
-      {
-        url: 'https://res.cloudinary.com/dptyfvwyo/video/upload/so_0/%D7%95%D7%99%D7%93%D7%90%D7%95_%D7%9C%D7%95%D7%95%D7%98%D7%A1%D7%90%D7%A4_rxu1cb.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'MULTIBRAWN - צימרים וילות ודירות נופש',
-      },
-    ],
-    videos: [
-      {
-        url: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1765392616/%D7%95%D7%99%D7%93%D7%90%D7%95_%D7%9C%D7%95%D7%95%D7%98%D7%A1%D7%90%D7%A4_rxu1cb.mp4',
-        type: 'video/mp4',
-        width: 1280,
-        height: 720,
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MULTIBRAWN | מולטיבראון - צימרים, וילות ודירות נופש',
-    description: 'השותף שלכם למציאת המקום המושלם לחופשה!',
-    images: ['https://res.cloudinary.com/dptyfvwyo/video/upload/so_0/%D7%95%D7%99%D7%93%D7%90%D7%95_%D7%9C%D7%95%D7%95%D7%98%D7%A1%D7%90%D7%A4_rxu1cb.jpg'],
-  },
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-icon.png',
-  },
-  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -82,32 +58,53 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he" dir="rtl" className={heebo.variable}>
       <head>
-        <link 
-          rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+        {/* Google Analytics */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Script
+              src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-XXXXXXXXXX');
+              `}
+            </Script>
+          </>
+        )}
+
+        {/* Schema.org Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "MULTIBRAWN",
+              "url": "https://multibrawn.co.il",
+              "logo": "https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg",
+              "description": "מומחים למציאת צימרים, וילות ומתחמי אירועים בישראל",
+              "telephone": "+972-52-398-3394",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "IL"
+              },
+              "sameAs": [
+                "https://www.facebook.com/multibrawn",
+                "https://www.instagram.com/multibrawn",
+                "https://wa.me/972523983394"
+              ]
+            })
+          }}
         />
       </head>
-      <body>
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-TER4JG2GT1"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-TER4JG2GT1');
-          `}
-        </Script>
-
+      <body className={heebo.className}>
         {children}
-        <ChatBot />
-        <WhatsAppButton />
-        <AccessibilityMenu />
       </body>
     </html>
   );
