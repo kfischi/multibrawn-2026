@@ -18,12 +18,3 @@ export default function MarketingLayout({
     </>
   );
 }
-```
-
----
-
-## ✅ **מה לעשות עכשיו:**
-
-### **1. פתח את הקובץ:**
-```
-src/app/(marketing)/layout.tsx
