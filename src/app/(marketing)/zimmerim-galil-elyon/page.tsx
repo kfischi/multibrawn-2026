@@ -6,6 +6,9 @@ export default function ZimmerimGalilElyon() {
     if (chatbot) chatbot.click();
   };
 
+  // Cloudinary optimized URLs
+  const heroImageUrl = 'https://res.cloudinary.com/decirk3zb/image/upload/w_1600,h_800,c_fill,q_auto:good,f_auto/v1766873966/%D7%90%D7%94%D7%91%D7%94_%D7%91%D7%92%D7%9C%D7%99%D7%9C_fc6nwy.png';
+  
   return (
     <>
       <style jsx>{`
@@ -14,7 +17,7 @@ export default function ZimmerimGalilElyon() {
         .hero {
           position: relative;
           height: 600px;
-          background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600');
+          background-image: url('${heroImageUrl}');
           background-size: cover;
           background-position: center;
           display: flex;
@@ -193,6 +196,7 @@ export default function ZimmerimGalilElyon() {
             '@type': 'WebPage',
             name: 'צימרים בגליל העליון',
             description: 'צימרים רומנטיים ומפנקים בגליל העליון',
+            image: 'https://res.cloudinary.com/decirk3zb/image/upload/w_1200,h_630,c_fill,q_auto:good,f_auto/v1766873966/%D7%90%D7%94%D7%91%D7%94_%D7%91%D7%92%D7%9C%D7%99%D7%9C_fc6nwy.png',
             mainEntity: {
               '@type': 'FAQPage',
               mainEntity: [
