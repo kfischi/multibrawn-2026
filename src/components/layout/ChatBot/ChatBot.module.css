@@ -1,6 +1,12 @@
-/* ChatBot Styles - STATIC (FIXED POSITION) */
+/* ============================================
+   🎨 MULTIBRAWN CHATBOT - LUXURY EDITION
+   Inspired by Skyline Production
+   ============================================ */
 
-/* Chat Button Wrapper */
+/* ============================================
+   💎 CHAT BUTTON - FIXED POSITION
+   ============================================ */
+
 .chatButtonWrapper {
   position: fixed;
   bottom: 24px;
@@ -9,53 +15,87 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-/* Chat Button - FIXED! */
 .chatButton {
-  width: 64px;
-  height: 64px;
+  width: 70px;
+  height: 70px;
   background: white;
-  border: 3px solid #FF5EA1;
+  border: 3px solid transparent;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(255, 94, 161, 0.4);
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 32px rgba(255, 94, 161, 0.3),
+    0 0 0 0 rgba(255, 94, 161, 0.4);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   color: white;
   overflow: hidden;
   padding: 0;
+  position: relative;
+}
+
+.chatButton::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 50%, #00E0FF 100%);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.chatButton:hover::before {
+  opacity: 1;
 }
 
 .chatButton.visible {
   opacity: 1;
   transform: scale(1);
-  animation: bounce 0.6s ease;
+  animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: scale(1);
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
 .chatButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 32px rgba(255, 94, 161, 0.6);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 
+    0 12px 48px rgba(255, 94, 161, 0.5),
+    0 0 0 8px rgba(255, 94, 161, 0.1);
 }
 
+.chatButton:active {
+  transform: scale(0.95);
+}
+
+/* X icon when chat is open */
 .chatButton svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
 }
 
-/* רקע ורוד רק כשהבוט פתוח (יש X) */
+.chatButton:hover svg {
+  transform: rotate(90deg);
+}
+
+/* Pink gradient background when open */
 .chatButton:has(svg) {
   background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
   border: none;
@@ -66,26 +106,47 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 
-/* Chat Label - OUTSIDE button */
+.chatButton:hover .avatarImage {
+  transform: scale(1.1);
+}
+
+/* ============================================
+   🏷️ CHAT LABEL
+   ============================================ */
+
 .chatLabel {
   background: white;
   color: #FF5EA1;
-  padding: 6px 16px;
-  border-radius: 20px;
+  padding: 8px 18px;
+  border-radius: 24px;
   font-size: 14px;
   font-weight: 700;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border: 2px solid #FF5EA1;
-  animation: fadeIn 0.3s ease;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 94, 161, 0.1);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  animation: fadeInUp 0.4s ease 0.3s backwards;
 }
 
-@keyframes fadeIn {
+.chatLabel::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
+  border-radius: 24px;
+  z-index: -1;
+}
+
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -93,73 +154,90 @@
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
+/* ============================================
+   💬 CHAT WINDOW - LUXURY GLASS DESIGN
+   ============================================ */
 
-/* Chat Window - FIXED! */
 .chatWindow {
-  position: fixed; /* CRITICAL: FIXED not absolute! */
-  bottom: 100px;
+  position: fixed;
+  bottom: 110px;
   right: 24px;
-  width: 400px;
-  max-height: 600px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  width: 420px;
+  max-height: 650px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 24px 64px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   z-index: 9999;
-  animation: slideUp 0.3s ease;
+  animation: slideUpScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
-@keyframes slideUp {
+@keyframes slideUpScale {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-/* Header */
+/* ============================================
+   🎨 HEADER - GRADIENT WITH GLASS
+   ============================================ */
+
 .chatHeader {
-  padding: 20px;
+  padding: 24px;
   background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.chatHeader::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 224, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .headerInfo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   background: white;
   color: #FF5EA1;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   flex-shrink: 0;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .avatar .avatarImage {
@@ -169,46 +247,58 @@
 }
 
 .headerInfo h3 {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 2px 0;
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.3px;
 }
 
 .headerInfo p {
-  font-size: 12px;
-  opacity: 0.9;
+  font-size: 13px;
+  opacity: 0.95;
   margin: 0;
+  font-weight: 500;
 }
 
 .closeButton {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: rgba(255, 255, 255, 0.2);
-  border: none;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   color: white;
   font-size: 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1.1);
 }
 
-/* Messages */
+.closeButton:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* ============================================
+   💬 MESSAGES AREA
+   ============================================ */
+
 .messages {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 94, 161, 0.3) transparent;
 }
@@ -226,25 +316,33 @@
   border-radius: 3px;
 }
 
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 94, 161, 0.5);
+}
+
+/* ============================================
+   💬 MESSAGE BUBBLES - GLASS DESIGN
+   ============================================ */
+
 .messageWrapper {
   display: flex;
   flex-direction: column;
+  animation: messageSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.message {
-  max-width: 80%;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
+@keyframes messageSlideIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.message {
+  max-width: 82%;
 }
 
 .message.assistant {
@@ -256,121 +354,123 @@
 }
 
 .messageContent {
-  padding: 12px 16px;
-  border-radius: 16px;
+  padding: 14px 18px;
+  border-radius: 18px;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6;
   white-space: pre-wrap;
+  font-weight: 500;
+  letter-spacing: -0.2px;
 }
 
 .message.assistant .messageContent {
-  background: linear-gradient(135deg, rgba(255, 94, 161, 0.1) 0%, rgba(160, 107, 255, 0.1) 100%);
+  background: rgba(255, 94, 161, 0.08);
+  backdrop-filter: blur(10px);
   color: #1a0b2e;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 6px;
+  border: 1px solid rgba(255, 94, 161, 0.12);
 }
 
 .message.user .messageContent {
   background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
   color: white;
-  border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 6px;
+  box-shadow: 0 4px 16px rgba(255, 94, 161, 0.3);
 }
 
-/* Options */
+/* ============================================
+   🎯 OPTION BUTTONS - LUXURY STYLE
+   ============================================ */
+
 .options {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 .optionButton {
-  padding: 12px 16px;
+  padding: 14px 20px;
   background: white;
-  border: 2px solid #FF5EA1;
-  border-radius: 12px;
+  border: 2px solid transparent;
+  border-radius: 14px;
   color: #FF5EA1;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: right;
-}
-
-.optionButton:hover {
-  background: #FF5EA1;
-  color: white;
-  transform: translateX(-4px);
-}
-
-/* Multi-Select */
-.multiSelect {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.multiOptions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.multiOption {
-  padding: 10px 14px;
-  background: white;
-  border: 2px solid #E0E0E0;
-  border-radius: 20px;
-  color: #4a4a68;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.multiOption:hover {
-  border-color: #FF5EA1;
-  color: #FF5EA1;
-}
-
-.multiOption.selected {
-  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
-  border-color: #FF5EA1;
-  color: white;
-}
-
-.confirmButton {
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #00E0FF 0%, #2D7FFF 100%);
-  border: none;
-  border-radius: 12px;
-  color: white;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: right;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.optionButton::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.optionButton::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%) translateX(0);
+  width: 20px;
+  height: 20px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23FF5EA1" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>') no-repeat center;
+  opacity: 0;
   transition: all 0.3s ease;
 }
 
-.confirmButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 224, 255, 0.4);
+.optionButton:hover {
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
+  color: white;
+  transform: translateX(-4px);
+  box-shadow: 0 4px 16px rgba(255, 94, 161, 0.3);
+  border-color: transparent;
 }
 
-/* Typing Indicator */
+.optionButton:hover::before {
+  opacity: 1;
+}
+
+.optionButton:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-8px);
+  filter: brightness(0) invert(1);
+}
+
+.optionButton:active {
+  transform: translateX(-2px) scale(0.98);
+}
+
+/* ============================================
+   ⌨️ TYPING INDICATOR - ANIMATED
+   ============================================ */
+
 .typingIndicator {
   display: flex;
-  gap: 4px;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, rgba(255, 94, 161, 0.1) 0%, rgba(160, 107, 255, 0.1) 100%);
-  border-radius: 16px;
+  gap: 5px;
+  padding: 14px 18px;
+  background: rgba(255, 94, 161, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
   width: fit-content;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 6px;
+  border: 1px solid rgba(255, 94, 161, 0.12);
 }
 
 .typingIndicator span {
-  width: 8px;
-  height: 8px;
-  background: #FF5EA1;
+  width: 9px;
+  height: 9px;
+  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
   border-radius: 50%;
   animation: typing 1.4s ease-in-out infinite;
 }
@@ -386,173 +486,82 @@
 @keyframes typing {
   0%, 60%, 100% {
     transform: translateY(0);
-    opacity: 0.7;
+    opacity: 0.5;
   }
   30% {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
     opacity: 1;
   }
 }
 
-/* Input Area */
+/* ============================================
+   📝 INPUT AREA - GLASS DESIGN
+   ============================================ */
+
 .inputArea {
-  padding: 16px 20px;
-  background: white;
-  border-top: 1px solid #E0E0E0;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start;
   flex-shrink: 0;
 }
 
 .input {
   flex: 1;
-  padding: 12px 16px;
-  border: 2px solid #E0E0E0;
+  padding: 14px 18px;
+  border: 2px solid rgba(0, 0, 0, 0.08);
   border-radius: 24px;
   font-size: 15px;
   color: #1a0b2e;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: 'Heebo', sans-serif;
+  font-weight: 500;
+  background: white;
 }
 
 .input:focus {
   outline: none;
   border-color: #FF5EA1;
+  box-shadow: 0 0 0 4px rgba(255, 94, 161, 0.1);
 }
 
 .input::placeholder {
   color: #8e8e9e;
+  font-weight: 400;
 }
 
 .sendButton {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
   border: none;
   border-radius: 50%;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 94, 161, 0.3);
 }
 
 .sendButton:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(255, 94, 161, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 94, 161, 0.5);
 }
 
-/* Progress Bar */
-.progressBar {
-  height: 4px;
-  background: rgba(0, 0, 0, 0.05);
-  flex-shrink: 0;
+.sendButton:active {
+  transform: scale(0.95);
 }
 
-.progressFill {
-  height: 100%;
-  background: linear-gradient(90deg, #00E0FF 0%, #2D7FFF 50%, #A06BFF 100%);
-  transition: width 0.5s ease;
-}
+/* ============================================
+   📱 MOBILE RESPONSIVE
+   ============================================ */
 
-/* Footer */
-.footer {
-  padding: 12px 20px;
-  background: #f8f9fa;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.footerText {
-  font-size: 12px;
-  color: #8e8e9e;
-  margin: 0;
-}
-
-/* Mobile - STILL FIXED! */
-@media (max-width: 768px) {
-  .chatButton {
-    bottom: 20px;
-    left: 20px;
-    width: 56px;
-    height: 56px;
-  }
-
-  .chatButton svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .badge {
-    top: -6px;
-    right: -6px;
-    font-size: 10px;
-    padding: 3px 8px;
-  }
-
-  .chatWindow {
-    bottom: 88px;
-    left: 20px;
-    right: 20px;
-    width: auto;
-    max-height: 500px;
-  }
-
-  .chatHeader {
-    padding: 16px;
-  }
-
-  .headerInfo h3 {
-    font-size: 16px;
-  }
-
-  .headerInfo p {
-    font-size: 11px;
-  }
-
-  .messages {
-    padding: 16px;
-    gap: 12px;
-  }
-
-  .messageContent {
-    padding: 10px 14px;
-    font-size: 16px;
-  }
-
-  .optionButton {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-
-  .inputArea {
-    padding: 12px 16px;
-  }
-
-  .input {
-    padding: 10px 14px;
-    font-size: 16px;
-  }
-
-  .sendButton {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 480px) {
-  .chatWindow {
-    bottom: 80px;
-    left: 16px;
-    right: 16px;
-    max-height: 450px;
-  }
-}
-
-/* Mobile adjustments */
 @media (max-width: 768px) {
   .chatButtonWrapper {
     bottom: 20px;
@@ -560,12 +569,109 @@
   }
 
   .chatButton {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .chatButton svg {
+    width: 26px;
+    height: 26px;
   }
 
   .chatLabel {
-    font-size: 12px;
-    padding: 5px 12px;
+    font-size: 13px;
+    padding: 6px 14px;
   }
+
+  .chatWindow {
+    bottom: 92px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-height: 560px;
+    border-radius: 20px;
+  }
+
+  .chatHeader {
+    padding: 18px 20px;
+  }
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .headerInfo h3 {
+    font-size: 17px;
+  }
+
+  .headerInfo p {
+    font-size: 12px;
+  }
+
+  .messages {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .messageContent {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .optionButton {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+
+  .inputArea {
+    padding: 14px 18px;
+  }
+
+  .input {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .sendButton {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatWindow {
+    bottom: 88px;
+    left: 12px;
+    right: 12px;
+    max-height: 520px;
+  }
+
+  .messages {
+    padding: 16px;
+  }
+}
+
+/* ============================================
+   ✨ ANIMATIONS & MICRO-INTERACTIONS
+   ============================================ */
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
