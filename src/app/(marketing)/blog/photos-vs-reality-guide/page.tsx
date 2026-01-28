@@ -58,3 +58,22 @@ export default function Article() {
     </article>
   );
 }
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "תמונות מול מציאות: איך לא ליפול בפח בצימרים",
+      "image": [
+        "https://multibrawn.co.il/_next/image?url=...your-image-url..."
+      ],
+      "datePublished": "2024-12-20",
+      "author": [{
+          "@type": "Person",
+          "name": "ערדית", // או שם הכותב האמיתי
+          "url": "https://multibrawn.co.il/about"
+        }]
+    })
+  }}
+/>
