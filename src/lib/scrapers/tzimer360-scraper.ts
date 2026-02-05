@@ -15,9 +15,6 @@ export class Tzimer360Scraper {
     this.affiliateCode = affiliateCode;
   }
 
-  /**
-   * Parse location string to location object
-   */
   private parseLocation(locationStr: string): {
     city: string;
     area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים';
@@ -32,7 +29,6 @@ export class Tzimer360Scraper {
 
     let area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים' = 'מרכז';
     let region = 'מרכז';
-    
     const lowerLocation = locationStr.toLowerCase();
     
     if (northCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
@@ -48,26 +44,17 @@ export class Tzimer360Scraper {
       region = 'מרכז הארץ';
     }
 
-    return {
-      city: locationStr,
-      area,
-      region,
-      address: locationStr,
-      coordinates: undefined,
-    };
+    return { city: locationStr, area, region, address: locationStr, coordinates: undefined };
   }
 
   async scrapeProperty(url: string): Promise<AffiliateProperty | null> {
     try {
       const response = await axios.get(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        },
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
         timeout: 10000,
       });
 
       const $ = cheerio.load(response.data);
-
       const name = $('h1.property-title').text().trim() || 'נכס ללא שם';
       const description = $('.property-description').text().trim() || '';
       const locationStr = $('.property-location').text().trim() || 'מיקום לא מוגדר';
@@ -76,14 +63,11 @@ export class Tzimer360Scraper {
       const imageUrls: string[] = [];
       $('.property-gallery img').each((i, el) => {
         const src = $(el).attr('src') || $(el).attr('data-src');
-        if (src) {
-          imageUrls.push(src.startsWith('http') ? src : `${this.baseUrl}${src}`);
-        }
+        if (src) imageUrls.push(src.startsWith('http') ? src : `${this.baseUrl}${src}`);
       });
 
       const priceText = $('.property-price').text().trim();
       const priceRange = priceText || '₪500-2000';
-
       const features: string[] = [];
       $('.property-features li').each((i, el) => {
         const feature = $(el).text().trim();
@@ -91,10 +75,8 @@ export class Tzimer360Scraper {
       });
 
       const propertyType = $('.property-type').text().trim() || 'צימר';
-      const capacityText = $('.property-capacity').text().trim();
-      const capacity = parseInt(capacityText.replace(/\D/g, '')) || 2;
-      const ratingText = $('.property-rating').text().trim();
-      const rating = parseFloat(ratingText) || undefined;
+      const capacity = parseInt($('.property-capacity').text().trim().replace(/\D/g, '')) || 2;
+      const rating = parseFloat($('.property-rating').text().trim()) || undefined;
       const affiliateUrl = `${url}?ref=${this.affiliateCode}`;
 
       return {
@@ -109,8 +91,6 @@ export class Tzimer360Scraper {
         affiliate: {
           provider: 'tzimer360',
           affiliateUrl,
-          commission: 10,
-          trackingCode: this.affiliateCode,
         },
         features: features.length > 0 ? features : ['Wi-Fi', 'חניה', 'מטבח מאובזר'],
         propertyType,
@@ -185,9 +165,7 @@ export class Tzimer360Scraper {
   async scrapeSearchResults(searchUrl: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
     try {
       const response = await axios.get(searchUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        },
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
         timeout: 10000,
       });
 
@@ -196,25 +174,19 @@ export class Tzimer360Scraper {
 
       $('.property-card a, .listing-item a').each((i, el) => {
         if (propertyUrls.length >= maxResults) return;
-        
         const href = $(el).attr('href');
         if (href && href.includes('/property/')) {
           const fullUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`;
-          if (!propertyUrls.includes(fullUrl)) {
-            propertyUrls.push(fullUrl);
-          }
+          if (!propertyUrls.includes(fullUrl)) propertyUrls.push(fullUrl);
         }
       });
 
       const properties: AffiliateProperty[] = [];
       for (const url of propertyUrls) {
         const property = await this.scrapeProperty(url);
-        if (property) {
-          properties.push(property);
-        }
+        if (property) properties.push(property);
         await this.delay(1000);
       }
-
       return properties;
     } catch (error: any) {
       console.error(`Error scraping search results ${searchUrl}:`, error.message);
@@ -223,13 +195,11 @@ export class Tzimer360Scraper {
   }
 
   async scrapeByLocation(location: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
-    const searchUrl = `${this.baseUrl}/search?location=${encodeURIComponent(location)}`;
-    return this.scrapeSearchResults(searchUrl, maxResults);
+    return this.scrapeSearchResults(`${this.baseUrl}/search?location=${encodeURIComponent(location)}`, maxResults);
   }
 
   async scrapeByType(propertyType: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
-    const searchUrl = `${this.baseUrl}/search?type=${encodeURIComponent(propertyType)}`;
-    return this.scrapeSearchResults(searchUrl, maxResults);
+    return this.scrapeSearchResults(`${this.baseUrl}/search?type=${encodeURIComponent(propertyType)}`, maxResults);
   }
 
   private generatePropertyId(url: string): string {
