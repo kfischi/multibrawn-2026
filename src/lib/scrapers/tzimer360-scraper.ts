@@ -107,7 +107,7 @@ export class Tzimer360Scraper {
           ? { main: imageUrls[0], gallery: imageUrls.slice(1) }
           : { main: '/images/placeholder-property.jpg', gallery: [] },
         affiliate: {
-          partnerId: 'tzimer360',
+          provider: 'tzimer360',
           affiliateUrl,
           commission: 10,
           trackingCode: this.affiliateCode,
