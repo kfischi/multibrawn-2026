@@ -91,6 +91,8 @@ export class Tzimer360Scraper {
         affiliate: {
           provider: 'tzimer360',
           affiliateUrl,
+          name: 'Tzimer360',
+          logoUrl: '/images/providers/tzimer360.svg',
         },
         features: features.length > 0 ? features : ['Wi-Fi', 'חניה', 'מטבח מאובזר'],
         propertyType,
