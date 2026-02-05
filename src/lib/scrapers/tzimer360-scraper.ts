@@ -23,7 +23,7 @@ export class Tzimer360Scraper {
     area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים';
     region: string;
     address: string;
-    coordinates: { lat: number; lng: number } | null;
+    coordinates: { lat: number; lng: number } | undefined;
   } {
     // Map common locations to areas
     const northCities = ['גליל', 'כנרת', 'צפת', 'טבריה', 'נהריה', 'עכו', 'חיפה', 'קרית שמונה', 'ראש פינה', 'כרמיאל'];
@@ -54,7 +54,7 @@ export class Tzimer360Scraper {
       area,
       region,
       address: locationStr,
-      coordinates: null,
+      coordinates: undefined,
     };
   }
 
