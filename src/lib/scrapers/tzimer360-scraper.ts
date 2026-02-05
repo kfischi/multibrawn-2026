@@ -91,6 +91,8 @@ export class Tzimer360Scraper {
         affiliate: {
           provider: 'tzimer360',
           affiliateUrl,
+          label: 'Tzimer360',
+          ctaText: 'צפה בנכס',
         },
         features: features.length > 0 ? features : ['Wi-Fi', 'חניה', 'מטבח מאובזר'],
         propertyType,
