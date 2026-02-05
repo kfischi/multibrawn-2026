@@ -16,6 +16,41 @@ export class Tzimer360Scraper {
   }
 
   /**
+   * Parse location string to location object
+   */
+  private parseLocation(locationStr: string): {
+    city: string;
+    area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים';
+    address: string;
+    coordinates: { lat: number; lng: number } | null;
+  } {
+    // Map common locations to areas
+    const northCities = ['גליל', 'כנרת', 'צפת', 'טבריה', 'נהריה', 'עכו', 'חיפה', 'קרית שמונה', 'ראש פינה', 'כרמיאל'];
+    const centerCities = ['תל אביב', 'רמת גן', 'פתח תקווה', 'הרצליה', 'רעננה', 'כפר סבא', 'נתניה', 'רמלה', 'לוד'];
+    const southCities = ['באר שבע', 'אילת', 'ים המלח', 'מצפה רמון', 'ערד', 'דימונה', 'אשדוד', 'אשקלון'];
+    const jerusalemCities = ['ירושלים', 'מבשרת ציון', 'מעלה אדומים'];
+
+    let area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים' = 'מרכז';
+    
+    const lowerLocation = locationStr.toLowerCase();
+    
+    if (northCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
+      area = 'צפון';
+    } else if (southCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
+      area = 'דרום';
+    } else if (jerusalemCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
+      area = 'ירושלים';
+    }
+
+    return {
+      city: locationStr,
+      area,
+      address: locationStr,
+      coordinates: null,
+    };
+  }
+
+  /**
    * Scrape a single property page
    */
   async scrapeProperty(url: string): Promise<AffiliateProperty | null> {
@@ -32,7 +67,8 @@ export class Tzimer360Scraper {
       // Extract property data
       const name = $('h1.property-title').text().trim() || 'נכס ללא שם';
       const description = $('.property-description').text().trim() || '';
-      const location = $('.property-location').text().trim() || 'מיקום לא מוגדר';
+      const locationStr = $('.property-location').text().trim() || 'מיקום לא מוגדר';
+      const location = this.parseLocation(locationStr);
       
       // Extract images
       const images: string[] = [];
@@ -71,7 +107,7 @@ export class Tzimer360Scraper {
       return {
         id: this.generatePropertyId(url),
         name,
-        description: description || `${name} - ${location}`,
+        description: description || `${name} - ${location.city}`,
         location,
         priceRange,
         images: images.length > 0 ? images : ['/images/placeholder-property.jpg'],
@@ -138,9 +174,9 @@ export class Tzimer360Scraper {
           restaurants: [],
         },
         seoMetadata: {
-          title: `${name} - ${location} | MULTIBRAWN`,
-          description: description.substring(0, 160) || `${name} ב${location}`,
-          keywords: [name, location, propertyType, 'צימרים', 'נופש בישראל'],
+          title: `${name} - ${location.city} | MULTIBRAWN`,
+          description: description.substring(0, 160) || `${name} ב${location.city}`,
+          keywords: [name, location.city, propertyType, 'צימרים', 'נופש בישראל'],
         },
         status: 'active',
         lastUpdated: new Date(),
