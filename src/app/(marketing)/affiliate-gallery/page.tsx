@@ -1,4 +1,3 @@
-cat > src/app/\(marketing\)/affiliate-gallery/page.tsx << 'EOF'
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -75,4 +74,3 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
     </a>
   );
 }
-EOF
