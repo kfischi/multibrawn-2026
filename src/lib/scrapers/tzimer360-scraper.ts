@@ -21,6 +21,7 @@ export class Tzimer360Scraper {
   private parseLocation(locationStr: string): {
     city: string;
     area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים';
+    region: string;
     address: string;
     coordinates: { lat: number; lng: number } | null;
   } {
@@ -31,20 +32,27 @@ export class Tzimer360Scraper {
     const jerusalemCities = ['ירושלים', 'מבשרת ציון', 'מעלה אדומים'];
 
     let area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים' = 'מרכז';
+    let region = 'מרכז';
     
     const lowerLocation = locationStr.toLowerCase();
     
     if (northCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
       area = 'צפון';
+      region = 'צפון';
     } else if (southCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
       area = 'דרום';
+      region = 'דרום';
     } else if (jerusalemCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
       area = 'ירושלים';
+      region = 'ירושלים והסביבה';
+    } else {
+      region = 'מרכז הארץ';
     }
 
     return {
       city: locationStr,
       area,
+      region,
       address: locationStr,
       coordinates: null,
     };
