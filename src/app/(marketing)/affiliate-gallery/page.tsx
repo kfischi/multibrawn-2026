@@ -21,7 +21,6 @@ interface AffiliateProperty {
   rating?: number;
 }
 
-// ✅ FIXED: PropertyCard עם תג <a> תקין
 function PropertyCard({ property }: { property: AffiliateProperty }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -37,7 +36,6 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image Section */}
       <div className="relative w-full h-72 overflow-hidden">
         <Image
           src={property.images[0] || '/images/placeholder.jpg'}
@@ -47,12 +45,10 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         
-        {/* Property Type Badge */}
         <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold">
           {property.propertyType}
         </div>
 
-        {/* Rating Badge */}
         {property.rating && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1">
             <span className="text-yellow-500">★</span>
@@ -61,25 +57,20 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
         )}
       </div>
 
-      {/* Content Section */}
       <div className="p-6">
-        {/* Location */}
         <div className="text-sm text-gray-600 mb-2 flex items-center gap-1">
           <span>📍</span>
           <span>{property.location}</span>
         </div>
 
-        {/* Title */}
         <h3 className="text-2xl font-bold mb-3 text-gray-900 line-clamp-2">
           {property.name}
         </h3>
 
-        {/* Description */}
         <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
           {property.description}
         </p>
 
-        {/* Features */}
         <div className="flex flex-wrap gap-2 mb-4">
           {property.features.slice(0, 3).map((feature, idx) => (
             <span
@@ -96,14 +87,12 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
           )}
         </div>
 
-        {/* Capacity */}
         {property.capacity && (
           <div className="text-sm text-gray-600 mb-3">
             👥 עד {property.capacity} אורחים
           </div>
         )}
 
-        {/* Price & CTA */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
           <div>
             <div className="text-2xl font-bold text-cyan-600">
@@ -120,9 +109,7 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
   );
 }
 
-// Main Page Component
 export default function AffiliateGalleryPage() {
-  // Example data - יש להחליף בנתונים אמיתיים מ-Supabase
   const affiliateProperties: AffiliateProperty[] = [
     {
       id: '1',
@@ -179,9 +166,7 @@ export default function AffiliateGalleryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white" dir="rtl">
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-cyan-600 via-purple-600 to-pink-600 text-white py-24 px-6 overflow-hidden">
-        {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
@@ -210,9 +195,7 @@ export default function AffiliateGalleryPage() {
         </div>
       </section>
 
-      {/* Properties Grid */}
       <section className="max-w-7xl mx-auto px-6 py-16">
-        {/* Section Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             המלצות מובילות
@@ -222,14 +205,12 @@ export default function AffiliateGalleryPage() {
           </p>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {affiliateProperties.map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>
 
-        {/* Load More CTA */}
         <div className="mt-16 text-center">
           <button className="bg-gradient-to-r from-cyan-600 to-purple-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105">
             טען עוד נכסים
@@ -237,7 +218,6 @@ export default function AffiliateGalleryPage() {
         </div>
       </section>
 
-      {/* Trust Section */}
       <section className="bg-gray-50 py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-3xl font-bold text-gray-900 mb-6">
