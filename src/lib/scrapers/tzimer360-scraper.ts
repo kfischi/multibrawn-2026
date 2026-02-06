@@ -1,176 +1,217 @@
 /**
- * API Route: Run Tzimer360 Scraper
- * Path: /api/scraper/run
- * Method: POST
+ * Tzimer360 Scraper - Web scraping for affiliate properties
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import Tzimer360Scraper from '@/lib/scrapers/tzimer360-scraper';  // ← ללא {}
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+import { AffiliateProperty } from '@/types/affiliate-property';
 
-// Initialize Supabase
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+export class Tzimer360Scraper {
+  private baseUrl: string;
+  private affiliateCode: string;
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { action, provider, maxResults = 10, location } = body;
+  constructor(affiliateCode: string = 'multibrawn') {
+    this.baseUrl = 'https://tzimer360.com';
+    this.affiliateCode = affiliateCode;
+  }
 
-    if (action !== 'scrape') {
-      return NextResponse.json(
-        { error: 'Invalid action. Use "scrape".' },
-        { status: 400 }
-      );
-    }
+  private parseLocation(locationStr: string): {
+    city: string;
+    area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים';
+    region: string;
+    address: string;
+    coordinates: { lat: number; lng: number } | undefined;
+  } {
+    const northCities = ['גליל', 'כנרת', 'צפת', 'טבריה', 'נהריה', 'עכו', 'חיפה', 'קרית שמונה', 'ראש פינה', 'כרמיאל'];
+    const centerCities = ['תל אביב', 'רמת גן', 'פתח תקווה', 'הרצליה', 'רעננה', 'כפר סבא', 'נתניה', 'רמלה', 'לוד'];
+    const southCities = ['באר שבע', 'אילת', 'ים המלח', 'מצפה רמון', 'ערד', 'דימונה', 'אשדוד', 'אשקלון'];
+    const jerusalemCities = ['ירושלים', 'מבשרת ציון', 'מעלה אדומים'];
 
-    if (provider !== 'tzimer360') {
-      return NextResponse.json(
-        { error: 'Invalid provider. Only "tzimer360" is supported.' },
-        { status: 400 }
-      );
-    }
-
-    const authHeader = request.headers.get('authorization');
-    const secretKey = process.env.SCRAPER_SECRET_KEY || 'your-secret-key-here';
+    let area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים' = 'מרכז';
+    let region = 'מרכז';
+    const lowerLocation = locationStr.toLowerCase();
     
-    if (authHeader !== `Bearer ${secretKey}`) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
-    console.log(`🤖 Starting scraper: ${provider}, max: ${maxResults}`);
-
-    const scraper = new Tzimer360Scraper('multibrawn');
-    
-    let properties;
-    if (location) {
-      properties = await scraper.scrapeByLocation(location, maxResults);
+    if (northCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
+      area = 'צפון';
+      region = 'צפון';
+    } else if (southCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
+      area = 'דרום';
+      region = 'דרום';
+    } else if (jerusalemCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
+      area = 'ירושלים';
+      region = 'ירושלים והסביבה';
     } else {
-      const types = ['צימר', 'וילה'];
-      properties = [];
-      for (const type of types) {
-        const typeProps = await scraper.scrapeByType(type, Math.floor(maxResults / types.length));
-        properties.push(...typeProps);
-      }
+      region = 'מרכז הארץ';
     }
 
-    console.log(`📊 Scraped ${properties.length} properties`);
+    return { city: locationStr, area, region, address: locationStr, coordinates: undefined };
+  }
 
-    const results = {
-      inserted: 0,
-      updated: 0,
-      errors: 0,
-      details: [] as any[],
-    };
+  async scrapeProperty(url: string): Promise<AffiliateProperty | null> {
+    try {
+      const response = await axios.get(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+        timeout: 10000,
+      });
 
-    for (const property of properties) {
-      try {
-        const { data: existing } = await supabase
-          .from('affiliate_properties')
-          .select('id')
-          .eq('id', property.id)
-          .single();
+      const $ = cheerio.load(response.data);
+      const name = $('h1.property-title').text().trim() || 'נכס ללא שם';
+      const description = $('.property-description').text().trim() || '';
+      const locationStr = $('.property-location').text().trim() || 'מיקום לא מוגדר';
+      const location = this.parseLocation(locationStr);
+      
+      const imageUrls: string[] = [];
+      $('.property-gallery img').each((i, el) => {
+        const src = $(el).attr('src') || $(el).attr('data-src');
+        if (src) imageUrls.push(src.startsWith('http') ? src : `${this.baseUrl}${src}`);
+      });
 
-        if (existing) {
-          const { error } = await supabase
-            .from('affiliate_properties')
-            .update({
-              name: property.name,
-              description: property.description,
-              property_type: property.propertyType,
-              capacity: property.capacity,
-              price_range: property.priceRange,
-              rating: property.rating,
-              location: property.location,
-              images: property.images,
-              affiliate: property.affiliate,
-              features: property.features,
-              amenities: property.amenities,
-              booking_info: property.bookingInfo,
-              pricing: property.pricing,
-              reviews: property.reviews,
-              host_info: property.hostInfo,
-              area_info: property.areaInfo,
-              seo_metadata: property.seoMetadata,
-              status: property.status,
-              last_scraped: new Date().toISOString(),
-            })
-            .eq('id', property.id);
+      const priceText = $('.property-price').text().trim();
+      const priceRange = priceText || '₪500-2000';
+      const features: string[] = [];
+      $('.property-features li').each((i, el) => {
+        const feature = $(el).text().trim();
+        if (feature) features.push(feature);
+      });
 
-          if (error) throw error;
-          results.updated++;
-          results.details.push({ id: property.id, action: 'updated' });
-        } else {
-          const { error } = await supabase
-            .from('affiliate_properties')
-            .insert({
-              id: property.id,
-              name: property.name,
-              description: property.description,
-              property_type: property.propertyType,
-              capacity: property.capacity,
-              price_range: property.priceRange,
-              rating: property.rating,
-              location: property.location,
-              images: property.images,
-              affiliate: property.affiliate,
-              features: property.features,
-              amenities: property.amenities,
-              booking_info: property.bookingInfo,
-              pricing: property.pricing,
-              reviews: property.reviews,
-              host_info: property.hostInfo,
-              area_info: property.areaInfo,
-              seo_metadata: property.seoMetadata,
-              status: property.status,
-              last_scraped: new Date().toISOString(),
-            });
+      const propertyType = $('.property-type').text().trim() || 'צימר';
+      const capacity = parseInt($('.property-capacity').text().trim().replace(/\D/g, '')) || 2;
+      const rating = parseFloat($('.property-rating').text().trim()) || undefined;
+      const affiliateUrl = `${url}?ref=${this.affiliateCode}`;
 
-          if (error) throw error;
-          results.inserted++;
-          results.details.push({ id: property.id, action: 'inserted' });
+      return {
+        id: this.generatePropertyId(url),
+        name,
+        description: description || `${name} - ${location.city}`,
+        location,
+        priceRange,
+        images: imageUrls.length > 0 
+          ? { main: imageUrls[0], gallery: imageUrls.slice(1) }
+          : { main: '/images/placeholder-property.jpg', gallery: [] },
+        affiliate: {
+          provider: 'tzimer360',
+          affiliateUrl,
+          ctaText: 'צפה בנכס',
+        },
+        features: features.length > 0 ? features : ['Wi-Fi', 'חניה', 'מטבח מאובזר'],
+        propertyType,
+        capacity,
+        rating,
+        amenities: {
+          wifi: features.some(f => f.includes('Wi-Fi') || f.includes('אינטרנט')),
+          parking: features.some(f => f.includes('חניה')),
+          pool: features.some(f => f.includes('בריכה')),
+          jacuzzi: features.some(f => f.includes('ג\'קוזי')),
+          kitchen: features.some(f => f.includes('מטבח')),
+          airConditioning: features.some(f => f.includes('מיזוג')),
+          heating: features.some(f => f.includes('חימום')),
+          tv: features.some(f => f.includes('טלוויזיה')),
+          washer: features.some(f => f.includes('מכונת כביסה')),
+          petsAllowed: features.some(f => f.includes('חיות מחמד')),
+        },
+        bookingInfo: {
+          minNights: 1,
+          maxNights: 30,
+          checkInTime: '15:00',
+          checkOutTime: '11:00',
+          cancellationPolicy: 'ביטול עד 7 ימים לפני ההגעה',
+        },
+        pricing: {
+          basePrice: parseInt(priceRange.match(/\d+/)?.[0] || '500'),
+          weekendPrice: parseInt(priceRange.match(/\d+/g)?.[1] || '800'),
+          currency: 'ILS',
+          cleaningFee: 0,
+          securityDeposit: 0,
+        },
+        reviews: {
+          averageRating: rating || 4.5,
+          totalReviews: 0,
+          cleanliness: rating || 4.5,
+          communication: rating || 4.5,
+          checkIn: rating || 4.5,
+          accuracy: rating || 4.5,
+          location: rating || 4.5,
+          value: rating || 4.5,
+        },
+        hostInfo: {
+          name: 'Tzimer360',
+          responseTime: 'תוך שעה',
+          responseRate: 100,
+          isSuperhost: true,
+        },
+        areaInfo: {
+          accessibility: {
+            distance: 'מרחק נסיעה משתנה',
+            parking: true,
+            publicTransport: false,
+          },
+          activities: [],
+          attractions: [],
+          restaurants: [],
+        },
+        seoMetadata: {
+          title: `${name} - ${location.city} | MULTIBRAWN`,
+          description: description.substring(0, 160) || `${name} ב${location.city}`,
+          keywords: [name, location.city, propertyType, 'צימרים', 'נופש בישראל'],
+        },
+        status: 'active',
+        lastUpdated: new Date(),
+      };
+    } catch (error: any) {
+      console.error(`Error scraping property ${url}:`, error.message);
+      return null;
+    }
+  }
+
+  async scrapeSearchResults(searchUrl: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
+    try {
+      const response = await axios.get(searchUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+        timeout: 10000,
+      });
+
+      const $ = cheerio.load(response.data);
+      const propertyUrls: string[] = [];
+
+      $('.property-card a, .listing-item a').each((i, el) => {
+        if (propertyUrls.length >= maxResults) return;
+        const href = $(el).attr('href');
+        if (href && href.includes('/property/')) {
+          const fullUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`;
+          if (!propertyUrls.includes(fullUrl)) propertyUrls.push(fullUrl);
         }
-      } catch (error: any) {
-        console.error(`❌ Error saving property ${property.id}:`, error.message);
-        results.errors++;
-        results.details.push({ 
-          id: property.id, 
-          action: 'error', 
-          error: error.message 
-        });
+      });
+
+      const properties: AffiliateProperty[] = [];
+      for (const url of propertyUrls) {
+        const property = await this.scrapeProperty(url);
+        if (property) properties.push(property);
+        await this.delay(1000);
       }
+      return properties;
+    } catch (error: any) {
+      console.error(`Error scraping search results ${searchUrl}:`, error.message);
+      return [];
     }
+  }
 
-    console.log(`✅ Results: ${results.inserted} inserted, ${results.updated} updated, ${results.errors} errors`);
+  async scrapeByLocation(location: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
+    return this.scrapeSearchResults(`${this.baseUrl}/search?location=${encodeURIComponent(location)}`, maxResults);
+  }
 
-    return NextResponse.json({
-      success: true,
-      message: 'Scraping completed',
-      results,
-      timestamp: new Date().toISOString(),
-    });
+  async scrapeByType(propertyType: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
+    return this.scrapeSearchResults(`${this.baseUrl}/search?type=${encodeURIComponent(propertyType)}`, maxResults);
+  }
 
-  } catch (error: any) {
-    console.error('❌ Scraper API Error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error', 
-        details: error.message 
-      },
-      { status: 500 }
-    );
+  private generatePropertyId(url: string): string {
+    const match = url.match(/\/property\/(\d+)/);
+    return match ? `tzimer360_${match[1]}` : `tzimer360_${Date.now()}`;
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
 
-export async function GET(request: NextRequest) {
-  return NextResponse.json({
-    message: 'Scraper API is running',
-    usage: 'POST /api/scraper/run with { action: "scrape", provider: "tzimer360", maxResults: 10 }',
-    auth: 'Required: Authorization header with Bearer token',
-  });
-}
+// Export both named and default
+export default Tzimer360Scraper;
