@@ -2,23 +2,16 @@
  * API Route: Run Tzimer360 Scraper
  * Path: /api/scraper/run
  * Method: POST
- * 
- * Body: {
- *   "action": "scrape",
- *   "provider": "tzimer360",
- *   "maxResults": 10,
- *   "location": "צפון" (optional)
- * }
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { Tzimer360Scraper } from '@/lib/scrapers/tzimer360-scraper';
+import Tzimer360Scraper from '@/lib/scrapers/tzimer360-scraper';  // ← ללא {}
 
 // Initialize Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY! // Use service role for admin access
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 export async function POST(request: NextRequest) {
@@ -26,7 +19,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { action, provider, maxResults = 10, location } = body;
 
-    // Validate action
     if (action !== 'scrape') {
       return NextResponse.json(
         { error: 'Invalid action. Use "scrape".' },
@@ -34,7 +26,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate provider
     if (provider !== 'tzimer360') {
       return NextResponse.json(
         { error: 'Invalid provider. Only "tzimer360" is supported.' },
@@ -42,7 +33,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for secret key (basic security)
     const authHeader = request.headers.get('authorization');
     const secretKey = process.env.SCRAPER_SECRET_KEY || 'your-secret-key-here';
     
@@ -55,15 +45,12 @@ export async function POST(request: NextRequest) {
 
     console.log(`🤖 Starting scraper: ${provider}, max: ${maxResults}`);
 
-    // Initialize scraper
     const scraper = new Tzimer360Scraper('multibrawn');
     
-    // Scrape properties
     let properties;
     if (location) {
       properties = await scraper.scrapeByLocation(location, maxResults);
     } else {
-      // Default: scrape by popular types
       const types = ['צימר', 'וילה'];
       properties = [];
       for (const type of types) {
@@ -74,7 +61,6 @@ export async function POST(request: NextRequest) {
 
     console.log(`📊 Scraped ${properties.length} properties`);
 
-    // Save to Supabase
     const results = {
       inserted: 0,
       updated: 0,
@@ -84,7 +70,6 @@ export async function POST(request: NextRequest) {
 
     for (const property of properties) {
       try {
-        // Check if property already exists
         const { data: existing } = await supabase
           .from('affiliate_properties')
           .select('id')
@@ -92,7 +77,6 @@ export async function POST(request: NextRequest) {
           .single();
 
         if (existing) {
-          // Update existing property
           const { error } = await supabase
             .from('affiliate_properties')
             .update({
@@ -122,7 +106,6 @@ export async function POST(request: NextRequest) {
           results.updated++;
           results.details.push({ id: property.id, action: 'updated' });
         } else {
-          // Insert new property
           const { error } = await supabase
             .from('affiliate_properties')
             .insert({
@@ -184,7 +167,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET method for testing
 export async function GET(request: NextRequest) {
   return NextResponse.json({
     message: 'Scraper API is running',
