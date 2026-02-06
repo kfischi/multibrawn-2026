@@ -1,11 +1,11 @@
 /**
  * Sample Data - Tzimer Sigal
  */
-
 import { AffiliateProperty } from '@/types/affiliate-property';
 
 export const tzimerSigal: AffiliateProperty = {
   id: 'tzimer-sigal-galil',
+  name: 'צימר סיגל',
   originalName: 'צימר סיגל',
   displayName: 'וילת הגליל - חוויה רומנטית במרומי הגליל',
   slug: 'vilat-hagalil-romantic-getaway',
@@ -14,8 +14,10 @@ export const tzimerSigal: AffiliateProperty = {
     city: 'רמות נפתלי',
     area: 'צפון',
     region: 'גליל עליון',
+    address: 'רמות נפתלי, גליל עליון',
   },
   
+  propertyType: 'צימר',
   type: 'צימר',
   capacity: { min: 2, max: 4, bedrooms: 1, bathrooms: 1 },
   
