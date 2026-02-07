@@ -1,5 +1,5 @@
 /**
- * ChatBotV2 - Advanced AI ChatBot
+ * EnhancedChatBot - Hybrid AI ChatBot
  */
 
 'use client';
@@ -7,20 +7,28 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './ChatBotV2.module.css';
-import { getGeminiAdvanced, AIResponse } from '@/lib/ai/gemini-advanced';
+import { getHybridAI, AIMessage } from '@/lib/ai/hybrid-ai';
 import { getContextManager } from '@/lib/ai/context-manager';
 import { Property } from '@/types/property';
 
-interface Message {
+interface Message extends AIMessage {
   id: string;
-  role: 'user' | 'assistant';
-  content: string;
   timestamp: Date;
   properties?: Property[];
-  suggestions?: string[];
+  quickReplies?: string[];
 }
 
-export default function ChatBotV2({ properties }: { properties: Property[] }) {
+const SYSTEM_PROMPT = `אתה ערדית, העוזרת החכמה של MULTIBRAWN.
+
+עזור ללקוחות למצוא נכסי נופש - צימרים, וילות, דירות, מתחמי אירועים.
+
+סגנון: קצר (2-3 משפטים), חם, אישי, עם אימוג'י.
+
+מה לאסוף: סוג נכס, אזור, תאריכים, מספר אנשים, תקציב, דרישות מיוחדות.
+
+אחרי 4-5 הודעות: "מעולה! יש לי את כל הפרטים 🎉 אעביר אותך ל-WhatsApp!"`;
+
+export default function EnhancedChatBot({ properties }: { properties: Property[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -28,15 +36,12 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
   const [userId] = useState(() => `user_${Date.now()}`);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const gemini = getGeminiAdvanced();
+  const hybridAI = getHybridAI();
   const contextManager = getContextManager();
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      addBotMessage({
-        message: 'שלום! 👋 אני ערדית, העוזרת הדיגיטלית של MULTIBRAWN.\n\nאני כאן כדי לעזור לך למצוא את המקום המושלם!\n\nמה אתה מחפש? 🏠',
-        suggestions: ['צימר רומנטי', 'וילה משפחתית', 'מתחם אירועים'],
-      });
+      addBotMessage('שלום! 👋 אני ערדית, העוזרת החכמה של MULTIBRAWN.\n\nאני כאן לעזור לך למצוא את המקום המושלם!\n\nמה אתה מחפש? 🏠✨', ['צימר רומנטי', 'וילה משפחתית', 'מתחם אירועים']);
     }
   }, [isOpen]);
 
@@ -44,17 +49,16 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const addBotMessage = (response: AIResponse) => {
+  const addBotMessage = (content: string, quickReplies?: string[]) => {
     const message: Message = {
       id: `bot_${Date.now()}`,
       role: 'assistant',
-      content: response.message,
+      content,
       timestamp: new Date(),
-      properties: response.recommendedProperties,
-      suggestions: response.suggestions,
+      quickReplies,
     };
     setMessages(prev => [...prev, message]);
-    contextManager.addMessage(userId, 'assistant', response.message);
+    contextManager.addMessage(userId, 'assistant', content);
   };
 
   const handleSend = async () => {
@@ -76,29 +80,50 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
     setIsTyping(true);
 
     try {
-      const context = contextManager.getUserContext(userId);
-      const response = await gemini.chat(userMessage, context, properties);
+      const aiMessages: AIMessage[] = messages
+        .concat(message)
+        .map(m => ({ role: m.role, content: m.content }));
+
+      const response = await hybridAI.chat(aiMessages, {
+        provider: 'auto',
+        systemPrompt: SYSTEM_PROMPT,
+        temperature: 0.9,
+      });
+
+      console.log(`AI Provider: ${response.provider}`);
 
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      addBotMessage(response);
+      const intent = await hybridAI.analyzeIntent(userMessage);
+      const quickReplies = generateQuickReplies(intent);
+
+      addBotMessage(response.message, quickReplies);
     } catch (error) {
       console.error('ChatBot error:', error);
-      addBotMessage({
-        message: 'אופס! משהו השתבש. נסה שוב או פנה אלינו ב-WhatsApp 📱',
-        nextAction: 'continue',
-      });
+      addBotMessage('אופס! משהו השתבש. נסה שוב או פנה אלינו ב-WhatsApp 📱');
     } finally {
       setIsTyping(false);
     }
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setInputValue(suggestion);
+  const generateQuickReplies = (intent: any): string[] => {
+    if (!intent.entities?.propertyType) {
+      return ['צימר רומנטי', 'וילה משפחתית', 'מתחם אירועים'];
+    } else if (!intent.entities?.area) {
+      return ['צפון', 'מרכז', 'דרום'];
+    } else if (!intent.entities?.guests) {
+      return ['זוג', '2-4 אורחים', '5-8 אורחים'];
+    } else {
+      return ['תראה לי נכסים', 'שלח ל-WhatsApp'];
+    }
+  };
+
+  const handleQuickReply = (reply: string) => {
+    setInputValue(reply);
     setTimeout(() => handleSend(), 100);
   };
 
-  const handleWhatsAppSend = () => {
+  const handleWhatsApp = () => {
     const summary = contextManager.getConversationSummary(userId);
     const message = encodeURIComponent(
       `היי! הגעתי מהאתר של MULTIBRAWN.\n\n${summary}\n\nאשמח לעזרה! 😊`
@@ -107,7 +132,7 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
   };
 
   const handleReset = () => {
-    if (confirm('האם להתחיל שיחה חדשה?')) {
+    if (confirm('להתחיל שיחה חדשה?')) {
       contextManager.resetContext(userId);
       setMessages([]);
     }
@@ -115,17 +140,11 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
 
   if (!isOpen) {
     return (
-      <button
-        className={styles.chatButton}
-        onClick={() => setIsOpen(true)}
-        aria-label="פתח צ'אט"
-      >
+      <button className={styles.chatButton} onClick={() => setIsOpen(true)} aria-label="פתח צ'אט">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
         </svg>
-        {messages.length > 0 && (
-          <span className={styles.badge}>{messages.length}</span>
-        )}
+        {messages.length > 0 && <span className={styles.badge}>{messages.length}</span>}
       </button>
     );
   }
@@ -136,11 +155,9 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
         <div className={styles.avatar}>🤖</div>
         <div className={styles.headerInfo}>
           <h3>ערדית - AI חכם</h3>
-          <p>מחוברת ופעילה</p>
+          <p>Claude + Gemini Hybrid</p>
         </div>
-        <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
-          ✕
-        </button>
+        <button className={styles.closeButton} onClick={() => setIsOpen(false)}>✕</button>
       </div>
 
       <div className={styles.messages}>
@@ -153,26 +170,11 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
               </span>
             </div>
 
-            {msg.properties && msg.properties.length > 0 && (
-              <div className={styles.properties}>
-                {msg.properties.map(prop => (
-                  <div key={prop.id} className={styles.propertyCard}>
-                    <Image src={prop.image} alt={prop.name} width={200} height={150} style={{ objectFit: 'cover' }} />
-                    <div>
-                      <h4>{prop.name}</h4>
-                      <p>{prop.location}</p>
-                      <span>{prop.priceRange}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {msg.suggestions && (
+            {msg.quickReplies && (
               <div className={styles.quickReplies}>
-                {msg.suggestions.map((suggestion, idx) => (
-                  <button key={idx} onClick={() => handleSuggestionClick(suggestion)} className={styles.quickReply}>
-                    {suggestion}
+                {msg.quickReplies.map((reply, idx) => (
+                  <button key={idx} onClick={() => handleQuickReply(reply)} className={styles.quickReply}>
+                    {reply}
                   </button>
                 ))}
               </div>
@@ -214,7 +216,7 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
       </div>
 
       <div className={styles.actions}>
-        <button onClick={handleWhatsAppSend} className={styles.actionBtn}>
+        <button onClick={handleWhatsApp} className={styles.actionBtn}>
           📱 WhatsApp
         </button>
         <button onClick={handleReset} className={styles.actionBtn}>
