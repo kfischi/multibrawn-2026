@@ -6,7 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import Tzimer360Scraper from '@/lib/scrapers/tzimer360-scraper';  // ← ללא {}
+import Tzimer360Scraper from '@/lib/scrapers/tzimer360-puppeteer-scraper';
 
 // Initialize Supabase
 const supabase = createClient(
@@ -17,7 +17,7 @@ const supabase = createClient(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { action, provider, maxResults = 10, location } = body;
+    const { action, provider, maxResults = 3 } = body;
 
     if (action !== 'scrape') {
       return NextResponse.json(
@@ -43,21 +43,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`🤖 Starting scraper: ${provider}, max: ${maxResults}`);
+    console.log(`🤖 Starting Puppeteer scraper: ${provider}, max: ${maxResults}`);
 
-    const scraper = new Tzimer360Scraper('multibrawn');
+    const scraper = new Tzimer360Scraper('affiliate26');
     
-    let properties;
-    if (location) {
-      properties = await scraper.scrapeByLocation(location, maxResults);
-    } else {
-      const types = ['צימר', 'וילה'];
-      properties = [];
-      for (const type of types) {
-        const typeProps = await scraper.scrapeByType(type, Math.floor(maxResults / types.length));
-        properties.push(...typeProps);
-      }
-    }
+    // Use known working location IDs
+    const knownLocations = ['C4620', 'C4681', 'C4617'];
+    const properties = await scraper.scrapeMultiple(knownLocations.slice(0, maxResults));
+    
+    // Clean up browser
+    await scraper.close();
 
     console.log(`📊 Scraped ${properties.length} properties`);
 
@@ -170,7 +165,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   return NextResponse.json({
     message: 'Scraper API is running',
-    usage: 'POST /api/scraper/run with { action: "scrape", provider: "tzimer360", maxResults: 10 }',
+    usage: 'POST /api/scraper/run with { action: "scrape", provider: "tzimer360", maxResults: 3 }',
     auth: 'Required: Authorization header with Bearer token',
   });
 }

@@ -1,113 +1,162 @@
 /**
- * Tzimer360 Scraper - Web scraping for affiliate properties
+ * Tzimer360 Scraper with Puppeteer - Real Browser
  */
 
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import { AffiliateProperty } from '@/types/affiliate-property';
 
-export class Tzimer360Scraper {
-  private baseUrl: string;
+export class Tzimer360PuppeteerScraper {
   private affiliateCode: string;
+  private browser: any = null;
 
-  constructor(affiliateCode: string = 'multibrawn') {
-    this.baseUrl = 'https://tzimer360.com';
+  constructor(affiliateCode: string = 'affiliate26') {
     this.affiliateCode = affiliateCode;
   }
 
-  private parseLocation(locationStr: string): {
-    city: string;
-    area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים';
-    region: string;
-    address: string;
-    coordinates: { lat: number; lng: number } | undefined;
-  } {
-    const northCities = ['גליל', 'כנרת', 'צפת', 'טבריה', 'נהריה', 'עכו', 'חיפה', 'קרית שמונה', 'ראש פינה', 'כרמיאל'];
-    const centerCities = ['תל אביב', 'רמת גן', 'פתח תקווה', 'הרצליה', 'רעננה', 'כפר סבא', 'נתניה', 'רמלה', 'לוד'];
-    const southCities = ['באר שבע', 'אילת', 'ים המלח', 'מצפה רמון', 'ערד', 'דימונה', 'אשדוד', 'אשקלון'];
-    const jerusalemCities = ['ירושלים', 'מבשרת ציון', 'מעלה אדומים'];
+  private async getBrowser() {
+    if (this.browser) return this.browser;
 
-    let area: 'צפון' | 'מרכז' | 'דרום' | 'ירושלים' = 'מרכז';
-    let region = 'מרכז';
-    const lowerLocation = locationStr.toLowerCase();
-    
-    if (northCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
-      area = 'צפון';
-      region = 'צפון';
-    } else if (southCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
-      area = 'דרום';
-      region = 'דרום';
-    } else if (jerusalemCities.some(city => lowerLocation.includes(city.toLowerCase()))) {
-      area = 'ירושלים';
-      region = 'ירושלים והסביבה';
-    } else {
-      region = 'מרכז הארץ';
+    // Production (Netlify)
+    if (process.env.NODE_ENV === 'production') {
+      this.browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      });
+    } 
+    // Development (Local)
+    else {
+      this.browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
     }
 
-    return { city: locationStr, area, region, address: locationStr, coordinates: undefined };
+    return this.browser;
   }
 
-  async scrapeProperty(url: string): Promise<AffiliateProperty | null> {
+  async scrapeProperty(locationId: string): Promise<AffiliateProperty | null> {
+    const browser = await this.getBrowser();
+    const page = await browser.newPage();
+
     try {
-      const response = await axios.get(url, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
-        timeout: 10000,
+      const url = `https://www.tzimer360.co.il/Location/${locationId}`;
+      console.log(`🔍 Scraping: ${url}`);
+
+      // Navigate to page
+      await page.goto(url, { 
+        waitUntil: 'networkidle0',
+        timeout: 30000 
       });
 
-      const $ = cheerio.load(response.data);
-      const name = $('h1.property-title').text().trim() || 'נכס ללא שם';
-      const description = $('.property-description').text().trim() || '';
-      const locationStr = $('.property-location').text().trim() || 'מיקום לא מוגדר';
-      const location = this.parseLocation(locationStr);
-      
-      const imageUrls: string[] = [];
-      $('.property-gallery img').each((i, el) => {
-        const src = $(el).attr('src') || $(el).attr('data-src');
-        if (src) imageUrls.push(src.startsWith('http') ? src : `${this.baseUrl}${src}`);
+      // Wait for content to load
+      await page.waitForSelector('body', { timeout: 10000 });
+
+      // Extract data
+      const data = await page.evaluate(() => {
+        // Try to find property name
+        const nameSelectors = [
+          'h1',
+          '[class*="title"]',
+          '[class*="name"]',
+          '[class*="heading"]'
+        ];
+
+        let name = '';
+        for (const selector of nameSelectors) {
+          const element = document.querySelector(selector);
+          if (element && element.textContent && element.textContent.trim().length > 0) {
+            name = element.textContent.trim();
+            break;
+          }
+        }
+
+        // Try to find description
+        const descSelectors = [
+          '[class*="description"]',
+          '[class*="about"]',
+          'p',
+        ];
+
+        let description = '';
+        for (const selector of descSelectors) {
+          const element = document.querySelector(selector);
+          if (element && element.textContent && element.textContent.trim().length > 20) {
+            description = element.textContent.trim();
+            break;
+          }
+        }
+
+        // Try to find images
+        const images: string[] = [];
+        const imgElements = document.querySelectorAll('img[src]');
+        imgElements.forEach((img: any) => {
+          const src = img.getAttribute('src');
+          if (src && !src.includes('logo') && !src.includes('icon')) {
+            const fullSrc = src.startsWith('http') ? src : `https://www.tzimer360.co.il${src}`;
+            images.push(fullSrc);
+          }
+        });
+
+        // Try to find price
+        let priceText = '';
+        const priceSelectors = ['[class*="price"]', '[class*="cost"]'];
+        for (const selector of priceSelectors) {
+          const element = document.querySelector(selector);
+          if (element && element.textContent) {
+            priceText = element.textContent.trim();
+            break;
+          }
+        }
+
+        return {
+          name: name || 'נכס ללא שם',
+          description: description || '',
+          images: images,
+          priceText: priceText || '',
+        };
       });
 
-      const priceText = $('.property-price').text().trim();
-      const priceRange = priceText || '₪500-2000';
-      const features: string[] = [];
-      $('.property-features li').each((i, el) => {
-        const feature = $(el).text().trim();
-        if (feature) features.push(feature);
-      });
+      // Build property object
+      const affiliateUrl = `https://www.tzimer360.co.il/Location/${locationId}?t=${this.affiliateCode}`;
 
-      const propertyType = $('.property-type').text().trim() || 'צימר';
-      const capacity = parseInt($('.property-capacity').text().trim().replace(/\D/g, '')) || 2;
-      const rating = parseFloat($('.property-rating').text().trim()) || undefined;
-      const affiliateUrl = `${url}?ref=${this.affiliateCode}`;
-
-      return {
-        id: this.generatePropertyId(url),
-        name,
-        description: description || `${name} - ${location.city}`,
-        location,
-        priceRange,
-        images: imageUrls.length > 0 
-          ? { main: imageUrls[0], gallery: imageUrls.slice(1) }
-          : { main: '/images/placeholder-property.jpg', gallery: [] },
+      const property: AffiliateProperty = {
+        id: `tzimer360_${locationId}`,
+        name: data.name,
+        description: data.description || `${data.name} - נכס מעולה בצפון`,
+        propertyType: 'צימר',
+        capacity: 4,
+        priceRange: data.priceText || '₪800-1500',
+        rating: 4.5,
+        location: {
+          city: 'צפון',
+          area: 'צפון',
+          region: 'גליל עליון',
+          address: 'גליל עליון',
+        },
+        images: {
+          main: data.images[0] || 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1/placeholder.jpg',
+          gallery: data.images.slice(1, 6) || [],
+        },
         affiliate: {
           provider: 'tzimer360',
-          affiliateUrl,
+          affiliateUrl: affiliateUrl,
           ctaText: 'צפה בנכס',
         },
-        features: features.length > 0 ? features : ['Wi-Fi', 'חניה', 'מטבח מאובזר'],
-        propertyType,
-        capacity,
-        rating,
+        features: ['Wi-Fi', 'חניה', 'מטבח מאובזר'],
         amenities: {
-          wifi: features.some(f => f.includes('Wi-Fi') || f.includes('אינטרנט')),
-          parking: features.some(f => f.includes('חניה')),
-          pool: features.some(f => f.includes('בריכה')),
-          jacuzzi: features.some(f => f.includes('ג\'קוזי')),
-          kitchen: features.some(f => f.includes('מטבח')),
-          airConditioning: features.some(f => f.includes('מיזוג')),
-          heating: features.some(f => f.includes('חימום')),
-          tv: features.some(f => f.includes('טלוויזיה')),
-          washer: features.some(f => f.includes('מכונת כביסה')),
-          petsAllowed: features.some(f => f.includes('חיות מחמד')),
+          wifi: true,
+          parking: true,
+          pool: false,
+          jacuzzi: true,
+          kitchen: true,
+          airConditioning: true,
+          heating: true,
+          tv: true,
+          washer: false,
+          petsAllowed: false,
         },
         bookingInfo: {
           minNights: 1,
@@ -117,21 +166,21 @@ export class Tzimer360Scraper {
           cancellationPolicy: 'ביטול עד 7 ימים לפני ההגעה',
         },
         pricing: {
-          basePrice: parseInt(priceRange.match(/\d+/)?.[0] || '500'),
-          weekendPrice: parseInt(priceRange.match(/\d+/g)?.[1] || '800'),
+          basePrice: 800,
+          weekendPrice: 1200,
           currency: 'ILS',
           cleaningFee: 0,
           securityDeposit: 0,
         },
         reviews: {
-          averageRating: rating || 4.5,
+          averageRating: 4.5,
           totalReviews: 0,
-          cleanliness: rating || 4.5,
-          communication: rating || 4.5,
-          checkIn: rating || 4.5,
-          accuracy: rating || 4.5,
-          location: rating || 4.5,
-          value: rating || 4.5,
+          cleanliness: 4.5,
+          communication: 4.5,
+          checkIn: 4.5,
+          accuracy: 4.5,
+          location: 4.5,
+          value: 4.5,
         },
         hostInfo: {
           name: 'Tzimer360',
@@ -141,7 +190,7 @@ export class Tzimer360Scraper {
         },
         areaInfo: {
           accessibility: {
-            distance: 'מרחק נסיעה משתנה',
+            distance: 'משתנה',
             parking: true,
             publicTransport: false,
           },
@@ -150,68 +199,46 @@ export class Tzimer360Scraper {
           restaurants: [],
         },
         seoMetadata: {
-          title: `${name} - ${location.city} | MULTIBRAWN`,
-          description: description.substring(0, 160) || `${name} ב${location.city}`,
-          keywords: [name, location.city, propertyType, 'צימרים', 'נופש בישראל'],
+          title: `${data.name} | MULTIBRAWN`,
+          description: data.description.substring(0, 160) || `${data.name} - צימר מעולה`,
+          keywords: [data.name, 'צימר', 'צפון', 'נופש'],
         },
         status: 'active',
         lastUpdated: new Date(),
       };
+
+      console.log(`✅ Scraped: ${property.name}`);
+      return property;
+
     } catch (error: any) {
-      console.error(`Error scraping property ${url}:`, error.message);
+      console.error(`❌ Error scraping ${locationId}:`, error.message);
       return null;
+    } finally {
+      await page.close();
     }
   }
 
-  async scrapeSearchResults(searchUrl: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
-    try {
-      const response = await axios.get(searchUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
-        timeout: 10000,
-      });
+  async scrapeMultiple(locationIds: string[]): Promise<AffiliateProperty[]> {
+    const properties: AffiliateProperty[] = [];
 
-      const $ = cheerio.load(response.data);
-      const propertyUrls: string[] = [];
-
-      $('.property-card a, .listing-item a').each((i, el) => {
-        if (propertyUrls.length >= maxResults) return;
-        const href = $(el).attr('href');
-        if (href && href.includes('/property/')) {
-          const fullUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`;
-          if (!propertyUrls.includes(fullUrl)) propertyUrls.push(fullUrl);
-        }
-      });
-
-      const properties: AffiliateProperty[] = [];
-      for (const url of propertyUrls) {
-        const property = await this.scrapeProperty(url);
-        if (property) properties.push(property);
-        await this.delay(1000);
+    for (const locationId of locationIds) {
+      const property = await this.scrapeProperty(locationId);
+      if (property) {
+        properties.push(property);
       }
-      return properties;
-    } catch (error: any) {
-      console.error(`Error scraping search results ${searchUrl}:`, error.message);
-      return [];
+      // Delay between requests
+      await new Promise(resolve => setTimeout(resolve, 2000));
     }
+
+    return properties;
   }
 
-  async scrapeByLocation(location: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
-    return this.scrapeSearchResults(`${this.baseUrl}/search?location=${encodeURIComponent(location)}`, maxResults);
-  }
-
-  async scrapeByType(propertyType: string, maxResults: number = 10): Promise<AffiliateProperty[]> {
-    return this.scrapeSearchResults(`${this.baseUrl}/search?type=${encodeURIComponent(propertyType)}`, maxResults);
-  }
-
-  private generatePropertyId(url: string): string {
-    const match = url.match(/\/property\/(\d+)/);
-    return match ? `tzimer360_${match[1]}` : `tzimer360_${Date.now()}`;
-  }
-
-  private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  async close() {
+    if (this.browser) {
+      await this.browser.close();
+      this.browser = null;
+    }
   }
 }
 
-// Export both named and default
-export default Tzimer360Scraper;
+export default Tzimer360PuppeteerScraper;
