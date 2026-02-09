@@ -2,205 +2,176 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './PropertyCard.module.css';
-import MediaModal from './MediaModal';
 
 interface PropertyCardProps {
   property: {
     id: string;
     name: string;
+    description: string;
     type: string;
     location: string;
-    guests: string;
-    features: string[];
+    region: string;
+    price: string;
+    capacity: number;
+    rating: number;
     images: string[];
-    videos?: string[];
-    description: string;
+    features: string[];
+    isAffiliate?: boolean;
+    affiliateUrl?: string;
+    affiliateProvider?: string;
+    affiliateCtaText?: string;
   };
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
 
-  // Combine images and videos
-  const allMedia = [
-    ...property.images.map((url) => ({ url, type: 'image' as const, alt: property.name })),
-    ...(property.videos?.map((url) => ({ url, type: 'video' as const })) || []),
-  ];
-
-  const handleImageClick = (index: number) => {
-    setCurrentMediaIndex(index);
-    setIsModalOpen(true);
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % property.images.length);
   };
 
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prev) => (prev === 0 ? property.images.length - 1 : prev - 1));
+  const prevImage = () => {
+    setCurrentImage((prev) => 
+      (prev - 1 + property.images.length) % property.images.length
+    );
   };
 
-  const handleNextImage = () => {
-    setCurrentImageIndex((prev) => (prev === property.images.length - 1 ? 0 : prev + 1));
+  // Handle click - affiliate properties go to external link, regular to internal
+  const handleClick = (e: React.MouseEvent) => {
+    if (property.isAffiliate && property.affiliateUrl) {
+      e.preventDefault();
+      window.open(property.affiliateUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
-  // Show max 5 images in carousel, rest accessible via modal
-  const displayImages = property.images.slice(0, 5);
-  const hasMoreImages = property.images.length > 5;
+  const CardWrapper = property.isAffiliate ? 'div' : Link;
+  const wrapperProps = property.isAffiliate 
+    ? { onClick: handleClick, style: { cursor: 'pointer' } }
+    : { href: `/properties/${property.id}` };
 
   return (
-    <>
-      <div className={styles.card}>
-        {/* Image Carousel */}
-        <div className={styles.imageSection}>
-          <div className={styles.imageWrapper}>
-            <Image
-              src={displayImages[currentImageIndex]}
-              alt={`${property.name} - תמונה ${currentImageIndex + 1}`}
-              width={400}
-              height={300}
-              className={styles.mainImage}
-              onClick={() => handleImageClick(currentImageIndex)}
-            />
+    <CardWrapper {...wrapperProps} className={styles.card}>
+      {/* Affiliate Badge */}
+      {property.isAffiliate && (
+        <div className={styles.affiliateBadge}>
+          <span className={styles.badgeIcon}>🤝</span>
+          <span className={styles.badgeText}>שותף</span>
+        </div>
+      )}
 
-            {/* Navigation Arrows - Only if multiple images */}
-            {displayImages.length > 1 && (
-              <>
-                <button
-                  className={`${styles.navButton} ${styles.prev}`}
-                  onClick={handlePrevImage}
-                  aria-label="תמונה קודמת"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </button>
-                <button
-                  className={`${styles.navButton} ${styles.next}`}
-                  onClick={handleNextImage}
-                  aria-label="תמונה הבאה"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </button>
-              </>
-            )}
+      {/* Image Section with Carousel */}
+      <div className={styles.imageSection}>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={property.images[currentImage]}
+            alt={property.name}
+            fill
+            className={styles.mainImage}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
 
-            {/* Image Counter */}
-            {displayImages.length > 1 && (
+          {/* Navigation Arrows - only if multiple images */}
+          {property.images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  prevImage();
+                }}
+                className={`${styles.navButton} ${styles.prev}`}
+                aria-label="תמונה קודמת"
+              >
+                ❮
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  nextImage();
+                }}
+                className={`${styles.navButton} ${styles.next}`}
+                aria-label="תמונה הבאה"
+              >
+                ❯
+              </button>
+
+              {/* Image Counter */}
               <div className={styles.imageCounter}>
-                {currentImageIndex + 1} / {property.images.length}
+                {currentImage + 1} / {property.images.length}
               </div>
-            )}
-          </div>
-
-          {/* Thumbnail Dots - Horizontal Scroll */}
-          {displayImages.length > 1 && (
-            <div className={styles.thumbnails}>
-              {displayImages.map((image, index) => (
-                <button
-                  key={index}
-                  className={`${styles.thumbnail} ${index === currentImageIndex ? styles.active : ''}`}
-                  onClick={() => setCurrentImageIndex(index)}
-                >
-                  <Image
-                    src={image}
-                    alt={`תמונה ממוזערת ${index + 1}`}
-                    width={60}
-                    height={45}
-                    className={styles.thumbnailImage}
-                  />
-                </button>
-              ))}
-              {hasMoreImages && (
-                <button
-                  className={`${styles.thumbnail} ${styles.moreThumbnail}`}
-                  onClick={() => {
-                    setCurrentMediaIndex(5);
-                    setIsModalOpen(true);
-                  }}
-                >
-                  <span className={styles.moreText}>+{property.images.length - 5}</span>
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Video Badge */}
-          {property.videos && property.videos.length > 0 && (
-            <button
-              className={styles.videoBadge}
-              onClick={() => {
-                setCurrentMediaIndex(property.images.length); // First video
-                setIsModalOpen(true);
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              <span>{property.videos.length} סרטונים</span>
-            </button>
+            </>
           )}
         </div>
+      </div>
 
-        {/* Content */}
-        <div className={styles.content}>
-          <div className={styles.header}>
-            <h3 className={styles.title}>{property.name}</h3>
-            <span className={styles.type}>{property.type}</span>
+      {/* Content Section */}
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <h3 className={styles.title}>{property.name}</h3>
+          <div className={styles.rating}>
+            <span className={styles.star}>⭐</span>
+            <span>{property.rating}</span>
           </div>
+        </div>
 
-          <div className={styles.location}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <span>{property.location}</span>
-          </div>
+        <div className={styles.location}>
+          📍 {property.location} • {property.region}
+        </div>
 
-          <div className={styles.guests}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            <span>{property.guests}</span>
-          </div>
+        <p className={styles.description}>
+          {property.description.substring(0, 120)}...
+        </p>
 
-          <p className={styles.description}>{property.description}</p>
+        <div className={styles.details}>
+          <span className={styles.type}>{property.type}</span>
+          <span className={styles.capacity}>👥 עד {property.capacity} אורחים</span>
+        </div>
 
+        {/* Features */}
+        {property.features && property.features.length > 0 && (
           <div className={styles.features}>
-            {property.features.slice(0, 3).map((feature, index) => (
-              <span key={index} className={styles.feature}>
+            {property.features.slice(0, 3).map((feature, idx) => (
+              <span key={idx} className={styles.feature}>
                 {feature}
               </span>
             ))}
             {property.features.length > 3 && (
-              <span className={styles.featureMore}>+{property.features.length - 3}</span>
+              <span className={styles.moreFeatures}>
+                +{property.features.length - 3}
+              </span>
             )}
           </div>
+        )}
 
-          <button
-            className={styles.viewButton}
-            onClick={() => {
-              setCurrentMediaIndex(0);
-              setIsModalOpen(true);
-            }}
-          >
-            צפה בפרטים המלאים
+        {/* Footer */}
+        <div className={styles.footer}>
+          <div className={styles.price}>
+            <span className={styles.priceAmount}>{property.price}</span>
+            <span className={styles.priceLabel}>ללילה</span>
+          </div>
+
+          <button className={styles.viewButton}>
+            {property.isAffiliate 
+              ? (property.affiliateCtaText || 'צפה בנכס')
+              : 'פרטים נוספים'
+            }
+            {property.isAffiliate && (
+              <span className={styles.externalIcon}>↗</span>
+            )}
           </button>
         </div>
-      </div>
 
-      {/* Media Modal */}
-      <MediaModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        media={allMedia}
-        currentIndex={currentMediaIndex}
-        onNavigate={setCurrentMediaIndex}
-      />
-    </>
+        {/* Affiliate Provider Logo */}
+        {property.isAffiliate && property.affiliateProvider === 'tzimer360' && (
+          <div className={styles.affiliateProvider}>
+            <span className={styles.poweredBy}>באמצעות</span>
+            <span className={styles.providerName}>Tzimer360</span>
+          </div>
+        )}
+      </div>
+    </CardWrapper>
   );
 }
