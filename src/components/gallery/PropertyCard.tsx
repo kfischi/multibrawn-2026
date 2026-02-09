@@ -46,10 +46,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
     }
   };
 
+  // Fix for TypeScript error: define href for both cases
+  const href = property.isAffiliate 
+    ? (property.affiliateUrl || '#') 
+    : `/properties/${property.id}`;
+
   const CardWrapper = property.isAffiliate ? 'div' : Link;
+  
+  // We include 'href' in both objects to satisfy TypeScript's check for Link components
   const wrapperProps = property.isAffiliate 
-    ? { onClick: handleClick, style: { cursor: 'pointer' } }
-    : { href: `/properties/${property.id}` };
+    ? { onClick: handleClick, style: { cursor: 'pointer' }, href }
+    : { href };
 
   return (
     <CardWrapper {...wrapperProps} className={styles.card}>
