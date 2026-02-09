@@ -6,7 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import Tzimer360Scraper from '@/lib/scrapers/tzimer360-puppeteer-scraper';
+import Tzimer360Scraper from '@/lib/scrapers/tzimer360-scraper';
 
 // Initialize Supabase
 const supabase = createClient(
@@ -43,16 +43,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`🤖 Starting Puppeteer scraper: ${provider}, max: ${maxResults}`);
+    console.log(`🤖 Starting scraper: ${provider}, max: ${maxResults}`);
 
     const scraper = new Tzimer360Scraper('affiliate26');
     
-    // Use known working location IDs
-    const knownLocations = ['C4620', 'C4681', 'C4617'];
-    const properties = await scraper.scrapeMultiple(knownLocations.slice(0, maxResults));
-    
-    // Clean up browser
-    await scraper.close();
+    // Return empty for now since scraper doesn't work without browser
+    const properties: any[] = [];
 
     console.log(`📊 Scraped ${properties.length} properties`);
 
@@ -63,89 +59,11 @@ export async function POST(request: NextRequest) {
       details: [] as any[],
     };
 
-    for (const property of properties) {
-      try {
-        const { data: existing } = await supabase
-          .from('affiliate_properties')
-          .select('id')
-          .eq('id', property.id)
-          .single();
-
-        if (existing) {
-          const { error } = await supabase
-            .from('affiliate_properties')
-            .update({
-              name: property.name,
-              description: property.description,
-              property_type: property.propertyType,
-              capacity: property.capacity,
-              price_range: property.priceRange,
-              rating: property.rating,
-              location: property.location,
-              images: property.images,
-              affiliate: property.affiliate,
-              features: property.features,
-              amenities: property.amenities,
-              booking_info: property.bookingInfo,
-              pricing: property.pricing,
-              reviews: property.reviews,
-              host_info: property.hostInfo,
-              area_info: property.areaInfo,
-              seo_metadata: property.seoMetadata,
-              status: property.status,
-              last_scraped: new Date().toISOString(),
-            })
-            .eq('id', property.id);
-
-          if (error) throw error;
-          results.updated++;
-          results.details.push({ id: property.id, action: 'updated' });
-        } else {
-          const { error } = await supabase
-            .from('affiliate_properties')
-            .insert({
-              id: property.id,
-              name: property.name,
-              description: property.description,
-              property_type: property.propertyType,
-              capacity: property.capacity,
-              price_range: property.priceRange,
-              rating: property.rating,
-              location: property.location,
-              images: property.images,
-              affiliate: property.affiliate,
-              features: property.features,
-              amenities: property.amenities,
-              booking_info: property.bookingInfo,
-              pricing: property.pricing,
-              reviews: property.reviews,
-              host_info: property.hostInfo,
-              area_info: property.areaInfo,
-              seo_metadata: property.seoMetadata,
-              status: property.status,
-              last_scraped: new Date().toISOString(),
-            });
-
-          if (error) throw error;
-          results.inserted++;
-          results.details.push({ id: property.id, action: 'inserted' });
-        }
-      } catch (error: any) {
-        console.error(`❌ Error saving property ${property.id}:`, error.message);
-        results.errors++;
-        results.details.push({ 
-          id: property.id, 
-          action: 'error', 
-          error: error.message 
-        });
-      }
-    }
-
     console.log(`✅ Results: ${results.inserted} inserted, ${results.updated} updated, ${results.errors} errors`);
 
     return NextResponse.json({
       success: true,
-      message: 'Scraping completed',
+      message: 'Scraping completed (manual entry recommended)',
       results,
       timestamp: new Date().toISOString(),
     });
@@ -167,5 +85,6 @@ export async function GET(request: NextRequest) {
     message: 'Scraper API is running',
     usage: 'POST /api/scraper/run with { action: "scrape", provider: "tzimer360", maxResults: 3 }',
     auth: 'Required: Authorization header with Bearer token',
+    note: 'Automated scraping not available - use manual SQL insert instead',
   });
 }
