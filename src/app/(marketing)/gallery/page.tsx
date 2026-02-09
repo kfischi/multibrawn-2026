@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import GalleryClient from './GalleryClient';
+import PropertyCard from '@/components/gallery/PropertyCard';
 import properties from '@/data/properties.json';
 import styles from './Gallery.module.css';
 
@@ -79,10 +78,14 @@ export default async function GalleryPage() {
         </div>
       </section>
 
-      {/* Gallery Content */}
-      <Suspense fallback={<div>טוען נכסים...</div>}>
-        <GalleryClient properties={allProperties} />
-      </Suspense>
+      {/* Gallery Grid */}
+      <section className={styles.gallerySection}>
+        <div className={styles.propertiesGrid}>
+          {allProperties.map((property) => (
+            <PropertyCard key={property.id} property={property} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
