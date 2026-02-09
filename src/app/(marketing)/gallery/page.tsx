@@ -55,7 +55,8 @@ export default async function GalleryPage() {
   const affiliateProps = await getAffiliateProperties();
 
   // Transform regular properties to include isAffiliate: false
-  const regularProps = properties.map(prop => ({
+  // FIX: Add .properties to access the array inside the JSON
+  const regularProps = properties.properties.map(prop => ({
     ...prop,
     isAffiliate: false,
   }));
