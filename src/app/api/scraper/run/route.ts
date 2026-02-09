@@ -6,7 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import Tzimer360Scraper from '@/lib/scrapers/tzimer360-scraper';
+import { Tzimer360Scraper } from '@/lib/scrapers/tzimer360-scraper';
 
 // Initialize Supabase
 const supabase = createClient(
