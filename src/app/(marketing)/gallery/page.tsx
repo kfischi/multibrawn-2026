@@ -22,27 +22,23 @@ async function getAffiliateProperties() {
       return [];
     }
 
-    // Transform affiliate properties to match regular property format
+    // Transform affiliate properties to match PropertyCard format
     return (data || []).map((prop: any) => ({
       id: prop.id,
       name: prop.name,
-      description: prop.description,
       type: prop.property_type || 'צימר',
       location: prop.location?.city || 'צפון',
-      region: prop.location?.region || 'ישראל',
-      price: prop.price_range || 'לפי בקשה',
-      capacity: prop.capacity || 4,
-      rating: prop.rating || 4.5,
+      guests: `עד ${prop.capacity || 4} אורחים`,
+      features: prop.features || [],
       images: [
         prop.images?.main || 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1/placeholder.jpg',
         ...(prop.images?.gallery || [])
       ],
-      features: prop.features || [],
-      // Mark as affiliate
+      videos: [],
+      description: prop.description || '',
+      // Add affiliate marker (will be used later for external link)
       isAffiliate: true,
       affiliateUrl: prop.affiliate?.affiliateUrl || '',
-      affiliateProvider: prop.affiliate?.provider || 'tzimer360',
-      affiliateCtaText: prop.affiliate?.ctaText || 'צפה בנכס',
     }));
   } catch (error) {
     console.error('Failed to fetch affiliate properties:', error);
@@ -54,12 +50,8 @@ export default async function GalleryPage() {
   // Fetch affiliate properties
   const affiliateProps = await getAffiliateProperties();
 
-  // Transform regular properties to include isAffiliate: false
-  // FIX: Add .properties to access the array inside the JSON
-  const regularProps = properties.properties.map(prop => ({
-    ...prop,
-    isAffiliate: false,
-  }));
+  // Regular properties already in correct format
+  const regularProps = properties.properties;
 
   // Combine all properties
   const allProperties = [...regularProps, ...affiliateProps];
