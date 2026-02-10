@@ -1,16 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+// 👇 התיקון: מייבאים את הקליינט המרכזי במקום ליצור חדש
+import { supabase } from '@/lib/supabase/client'; 
 import PropertyCard from '@/components/gallery/PropertyCard';
 import properties from '@/data/properties.json';
 import styles from './Gallery.module.css';
-
-// Initialize Supabase
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export default function GalleryPage() {
   const [affiliateProps, setAffiliateProps] = useState<any[]>([]);
@@ -19,13 +14,21 @@ export default function GalleryPage() {
   useEffect(() => {
     async function fetchAffiliate() {
       try {
+        // לוג בדיקה שיופיע בקונסול כדי שנדע שזה עובד
+        console.log('Gallery connecting to Supabase...'); 
+
         const { data, error } = await supabase
           .from('affiliate_properties')
           .select('*')
           .eq('status', 'active')
           .order('rating', { ascending: false });
 
-        if (!error && data) {
+        if (error) {
+          console.error('Supabase Error in Gallery:', error);
+        }
+
+        if (data) {
+          console.log('Loaded properties:', data.length);
           const transformed = data.map((prop: any) => ({
             id: prop.id,
             name: prop.name,
