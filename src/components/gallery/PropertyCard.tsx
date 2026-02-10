@@ -2,25 +2,24 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-// ויתרנו זמנית על next/image כדי למנוע בעיות דומיין
-import { FaStar, FaMapMarkerAlt, FaUserFriends } from 'react-icons/fa'; // הוספתי אייקונים אם צריך
+// מחקנו את השורה של react-icons שעשתה בעיות
 import styles from './PropertyCard.module.css';
 
 interface PropertyCardProps {
   property: {
     id: string | number;
     name?: string;
-    title?: string; // תמיכה בשמות ישנים
+    title?: string;
     description?: string;
     type?: string;
     location?: string;
-    city?: string; // תמיכה במיקום ישן
+    city?: string;
     region?: string;
     price?: string | number;
     capacity?: number | string;
     rating?: number | string;
     images?: string[];
-    image?: string; // תמיכה בתמונה בודדת
+    image?: string;
     features?: string[];
     isAffiliate?: boolean;
     affiliateUrl?: string;
@@ -34,11 +33,10 @@ const FALLBACK_IMAGE = 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1/pla
 export default function PropertyCard({ property }: PropertyCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
 
-  // --- הגנה 1: אם אין נכס, לא מציגים כלום (במקום לקרוס) ---
+  // הגנה 1: אם אין נכס
   if (!property) return null;
 
-  // --- הגנה 2: סידור נתונים (נרמול) ---
-  // אנחנו מכינים את המשתנים מראש כדי שלא יהיו הפתעות ב-HTML
+  // הגנה 2: נרמול נתונים
   const name = property.name || property.title || 'נכס אירוח';
   const description = property.description || '';
   const location = property.location || property.city || 'מיקום לא צוין';
@@ -47,20 +45,14 @@ export default function PropertyCard({ property }: PropertyCardProps) {
   const capacity = property.capacity || 4;
   const features = property.features || [];
 
-  // --- הגנה 3: טיפול בתמונות (הכי חשוב!) ---
+  // הגנה 3: טיפול בתמונות
   const getSafeImages = () => {
     let images: string[] = [];
-    
-    // ניסיון לקחת מערך תמונות
     if (Array.isArray(property.images) && property.images.length > 0) {
       images = property.images;
-    } 
-    // אם אין מערך, אולי יש תמונה בודדת?
-    else if (typeof property.image === 'string' && property.image) {
+    } else if (typeof property.image === 'string' && property.image) {
       images = [property.image];
     }
-
-    // אם עדיין אין כלום - תמונת ברירת מחדל
     if (images.length === 0) {
       images = [FALLBACK_IMAGE];
     }
@@ -69,10 +61,10 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
   const safeImages = getSafeImages();
 
-  // פונקציות קרוסלה (עובדות על המערך הבטוח)
+  // פונקציות קרוסלה
   const nextImage = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // מונע כניסה לדף הנכס כשלוחצים על חץ
+    e.stopPropagation();
     setCurrentImage((prev) => (prev + 1) % safeImages.length);
   };
 
@@ -88,14 +80,12 @@ export default function PropertyCard({ property }: PropertyCardProps) {
   const isAffiliate = property.isAffiliate;
   const affiliateUrl = property.affiliateUrl || '#';
   
-  // אם זה שותף - פותחים טאב חדש. אם זה רגיל - עוברים עמוד.
   const handleClick = (e: React.MouseEvent) => {
     if (isAffiliate && affiliateUrl) {
-      // אין צורך ב-window.open כאן כי ה-Link מטפל בזה, אבל אפשר להשאיר ליתר ביטחון
+      // אופציונלי: לוגיקה נוספת בלחיצה
     }
   };
 
-  // קובעים את ה-Wrapper: או לינק חיצוני או לינק פנימי
   const CardWrapper = Link;
   const href = isAffiliate ? affiliateUrl : `/property/${property.id}`;
   const target = isAffiliate ? '_blank' : undefined;
@@ -118,19 +108,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
       {/* איזור התמונות */}
       <div className={styles.imageSection}>
         <div className={styles.imageWrapper}>
-          {/* שימוש ב-img רגיל כדי למנוע קריסות של דומיינים */}
           <img
             src={safeImages[currentImage] || FALLBACK_IMAGE}
             alt={name}
             className={styles.mainImage}
             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             onError={(e) => {
-              // אם התמונה שבורה - החלף אותה מיד
               (e.target as HTMLImageElement).src = FALLBACK_IMAGE;
             }}
           />
 
-          {/* חיצים - רק אם יש יותר מתמונה אחת */}
+          {/* חיצים */}
           {safeImages.length > 1 && (
             <>
               <button
