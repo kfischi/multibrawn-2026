@@ -1,7 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
-// הגדרת הכתובת והמפתח (כולל גיבוי "קשיח" למקרה שהמשתנים לא עובדים)
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ulfwxmjerugxayuyliug.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsZnd4bWplcnVneGF5dXlsaXVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3Njg3ODksImV4cCI6MjA4NDM0NDc4OX0._-zdlFQx5c0ToJNiH2HM3DygCn4dHvkCAoeVj0GV42g';
+// שים לב: אנחנו כותבים את הכתובת ישירות בתוך הגרשיים!
+// אל תשנה את זה למשתנה process.env
+const supabaseUrl = 'https://ulfwxmjerugxayuyliug.supabase.co';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// את המפתח תדביק כאן במקום הטקסט בעברית
+const supabaseKey = 'הדבק_כאן_את_המפתח_הארוך_שלך_מסופבייס';
+
+console.log('🔌 Forced Supabase URL:', supabaseUrl);
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
