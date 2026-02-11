@@ -6,10 +6,16 @@ import Link from 'next/link';
 import PropertyCard from '@/components/gallery/PropertyCard';
 import styles from './Gallery.module.css';
 
-// --- הגדרות סופבייס (Hardcoded לפתרון מהיר) ---
-const supabaseUrl = 'https://cfulruffxneijmcvpclz.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmdWxydWZmeG5laWptY3ZwY2x6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTE4MDAsImV4cCI6MjA0OTU4NzgwMH0.NeyDg6C8yeFfdHMFXrVVdkurO-9K-hon0E98yAWG-V0';
+// --- הגדרות סופבייס (Hardcoded) ---
 
+// 1. הכתובת האמיתית של הפרויקט שלך (לפי הלוגים שעבדו קודם)
+const supabaseUrl = 'https://ulfwxmjerugxayuyliug.supabase.co';
+
+// 🔴 2. המקום למפתח הסודי שלך 🔴
+// תמחק את הטקסט למטה ותדביק את ה-anon_key הארוך שלך (מתחיל ב-ey...)
+const supabaseKey = 'הדבק_כאן_את_המפתח_הארוך_שלך_מתוך_env_local'; 
+
+// יצירת החיבור
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // --- טיפוסים ---
@@ -40,22 +46,24 @@ export default function GalleryPage() {
     async function fetchProperties() {
       try {
         setLoading(true);
-        console.log('Fetching from Supabase...');
+        console.log('Connecting to Supabase:', supabaseUrl);
         
-        // שליפה ישירה מהמסד
         const { data, error } = await supabase
           .from('affiliate_properties')
           .select('*')
           .eq('status', 'active')
           .order('created_at', { ascending: false });
 
-        if (error) throw error;
+        if (error) {
+          console.error('Supabase Error:', error);
+          throw error;
+        }
 
-        console.log('Data fetched:', data?.length);
+        console.log('Properties loaded:', data?.length);
         setProperties(data || []);
       } catch (err: any) {
-        console.error('Error fetching properties:', err);
-        setError(err.message);
+        console.error('Fetch Error:', err);
+        setError(err.message || 'שגיאה בחיבור למסד הנתונים');
       } finally {
         setLoading(false);
       }
@@ -66,7 +74,7 @@ export default function GalleryPage() {
 
   // --- לוגיקת סינון ---
   const filteredProperties = properties.filter(property => {
-    const matchesSearch = property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (property.location && property.location.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesRegion = selectedRegion === 'all' || (property.location && property.location.includes(selectedRegion));
@@ -75,15 +83,13 @@ export default function GalleryPage() {
     return matchesSearch && matchesRegion && matchesType;
   });
 
-  // רשימות ייחודיות לפילטרים
   const regions = Array.from(new Set(properties.map(p => p.location).filter(Boolean)));
   const types = Array.from(new Set(properties.map(p => p.property_type).filter(Boolean)));
 
-  // --- תצוגה ---
   return (
     <div className={styles.galleryPage} dir="rtl">
       
-      {/* Hero Section - עיצוב נטפליקס */}
+      {/* Hero Section */}
       <section className={styles.galleryHero}>
         <div className={styles.heroContentInner}>
           <h1 className={styles.heroTitle}>הנכסים המובחרים שלנו</h1>
@@ -93,10 +99,10 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* אזור הסינון והתוצאות */}
+      {/* אזור תוכן */}
       <section className={styles.gallerySection}>
         
-        {/* סרגל פילטרים */}
+        {/* סרגל כלים ופילטרים */}
         <div className="container mx-auto px-4 mb-8 -mt-8 relative z-20">
           <div className="bg-[#1f1f1f] p-4 rounded-xl shadow-2xl border border-[#333] flex flex-wrap gap-4 items-center justify-between">
             
@@ -134,21 +140,24 @@ export default function GalleryPage() {
           </div>
         </div>
 
-        {/* מצבי טעינה ושגיאה */}
+        {/* טעינה */}
         {loading && (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         )}
 
+        {/* שגיאה */}
         {error && (
           <div className="text-center p-10 bg-red-900/20 rounded-xl border border-red-800 mx-auto max-w-2xl">
-            <h3 className="text-xl text-red-500 font-bold mb-2">שגיאה בטעינת הנתונים</h3>
-            <p className="text-red-300">{error}</p>
+            <h3 className="text-xl text-red-500 font-bold mb-2">אופס, משהו השתבש</h3>
+            <p className="text-red-300">לא הצלחנו לטעון את הנכסים.</p>
+            <p className="text-sm text-gray-400 mt-2 ltr">{error}</p>
+            <p className="text-xs text-yellow-500 mt-4">טיפ: בדוק שהדבקת את ה-Key הנכון בקובץ הקוד.</p>
           </div>
         )}
 
-        {/* הגריד של הכרטיסים */}
+        {/* גריד תוצאות */}
         {!loading && !error && (
           <div className={styles.propertiesGrid}>
             {filteredProperties.map((property) => (
@@ -157,7 +166,7 @@ export default function GalleryPage() {
           </div>
         )}
 
-        {/* מצב ריק */}
+        {/* אין תוצאות */}
         {!loading && filteredProperties.length === 0 && (
           <div className="text-center py-20 text-gray-500">
             <h3 className="text-2xl font-bold mb-2">לא נמצאו נכסים</h3>
