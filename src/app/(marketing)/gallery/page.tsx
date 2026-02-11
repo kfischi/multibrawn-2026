@@ -6,19 +6,20 @@ import Link from 'next/link';
 import PropertyCard from '@/components/gallery/PropertyCard';
 import styles from './Gallery.module.css';
 
-// --- הגדרות סופבייס (Hardcoded) ---
+// --- הגדרות סופבייס עם ניקוי אגרסיבי ---
 
-// 1. הכתובת האמיתית של הפרויקט שלך (לפי הלוגים שעבדו קודם)
 const supabaseUrl = 'https://ulfwxmjerugxayuyliug.supabase.co';
 
-// 🔴 2. המקום למפתח הסודי שלך 🔴
-// תמחק את הטקסט למטה ותדביק את ה-anon_key הארוך שלך (מתחיל ב-ey...)
-const supabaseKey = 'הדבק_כאן_את_המפתח_הארוך_שלך_מתוך_env_local'; 
+// המפתח שלך (הדבקתי אותו כאן שוב נקי)
+const rawKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsZnd4bWplcnVneGF5dXlsaXVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3Njg3ODksImV4cCI6MjA4NDM0NDc4OX0._-zdlFQx5c0ToJNiH2HM3DygCn4dHvkCAoeVj0GV42g';
+
+// ניקוי: מוחק כל תו שאינו אנגלית/מספרים/סימנים סטנדרטיים ומוריד רווחים
+const supabaseKey = rawKey.replace(/[^\x20-\x7E]/g, '').trim();
 
 // יצירת החיבור
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// --- טיפוסים ---
+// --- שאר הקוד (ללא שינוי) ---
 interface Property {
   id: string;
   name: string;
@@ -37,7 +38,6 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // פילטרים
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('all');
   const [selectedType, setSelectedType] = useState('all');
@@ -46,8 +46,9 @@ export default function GalleryPage() {
     async function fetchProperties() {
       try {
         setLoading(true);
-        console.log('Connecting to Supabase:', supabaseUrl);
+        console.log('Connecting to Supabase...');
         
+        // נסיון שליפה
         const { data, error } = await supabase
           .from('affiliate_properties')
           .select('*')
@@ -55,15 +56,21 @@ export default function GalleryPage() {
           .order('created_at', { ascending: false });
 
         if (error) {
-          console.error('Supabase Error:', error);
+          console.error('Supabase Error Detailed:', JSON.stringify(error, null, 2));
           throw error;
         }
 
         console.log('Properties loaded:', data?.length);
         setProperties(data || []);
       } catch (err: any) {
-        console.error('Fetch Error:', err);
-        setError(err.message || 'שגיאה בחיבור למסד הנתונים');
+        // טיפול בשגיאת התווים הנסתרים
+        if (err.message && err.message.includes('ISO-8859-1')) {
+           console.error('Encoding Error:', err);
+           setError('שגיאת קידוד במפתח (Key Encoding Error)');
+        } else {
+           console.error('Fetch Error:', err);
+           setError(err.message || 'שגיאה בחיבור למסד הנתונים');
+        }
       } finally {
         setLoading(false);
       }
@@ -72,7 +79,6 @@ export default function GalleryPage() {
     fetchProperties();
   }, []);
 
-  // --- לוגיקת סינון ---
   const filteredProperties = properties.filter(property => {
     const matchesSearch = property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (property.location && property.location.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -89,7 +95,6 @@ export default function GalleryPage() {
   return (
     <div className={styles.galleryPage} dir="rtl">
       
-      {/* Hero Section */}
       <section className={styles.galleryHero}>
         <div className={styles.heroContentInner}>
           <h1 className={styles.heroTitle}>הנכסים המובחרים שלנו</h1>
@@ -99,10 +104,8 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* אזור תוכן */}
       <section className={styles.gallerySection}>
         
-        {/* סרגל כלים ופילטרים */}
         <div className="container mx-auto px-4 mb-8 -mt-8 relative z-20">
           <div className="bg-[#1f1f1f] p-4 rounded-xl shadow-2xl border border-[#333] flex flex-wrap gap-4 items-center justify-between">
             
@@ -140,24 +143,20 @@ export default function GalleryPage() {
           </div>
         </div>
 
-        {/* טעינה */}
         {loading && (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         )}
 
-        {/* שגיאה */}
         {error && (
           <div className="text-center p-10 bg-red-900/20 rounded-xl border border-red-800 mx-auto max-w-2xl">
             <h3 className="text-xl text-red-500 font-bold mb-2">אופס, משהו השתבש</h3>
             <p className="text-red-300">לא הצלחנו לטעון את הנכסים.</p>
             <p className="text-sm text-gray-400 mt-2 ltr">{error}</p>
-            <p className="text-xs text-yellow-500 mt-4">טיפ: בדוק שהדבקת את ה-Key הנכון בקובץ הקוד.</p>
           </div>
         )}
 
-        {/* גריד תוצאות */}
         {!loading && !error && (
           <div className={styles.propertiesGrid}>
             {filteredProperties.map((property) => (
@@ -166,7 +165,6 @@ export default function GalleryPage() {
           </div>
         )}
 
-        {/* אין תוצאות */}
         {!loading && filteredProperties.length === 0 && (
           <div className="text-center py-20 text-gray-500">
             <h3 className="text-2xl font-bold mb-2">לא נמצאו נכסים</h3>
