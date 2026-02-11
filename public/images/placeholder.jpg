@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Placeholder</title></head>
+<body style="margin:0">
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+// Gradient background
+const gradient = ctx.createLinearGradient(0, 0, 1920, 1080);
+gradient.addColorStop(0, '#00D4FF');
+gradient.addColorStop(0.5, '#5E63D8');
+gradient.addColorStop(1, '#FF4B8C');
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, 1920, 1080);
+
+// Overlay pattern
+ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+for(let i = 0; i < 1920; i += 40) {
+  for(let j = 0; j < 1080; j += 40) {
+    if((i + j) % 80 === 0) {
+      ctx.fillRect(i, j, 20, 20);
+    }
+  }
+}
+
+// Text
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+
+ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+ctx.font = 'bold 180px Arial';
+ctx.fillText('MULTIBRAWN', 960, 480);
+
+ctx.fillStyle = '#FFFFFF';
+ctx.font = 'bold 160px Arial';
+ctx.fillText('MULTIBRAWN', 960, 470);
+
+ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+ctx.font = '60px Arial';
+ctx.fillText('תמונה בקרוב', 960, 620);
+
+// Download
+canvas.toBlob(blob => {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'placeholder.jpg';
+  a.click();
+}, 'image/jpeg', 0.95);
+</script>
+</body>
+</html>
