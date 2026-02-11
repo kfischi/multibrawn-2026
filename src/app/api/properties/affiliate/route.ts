@@ -2,6 +2,7 @@
  * API Route: Fetch Affiliate Properties from Supabase
  * Path: /api/properties/affiliate
  * Method: GET
+ * FIXED VERSION - Better error handling
  */
 
 import { NextResponse } from 'next/server';
@@ -44,34 +45,51 @@ export async function GET() {
     console.log(`✅ Found ${properties.length} properties`);
 
     // Transform properties to match frontend interface
-    const transformedProperties = properties.map((property) => ({
-      id: property.id,
-      name: property.name,
-      description: property.description || '',
-      property_type: property.property_type || 'צימר',
-      capacity: property.capacity || 2,
-      location: property.location || { city: 'ישראל', area: 'לא צוין' },
-      images: property.images || { main: '/images/placeholder.jpg', gallery: [] },
-      price_range: property.price_range || 'לפי בקשה',
-      rating: property.rating || undefined,
-      features: property.features || [],
-      affiliate: {
-        affiliateUrl: property.affiliate?.affiliateUrl || 
-                     property.affiliate?.originalUrl || 
-                     'https://tzimer360.co.il',
-        provider: property.affiliate?.provider || 'tzimer360',
-      },
-    }));
+    const transformedProperties = properties.map((property) => {
+      // Fix image URLs - handle Cloudinary paths
+      let images = property.images || { main: '/images/placeholder.jpg', gallery: [] };
+      
+      // If images.main has a relative Cloudinary path, make it absolute
+      if (typeof images === 'object' && images.main) {
+        if (images.main.startsWith('https://res.cloudinary.com/')) {
+          // Already absolute - keep it
+        } else if (images.main.includes('cloudinary') && !images.main.startsWith('http')) {
+          // Relative Cloudinary path - make absolute
+          images = {
+            main: `https://res.cloudinary.com/${images.main}`,
+            gallery: images.gallery || []
+          };
+        }
+      }
+
+      return {
+        id: property.id,
+        name: property.name || 'נכס ללא שם',
+        description: property.description || '',
+        property_type: property.property_type || 'צימר',
+        capacity: property.capacity || 2,
+        location: property.location || { city: 'ישראל', area: 'לא צוין' },
+        images: images,
+        price_range: property.price_range || 'לפי בקשה',
+        rating: property.rating || undefined,
+        features: property.features || [],
+        affiliate: {
+          affiliateUrl: property.affiliate_url || // Fallback to old column name
+                       property.affiliate?.affiliateUrl || 
+                       property.affiliate?.originalUrl || 
+                       'https://tzimer360.co.il',
+          provider: property.affiliate?.provider || 'tzimer360',
+        },
+      };
+    });
 
     // Log sample for debugging
     if (transformedProperties.length > 0) {
       console.log('📦 Sample property:', {
         id: transformedProperties[0].id,
         name: transformedProperties[0].name,
-        images_type: Array.isArray(transformedProperties[0].images) ? 'array' : 'object',
-        images_count: Array.isArray(transformedProperties[0].images) 
-          ? transformedProperties[0].images.length 
-          : (transformedProperties[0].images.gallery?.length || 0) + 1,
+        images_type: typeof transformedProperties[0].images,
+        has_main: transformedProperties[0].images?.main ? 'yes' : 'no',
       });
     }
 
@@ -88,20 +106,19 @@ export async function GET() {
   }
 }
 
-// Optional: Health check endpoint
+// Health check endpoint
 export async function HEAD() {
   try {
-    const { data, error } = await supabase
+    const { count, error } = await supabase
       .from('affiliate_properties')
-      .select('count')
-      .limit(1);
+      .select('*', { count: 'exact', head: true });
 
     if (error) throw error;
 
     return new NextResponse(null, {
       status: 200,
       headers: {
-        'X-Property-Count': String(data?.length || 0),
+        'X-Property-Count': String(count || 0),
         'X-Supabase-Status': 'connected',
       },
     });
