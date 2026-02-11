@@ -1,82 +1,78 @@
-/* Gallery.module.css - עיצוב נטפליקס יוקרתי */
+/* PropertyCard.module.css */
 
-.galleryPage {
-  min-height: 100vh;
-  background-color: #141414; /* רקע שחור עמוק */
-  color: #fff;
-  font-family: sans-serif;
-  direction: rtl;
+.card {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* יחס קולנועי רחב */
+  border-radius: 4px; /* פינות מעוגלות בעדינות */
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), z-index 0s 0.3s;
+  background-color: #2f2f2f; /* צבע רקע בזמן טעינה */
 }
 
-/* --- Hero Section --- */
-.galleryHero {
+/* התמונה עצמה */
+.imageWrapper {
+  width: 100%;
+  height: 100%;
   position: relative;
-  height: 40vh; /* גובה ההירו */
-  min-height: 300px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), #141414),
-              url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* חותך את התמונה שתתאים בדיוק */
+  transition: opacity 0.3s ease;
+}
+
+/* שכבת המידע (Overlay) */
+.contentOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+  opacity: 1; /* תמיד רואים את הטקסט למטה */
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-bottom: 2rem;
+  font-size: 0.75rem;
+  color: #b3b3b3; /* אפור בהיר */
 }
 
-.heroContentInner {
-  z-index: 2;
-  padding: 20px;
-  animation: fadeIn 1s ease-out;
-}
-
-.heroTitle {
-  font-size: 3.5rem;
+.price {
+  color: #46d369; /* הירוק המפורסם של נטפליקס ל-Match */
   font-weight: 800;
-  margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-  background: linear-gradient(45deg, #fff, #a5a5a5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
-.heroSubtitle {
-  font-size: 1.2rem;
-  color: #ddd;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+/* --- האפקט המטורף של הריחוף (HOVER) --- */
+.card:hover {
+  transform: scale(1.1); /* הגדלה משמעותית */
+  z-index: 99; /* עולה מעל כולם */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* --- Grid Section --- */
-.gallerySection {
-  padding: 0 4%;
-  position: relative;
-  z-index: 10;
-}
-
-/* הגריד הקסום - זה מה שהופך את זה לגלריה ולא לרשימה ענקית */
-.propertiesGrid {
-  display: grid;
-  /* יוצר עמודות אוטומטיות ברוחב מינימלי של 280 פיקסל */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px; /* רווח בין הכרטיסים */
-  padding-bottom: 80px;
-}
-
-/* התאמה לנייד */
-@media (max-width: 768px) {
-  .heroTitle {
-    font-size: 2rem;
-  }
-  
-  .propertiesGrid {
-    /* בנייד - 2 כרטיסים בשורה או 1 תלוי בגודל */
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-  }
-}
-
-/* אנימציית כניסה */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.card:hover .contentOverlay {
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 100%);
 }
