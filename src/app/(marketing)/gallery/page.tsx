@@ -19,7 +19,7 @@ const supabaseKey = rawKey.replace(/[^\x20-\x7E]/g, '').trim();
 // יצירת החיבור
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// --- שאר הקוד (ללא שינוי) ---
+// --- טיפוסים ---
 interface Property {
   id: string;
   name: string;
@@ -79,6 +79,7 @@ export default function GalleryPage() {
     fetchProperties();
   }, []);
 
+  // --- לוגיקת סינון ---
   const filteredProperties = properties.filter(property => {
     const matchesSearch = property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (property.location && property.location.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -95,6 +96,7 @@ export default function GalleryPage() {
   return (
     <div className={styles.galleryPage} dir="rtl">
       
+      {/* Hero Section */}
       <section className={styles.galleryHero}>
         <div className={styles.heroContentInner}>
           <h1 className={styles.heroTitle}>הנכסים המובחרים שלנו</h1>
@@ -104,8 +106,10 @@ export default function GalleryPage() {
         </div>
       </section>
 
+      {/* אזור תוכן */}
       <section className={styles.gallerySection}>
         
+        {/* סרגל כלים ופילטרים */}
         <div className="container mx-auto px-4 mb-8 -mt-8 relative z-20">
           <div className="bg-[#1f1f1f] p-4 rounded-xl shadow-2xl border border-[#333] flex flex-wrap gap-4 items-center justify-between">
             
@@ -143,12 +147,14 @@ export default function GalleryPage() {
           </div>
         </div>
 
+        {/* טעינה */}
         {loading && (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         )}
 
+        {/* שגיאה */}
         {error && (
           <div className="text-center p-10 bg-red-900/20 rounded-xl border border-red-800 mx-auto max-w-2xl">
             <h3 className="text-xl text-red-500 font-bold mb-2">אופס, משהו השתבש</h3>
@@ -157,6 +163,7 @@ export default function GalleryPage() {
           </div>
         )}
 
+        {/* גריד תוצאות */}
         {!loading && !error && (
           <div className={styles.propertiesGrid}>
             {filteredProperties.map((property) => (
@@ -165,6 +172,7 @@ export default function GalleryPage() {
           </div>
         )}
 
+        {/* אין תוצאות */}
         {!loading && filteredProperties.length === 0 && (
           <div className="text-center py-20 text-gray-500">
             <h3 className="text-2xl font-bold mb-2">לא נמצאו נכסים</h3>
