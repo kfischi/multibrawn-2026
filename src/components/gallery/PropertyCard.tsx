@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import styles from './PropertyCard.module.css';
 
@@ -8,126 +7,62 @@ interface PropertyCardProps {
   property: {
     id: string | number;
     name?: string;
-    title?: string;
-    description?: string;
-    type?: string;
     location?: string;
-    city?: string;
     price?: string | number;
-    capacity?: number | string;
+    images?: any; // גמישות בפורמט התמונה (מחרוזת, מערך או אובייקט)
     rating?: number | string;
-    images?: string[];
-    image?: string;
-    features?: string[];
-    isAffiliate?: boolean;
-    affiliateUrl?: string;
-    affiliateCtaText?: string;
   };
 }
 
-const FALLBACK_IMAGE = 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1/placeholder.jpg';
+// 1. הלינק החדש והתקין לתמונת ברירת מחדל
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1600596542815-22b4899975d6?q=80&w=800&auto=format&fit=crop';
 
 export default function PropertyCard({ property }: PropertyCardProps) {
-  const [currentImage, setCurrentImage] = useState(0);
+  if (!property || !property.id) return null;
 
-  if (!property) return null;
+  // 2. לוגיקה חכמה לחילוץ תמונה מכל פורמט אפשרי ב-Supabase
+  let imageUrl = FALLBACK_IMAGE;
+  
+  if (property.images) {
+      // אם זה אובייקט JSON עם שדה main (כמו שעשינו ב-SQL האחרון)
+      if (typeof property.images === 'object' && !Array.isArray(property.images) && property.images.main) {
+          imageUrl = property.images.main;
+      }
+      // אם זה מערך רגיל
+      else if (Array.isArray(property.images) && property.images.length > 0) {
+          imageUrl = property.images[0];
+      } 
+      // אם זו סתם מחרוזת טקסט (כמו 'http...')
+      else if (typeof property.images === 'string' && property.images.length > 10) { 
+          // בדיקה שהמחרוזת לא מכילה JSON שבור
+          if (!property.images.includes('{')) {
+              imageUrl = property.images;
+          }
+      }
+  }
 
-  // נרמול נתונים
-  const name = property.name || property.title || 'נכס אירוח';
-  const location = property.location || property.city || 'מיקום לא צוין';
-  const price = property.price ? `₪${property.price}` : 'צור קשר';
-  const rating = Number(property.rating) || 5;
-  const capacity = property.capacity || 4;
-
-  // בניה בטוחה של הלינק לדף הפנימי
-  // אם ה-ID חסר, אנחנו מייצרים לינק שלא עושה כלום כדי לא לשבור את האתר
-  const internalLink = property.id ? `/property/${property.id}` : '#';
-
-  // טיפול בתמונות
-  const getSafeImages = () => {
-    let images: string[] = [];
-    if (Array.isArray(property.images) && property.images.length > 0) {
-      images = property.images;
-    } else if (typeof property.image === 'string' && property.image) {
-      images = [property.image];
-    }
-    if (images.length === 0) {
-      images = [FALLBACK_IMAGE];
-    }
-    return images;
-  };
-
-  const safeImages = getSafeImages();
-
-  // ניווט בתמונות (מונע מעבר לדף כשלוחצים על החיצים)
-  const nextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImage((prev) => (prev + 1) % safeImages.length);
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImage((prev) => 
-      (prev - 1 + safeImages.length) % safeImages.length
-    );
-  };
+  // ניקוי המחיר להצגה
+  const displayPrice = (property.price === '0' || property.price === 0) ? '' : `₪${property.price}`;
+  const location = property.location || 'מיקום כללי';
 
   return (
-    <Link href={internalLink} className={styles.card}>
-      
-      {/* תג שותף */}
-      {property.isAffiliate && (
-        <div className={styles.affiliateBadge}>
-          <span className={styles.badgeIcon}>💎</span>
-          <span className={styles.badgeText}>מומלץ</span>
-        </div>
-      )}
-
-      {/* תמונה */}
-      <div className={styles.imageSection}>
-        <div className={styles.imageWrapper}>
-          <img
-            src={safeImages[currentImage] || FALLBACK_IMAGE}
-            alt={name}
-            className={styles.mainImage}
-            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-            onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMAGE; }}
-          />
-
-          {safeImages.length > 1 && (
-            <>
-              <button onClick={prevImage} className={`${styles.navButton} ${styles.prev}`}>❮</button>
-              <button onClick={nextImage} className={`${styles.navButton} ${styles.next}`}>❯</button>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* תוכן */}
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <h3 className={styles.title}>{name}</h3>
-          <div className={styles.rating}>⭐ {rating}</div>
-        </div>
-
-        <div className={styles.location}>📍 {location}</div>
-
-        <div className={styles.details}>
-          <span className={styles.capacity}>👥 עד {capacity} אורחים</span>
-        </div>
-
-        <div className={styles.footer}>
-          <div className={styles.price}>
-            <span className={styles.priceAmount}>{price}</span>
-            <span className={styles.priceLabel}> ללילה</span>
+    <Link href={`/property/${property.id}`} className={styles.card}>
+      <div className={styles.imageWrapper}>
+        <img
+          src={imageUrl}
+          alt={property.name || 'נכס'}
+          className={styles.mainImage}
+          loading="lazy"
+          onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMAGE; }}
+        />
+        
+        {/* שכבת טקסט על התמונה - סגנון נטפליקס */}
+        <div className={styles.contentOverlay}>
+          <h3 className={styles.title}>{property.name}</h3>
+          <div className={styles.details}>
+            <span>📍 {location}</span>
+            {displayPrice && <span className={styles.price}>{displayPrice}</span>}
           </div>
-          
-          {/* כפתור דמה - הלינק האמיתי הוא על כל הכרטיס */}
-          <button className={styles.viewButton}>
-            פרטים והזמנה 👈
-          </button>
         </div>
       </div>
     </Link>
