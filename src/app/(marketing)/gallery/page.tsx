@@ -1,207 +1,24 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import PropertyCard from '@/components/gallery/PropertyCard';
 import styles from './Gallery.module.css';
 
-// Types
+// Type matching your Supabase structure
 interface Property {
   id: string;
   name: string;
-  description: string;
-  property_type: string;
-  capacity: number | { min?: number; max?: number };
-  location: {
-    city: string;
-    area: string;
-    region?: string;
-  };
-  images: string[] | { main: string; gallery: string[] };
-  price_range?: string;
+  description?: string;
+  location?: string;
+  price?: string | number;
+  images?: any;
   rating?: number;
+  property_type?: string;
   features?: string[];
-  affiliate: {
-    affiliateUrl: string;
-    provider: string;
-  };
+  affiliate_url?: string;
 }
 
-// Helper: Convert images to array format
-function getImagesArray(images: Property['images']): string[] {
-  if (Array.isArray(images)) {
-    return images.filter(Boolean);
-  }
-  if (images && typeof images === 'object') {
-    const main = images.main || '';
-    const gallery = images.gallery || [];
-    return [main, ...gallery].filter(Boolean);
-  }
-  return [];
-}
-
-// Helper: Get capacity string
-function getCapacityString(capacity: Property['capacity']): string {
-  if (typeof capacity === 'number') {
-    return `עד ${capacity} אורחים`;
-  }
-  if (capacity && typeof capacity === 'object') {
-    if (capacity.max) return `עד ${capacity.max} אורחים`;
-    if (capacity.min) return `מ-${capacity.min} אורחים`;
-  }
-  return 'קיבולת לא צוינה';
-}
-
-// Property Card Component
-function PropertyCard({ property }: { property: Property }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const images = getImagesArray(property.images);
-  const hasMultipleImages = images.length > 1;
-
-  // Auto-rotate images on hover
-  useEffect(() => {
-    if (!isHovered || !hasMultipleImages) return;
-    
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, [isHovered, images.length, hasMultipleImages]);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    setCurrentImageIndex(0);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCurrentImageIndex(0);
-  };
-
-  const mainImage = images[currentImageIndex] || '/images/placeholder.jpg';
-  const location = typeof property.location === 'string' 
-    ? property.location 
-    : property.location?.city || property.location?.area || 'ישראל';
-
-  return (
-    <div 
-      className={styles.card}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Image Container */}
-      <div className={styles.imageContainer}>
-        <Image
-          src={mainImage}
-          alt={property.name}
-          fill
-          className={styles.cardImage}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={false}
-          onError={(e) => {
-            e.currentTarget.src = '/images/placeholder.jpg';
-          }}
-        />
-        
-        {/* Gradient Overlay */}
-        <div className={styles.imageGradient} />
-
-        {/* Image Counter */}
-        {hasMultipleImages && (
-          <div className={styles.imageCounter}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-            </svg>
-            <span>{images.length}</span>
-          </div>
-        )}
-
-        {/* Rating Badge */}
-        {property.rating && (
-          <div className={styles.ratingBadge}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-            </svg>
-            <span>{property.rating.toFixed(1)}</span>
-          </div>
-        )}
-
-        {/* Type Badge */}
-        <div className={styles.typeBadge}>
-          {property.property_type}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className={styles.cardContent}>
-        <div className={styles.cardHeader}>
-          <h3 className={styles.cardTitle}>{property.name}</h3>
-          <div className={styles.cardLocation}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            <span>{location}</span>
-          </div>
-        </div>
-
-        <p className={styles.cardDescription}>{property.description}</p>
-
-        <div className={styles.cardMeta}>
-          <div className={styles.metaItem}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-            <span>{getCapacityString(property.capacity)}</span>
-          </div>
-          {property.price_range && (
-            <div className={styles.metaPrice}>
-              {property.price_range}
-            </div>
-          )}
-        </div>
-
-        {/* Features Pills */}
-        {property.features && property.features.length > 0 && (
-          <div className={styles.features}>
-            {property.features.slice(0, 3).map((feature, idx) => (
-              <span key={idx} className={styles.featurePill}>
-                {feature}
-              </span>
-            ))}
-            {property.features.length > 3 && (
-              <span className={styles.featurePill} style={{ background: 'rgba(160, 107, 255, 0.15)', color: '#A06BFF' }}>
-                +{property.features.length - 3}
-              </span>
-            )}
-          </div>
-        )}
-
-        {/* CTA Button */}
-        <a
-          href={property.affiliate.affiliateUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.ctaButton}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span>צפה בנכס</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-
-      {/* Hover Effect Shine */}
-      <div className={styles.cardShine} />
-    </div>
-  );
-}
-
-// Main Gallery Component
-export default function AffiliateGallery() {
+export default function Gallery() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -212,18 +29,35 @@ export default function AffiliateGallery() {
   const [selectedType, setSelectedType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch properties
+  // Fetch properties from Supabase
   useEffect(() => {
     async function fetchProperties() {
       try {
         setLoading(true);
-        const response = await fetch('/api/properties/affiliate');
         
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl || !supabaseKey) {
+          throw new Error('Supabase configuration missing');
+        }
+
+        const response = await fetch(
+          `${supabaseUrl}/rest/v1/affiliate_properties?select=*&status=eq.active&order=created_at.desc`,
+          {
+            headers: {
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`,
+            },
+          }
+        );
+
         if (!response.ok) {
           throw new Error('Failed to fetch properties');
         }
-        
+
         const data = await response.json();
+        console.log(`✅ Loaded ${data.length} properties`);
         setProperties(data);
         setFilteredProperties(data);
       } catch (err) {
@@ -241,12 +75,9 @@ export default function AffiliateGallery() {
   useEffect(() => {
     let filtered = [...properties];
 
-    // Area filter
+    // Area filter (location field)
     if (selectedArea !== 'all') {
-      filtered = filtered.filter(p => {
-        const area = typeof p.location === 'string' ? p.location : p.location?.area;
-        return area === selectedArea;
-      });
+      filtered = filtered.filter(p => p.location === selectedArea);
     }
 
     // Type filter
@@ -258,9 +89,9 @@ export default function AffiliateGallery() {
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(p =>
-        p.name.toLowerCase().includes(query) ||
+        p.name?.toLowerCase().includes(query) ||
         p.description?.toLowerCase().includes(query) ||
-        (typeof p.location === 'string' ? p.location : p.location?.city || '').toLowerCase().includes(query)
+        p.location?.toLowerCase().includes(query)
       );
     }
 
@@ -268,10 +99,7 @@ export default function AffiliateGallery() {
   }, [selectedArea, selectedType, searchQuery, properties]);
 
   // Get unique areas and types
-  const areas = ['all', ...new Set(properties.map(p => 
-    typeof p.location === 'string' ? p.location : p.location?.area
-  ).filter(Boolean))];
-  
+  const areas = ['all', ...new Set(properties.map(p => p.location).filter(Boolean))];
   const types = ['all', ...new Set(properties.map(p => p.property_type).filter(Boolean))];
 
   if (loading) {
@@ -379,7 +207,7 @@ export default function AffiliateGallery() {
         </div>
       </div>
 
-      {/* Properties Grid */}
+      {/* Properties Grid - Using YOUR PropertyCard */}
       <div className={styles.gridContainer}>
         <div className={styles.grid}>
           {filteredProperties.map((property) => (
