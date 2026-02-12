@@ -1,15 +1,13 @@
-/* ============================================
-   🎨 MULTIBRAWN Gallery Styles
-   ============================================ */
-
-/* ========== LOADING STATE ========== */
-.loadingContainer {
+/* Loading */
+.loadingContainer, .errorContainer, .emptyContainer {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  padding: 20px;
+  text-align: center;
 }
 
 .loadingSpinner {
@@ -21,37 +19,22 @@
   animation: spin 1s linear infinite;
 }
 
-.loadingText {
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loadingText, .emptyMessage {
   margin-top: 20px;
   color: white;
   font-size: 18px;
-  font-weight: 500;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ========== ERROR STATE ========== */
-.errorContainer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  padding: 20px;
-  text-align: center;
-}
-
-.errorIcon {
+.errorIcon, .emptyIcon {
   font-size: 64px;
   margin-bottom: 20px;
 }
 
-.errorTitle {
+.errorTitle, .emptyTitle {
   color: white;
   font-size: 32px;
   font-weight: 700;
@@ -73,50 +56,20 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s;
 }
 
 .errorRetryBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
 }
 
-/* ========== EMPTY STATE ========== */
-.emptyContainer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  padding: 20px;
-  text-align: center;
-}
-
-.emptyIcon {
-  font-size: 64px;
-  margin-bottom: 20px;
-}
-
-.emptyTitle {
-  color: white;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.emptyMessage {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 16px;
-}
-
-/* ========== GALLERY PAGE ========== */
+/* Page */
 .galleryPage {
   min-height: 100vh;
   background: #0f0f0f;
 }
 
-/* ========== HERO SECTION ========== */
+/* Hero */
 .hero {
   position: relative;
   height: 50vh;
@@ -132,7 +85,7 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+  background: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 .heroContent {
@@ -147,7 +100,6 @@
   font-weight: 900;
   color: white;
   margin-bottom: 16px;
-  line-height: 1.1;
   text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
@@ -157,7 +109,7 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* ========== FILTER BAR ========== */
+/* Filter Bar */
 .filterBar {
   display: flex;
   gap: 12px;
@@ -165,13 +117,6 @@
   max-width: 1400px;
   margin: 0 auto 40px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.filterBar::-webkit-scrollbar {
-  display: none;
 }
 
 .filterButton {
@@ -188,28 +133,20 @@
   cursor: pointer;
   transition: all 0.3s;
   white-space: nowrap;
-  scroll-snap-align: start;
-  flex-shrink: 0;
-}
-
-.filterButton svg {
-  flex-shrink: 0;
 }
 
 .filterButton:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .filterButton.active {
   background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
   border-color: transparent;
   color: white;
-  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
 }
 
-/* ========== GALLERY SECTION ========== */
+/* Gallery */
 .gallerySection {
   max-width: 1600px;
   margin: 0 auto;
@@ -229,21 +166,18 @@
 
 .categoryIconWrapper {
   font-size: 48px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .categoryTitle {
   font-size: 32px;
   font-weight: 800;
   color: white;
-  margin: 0;
 }
 
 .categoryDescription {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 24px;
-  line-height: 1.6;
 }
 
 .galleryRow {
@@ -252,12 +186,11 @@
   gap: 32px;
 }
 
-/* ========== CTA SECTION ========== */
+/* CTA */
 .ctaSection {
   background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
   padding: 80px 20px;
   text-align: center;
-  margin-top: 60px;
 }
 
 .ctaContent {
@@ -288,73 +221,20 @@
   border-radius: 50px;
   text-decoration: none;
   transition: all 0.3s;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .ctaButton:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  .galleryRow {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-  }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
   .hero {
     height: 40vh;
     min-height: 300px;
-    margin-bottom: 30px;
   }
-
-  .filterBar {
-    padding: 16px 12px;
-    gap: 8px;
-    margin-bottom: 30px;
-  }
-
-  .filterButton {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-
-  .gallerySection {
-    padding: 0 12px 40px;
-  }
-
-  .categorySection {
-    margin-bottom: 40px;
-  }
-
-  .categoryIconWrapper {
-    font-size: 36px;
-  }
-
-  .categoryTitle {
-    font-size: 24px;
-  }
-
-  .categoryDescription {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
   .galleryRow {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
-  }
-
-  .ctaSection {
-    padding: 60px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .galleryRow {
-    grid-template-columns: 1fr;
   }
 }
