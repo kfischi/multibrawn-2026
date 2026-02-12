@@ -28,6 +28,8 @@ interface AffiliateProperty {
   images: { main: string; gallery: string[] };
   description?: string;
   affiliate: { affiliateUrl: string };
+  featured?: boolean;
+  rating?: number;
 }
 
 export default function GalleryPage() {
@@ -57,13 +59,20 @@ export default function GalleryPage() {
         const { data, error: fetchError } = await supabase
           .from('affiliate_properties')
           .select('*')
-          .eq('status', 'active')
-          .order('featured', { ascending: false })
-          .order('rating', { ascending: false, nullsFirst: false });
+          .eq('status', 'active');
 
         if (fetchError) throw fetchError;
 
-        const transformedProperties: Property[] = (data || []).map((item: AffiliateProperty) => ({
+        // Sort manually in JavaScript
+        const sortedData = (data || []).sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          const ratingA = a.rating || 0;
+          const ratingB = b.rating || 0;
+          return ratingB - ratingA;
+        });
+
+        const transformedProperties: Property[] = sortedData.map((item: AffiliateProperty) => ({
           id: item.id,
           name: item.name,
           type: mapPropertyType(item.property_type),
