@@ -1,76 +1,145 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import Link from 'next/link';
-import PropertyCard from '@/components/gallery/PropertyCard';
+import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import styles from './Gallery.module.css';
+import PropertyCard from '@/components/gallery/PropertyCard';
+import { supabase } from '@/lib/supabase/client';
 
-// --- הגדרות סופבייס עם ניקוי אגרסיבי ---
+// ============================================
+// 🎯 TYPES
+// ============================================
 
-const supabaseUrl = 'https://ulfwxmjerugxayuyliug.supabase.co';
-
-// המפתח שלך (הדבקתי אותו כאן שוב נקי)
-const rawKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsZnd4bWplcnVneGF5dXlsaXVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3Njg3ODksImV4cCI6MjA4NDM0NDc4OX0._-zdlFQx5c0ToJNiH2HM3DygCn4dHvkCAoeVj0GV42g';
-
-// ניקוי: מוחק כל תו שאינו אנגלית/מספרים/סימנים סטנדרטיים ומוריד רווחים
-const supabaseKey = rawKey.replace(/[^\x20-\x7E]/g, '').trim();
-
-// יצירת החיבור
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// --- טיפוסים ---
 interface Property {
   id: string;
   name: string;
+  type: string;
   location: string;
-  price: string | number;
-  images: any;
-  rating: number;
-  property_type?: string;
-  features?: string[];
-  description?: string;
-  affiliate_url?: string;
+  guests: string;
+  features: string[];
+  images: string[];
+  videos?: string[];
+  description: string;
 }
 
+interface AffiliateProperty {
+  id: string;
+  name: string;
+  property_type: string;
+  location: {
+    city: string;
+    area: string;
+  };
+  capacity?: number;
+  features?: string[];
+  images: {
+    main: string;
+    gallery: string[];
+  };
+  description?: string;
+  affiliate: {
+    affiliateUrl: string;
+  };
+}
+
+// ============================================
+// 🎨 GALLERY PAGE COMPONENT
+// ============================================
+
 export default function GalleryPage() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'all';
+  
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedRegion, setSelectedRegion] = useState('all');
-  const [selectedType, setSelectedType] = useState('all');
+  // ============================================
+  // 📋 CATEGORIES
+  // ============================================
+
+  const categories = [
+    { 
+      id: 'all', 
+      name: 'הכל', 
+      icon: '🏠',
+      description: 'כל הנכסים שלנו'
+    },
+    { 
+      id: 'villa', 
+      name: 'וילות', 
+      icon: '🏛️',
+      description: 'וילות מרווחות ומפנקות עם בריכות פרטיות'
+    },
+    { 
+      id: 'zimmer', 
+      name: 'צימרים', 
+      icon: '🏡',
+      description: 'צימרים אינטימיים וחלומיים לזוגות'
+    },
+    { 
+      id: 'apartment', 
+      name: 'דירות', 
+      icon: '🏙️',
+      description: 'דירות נופש מאובזרות במיקומים מרכזיים'
+    },
+    { 
+      id: 'hotel', 
+      name: 'מלונות', 
+      icon: '🏨',
+      description: 'מלונות בוטיק ויוקרתיים עם שירות אישי'
+    },
+    { 
+      id: 'event', 
+      name: 'אירועים', 
+      icon: '💍',
+      description: 'מתחמים ייחודיים לשבתות חתן ואירועים'
+    },
+  ];
+
+  // ============================================
+  // 📥 FETCH PROPERTIES FROM SUPABASE
+  // ============================================
 
   useEffect(() => {
     async function fetchProperties() {
       try {
         setLoading(true);
-        console.log('Connecting to Supabase...');
-        
-        // נסיון שליפה
-        const { data, error } = await supabase
+        setError(null);
+
+        let query = supabase
           .from('affiliate_properties')
           .select('*')
           .eq('status', 'active')
-          .order('created_at', { ascending: false });
+          .order('featured', { ascending: false })
+          .order('rating', { ascending: false, nullsFirst: false });
 
-        if (error) {
-          console.error('Supabase Error Detailed:', JSON.stringify(error, null, 2));
-          throw error;
-        }
+        const { data, error: fetchError } = await query;
 
-        console.log('Properties loaded:', data?.length);
-        setProperties(data || []);
+        if (fetchError) throw fetchError;
+
+        // Transform Supabase data to match Gallery format
+        const transformedProperties: Property[] = (data || []).map((item: AffiliateProperty) => ({
+          id: item.id,
+          name: item.name,
+          type: mapPropertyType(item.property_type),
+          location: item.location.city || item.location.area || 'ישראל',
+          guests: item.capacity ? `עד ${item.capacity} אורחים` : 'מתאים לכולם',
+          features: item.features || [],
+          images: [
+            item.images.main,
+            ...(item.images.gallery || [])
+          ].filter(Boolean),
+          videos: [], // No videos from Supabase
+          description: item.description || item.name,
+        }));
+
+        setProperties(transformedProperties);
       } catch (err: any) {
-        // טיפול בשגיאת התווים הנסתרים
-        if (err.message && err.message.includes('ISO-8859-1')) {
-           console.error('Encoding Error:', err);
-           setError('שגיאת קידוד במפתח (Key Encoding Error)');
-        } else {
-           console.error('Fetch Error:', err);
-           setError(err.message || 'שגיאה בחיבור למסד הנתונים');
-        }
+        console.error('Error fetching properties:', err);
+        setError(err.message || 'שגיאה בטעינת הנכסים');
       } finally {
         setLoading(false);
       }
@@ -79,107 +148,218 @@ export default function GalleryPage() {
     fetchProperties();
   }, []);
 
-  // --- לוגיקת סינון ---
-  const filteredProperties = properties.filter(property => {
-    const matchesSearch = property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (property.location && property.location.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesRegion = selectedRegion === 'all' || (property.location && property.location.includes(selectedRegion));
-    const matchesType = selectedType === 'all' || (property.property_type && property.property_type === selectedType);
+  // ============================================
+  // 🔧 HELPER FUNCTIONS
+  // ============================================
 
-    return matchesSearch && matchesRegion && matchesType;
-  });
+  function mapPropertyType(supabaseType: string): string {
+    const typeMap: Record<string, string> = {
+      'צימר': 'zimmer',
+      'וילה': 'villa',
+      'דירת נופש': 'apartment',
+      'דירה': 'apartment',
+      'מלון בוטיק': 'hotel',
+      'בוטיק': 'hotel',
+      'מתחם אירועים': 'event',
+      'מתחם': 'event',
+      'אולם אירועים': 'event',
+    };
 
-  const regions = Array.from(new Set(properties.map(p => p.location).filter(Boolean)));
-  const types = Array.from(new Set(properties.map(p => p.property_type).filter(Boolean)));
+    // Check if the type matches any key
+    for (const [key, value] of Object.entries(typeMap)) {
+      if (supabaseType.includes(key)) {
+        return value;
+      }
+    }
+
+    return 'zimmer'; // default
+  }
+
+  function getFilteredItems() {
+    if (selectedCategory === 'all') {
+      return properties.map(p => ({
+        ...p,
+        category: p.type,
+      }));
+    }
+
+    return properties
+      .filter(p => p.type === selectedCategory)
+      .map(p => ({
+        ...p,
+        category: p.type,
+      }));
+  }
+
+  function groupByCategory() {
+    const filtered = getFilteredItems();
+    const grouped: Record<string, Property[]> = {};
+
+    filtered.forEach(item => {
+      const cat = item.category || 'zimmer';
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push(item);
+    });
+
+    return Object.entries(grouped).map(([category, items]) => ({
+      category,
+      items,
+    }));
+  }
+
+  // ============================================
+  // 🎨 LOADING STATE
+  // ============================================
+
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingSpinner} />
+        <p className={styles.loadingText}>טוען את הגלריה...</p>
+      </div>
+    );
+  }
+
+  // ============================================
+  // ❌ ERROR STATE
+  // ============================================
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <div className={styles.errorIcon}>⚠️</div>
+        <h2 className={styles.errorTitle}>אופס! משהו השתבש</h2>
+        <p className={styles.errorMessage}>{error}</p>
+        <button 
+          className={styles.errorRetryBtn}
+          onClick={() => window.location.reload()}
+        >
+          נסה שוב
+        </button>
+      </div>
+    );
+  }
+
+  // ============================================
+  // 📭 EMPTY STATE
+  // ============================================
+
+  if (properties.length === 0) {
+    return (
+      <div className={styles.emptyContainer}>
+        <div className={styles.emptyIcon}>📭</div>
+        <h2 className={styles.emptyTitle}>אין נכסים להצגה</h2>
+        <p className={styles.emptyMessage}>נכסים חדשים בדרך! חזרו בקרוב</p>
+      </div>
+    );
+  }
+
+  // ============================================
+  // 🎨 MAIN RENDER
+  // ============================================
 
   return (
-    <div className={styles.galleryPage} dir="rtl">
-      
+    <div className={styles.galleryPage}>
       {/* Hero Section */}
-      <section className={styles.galleryHero}>
-        <div className={styles.heroContentInner}>
-          <h1 className={styles.heroTitle}>הנכסים המובחרים שלנו</h1>
+      <section className={styles.hero}>
+        <div className={styles.heroOverlay} />
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
           <p className={styles.heroSubtitle}>
-            אוסף אקסקלוסיבי של {properties.length} נכסי יוקרה, וילות וצימרים
+            מצימרים רומנטיים ועד וילות יוקרה - {properties.length} נכסים מדהימים
           </p>
         </div>
       </section>
 
-      {/* אזור תוכן */}
-      <section className={styles.gallerySection}>
-        
-        {/* סרגל כלים ופילטרים */}
-        <div className="container mx-auto px-4 mb-8 -mt-8 relative z-20">
-          <div className="bg-[#1f1f1f] p-4 rounded-xl shadow-2xl border border-[#333] flex flex-wrap gap-4 items-center justify-between">
-            
-            <div className="flex-1 min-w-[200px]">
-              <input
-                type="text"
-                placeholder="🔍 חיפוש חופשי..."
-                className="w-full bg-[#333] text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-transparent"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+      {/* Category Filter Buttons */}
+      <div className={styles.filterBar}>
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            className={`${styles.filterButton} ${
+              selectedCategory === cat.id ? styles.active : ''
+            }`}
+            onClick={() => setSelectedCategory(cat.id)}
+          >
+            {cat.id === 'villa' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            )}
+            {cat.id === 'zimmer' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            )}
+            {cat.id === 'apartment' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <path d="M9 22V12h6v10"/>
+              </svg>
+            )}
+            {cat.id === 'hotel' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            )}
+            {cat.id === 'event' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="8" r="7"/>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+              </svg>
+            )}
+            {cat.id === 'all' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              </svg>
+            )}
+            <span>{cat.name}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Gallery Grid */}
+      <div className={styles.gallerySection}>
+        {groupByCategory().map(({ category, items }) => {
+          const categoryData = categories.find(c => c.id === category);
+          return (
+            <div key={category} className={styles.categorySection}>
+              <div className={styles.categoryHeader}>
+                <div className={styles.categoryIconWrapper}>
+                  {categoryData?.icon}
+                </div>
+                <h2 className={styles.categoryTitle}>
+                  {categoryData?.name}
+                </h2>
+              </div>
+              {categoryData?.description && (
+                <p className={styles.categoryDescription}>
+                  {categoryData.description}
+                </p>
+              )}
+              <div className={styles.galleryRow}>
+                {items.map((item) => (
+                  <PropertyCard key={item.id} property={item} />
+                ))}
+              </div>
             </div>
+          );
+        })}
+      </div>
 
-            <select 
-              className="bg-[#333] text-white px-4 py-3 rounded-lg border-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-              value={selectedRegion}
-              onChange={(e) => setSelectedRegion(e.target.value)}
-            >
-              <option value="all">📍 כל האזורים</option>
-              {regions.map(r => <option key={r} value={r}>{r}</option>)}
-            </select>
-
-            <select 
-              className="bg-[#333] text-white px-4 py-3 rounded-lg border-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-            >
-              <option value="all">🏡 כל הסוגים</option>
-              {types.map(t => <option key={t} value={t}>{t}</option>)}
-            </select>
-
-            <div className="text-gray-400 text-sm font-medium px-2">
-              {filteredProperties.length} תוצאות
-            </div>
-          </div>
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaContent}>
+          <h2 className={styles.ctaTitle}>לא מצאתם את מה שחיפשתם?</h2>
+          <p className={styles.ctaText}>דברו איתנו ונמצא לכם את המקום המושלם</p>
+          <a href="/contact" className={styles.ctaButton}>
+            צור קשר עכשיו →
+          </a>
         </div>
-
-        {/* טעינה */}
-        {loading && (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-          </div>
-        )}
-
-        {/* שגיאה */}
-        {error && (
-          <div className="text-center p-10 bg-red-900/20 rounded-xl border border-red-800 mx-auto max-w-2xl">
-            <h3 className="text-xl text-red-500 font-bold mb-2">אופס, משהו השתבש</h3>
-            <p className="text-red-300">לא הצלחנו לטעון את הנכסים.</p>
-            <p className="text-sm text-gray-400 mt-2 ltr">{error}</p>
-          </div>
-        )}
-
-        {/* גריד תוצאות */}
-        {!loading && !error && (
-          <div className={styles.propertiesGrid}>
-            {filteredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
-          </div>
-        )}
-
-        {/* אין תוצאות */}
-        {!loading && filteredProperties.length === 0 && (
-          <div className="text-center py-20 text-gray-500">
-            <h3 className="text-2xl font-bold mb-2">לא נמצאו נכסים</h3>
-            <p>נסה לשנות את סינוני החיפוש</p>
-          </div>
-        )}
-
       </section>
     </div>
   );
