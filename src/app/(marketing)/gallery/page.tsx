@@ -40,22 +40,21 @@ export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const categories = [
-    { id: 'all', name: 'כל הנכסים', slug: 'all' },
-    { id: 'villa', name: 'וילות', slug: 'villa' },
-    { id: 'zimmer', name: 'צימרים', slug: 'zimmer' },
-    { id: 'apartment', name: 'דירות נופש', slug: 'apartment' },
-    { id: 'hotel', name: 'מלונות בוטיק', slug: 'hotel' },
-    { id: 'event', name: 'מתחמי אירועים', slug: 'event' },
+    { id: 'all', name: 'כל הנכסים' },
+    { id: 'villa', name: 'וילות' },
+    { id: 'zimmer', name: 'צימרים' },
+    { id: 'apartment', name: 'דירות נופש' },
+    { id: 'hotel', name: 'מלונות בוטיק' },
+    { id: 'event', name: 'מתחמי אירועים' },
   ];
 
   useEffect(() => {
     async function fetchProperties() {
       try {
         setLoading(true);
-        setError(null);
 
         const { data, error: fetchError } = await supabase
           .from('affiliate_properties')
@@ -67,9 +66,7 @@ export default function GalleryPage() {
         const sortedData = (data || []).sort((a, b) => {
           if (a.featured && !b.featured) return -1;
           if (!a.featured && b.featured) return 1;
-          const ratingA = a.rating || 0;
-          const ratingB = b.rating || 0;
-          return ratingB - ratingA;
+          return (b.rating || 0) - (a.rating || 0);
         });
 
         const transformedProperties: Property[] = sortedData.map((item: AffiliateProperty) => ({
@@ -88,8 +85,7 @@ export default function GalleryPage() {
 
         setProperties(transformedProperties);
       } catch (err: any) {
-        console.error('Error fetching properties:', err);
-        setError(err.message || 'שגיאה בטעינת הנכסים');
+        console.error('Error:', err);
       } finally {
         setLoading(false);
       }
@@ -98,143 +94,116 @@ export default function GalleryPage() {
     fetchProperties();
   }, []);
 
-  function mapPropertyType(supabaseType: string): string {
-    const typeMap: Record<string, string> = {
-      'צימר': 'zimmer',
-      'וילה': 'villa',
-      'דירת נופש': 'apartment',
-      'דירה': 'apartment',
-      'מלון בוטיק': 'hotel',
-      'בוטיק': 'hotel',
-      'מתחם אירועים': 'event',
-      'מתחם': 'event',
+  function mapPropertyType(type: string): string {
+    const map: Record<string, string> = {
+      'צימר': 'zimmer', 'וילה': 'villa', 'דירת נופש': 'apartment',
+      'דירה': 'apartment', 'מלון בוטיק': 'hotel', 'בוטיק': 'hotel',
+      'מתחם אירועים': 'event', 'מתחם': 'event',
     };
-    for (const [key, value] of Object.entries(typeMap)) {
-      if (supabaseType.includes(key)) return value;
+    for (const [key, value] of Object.entries(map)) {
+      if (type.includes(key)) return value;
     }
     return 'zimmer';
   }
 
-  function getFilteredProperties() {
-    if (selectedCategory === 'all') return properties;
-    return properties.filter(p => p.type === selectedCategory);
-  }
-
-  const filteredProperties = getFilteredProperties();
+  const filteredProperties = selectedCategory === 'all' 
+    ? properties 
+    : properties.filter(p => p.type === selectedCategory);
 
   if (loading) {
     return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loader}></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className={styles.errorContainer}>
-        <h2>שגיאה בטעינת הנכסים</h2>
-        <p>{error}</p>
-        <button onClick={() => window.location.reload()}>נסה שוב</button>
+      <div className={styles.loading}>
+        <div className={styles.spinner} />
       </div>
     );
   }
 
   return (
-    <div className={styles.page}>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>אוסף נכסים יוקרתיים</h1>
-          <p className={styles.heroSubtitle}>
-            {properties.length} נכסים נבחרים במיקומים המובילים בארץ
-          </p>
+    <div className={styles.gallery}>
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <div className={styles.headerTop}>
+            <span className={styles.subtitle}>אוסף נבחר</span>
+            <span className={styles.count}>{properties.length}</span>
+          </div>
+          <h1 className={styles.mainTitle}>נכסים יוקרתיים</h1>
+          <div className={styles.divider} />
         </div>
-      </section>
+      </header>
 
-      {/* Filter Bar */}
-      <section className={styles.filterSection}>
-        <div className={styles.container}>
-          <div className={styles.filterBar}>
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`${styles.filterBtn} ${
-                  selectedCategory === cat.id ? styles.filterBtnActive : ''
-                }`}
+      <nav className={styles.nav}>
+        <div className={styles.navInner}>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`${styles.navBtn} ${selectedCategory === cat.id ? styles.navBtnActive : ''}`}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      <main className={styles.main}>
+        {filteredProperties.length === 0 ? (
+          <div className={styles.empty}>לא נמצאו נכסים</div>
+        ) : (
+          <div className={styles.masonry}>
+            {filteredProperties.map((property, index) => (
+              <article 
+                key={property.id} 
+                className={styles.item}
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onMouseEnter={() => setHoveredCard(property.id)}
+                onMouseLeave={() => setHoveredCard(null)}
               >
-                {cat.name}
-              </button>
-            ))}
-          </div>
-          
-          <div className={styles.resultsCount}>
-            {filteredProperties.length} נכסים
-          </div>
-        </div>
-      </section>
-
-      {/* Properties Grid */}
-      <section className={styles.gridSection}>
-        <div className={styles.container}>
-          {filteredProperties.length === 0 ? (
-            <div className={styles.emptyState}>
-              <p>לא נמצאו נכסים בקטגוריה זו</p>
-            </div>
-          ) : (
-            <div className={styles.grid}>
-              {filteredProperties.map((property) => (
-                <article key={property.id} className={styles.card}>
-                  <a href={property.affiliateUrl} target="_blank" rel="noopener noreferrer">
-                    <div className={styles.imageWrapper}>
-                      <img
-                        src={property.images[0] || '/placeholder.jpg'}
-                        alt={property.name}
-                        className={styles.image}
-                      />
-                      {property.featured && (
-                        <div className={styles.badge}>מומלץ</div>
+                <a href={property.affiliateUrl} target="_blank" rel="noopener noreferrer">
+                  <div className={styles.imageBox}>
+                    <img
+                      src={property.images[0] || '/placeholder.jpg'}
+                      alt={property.name}
+                      className={styles.img}
+                    />
+                    {property.featured && (
+                      <div className={styles.featured}>Featured</div>
+                    )}
+                    <div className={`${styles.hoverOverlay} ${hoveredCard === property.id ? styles.hoverOverlayActive : ''}`}>
+                      <span className={styles.exploreBtn}>View Property</span>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.details}>
+                    <div className={styles.topRow}>
+                      <h3 className={styles.propertyTitle}>{property.name}</h3>
+                      {property.rating > 0 && (
+                        <div className={styles.ratingBox}>
+                          <span className={styles.ratingNum}>{property.rating}</span>
+                        </div>
                       )}
-                      <div className={styles.overlay}>
-                        <span className={styles.viewBtn}>צפה בנכס →</span>
-                      </div>
                     </div>
                     
-                    <div className={styles.content}>
-                      <div className={styles.header}>
-                        <h3 className={styles.title}>{property.name}</h3>
-                        {property.rating > 0 && (
-                          <div className={styles.rating}>
-                            <span className={styles.star}>★</span>
-                            <span className={styles.ratingValue}>{property.rating}</span>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <p className={styles.location}>{property.location}</p>
-                      
-                      <div className={styles.footer}>
-                        <span className={styles.capacity}>עד {property.capacity} אורחים</span>
-                        <span className={styles.price}>{property.price}</span>
-                      </div>
+                    <p className={styles.loc}>{property.location}</p>
+                    
+                    <div className={styles.bottomRow}>
+                      <span className={styles.guests}>{property.capacity} Guests</span>
+                      <span className={styles.priceTag}>{property.price}</span>
                     </div>
-                  </a>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        )}
+      </main>
 
-      {/* CTA Section */}
-      <section className={styles.ctaSection}>
-        <div className={styles.ctaContent}>
+      <footer className={styles.cta}>
+        <div className={styles.ctaBox}>
+          <p className={styles.ctaSubtitle}>שירות אישי</p>
           <h2 className={styles.ctaTitle}>צריכים עזרה למצוא את הנכס המושלם?</h2>
-          <p className={styles.ctaText}>הצוות שלנו זמין לייעוץ אישי</p>
-          <a href="/contact" className={styles.ctaBtn}>צור קשר</a>
+          <a href="/contact" className={styles.ctaLink}>צור קשר</a>
         </div>
-      </section>
+      </footer>
     </div>
   );
 }
