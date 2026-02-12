@@ -1,12 +1,9 @@
-:root {
+.page {
   --cyan: #00D4FF;
   --purple: #5E63D8;
   --pink: #FF4B8C;
   --gradient: linear-gradient(135deg, #00D4FF 0%, #5E63D8 50%, #FF4B8C 100%);
   --gradient-hover: linear-gradient(135deg, #00D4FF 0%, #8b5cf6 100%);
-}
-
-.page {
   background: #ffffff;
   min-height: 100vh;
 }
