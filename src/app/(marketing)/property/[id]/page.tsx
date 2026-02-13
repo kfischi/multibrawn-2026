@@ -14,6 +14,8 @@ export default async function PropertyPage({ params }: { params: { id: string } 
     notFound();
   }
 
+  const affiliateUrl = property.affiliate?.affiliateUrl || '#';
+
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto">
@@ -21,10 +23,10 @@ export default async function PropertyPage({ params }: { params: { id: string } 
         <p className="text-xl text-gray-300 mb-8">{property.description}</p>
         
         
-          href={property.affiliate?.affiliateUrl}
+          href={affiliateUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold rounded-xl text-lg"
+          className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold rounded-xl text-lg hover:shadow-lg transition-all"
         >
           הזמן עכשיו בצימר360
         </a>
