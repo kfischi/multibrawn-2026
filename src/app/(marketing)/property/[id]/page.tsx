@@ -7,7 +7,7 @@ type Props = {
 
 export default async function PropertyPage({ params }: Props) {
   const { id } = await params;
-  const supabase = createClient();
+  const supabase = await createClient();
   
   const { data: property } = await supabase
     .from('affiliate_properties')
@@ -36,7 +36,7 @@ export default async function PropertyPage({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data } = await supabase.from('affiliate_properties').select('id');
   return data?.map(p => ({ id: p.id })) || [];
 }
