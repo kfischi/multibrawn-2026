@@ -1,18 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
-import PropertyHero from './PropertyHero';
-import PropertyDetails from './PropertyDetails';
-import PropertyCTA from './PropertyCTA';
-import PropertyMap from './PropertyMap';
-import NearbyAttractions from './NearbyAttractions';
 
-interface PropertyPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function PropertyPage({ params }: PropertyPageProps) {
+export default async function PropertyPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
   
   const { data: property, error } = await supabase
@@ -26,21 +15,19 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#1a1a2e] to-[#0a0a0a]">
-      <PropertyHero property={property} />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <PropertyDetails property={property} />
-            <NearbyAttractions location={property.location} />
-          </div>
-
-          <div className="space-y-6">
-            <PropertyCTA property={property} />
-            <PropertyMap location={property.location} propertyName={property.name} />
-          </div>
-        </div>
+    <div className="min-h-screen bg-black text-white p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-5xl font-bold mb-4">{property.name}</h1>
+        <p className="text-xl text-gray-300 mb-8">{property.description}</p>
+        
+        
+          href={property.affiliate?.affiliateUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold rounded-xl text-lg"
+        >
+          הזמן עכשיו בצימר360
+        </a>
       </div>
     </div>
   );
@@ -48,12 +35,6 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
 export async function generateStaticParams() {
   const supabase = createClient();
-  
-  const { data: properties } = await supabase
-    .from('affiliate_properties')
-    .select('id');
-
-  return properties?.map((property) => ({
-    id: property.id,
-  })) || [];
+  const { data } = await supabase.from('affiliate_properties').select('id');
+  return data?.map((p) => ({ id: p.id })) || [];
 }
