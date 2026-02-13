@@ -4,24 +4,28 @@ import { NextRequest, NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
-  try {
-    // ✅ פשוט החזר תשובה - לא צריך את זה בbuild time
-    return NextResponse.json({ 
-      message: 'Scraper endpoint available',
-      status: 'ready' 
-    })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
+  return NextResponse.json({ 
+    message: 'Scraper endpoint',
+    status: 'available' 
+  })
 }
 
-// GET method גם כן
 export async function GET() {
   return NextResponse.json({ 
-    message: 'Scraper endpoint - use POST',
+    message: 'Use POST method',
     status: 'ready' 
   })
 }
+```
+
+#### **ד. Commit:**
+- **Commit to:** Multi-test branch ← **חשוב!**
+- **Commit changes**
+
+---
+
+### **שלב 2: בדוק ב-Vercel**
+
+Vercel יעשה **Preview Deploy** של Multi-test:
+```
+https://multibrawn-git-multi-test.vercel.app
