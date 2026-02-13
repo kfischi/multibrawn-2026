@@ -33,23 +33,36 @@ export default async function PropertyPage({
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
-          <Link href="/gallery" className="text-cyan-400 hover:text-cyan-300">
+          <Link href="/gallery" className="text-cyan-400 hover:text-cyan-300 transition-colors">
             ← חזרה לגלריה
           </Link>
         </div>
       </header>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-800">
-              <Image src={mainImage} alt={property.name} fill className="object-cover" unoptimized />
+              <Image
+                src={mainImage}
+                alt={property.name}
+                fill
+                className="object-cover"
+                unoptimized
+              />
             </div>
+            
             {gallery.length > 0 && (
               <div className="grid grid-cols-3 gap-4">
-                {gallery.slice(0, 3).map((img: string, i: number) => (
-                  <div key={i} className="relative aspect-video rounded-lg overflow-hidden">
-                    <Image src={img} alt={`${i + 1}`} fill className="object-cover" unoptimized />
+                {gallery.slice(0, 3).map((img: string, idx: number) => (
+                  <div key={idx} className="relative aspect-video rounded-lg overflow-hidden bg-slate-800">
+                    <Image
+                      src={img}
+                      alt={`תמונה ${idx + 1}`}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
                   </div>
                 ))}
               </div>
@@ -57,55 +70,63 @@ export default async function PropertyPage({
           </div>
 
           <div className="space-y-6 text-white">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              {property.name}
-            </h1>
-            <p className="text-xl text-gray-300">
-              {property.location?.city}, {property.location?.area}
-            </p>
+            <div>
+              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                {property.name}
+              </h1>
+              <p className="text-xl text-gray-300">
+                {property.location?.city}, {property.location?.area}
+              </p>
+            </div>
 
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/10 rounded-xl p-4 text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                 <div className="text-2xl font-bold text-cyan-400">{property.capacity || 4}</div>
-                <div className="text-sm">אורחים</div>
+                <div className="text-sm text-gray-300">אורחים</div>
               </div>
-              <div className="bg-white/10 rounded-xl p-4 text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                 <div className="text-2xl font-bold text-purple-400">{property.rating || '5.0'}</div>
-                <div className="text-sm">דירוג</div>
+                <div className="text-sm text-gray-300">דירוג</div>
               </div>
-              <div className="bg-white/10 rounded-xl p-4 text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                 <div className="text-lg font-bold text-pink-400">{property.property_type || 'צימר'}</div>
-                <div className="text-sm">סוג</div>
+                <div className="text-sm text-gray-300">סוג</div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl p-6 border border-white/10">
-              <div className="text-sm mb-2">מחיר ללילה</div>
-              <div className="text-3xl font-bold">{property.price_range || '₪800-1,500'}</div>
+            <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <div className="text-sm text-gray-300 mb-2">מחיר ללילה</div>
+              <div className="text-3xl font-bold text-white">{property.price_range || '₪800-1,500'}</div>
             </div>
 
-            <a href={affiliateUrl} target="_blank" rel="noopener noreferrer"
-              className="block w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-center py-4 rounded-xl font-bold text-lg hover:scale-105 transition">
+            <a
+              href={affiliateUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white text-center py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+            >
               הזמן עכשיו ב-Tzimer360 →
             </a>
           </div>
         </div>
 
         {property.description && (
-          <div className="mt-12 bg-white/5 rounded-2xl p-8 border border-white/10">
+          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <h2 className="text-2xl font-bold text-white mb-4">אודות הנכס</h2>
-            <p className="text-gray-300 whitespace-pre-wrap">{property.description}</p>
+            <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
+              {property.description}
+            </p>
           </div>
         )}
 
-        {property.features?.length > 0 && (
-          <div className="mt-12 bg-white/5 rounded-2xl p-8 border border-white/10">
+        {property.features && property.features.length > 0 && (
+          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <h2 className="text-2xl font-bold text-white mb-4">מה כלול?</h2>
-            <div className="grid md:grid-cols-3 gap-4">
-              {property.features.map((f: string, i: number) => (
-                <div key={i} className="flex items-center gap-2 text-gray-300">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {property.features.map((feature: string, idx: number) => (
+                <div key={idx} className="flex items-center gap-2 text-gray-300">
                   <span className="text-cyan-400">✓</span>
-                  <span>{f}</span>
+                  <span>{feature}</span>
                 </div>
               ))}
             </div>
@@ -115,22 +136,3 @@ export default async function PropertyPage({
     </div>
   )
 }
-```
-
-4. **Commit:**
-   - Message: `Fix: force-dynamic for property pages`
-   - Branch: **Multi-test**
-   - **Commit**
-
----
-
-## ⏱️ **המתן 2 דקות:**
-
-Netlify יעשה deploy חדש!
-
----
-
-## ✅ **אז זה יעבוד!**
-```
-https://multibrawn.co.il/property/tzimer-001 ✅
-https://multibrawn.co.il/property/tzimer-002 ✅
