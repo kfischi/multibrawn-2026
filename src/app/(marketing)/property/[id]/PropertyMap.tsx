@@ -11,9 +11,7 @@ interface PropertyMapProps {
 }
 
 export default function PropertyMap({ location, propertyName }: PropertyMapProps) {
-  // Create Google Maps embed URL
   const mapQuery = encodeURIComponent(`${location.city}, ${location.area}, Israel`);
-  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=${mapQuery}`;
 
   return (
     <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden">
@@ -29,14 +27,13 @@ export default function PropertyMap({ location, propertyName }: PropertyMapProps
         </div>
       </div>
 
-      {/* Map Placeholder - Replace with actual Google Maps embed when you add API key */}
       <div className="h-64 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] flex items-center justify-center border-t border-white/10">
         <div className="text-center space-y-2 p-6">
           <MapPin className="w-12 h-12 text-[#00D4FF] mx-auto" />
           <p className="text-gray-400">
             {location.city}, {location.area}
           </p>
-          <a
+          
             href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
             target="_blank"
             rel="noopener noreferrer"

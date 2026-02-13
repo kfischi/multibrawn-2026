@@ -9,7 +9,6 @@ interface PropertyDetailsProps {
 export default function PropertyDetails({ property }: PropertyDetailsProps) {
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div className="space-y-4">
         <div className="flex items-center gap-3 text-[#00D4FF]">
           <MapPin className="w-5 h-5" />
@@ -44,7 +43,6 @@ export default function PropertyDetails({ property }: PropertyDetailsProps) {
         </div>
       </div>
 
-      {/* Description */}
       <div className="prose prose-invert max-w-none">
         <h2 className="text-2xl font-bold text-white mb-4">אודות הנכס</h2>
         <p className="text-gray-300 text-lg leading-relaxed">
@@ -52,7 +50,6 @@ export default function PropertyDetails({ property }: PropertyDetailsProps) {
         </p>
       </div>
 
-      {/* Features */}
       {property.features && property.features.length > 0 && (
         <div>
           <h2 className="text-2xl font-bold text-white mb-6">מתקנים ושירותים</h2>
@@ -70,7 +67,6 @@ export default function PropertyDetails({ property }: PropertyDetailsProps) {
         </div>
       )}
 
-      {/* Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </div>
   );
