@@ -9,9 +9,3 @@ export async function GET() {
 export async function POST() {
   return NextResponse.json({ message: 'Scraper disabled' })
 }
-```
-
-### **3. Commit:**
-```
-Message: Fix scraper endpoint - disable completely
-Branch: Multi-test
