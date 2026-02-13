@@ -26,7 +26,7 @@ export default function PropertyCTA({ property }: PropertyCTAProps) {
 
           <button
             onClick={handleBooking}
-            className="w-full py-4 px-6 bg-gradient-to-r from-[#00D4FF] via-[#5E63D8] to-[#FF4B8C] text-white font-bold rounded-xl hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] transition-all duration-300 flex items-center justify-center gap-3 group"
+            className="w-full py-4 px-6 bg-gradient-to-r from-[#00D4FF] via-[#5E63D8] to-[#FF4B8C] text-white font-bold rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-3 group"
           >
             <span>הזמן עכשיו</span>
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -52,16 +52,6 @@ export default function PropertyCTA({ property }: PropertyCTAProps) {
           <div>
             <p className="text-white font-semibold">הזמנה מאובטחת</p>
             <p className="text-gray-400 text-sm">דרך צימר360</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#5E63D8] to-[#FF4B8C] rounded-lg flex items-center justify-center">
-            <span className="text-2xl">★</span>
-          </div>
-          <div>
-            <p className="text-white font-semibold">ביקורות מאומתות</p>
-            <p className="text-gray-400 text-sm">מאורחים אמיתיים</p>
           </div>
         </div>
       </div>
