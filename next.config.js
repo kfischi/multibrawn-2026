@@ -4,23 +4,21 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '/dptyfvwyo/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '/decirk3zb/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'tours.tzimer360.co.il',
         pathname: '/Images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
     ],
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    unoptimized: true, // אם יש בעיות עם אופטימיזציה
   },
-  compress: true,
-};
-module.exports = nextConfig;
+  
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
+}
+
+module.exports = nextConfig
