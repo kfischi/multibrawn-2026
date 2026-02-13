@@ -1,9 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
 import { createClient as createBuildClient } from '@/lib/supabase/server-build';
 import { notFound } from 'next/navigation';
-
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -11,7 +7,7 @@ type Props = {
 
 export default async function PropertyPage({ params }: Props) {
   const { id } = await params;
-  const supabase = await createClient();
+  const supabase = createBuildClient();
   
   const { data: property } = await supabase
     .from('affiliate_properties')
