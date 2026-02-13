@@ -5,15 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # DISABLE SECRETS SCANNING COMPLETELY
   SECRETS_SCAN_ENABLED = "false"
-  NEXT_PUBLIC_SUPABASE_URL = "https://cfulruffxneijmcvpclz.supabase.co"
-  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmdWxydWZmeG5laWptY3ZwY2x6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTE4MDAsImV4cCI6MjA0OTU4NzgwMH0.NeyDg6C8yeFfdHMFXrVVdkurO-9K-hon0E98yAWG-V0"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [[headers]]
   for = "/*"
@@ -27,10 +19,3 @@
   for = "/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-# Environment variables (configure these in Netlify UI)
-# NEXT_PUBLIC_SUPABASE_URL ← Already added above in [build.environment]
-# NEXT_PUBLIC_SUPABASE_ANON_KEY ← Already added above in [build.environment]
-# SUPABASE_SERVICE_ROLE_KEY
-# NEXT_PUBLIC_WHATSAPP_NUMBER
-# NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
