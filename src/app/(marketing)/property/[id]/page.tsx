@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createBuildClient } from '@/lib/supabase/server-build';
 import { notFound } from 'next/navigation';
 
 type Props = {
@@ -36,7 +37,7 @@ export default async function PropertyPage({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const supabase = await createClient();
+  const supabase = createBuildClient();
   const { data } = await supabase.from('affiliate_properties').select('id');
   return data?.map(p => ({ id: p.id })) || [];
 }
