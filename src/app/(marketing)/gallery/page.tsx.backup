@@ -158,7 +158,7 @@ export default function GalleryPage() {
                 onMouseEnter={() => setHoveredCard(property.id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <a href={`/property/${property.id}`}>
+                <a href={property.affiliateUrl} target="_blank" rel="noopener noreferrer">
                   <div className={styles.imageBox}>
                     <img
                       src={property.images[0] || '/placeholder.jpg'}
