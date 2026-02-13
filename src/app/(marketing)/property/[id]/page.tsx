@@ -1,11 +1,34 @@
-// src/app/(marketing)/property/[id]/page.tsx
-import { createServerClient } from '@/lib/supabase/server-build'
+import { createServerClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
+
+interface Property {
+  id: string
+  name: string
+  description: string
+  property_type: string
+  capacity: number
+  price_range: string
+  rating: number
+  location: {
+    city: string
+    area: string
+  }
+  images: {
+    main: string
+    gallery: string[]
+  }
+  affiliate: {
+    affiliateUrl: string
+  }
+  features: string[]
+  amenities: {
+    featured: string[]
+  }
+}
 
 export default async function PropertyPage({
   params,
@@ -25,107 +48,89 @@ export default async function PropertyPage({
     notFound()
   }
 
-  const mainImage = property.images?.main || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200'
-  const gallery = property.images?.gallery || []
-  const affiliateUrl = `https://www.tzimer360.co.il/Location/${property.affiliate?.code || ''}?t=affiliate26`
+  const typedProperty = property as unknown as Property
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/gallery" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-            ← חזרה לגלריה
-          </Link>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #00D4FF 0%, #5E63D8 50%, #FF4B8C 100%)' }}>
+      {/* Hero */}
+      <div style={{ position: 'relative', height: '60vh', overflow: 'hidden' }}>
+        <Image
+          src={typedProperty.images?.main || '/placeholder.jpg'}
+          alt={typedProperty.name}
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+        <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', background: 'rgba(0,0,0,0.7)', padding: '20px', borderRadius: '10px', color: 'white' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '10px' }}>{typedProperty.name}</h1>
+          <p style={{ fontSize: '18px' }}>📍 {typedProperty.location?.city} • {typedProperty.location?.area}</p>
         </div>
-      </header>
+      </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-800">
-              <Image
-                src={mainImage}
-                alt={property.name}
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-            
-            {gallery.length > 0 && (
-              <div className="grid grid-cols-3 gap-4">
-                {gallery.slice(0, 3).map((img: string, idx: number) => (
-                  <div key={idx} className="relative aspect-video rounded-lg overflow-hidden bg-slate-800">
-                    <Image
-                      src={img}
-                      alt={`תמונה ${idx + 1}`}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+      {/* Gallery */}
+      <div style={{ display: 'flex', gap: '10px', padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+        {typedProperty.images?.gallery?.slice(0, 3).map((img: string, i: number) => (
+          <div key={i} style={{ flex: 1, height: '200px', position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+            <Image src={img} alt={`Gallery ${i + 1}`} fill style={{ objectFit: 'cover' }} />
           </div>
+        ))}
+      </div>
 
-          <div className="space-y-6 text-white">
-            <div>
-              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                {property.name}
-              </h1>
-              <p className="text-xl text-gray-300">
-                {property.location?.city}, {property.location?.area}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-cyan-400">{property.capacity || 4}</div>
-                <div className="text-sm text-gray-300">אורחים</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-purple-400">{property.rating || '5.0'}</div>
-                <div className="text-sm text-gray-300">דירוג</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-lg font-bold text-pink-400">{property.property_type || 'צימר'}</div>
-                <div className="text-sm text-gray-300">סוג</div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-sm text-gray-300 mb-2">מחיר ללילה</div>
-              <div className="text-3xl font-bold text-white">{property.price_range || '₪800-1,500'}</div>
-            </div>
-
-            <a
-              href={affiliateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white text-center py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
-            >
-              הזמן עכשיו ב-Tzimer360 →
-            </a>
+      {/* Content */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px' }}>
+          <div style={{ background: 'white', padding: '20px', borderRadius: '10px', textAlign: 'center' }}>
+            <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#5E63D8' }}>👥 {typedProperty.capacity}</div>
+            <div style={{ color: '#666', marginTop: '5px' }}>אורחים</div>
+          </div>
+          <div style={{ background: 'white', padding: '20px', borderRadius: '10px', textAlign: 'center' }}>
+            <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#5E63D8' }}>⭐ {typedProperty.rating || 4.5}</div>
+            <div style={{ color: '#666', marginTop: '5px' }}>דירוג</div>
+          </div>
+          <div style={{ background: 'white', padding: '20px', borderRadius: '10px', textAlign: 'center' }}>
+            <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#5E63D8' }}>🏠</div>
+            <div style={{ color: '#666', marginTop: '5px' }}>{typedProperty.property_type}</div>
           </div>
         </div>
 
-        {property.description && (
-          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-bold text-white mb-4">אודות הנכס</h2>
-            <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-              {property.description}
-            </p>
-          </div>
-        )}
+        {/* Price & CTA */}
+        <div style={{ background: 'white', padding: '30px', borderRadius: '10px', marginBottom: '40px', textAlign: 'center' }}>
+          <div style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}>💰 {typedProperty.price_range}</div>
+          <a 
+            href={typedProperty.affiliate?.affiliateUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: 'inline-block',
+              background: 'linear-gradient(135deg, #00D4FF, #5E63D8)', 
+              color: 'white', 
+              padding: '15px 40px', 
+              borderRadius: '50px', 
+              fontSize: '18px', 
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              marginTop: '10px'
+            }}
+          >
+            🔗 הזמן עכשיו ב-Tzimer360
+          </a>
+        </div>
 
-        {property.features && property.features.length > 0 && (
-          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-bold text-white mb-4">מה כלול?</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {property.features.map((feature: string, idx: number) => (
-                <div key={idx} className="flex items-center gap-2 text-gray-300">
-                  <span className="text-cyan-400">✓</span>
+        {/* Description */}
+        <div style={{ background: 'white', padding: '30px', borderRadius: '10px', marginBottom: '40px' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '15px' }}>📝 תיאור</h2>
+          <p style={{ lineHeight: '1.8', color: '#333' }}>{typedProperty.description || 'אין תיאור זמין'}</p>
+        </div>
+
+        {/* Features */}
+        {typedProperty.features && typedProperty.features.length > 0 && (
+          <div style={{ background: 'white', padding: '30px', borderRadius: '10px' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '15px' }}>✨ מה כלול</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+              {typedProperty.features.map((feature: string, i: number) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ color: '#00D4FF', fontSize: '20px' }}>✓</span>
                   <span>{feature}</span>
                 </div>
               ))}
