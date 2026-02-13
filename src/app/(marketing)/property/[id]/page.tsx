@@ -4,17 +4,55 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
+// ✅ ייצוא דינמי של כל הדפים בזמן Build
 export async function generateStaticParams() {
   const supabase = createServerClient()
-  const { data: properties } = await supabase
-    .from('affiliate_properties')
-    .select('id')
-    .eq('status', 'active')
   
-  return properties?.map((property) => ({
-    id: property.id,
-  })) || []
+  try {
+    const { data: properties } = await supabase
+      .from('affiliate_properties')
+      .select('id')
+      .eq('status', 'active')
+    
+    if (!properties || properties.length === 0) {
+      // אם אין נכסים, תחזיר רשימה ידנית
+      return [
+        { id: 'tzimer-001' },
+        { id: 'tzimer-002' },
+        { id: 'tzimer-003' },
+        { id: 'tzimer-004' },
+        { id: 'tzimer-005' },
+        { id: 'tzimer-006' },
+        { id: 'tzimer-007' },
+        { id: 'tzimer-008' },
+        { id: 'tzimer-009' },
+        { id: 'tzimer-010' },
+      ]
+    }
+    
+    return properties.map((property) => ({
+      id: property.id,
+    }))
+  } catch (error) {
+    console.error('Error generating static params:', error)
+    // Fallback לרשימה ידנית
+    return [
+      { id: 'tzimer-001' },
+      { id: 'tzimer-002' },
+      { id: 'tzimer-003' },
+      { id: 'tzimer-004' },
+      { id: 'tzimer-005' },
+      { id: 'tzimer-006' },
+      { id: 'tzimer-007' },
+      { id: 'tzimer-008' },
+      { id: 'tzimer-009' },
+      { id: 'tzimer-010' },
+    ]
+  }
 }
+
+// ✅ הפוך את הדף לדינמי אם הנכס לא נמצא ב-build time
+export const dynamicParams = true
 
 export default async function PropertyPage({
   params,
@@ -34,7 +72,7 @@ export default async function PropertyPage({
     notFound()
   }
 
-  const mainImage = property.images?.main || '/placeholder.jpg'
+  const mainImage = property.images?.main || 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1/samples/landscapes/architecture-signs.jpg'
   const gallery = property.images?.gallery || []
   const affiliateUrl = property.affiliate?.affiliateUrl || '#'
 
@@ -54,25 +92,27 @@ export default async function PropertyPage({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Image Gallery */}
           <div className="space-y-4">
-            <div className="relative aspect-video rounded-2xl overflow-hidden">
+            <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-800">
               <Image
                 src={mainImage}
                 alt={property.name}
                 fill
                 className="object-cover"
                 priority
+                unoptimized
               />
             </div>
             
             {gallery.length > 0 && (
               <div className="grid grid-cols-3 gap-4">
                 {gallery.slice(0, 3).map((img: string, idx: number) => (
-                  <div key={idx} className="relative aspect-video rounded-lg overflow-hidden">
+                  <div key={idx} className="relative aspect-video rounded-lg overflow-hidden bg-slate-800">
                     <Image
                       src={img}
                       alt={`${property.name} - תמונה ${idx + 1}`}
                       fill
                       className="object-cover"
+                      unoptimized
                     />
                   </div>
                 ))}
@@ -98,11 +138,11 @@ export default async function PropertyPage({
                 <div className="text-sm text-gray-300">אורחים</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-purple-400">{property.rating}</div>
+                <div className="text-2xl font-bold text-purple-400">{property.rating || '5.0'}</div>
                 <div className="text-sm text-gray-300">דירוג</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-pink-400">{property.property_type}</div>
+                <div className="text-xl font-bold text-pink-400">{property.property_type}</div>
                 <div className="text-sm text-gray-300">סוג</div>
               </div>
             </div>
@@ -126,12 +166,14 @@ export default async function PropertyPage({
         </div>
 
         {/* Description */}
-        <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-          <h2 className="text-2xl font-bold text-white mb-4">אודות הנכס</h2>
-          <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-            {property.description}
-          </p>
-        </div>
+        {property.description && (
+          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <h2 className="text-2xl font-bold text-white mb-4">אודות הנכס</h2>
+            <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
+              {property.description}
+            </p>
+          </div>
+        )}
 
         {/* Features */}
         {property.features && property.features.length > 0 && (
