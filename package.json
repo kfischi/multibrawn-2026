@@ -27,8 +27,3 @@
     "typescript": "^5"
   }
 }
-```
-
-**Commit:**
-```
-Add @google/generative-ai dependency
