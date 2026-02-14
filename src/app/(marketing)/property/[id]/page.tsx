@@ -1,138 +1,209 @@
-// src/app/(marketing)/property/[id]/page.tsx
-import { createServerClient } from '@/lib/supabase/server-build'
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import Image from 'next/image'
+'use client';
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { supabase } from '@/lib/supabase/client';
+import styles from './Gallery.module.css';
 
-export default async function PropertyPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params
-  const supabase = createServerClient()
+interface Property {
+  id: string;
+  name: string;
+  type: string;
+  location: string;
+  price: string;
+  capacity: number;
+  rating: number;
+  featured: boolean;
+  images: string[];
+  description: string;
+  affiliateUrl: string;
+}
 
-  const { data: property, error } = await supabase
-    .from('affiliate_properties')
-    .select('*')
-    .eq('id', id)
-    .single()
+interface AffiliateProperty {
+  id: string;
+  name: string;
+  property_type: string;
+  location: { city: string; area: string };
+  capacity?: number;
+  price_range?: string;
+  rating?: number;
+  featured?: boolean;
+  images: { main: string; gallery: string[] };
+  description?: string;
+  affiliate: { affiliateUrl: string };
+}
 
-  if (error || !property) {
-    notFound()
+export default function GalleryPage() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'all';
+  
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
+  const categories = [
+    { id: 'all', name: 'כל הנכסים' },
+    { id: 'villa', name: 'וילות' },
+    { id: 'zimmer', name: 'צימרים' },
+    { id: 'apartment', name: 'דירות נופש' },
+    { id: 'hotel', name: 'מלונות בוטיק' },
+    { id: 'event', name: 'מתחמי אירועים' },
+  ];
+
+  useEffect(() => {
+    async function fetchProperties() {
+      try {
+        setLoading(true);
+
+        const { data, error: fetchError } = await supabase
+          .from('affiliate_properties')
+          .select('*')
+          .eq('status', 'active');
+
+        if (fetchError) throw fetchError;
+
+        const sortedData = (data || []).sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return (b.rating || 0) - (a.rating || 0);
+        });
+
+        const transformedProperties: Property[] = sortedData.map((item: AffiliateProperty) => ({
+          id: item.id,
+          name: item.name,
+          type: mapPropertyType(item.property_type),
+          location: `${item.location.city || item.location.area || 'ישראל'}`,
+          price: item.price_range || 'לפי פנייה',
+          capacity: item.capacity || 2,
+          rating: item.rating || 0,
+          featured: item.featured || false,
+          images: [item.images.main, ...(item.images.gallery || [])].filter(Boolean),
+          description: item.description || item.name,
+          affiliateUrl: item.affiliate.affiliateUrl || '#',
+        }));
+
+        setProperties(transformedProperties);
+      } catch (err: any) {
+        console.error('Error:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProperties();
+  }, []);
+
+  function mapPropertyType(type: string): string {
+    const map: Record<string, string> = {
+      'צימר': 'zimmer', 'וילה': 'villa', 'דירת נופש': 'apartment',
+      'דירה': 'apartment', 'מלון בוטיק': 'hotel', 'בוטיק': 'hotel',
+      'מתחם אירועים': 'event', 'מתחם': 'event',
+    };
+    for (const [key, value] of Object.entries(map)) {
+      if (type.includes(key)) return value;
+    }
+    return 'zimmer';
   }
 
-  const mainImage = property.images?.main || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200'
-  const gallery = property.images?.gallery || []
-  const affiliateUrl = `https://www.tzimer360.co.il/Location/${property.affiliate?.code || ''}?t=affiliate26`
+  const filteredProperties = selectedCategory === 'all' 
+    ? properties 
+    : properties.filter(p => p.type === selectedCategory);
+
+  if (loading) {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.spinner} />
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/gallery" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-            ← חזרה לגלריה
-          </Link>
+    <div className={styles.gallery}>
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <div className={styles.headerTop}>
+            <span className={styles.subtitle}>אוסף נבחר</span>
+            <span className={styles.count}>{properties.length}</span>
+          </div>
+          <h1 className={styles.mainTitle}>נכסים יוקרתיים</h1>
+          <div className={styles.divider} />
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-800">
-              <Image
-                src={mainImage}
-                alt={property.name}
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-            
-            {gallery.length > 0 && (
-              <div className="grid grid-cols-3 gap-4">
-                {gallery.slice(0, 3).map((img: string, idx: number) => (
-                  <div key={idx} className="relative aspect-video rounded-lg overflow-hidden bg-slate-800">
-                    <Image
-                      src={img}
-                      alt={`תמונה ${idx + 1}`}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-6 text-white">
-            <div>
-              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                {property.name}
-              </h1>
-              <p className="text-xl text-gray-300">
-                {property.location?.city}, {property.location?.area}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-cyan-400">{property.capacity || 4}</div>
-                <div className="text-sm text-gray-300">אורחים</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-purple-400">{property.rating || '5.0'}</div>
-                <div className="text-sm text-gray-300">דירוג</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <div className="text-lg font-bold text-pink-400">{property.property_type || 'צימר'}</div>
-                <div className="text-sm text-gray-300">סוג</div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-sm text-gray-300 mb-2">מחיר ללילה</div>
-              <div className="text-3xl font-bold text-white">{property.price_range || '₪800-1,500'}</div>
-            </div>
-
-            <a
-              href={affiliateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white text-center py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+      <nav className={styles.nav}>
+        <div className={styles.navInner}>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`${styles.navBtn} ${selectedCategory === cat.id ? styles.navBtnActive : ''}`}
             >
-              הזמן עכשיו ב-Tzimer360 →
-            </a>
-          </div>
+              {cat.name}
+            </button>
+          ))}
         </div>
+      </nav>
 
-        {property.description && (
-          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-bold text-white mb-4">אודות הנכס</h2>
-            <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-              {property.description}
-            </p>
+      <main className={styles.main}>
+        {filteredProperties.length === 0 ? (
+          <div className={styles.empty}>לא נמצאו נכסים</div>
+        ) : (
+          <div className={styles.masonry}>
+            {filteredProperties.map((property, index) => (
+              <article 
+                key={property.id} 
+                className={styles.item}
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onMouseEnter={() => setHoveredCard(property.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <a href={`/property/${property.id}`}>
+                  <div className={styles.imageBox}>
+                    <img
+                      src={property.images[0] || '/placeholder.jpg'}
+                      alt={property.name}
+                      className={styles.img}
+                    />
+                    {property.featured && (
+                      <div className={styles.featured}>Featured</div>
+                    )}
+                    <div className={`${styles.hoverOverlay} ${hoveredCard === property.id ? styles.hoverOverlayActive : ''}`}>
+                      <span className={styles.exploreBtn}>View Property</span>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.details}>
+                    <div className={styles.topRow}>
+                      <h3 className={styles.propertyTitle}>{property.name}</h3>
+                      {property.rating > 0 && (
+                        <div className={styles.ratingBox}>
+                          <span className={styles.ratingNum}>{property.rating}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <p className={styles.loc}>{property.location}</p>
+                    
+                    <div className={styles.bottomRow}>
+                      <span className={styles.guests}>{property.capacity} Guests</span>
+                      <span className={styles.priceTag}>{property.price}</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
           </div>
         )}
+      </main>
 
-        {property.features && property.features.length > 0 && (
-          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-bold text-white mb-4">מה כלול?</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {property.features.map((feature: string, idx: number) => (
-                <div key={idx} className="flex items-center gap-2 text-gray-300">
-                  <span className="text-cyan-400">✓</span>
-                  <span>{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+      <footer className={styles.cta}>
+        <div className={styles.ctaBox}>
+          <p className={styles.ctaSubtitle}>שירות אישי</p>
+          <h2 className={styles.ctaTitle}>צריכים עזרה למצוא את הנכס המושלם?</h2>
+          <a href="/contact" className={styles.ctaLink}>צור קשר</a>
+        </div>
+      </footer>
     </div>
-  )
+  );
 }
