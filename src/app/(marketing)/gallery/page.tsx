@@ -33,12 +33,12 @@ export default function GalleryPage() {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   const categories = [
-    { id: 'all', name: 'הכל', icon: '✨' },
-    { id: 'villa', name: 'וילות', icon: '🏛️' },
-    { id: 'zimmer', name: 'צימרים', icon: '🏡' },
-    { id: 'apartment', name: 'דירות', icon: '🏢' },
-    { id: 'hotel', name: 'בוטיק', icon: '🏨' },
-    { id: 'event', name: 'אירועים', icon: '💍' },
+    { id: 'all', name: 'הכל' },
+    { id: 'villa', name: 'וילות' },
+    { id: 'zimmer', name: 'צימרים' },
+    { id: 'apartment', name: 'דירות' },
+    { id: 'hotel', name: 'בוטיק' },
+    { id: 'event', name: 'אירועים' },
   ];
 
   useEffect(() => {
@@ -104,10 +104,10 @@ export default function GalleryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-slate-900">
         <div className="text-center">
-          <div className="w-20 h-20 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-          <p className="text-white text-xl font-light">טוען חוויות יוקרה...</p>
+          <div className="w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white text-lg">טוען...</p>
         </div>
       </div>
     );
@@ -115,9 +115,8 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-slate-900" dir="rtl">
-      {/* Hero Video Section - Fixed Height */}
-      <section className="relative h-[70vh] overflow-hidden">
-        {/* Video Background */}
+      {/* Hero Video - Compact */}
+      <section className="relative h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden">
         <div className="absolute inset-0">
           <video
             autoPlay
@@ -129,91 +128,48 @@ export default function GalleryPage() {
           >
             <source src="https://res.cloudinary.com/decirk3zb/video/upload/v1771101549/Gallery_zlvjwx.mp4" type="video/mp4" />
           </video>
-          
-          {/* Gradient Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-900/30 via-transparent to-purple-900/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-slate-900"></div>
         </div>
 
-        {/* Loading Placeholder */}
-        {!videoLoaded && (
-          <div className="absolute inset-0 bg-slate-900 animate-pulse"></div>
-        )}
+        {!videoLoaded && <div className="absolute inset-0 bg-slate-900 animate-pulse"></div>}
 
-        {/* Hero Content */}
         <div className="relative h-full flex items-center justify-center">
-          <div className="container mx-auto px-6 text-center">
-            <div className="max-w-4xl mx-auto space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
-                <span className="text-white/90 text-sm font-medium">אוסף נבחר של נכסי יוקרה</span>
-              </div>
-
-              {/* Main Title */}
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                <span className="block">חוויות נופש</span>
-                <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  בלתי נשכחות
-                </span>
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-xl md:text-2xl text-white/80 font-light max-w-2xl mx-auto">
-                {properties.length} נכסים יוקרתיים במיקומים הכי מבוקשים בישראל
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-                <button 
-                  onClick={() => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="group px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-105 transition-all duration-300 flex items-center gap-3"
-                >
-                  <span>גלה את הנכסים</span>
-                  <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                </button>
-                
-                <a
-                  href="https://wa.me/972523983394"
-                  className="px-10 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-full font-bold text-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300"
-                >
-                  דברו איתנו
-                </a>
-              </div>
+          <div className="container mx-auto px-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-4">
+              <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+              <span className="text-white/90 text-xs font-medium">{properties.length} נכסים יוקרתיים</span>
             </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
+              חוויות נופש <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">בלתי נשכחות</span>
+            </h1>
+            <p className="text-lg text-white/80 mb-6 max-w-2xl mx-auto">במיקומים הכי מבוקשים בישראל</p>
+            <button 
+              onClick={() => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all"
+            >
+              גלה את הנכסים ↓
+            </button>
           </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
         </div>
       </section>
 
-      {/* Categories Filter - Sticky */}
-      <section id="properties" className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-xl border-b border-white/10">
-        <div className="container mx-auto px-6 py-5">
-          <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide">
+      {/* Categories - Compact */}
+      <section id="properties" className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-lg border-b border-white/10">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium whitespace-nowrap transition-all duration-300 ${
+                className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                   selectedCategory === cat.id
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/50 scale-105'
-                    : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg'
+                    : 'bg-white/5 text-white/70 hover:bg-white/10'
                 }`}
               >
-                <span className="text-xl">{cat.icon}</span>
-                <span>{cat.name}</span>
+                {cat.name}
                 {selectedCategory === cat.id && (
-                  <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
-                    {filteredProperties.length}
-                  </span>
+                  <span className="ml-2 text-xs bg-white/20 px-2 py-0.5 rounded-full">{filteredProperties.length}</span>
                 )}
               </button>
             ))}
@@ -221,88 +177,70 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Properties Grid - Fixed Aspect Ratio Cards */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
+      {/* Properties Grid - Compact Cards */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
           {filteredProperties.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-6">🏠</div>
-              <h3 className="text-2xl font-bold text-white mb-4">לא נמצאו נכסים</h3>
-              <p className="text-white/60">נסו לבחור קטגוריה אחרת</p>
+            <div className="text-center py-16">
+              <div className="text-4xl mb-4">🏠</div>
+              <h3 className="text-xl font-bold text-white mb-2">לא נמצאו נכסים</h3>
+              <p className="text-white/60">נסו קטגוריה אחרת</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProperties.map((property, index) => (
-                <Link
-                  key={property.id}
-                  href={`/property/${property.id}`}
-                  className="group"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <article className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20">
-                    {/* Image - Fixed Aspect Ratio 4:3 */}
-                    <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {filteredProperties.map((property) => (
+                <Link key={property.id} href={`/property/${property.id}`} className="group">
+                  <article className="relative bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-500/20">
+                    {/* Image - Compact */}
+                    <div className="relative w-full h-48 overflow-hidden">
                       <Image
                         src={property.images[0] || '/placeholder.jpg'}
                         alt={property.name}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                         unoptimized
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                       
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                      
-                      {/* Featured Badge */}
                       {property.featured && (
-                        <div className="absolute top-4 right-4 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-bold rounded-full shadow-lg">
+                        <div className="absolute top-2 right-2 px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full">
                           ⭐ מומלץ
                         </div>
                       )}
 
-                      {/* Rating */}
                       {property.rating > 0 && (
-                        <div className="absolute top-4 left-4 px-4 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-bold rounded-full border border-white/20 flex items-center gap-2">
-                          <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="absolute top-2 left-2 px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full flex items-center gap-1">
+                          <svg className="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                           </svg>
                           {property.rating}
                         </div>
                       )}
-
-                      {/* Hover Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div className="px-8 py-4 bg-white text-slate-900 rounded-full font-bold shadow-2xl transform scale-0 group-hover:scale-110 transition-transform duration-300">
-                          צפה בנכס →
-                        </div>
-                      </div>
                     </div>
 
-                    {/* Content - Fixed Height */}
-                    <div className="p-6 h-44 flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-cyan-400 transition-colors leading-tight">
-                          {property.name}
-                        </h3>
-                        
-                        <div className="flex items-center gap-2 text-white/60 mb-3">
-                          <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                          </svg>
-                          <span className="text-sm truncate">{property.location}</span>
-                        </div>
+                    {/* Content - Compact */}
+                    <div className="p-4">
+                      <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-cyan-400 transition-colors leading-snug">
+                        {property.name}
+                      </h3>
+                      
+                      <div className="flex items-center gap-1 text-white/60 mb-3 text-xs">
+                        <svg className="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        </svg>
+                        <span className="truncate">{property.location}</span>
                       </div>
 
                       <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                        <div className="flex items-center gap-2 text-white/60">
-                          <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex items-center gap-1 text-white/60 text-xs">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                           </svg>
-                          <span className="text-sm">עד {property.capacity}</span>
+                          <span>עד {property.capacity}</span>
                         </div>
                         
-                        <div className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent truncate">
+                        <div className="text-sm font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent truncate">
                           {property.price}
                         </div>
                       </div>
@@ -315,36 +253,27 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-24 relative overflow-hidden">
+      {/* Bottom CTA - Compact */}
+      <section className="py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600"></div>
         <div className="absolute inset-0 bg-black/10"></div>
         
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              מוכנים לחוויה בלתי נשכחת?
-            </h2>
-            <p className="text-xl text-white/90 mb-10 font-light">
-              צוות המומחים שלנו כאן כדי לעזור לכם למצוא את הנכס המושלם
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="https://wa.me/972523983394"
-                className="inline-flex items-center gap-3 px-10 py-5 bg-white text-slate-900 rounded-full font-bold text-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
-              >
-                <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                <span>דברו איתנו ב-WhatsApp</span>
-              </a>
-              <Link
-                href="/contact"
-                className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-full font-bold text-xl hover:bg-white/20 hover:border-white/50 transition-all duration-300"
-              >
-                טופס יצירת קשר
-              </Link>
-            </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">מוכנים לחוויה בלתי נשכחת?</h2>
+          <p className="text-lg text-white/90 mb-8">צוות המומחים שלנו כאן כדי לעזור</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="https://wa.me/972523983394"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-slate-900 rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all"
+            >
+              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              WhatsApp
+            </a>
+            <Link href="/contact" className="px-8 py-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-full font-bold hover:bg-white/20 transition-all">
+              טופס יצירת קשר
+            </Link>
           </div>
         </div>
       </section>
