@@ -6,11 +6,12 @@ import Link from 'next/link';
 import styles from './Gallery.module.css';
 
 // ============================================
-// 10 REAL PROPERTIES FROM SUPABASE
+// 10 REAL PROPERTIES - EXACT FROM CSV
 // ============================================
 interface Property {
   id: string;
   name: string;
+  description: string;
   location: string;
   type: string;
   image: string;
@@ -25,6 +26,7 @@ const allProperties: Property[] = [
   {
     id: 'tzimer-001',
     name: 'מתחם נופש יוקרתי בנווה זוהר',
+    description: 'מתחם אירוח יוקרתי על חוף ים המלח. בריכה מקורה, נוף פנורמי, מושלם לאירועים.',
     location: 'נווה זוהר, ים המלח',
     type: 'event',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771098896/1_tdqjak.webp',
@@ -41,6 +43,7 @@ const allProperties: Property[] = [
   {
     id: 'tzimer-002',
     name: 'בקתות יער רומנטיות בגליל העליון',
+    description: 'בקתות עץ יוקרתיות בלב הגליל. ג׳קוזי פרטי, נוף הרים, שקט מוחלט.',
     location: 'אליפלט, גליל עליון',
     type: 'zimmer',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771089103/1_p7eoq1.webp',
@@ -57,6 +60,7 @@ const allProperties: Property[] = [
   {
     id: 'tzimer-003',
     name: 'וילת אבן יוקרתית בחורשות הכרמל',
+    description: 'וילת אבן בכפר הדרוזי. בריכה פרטית, אירוח אותנטי, נוף פנורמי.',
     location: 'בית ג\'ן, הגליל המערבי',
     type: 'villa',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092098/1_x8csz9.webp',
@@ -73,6 +77,7 @@ const allProperties: Property[] = [
   {
     id: 'tzimer-004',
     name: 'וילה משפחתית עם בריכה פרטית',
+    description: 'וילה עם בריכה מחוממת. נוף מדברי, קרוב לים המלח, פרטיות מלאה.',
     location: 'נווה זוהר, ים המלח',
     type: 'villa',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092557/1_iynoio.webp',
@@ -89,6 +94,7 @@ const allProperties: Property[] = [
   {
     id: 'tzimer-005',
     name: 'אחוזת נופש מרווחת בבקעה',
+    description: '12 סוויטות מול הכנרת. בריכה, ג׳קוזי בחדר, עיצוב מודרני.',
     location: 'טבריה, טבריה והכנרת',
     type: 'hotel',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092885/1_gmw173.webp',
@@ -104,7 +110,8 @@ const allProperties: Property[] = [
   },
   {
     id: 'tzimer-006',
-    name: 'סוויטות נוף כנרת בטבריה',
+    name: 'סוויטה רומנטית בשומרון',
+    description: 'סוויטה רומנטית לזוגות. ג׳קוזי ספא, פרטיות מוחלטת, נוף כפרי.',
     location: 'מעלה עמוס, השומרון',
     type: 'zimmer',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093199/1_bk0rev.webp',
@@ -120,7 +127,8 @@ const allProperties: Property[] = [
   },
   {
     id: 'tzimer-007',
-    name: 'צימרים רומנטיים בחוף הכנרת',
+    name: 'צימר רומנטי בשומרון',
+    description: 'צימר רומנטי עם עיצוב חלומי. ג׳קוזי זוגי, תאורה מיוחדת, שקט.',
     location: 'מעלה עמוס, השומרון',
     type: 'zimmer',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093472/1_yfow2s.webp',
@@ -136,7 +144,8 @@ const allProperties: Property[] = [
   },
   {
     id: 'tzimer-008',
-    name: 'מתחם אירוח בוטיק בגליל',
+    name: 'פנטהאוז מודרני בתל אביב',
+    description: 'פנטהאוז מודרני בלב תל אביב. הליכה לים, מרפסת גדולה, מיקום מעולה.',
     location: 'תל אביב, מרכז',
     type: 'apartment',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093741/1_enya03.webp',
@@ -152,7 +161,8 @@ const allProperties: Property[] = [
   },
   {
     id: 'tzimer-009',
-    name: 'סוויטות בוטיק במרכז ירושלים',
+    name: 'סוויטה מעוצבת בגליל',
+    description: 'סוויטה יוקרתית מעוצבת בסגנון מודרני מינימליסטי עם קווים נקיים וחומרים איכותיים. כוללת ג׳קוזי ספא פרטי, מיטת קינג סייז, מטבח מאובזר, מרפסת עם נוף ופינת ישיבה מעוצבת.',
     location: 'הגליל, גליל עליון',
     type: 'zimmer',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093971/1_g8twuh.webp',
@@ -168,7 +178,8 @@ const allProperties: Property[] = [
   },
   {
     id: 'tzimer-010',
-    name: 'דירות נופש עם נוף בטבריה',
+    name: 'צימר יוקרתי ברמת הגולן',
+    description: 'צימר יוקרתי ברמת הגולן עם נוף פנורמי עוצר נשימה להר חרמון והכנרת. הצימר כולל ג׳קוזי ספא, סאונה פרטית, אח, מרפסת גדולה עם פינת ישיבה ונוף מרהיב.',
     location: 'רמת הגולן, גולן',
     type: 'zimmer',
     image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771094272/1_gq2ici.webp',
@@ -318,7 +329,7 @@ export default function GalleryPage() {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
             <p className={styles.heroSubtitle}>
-              10 נכסים מובחרים • חוויית נופש יוקרתית • שירות ברמה הגבוהה ביותר
+              10 נכסים מובחרים מצימר360 • חוויית נופש יוקרתית • שירות ברמה הגבוהה ביותר
             </p>
           </div>
         </div>
