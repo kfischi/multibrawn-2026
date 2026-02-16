@@ -6,7 +6,7 @@ import Link from 'next/link';
 import styles from './Gallery.module.css';
 
 // ============================================
-// PROPERTY DATA
+// 10 REAL PROPERTIES FROM SUPABASE
 // ============================================
 interface Property {
   id: string;
@@ -14,132 +14,183 @@ interface Property {
   location: string;
   type: string;
   image: string;
+  gallery: string[];
   price: string;
   rating: number;
   features: string[];
+  affiliateUrl: string;
 }
 
+const allProperties: Property[] = [
+  {
+    id: 'tzimer-001',
+    name: 'מתחם נופש יוקרתי בנווה זוהר',
+    location: 'נווה זוהר, ים המלח',
+    type: 'event',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771098896/1_tdqjak.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771098898/2_bo2h0b.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771098901/3_mdkgrd.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771098905/4_yyckc8.webp'
+    ],
+    price: '₪1,810 - ₪8,910',
+    rating: 4.8,
+    features: ['בריכה מקורה', 'נוף לים המלח', 'מתאים לאירועים'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4642?t=affiliate26'
+  },
+  {
+    id: 'tzimer-002',
+    name: 'בקתות יער רומנטיות בגליל העליון',
+    location: 'אליפלט, גליל עליון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771089103/1_p7eoq1.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771089104/2_earbgy.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771089104/3_vtwulx.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771089106/4_ghmhbk.webp'
+    ],
+    price: '₪1,200 - ₪2,500',
+    rating: 4.9,
+    features: ['ג\'קוזי פרטי', 'בקתות עץ', 'נוף הרים'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4655?t=affiliate26'
+  },
+  {
+    id: 'tzimer-003',
+    name: 'וילת אבן יוקרתית בחורשות הכרמל',
+    location: 'בית ג\'ן, הגליל המערבי',
+    type: 'villa',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092098/1_x8csz9.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092099/2_wpcf6r.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092101/3_cmtzvf.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092102/4_e0welx.webp'
+    ],
+    price: '₪2,800 - ₪5,500',
+    rating: 4.7,
+    features: ['בריכה פרטית', 'אירוח דרוזי', 'וילת אבן'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4658?t=affiliate26'
+  },
+  {
+    id: 'tzimer-004',
+    name: 'וילה משפחתית עם בריכה פרטית',
+    location: 'נווה זוהר, ים המלח',
+    type: 'villa',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092557/1_iynoio.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092558/2_shaom2.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092560/3_eozreh.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092562/4_gwi0s9.webp'
+    ],
+    price: '₪2,200 - ₪6,800',
+    rating: 4.6,
+    features: ['בריכה מחוממת', 'נוף מדברי', 'קרוב לים המלח'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4671?t=affiliate26'
+  },
+  {
+    id: 'tzimer-005',
+    name: 'אחוזת נופש מרווחת בבקעה',
+    location: 'טבריה, טבריה והכנרת',
+    type: 'hotel',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092885/1_gmw173.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092886/2_xmk5n8.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092889/3_ptfjog.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092891/4_syf3il.webp'
+    ],
+    price: '₪400 - ₪1,200',
+    rating: 4.8,
+    features: ['נוף לכנרת', 'בריכה משותפת', 'ג\'קוזי בחדר'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4675?t=affiliate26'
+  },
+  {
+    id: 'tzimer-006',
+    name: 'סוויטות נוף כנרת בטבריה',
+    location: 'מעלה עמוס, השומרון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093199/1_bk0rev.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093201/2_yzzx0u.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093203/3_zfijdd.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093206/4_slwn4l.webp'
+    ],
+    price: '₪800 - ₪1,500',
+    rating: 4.9,
+    features: ['ג\'קוזי ספא', 'לזוגות בלבד', 'פרטיות מלאה'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4676?t=affiliate26'
+  },
+  {
+    id: 'tzimer-007',
+    name: 'צימרים רומנטיים בחוף הכנרת',
+    location: 'מעלה עמוס, השומרון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093472/1_yfow2s.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093473/2_zdfqfq.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093476/3_spdloh.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093478/4_tttlsm.webp'
+    ],
+    price: '₪700 - ₪1,300',
+    rating: 4.7,
+    features: ['ג\'קוזי זוגי', 'עיצוב רומנטי', 'לזוגות בלבד'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4677?t=affiliate26'
+  },
+  {
+    id: 'tzimer-008',
+    name: 'מתחם אירוח בוטיק בגליל',
+    location: 'תל אביב, מרכז',
+    type: 'apartment',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093741/1_enya03.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093744/2_zf6z40.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093746/3_xvxvqy.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093749/4_zz1amp.webp'
+    ],
+    price: '₪1,800 - ₪4,500',
+    rating: 4.8,
+    features: ['מיקום מרכזי', 'קרוב לים', 'מרפסת גדולה'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4678?t=affiliate26'
+  },
+  {
+    id: 'tzimer-009',
+    name: 'סוויטות בוטיק במרכז ירושלים',
+    location: 'הגליל, גליל עליון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093971/1_g8twuh.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093974/2_ptkprq.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093977/3_gbsjai.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093980/4_wjxmcb.webp'
+    ],
+    price: '₪700 - ₪1,100',
+    rating: 4.8,
+    features: ['עיצוב מודרני', 'ג\'קוזי ספא', 'מיטת קינג'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C2303?t=affiliate26'
+  },
+  {
+    id: 'tzimer-010',
+    name: 'דירות נופש עם נוף בטבריה',
+    location: 'רמת הגולן, גולן',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771094272/1_gq2ici.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771094276/2_odtudx.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771094279/3_qzwwmr.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771094283/4_fj6vhc.webp'
+    ],
+    price: '₪900 - ₪1,400',
+    rating: 4.9,
+    features: ['נוף לחרמון', 'ג\'קוזי ספא', 'סאונה פרטית'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C2302?t=affiliate26'
+  }
+];
+
+// Group by type
 const properties = {
-  villa: [
-    {
-      id: 'v1',
-      name: 'וילת יוקרה - נוף גליל',
-      location: 'גליל עליון',
-      type: 'וילה',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa1_wjadot.jpg',
-      price: '₪2,500-4,000 ללילה',
-      rating: 4.9,
-      features: ['בריכה פרטית', 'ג\'קוזי', '8 חדרים', 'נוף פנורמי']
-    },
-    {
-      id: 'v2',
-      name: 'וילה עם בריכה מחוממת',
-      location: 'כרמיאל',
-      type: 'וילה',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa2_bhq0zu.jpg',
-      price: '₪3,000-5,000 ללילה',
-      rating: 5.0,
-      features: ['בריכה מחוממת', 'מטבח שף', '10 חדרים', 'גינה 2 דונם']
-    },
-    {
-      id: 'v3',
-      name: 'אחוזת פאר - צפון',
-      location: 'רמת הגולן',
-      type: 'וילה',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa3_auwgfv.jpg',
-      price: '₪4,000-6,000 ללילה',
-      rating: 4.8,
-      features: ['וינרי פרטי', 'סאונה', '12 חדרים', 'חדר קולנוע']
-    },
-    {
-      id: 'v4',
-      name: 'וילה מעוצבת בגליל',
-      location: 'גליל מערבי',
-      type: 'וילה',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
-      price: '₪2,800-4,500 ללילה',
-      rating: 4.9,
-      features: ['עיצוב מודרני', 'בריכה אינסוף', '6 חדרים', 'נדנדות VIP']
-    }
-  ],
-  zimmer: [
-    {
-      id: 'z1',
-      name: 'צימר רומנטי - ערדית',
-      location: 'גליל עליון',
-      type: 'צימר',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg',
-      price: '₪800-1,200 ללילה',
-      rating: 4.9,
-      features: ['ג\'קוזי ענק', 'אח בוערת', 'נוף הרים', 'פרטיות מלאה']
-    },
-    {
-      id: 'z2',
-      name: 'צימר בוטיק מעוצב',
-      location: 'הגליל המערבי',
-      type: 'צימר',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/BB_ksavxw.jpg',
-      price: '₪900-1,400 ללילה',
-      rating: 5.0,
-      features: ['עיצוב יוקרתי', 'ג\'קוזי פרטי', 'מרפסת רומנטית', 'ארוחת בוקר']
-    }
-  ],
-  apartment: [
-    {
-      id: 'a1',
-      name: 'דירת יוקרה - תל אביב',
-      location: 'תל אביב',
-      type: 'דירת נופש',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg',
-      price: '₪1,200-1,800 ללילה',
-      rating: 4.7,
-      features: ['נוף לים', '4 חדרים', 'מיקום מרכזי', 'חניה פרטית']
-    },
-    {
-      id: 'a2',
-      name: 'פנטהאוז מרשים',
-      location: 'הרצליה פיתוח',
-      type: 'דירת נופש',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_rvcrhf.jpg',
-      price: '₪2,000-3,000 ללילה',
-      rating: 4.9,
-      features: ['גג עם בריכה', '5 חדרים', 'נוף 360', 'מעלית פרטית']
-    }
-  ],
-  hotel: [
-    {
-      id: 'h1',
-      name: 'מלון בוטיק פאר',
-      location: 'ירושלים',
-      type: 'מלון בוטיק',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg',
-      price: '₪1,500-2,500 ללילה',
-      rating: 5.0,
-      features: ['ספא מפנק', 'מסעדה כשרה', 'שירות חדרים 24/7', 'סוויטות יוקרה']
-    }
-  ],
-  event: [
-    {
-      id: 'e1',
-      name: 'מתחם אירועים מפואר',
-      location: 'מושב בצפון',
-      type: 'מתחם אירועים',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg',
-      price: 'לפי הצעת מחיר',
-      rating: 4.9,
-      features: ['עד 200 איש', 'מטבח כשר', 'לינה 50 איש', 'גינה 5 דונם']
-    },
-    {
-      id: 'e2',
-      name: 'אולם יוקרתי',
-      location: 'גליל עליון',
-      type: 'מתחם אירועים',
-      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/2_gkqxlg.jpg',
-      price: 'לפי הצעת מחיר',
-      rating: 5.0,
-      features: ['עד 150 איש', 'אולם מעוצב', 'דיג\'יי + תאורה', 'לינה במקום']
-    }
-  ]
+  villa: allProperties.filter(p => p.type === 'villa'),
+  zimmer: allProperties.filter(p => p.type === 'zimmer'),
+  apartment: allProperties.filter(p => p.type === 'apartment'),
+  hotel: allProperties.filter(p => p.type === 'hotel'),
+  event: allProperties.filter(p => p.type === 'event')
 };
 
 // ============================================
@@ -155,6 +206,8 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
+
+  if (!items || items.length === 0) return null;
 
   return (
     <div className={styles.carouselSection}>
@@ -196,7 +249,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                 {/* Rating Badge */}
                 <div className={styles.ratingBadge}>
                   <span className={styles.star}>★</span>
-                  <span>{property.rating}</span>
+                  <span>{property.rating.toFixed(1)}</span>
                 </div>
 
                 {/* Hover Overlay */}
@@ -219,12 +272,18 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                         ))}
                       </div>
 
-                      <button className={styles.detailsBtn}>
-                        צפה בפרטים
+                      <a 
+                        href={property.affiliateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.detailsBtn}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        צפה בנכס
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
-                      </button>
+                      </a>
                     </div>
                   </div>
                 )}
@@ -259,7 +318,7 @@ export default function GalleryPage() {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
             <p className={styles.heroSubtitle}>
-              חוויית נופש יוקרתית • נכסים מובחרים • שירות ברמה הגבוהה ביותר
+              10 נכסים מובחרים • חוויית נופש יוקרתית • שירות ברמה הגבוהה ביותר
             </p>
           </div>
         </div>
@@ -275,35 +334,45 @@ export default function GalleryPage() {
 
       {/* Property Carousels */}
       <div className={styles.carouselsContainer}>
-        <PropertyCarousel
-          title="🏛️ וילות יוקרה"
-          items={properties.villa}
-          category="villa"
-        />
+        {properties.villa.length > 0 && (
+          <PropertyCarousel
+            title="🏛️ וילות יוקרה"
+            items={properties.villa}
+            category="villa"
+          />
+        )}
 
-        <PropertyCarousel
-          title="🏡 צימרים רומנטיים"
-          items={properties.zimmer}
-          category="zimmer"
-        />
+        {properties.zimmer.length > 0 && (
+          <PropertyCarousel
+            title="🏡 צימרים רומנטיים"
+            items={properties.zimmer}
+            category="zimmer"
+          />
+        )}
 
-        <PropertyCarousel
-          title="🏙️ דירות נופש"
-          items={properties.apartment}
-          category="apartment"
-        />
+        {properties.apartment.length > 0 && (
+          <PropertyCarousel
+            title="🏙️ דירות נופש"
+            items={properties.apartment}
+            category="apartment"
+          />
+        )}
 
-        <PropertyCarousel
-          title="🏨 מלונות בוטיק"
-          items={properties.hotel}
-          category="hotel"
-        />
+        {properties.hotel.length > 0 && (
+          <PropertyCarousel
+            title="🏨 מלונות בוטיק"
+            items={properties.hotel}
+            category="hotel"
+          />
+        )}
 
-        <PropertyCarousel
-          title="💍 מתחמי אירועים"
-          items={properties.event}
-          category="event"
-        />
+        {properties.event.length > 0 && (
+          <PropertyCarousel
+            title="💍 מתחמי אירועים"
+            items={properties.event}
+            category="event"
+          />
+        )}
       </div>
 
       {/* CTA Section */}
@@ -311,7 +380,10 @@ export default function GalleryPage() {
         <div className={styles.ctaContent}>
           <h2 className={styles.ctaTitle}>לא מצאתם את מה שחיפשתם?</h2>
           <p className={styles.ctaSubtitle}>ערדית, העוזרת הדיגיטלית שלנו, תעזור לכם למצוא בדיוק מה שאתם צריכים</p>
-          <button className={styles.ctaButton}>
+          <button className={styles.ctaButton} onClick={() => {
+            const chatBtn = document.querySelector('[data-chatbot]') as HTMLButtonElement;
+            if (chatBtn) chatBtn.click();
+          }}>
             דברו עם ערדית
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.35-3.83-.96l-.27-.16-2.83.48.48-2.83-.16-.27C4.35 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
