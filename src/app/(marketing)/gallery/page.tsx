@@ -1,354 +1,324 @@
 'use client';
 
-import { useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Gallery.module.css';
 
 // ============================================
-// TYPES
+// PROPERTY DATA
 // ============================================
-interface GalleryItem {
-  type: 'image' | 'video';
-  src: string;
-  alt: string;
-}
-
-interface Category {
+interface Property {
   id: string;
   name: string;
-  icon: string;
-  description: string;
+  location: string;
+  type: string;
+  image: string;
+  price: string;
+  rating: number;
+  features: string[];
 }
 
-// ============================================
-// GALLERY CONTENT COMPONENT
-// ============================================
-function GalleryContent() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams?.get('category') || 'all';
-  
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<GalleryItem>({ type: 'image', src: '', alt: '' });
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [filteredGalleryItems, setFilteredGalleryItems] = useState<GalleryItem[]>([]);
-
-  // ============================================
-  // CATEGORIES DATA
-  // ============================================
-  const categories: Category[] = [
-    { id: 'all', name: 'הכל', icon: '🏠', description: '' },
-    { id: 'villa', name: 'וילות', icon: '🏛️', description: 'וילות מרווחות ומפנקות עם בריכות פרטיות, גינות מטופחות ומתקנים לכל המשפחה. מושלם למשפחות גדולות, שבתות חתן ואירועים משפחתיים.' },
-    { id: 'zimmer', name: 'צימרים', icon: '🏡', description: 'צימרים אינטימיים וחלומיים לזוגות ומשפחות. ג\'קוזי פרטי, נוף מרהיב ופרטיות מלאה. האפשרות המושלמת לסופ"ש רומנטי, חופשה משפחתית או חגיגה זוגית.' },
-    { id: 'apartment', name: 'דירות', icon: '🏙️', description: 'דירות נופש מאובזרות במלואן במיקומים מרכזיים. מושלם למשפחות קטנות, זוגות או קבוצות חברים. קרוב לאטרקציות, חופים ומסעדות.' },
-    { id: 'hotel', name: 'מלונות', icon: '🏨', description: 'מלונות בוטיק ויוקרתיים עם שירות אישי ברמה הגבוהה ביותר. ארוחות בוקר עשירות, ספא, בריכות מחוממות וחוויה בלתי נשכחת.' },
-    { id: 'event', name: 'אירועים', icon: '💍', description: 'מתחמים ייחודיים לשבתות חתן, בר/בת מצווה ואירועים משפחתיים. כולל אולמות, חצרות מרווחות, מטבחים כשרים ואפשרות לינה לעשרות אורחים.' }
-  ];
-
-  // ============================================
-  // GALLERY ITEMS DATA
-  // ============================================
-  const galleryItems: Record<string, GalleryItem[]> = {
-    villa: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa1_wjadot.jpg', alt: 'וילה מפוארת עם בריכה פרטית' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa2_bhq0zu.jpg', alt: 'וילה יוקרתית עם נוף מרהיב' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa3_auwgfv.jpg', alt: 'וילה עם גינה מטופחת' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg', alt: 'וילה פאר עם מתקנים' }
-    ],
-    zimmer: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg', alt: 'צימר רומנטי עם ג\'קוזי' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/BB_ksavxw.jpg', alt: 'צימר מעוצב בסגנון מודרני' }
-    ],
-    apartment: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg', alt: 'דירת נופש מאובזרת במלואה' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_rvcrhf.jpg', alt: 'דירה מודרנית במיקום מרכזי' }
-    ],
-    hotel: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg', alt: 'מלון בוטיק יוקרתי עם שירות 5 כוכבים' }
-    ],
-    event: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg', alt: 'מתחם אירועים מרהיב' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/2_gkqxlg.jpg', alt: 'אולם אירועים מפואר' }
-    ]
-  };
-
-  // ============================================
-  // MODAL FUNCTIONS
-  // ============================================
-  const openModal = (item: GalleryItem, index: number, items: GalleryItem[]) => {
-    setModalContent(item);
-    setCurrentImageIndex(index);
-    setFilteredGalleryItems(items);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setModalContent({ type: 'image', src: '', alt: '' });
-  };
-
-  const nextImage = () => {
-    if (filteredGalleryItems.length === 0) return;
-    const nextIndex = (currentImageIndex + 1) % filteredGalleryItems.length;
-    setCurrentImageIndex(nextIndex);
-    setModalContent(filteredGalleryItems[nextIndex]);
-  };
-
-  const prevImage = () => {
-    if (filteredGalleryItems.length === 0) return;
-    const prevIndex = (currentImageIndex - 1 + filteredGalleryItems.length) % filteredGalleryItems.length;
-    setCurrentImageIndex(prevIndex);
-    setModalContent(filteredGalleryItems[prevIndex]);
-  };
-
-  // ============================================
-  // FILTER FUNCTION
-  // ============================================
-  const getFilteredItems = () => {
-    if (selectedCategory === 'all') {
-      return Object.entries(galleryItems).map(([category, items]) => ({
-        category,
-        items,
-      }));
+const properties = {
+  villa: [
+    {
+      id: 'v1',
+      name: 'וילת יוקרה - נוף גליל',
+      location: 'גליל עליון',
+      type: 'וילה',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa1_wjadot.jpg',
+      price: '₪2,500-4,000 ללילה',
+      rating: 4.9,
+      features: ['בריכה פרטית', 'ג\'קוזי', '8 חדרים', 'נוף פנורמי']
+    },
+    {
+      id: 'v2',
+      name: 'וילה עם בריכה מחוממת',
+      location: 'כרמיאל',
+      type: 'וילה',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa2_bhq0zu.jpg',
+      price: '₪3,000-5,000 ללילה',
+      rating: 5.0,
+      features: ['בריכה מחוממת', 'מטבח שף', '10 חדרים', 'גינה 2 דונם']
+    },
+    {
+      id: 'v3',
+      name: 'אחוזת פאר - צפון',
+      location: 'רמת הגולן',
+      type: 'וילה',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Villa3_auwgfv.jpg',
+      price: '₪4,000-6,000 ללילה',
+      rating: 4.8,
+      features: ['וינרי פרטי', 'סאונה', '12 חדרים', 'חדר קולנוע']
+    },
+    {
+      id: 'v4',
+      name: 'וילה מעוצבת בגליל',
+      location: 'גליל מערבי',
+      type: 'וילה',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
+      price: '₪2,800-4,500 ללילה',
+      rating: 4.9,
+      features: ['עיצוב מודרני', 'בריכה אינסוף', '6 חדרים', 'נדנדות VIP']
     }
-    return [{ 
-      category: selectedCategory, 
-      items: galleryItems[selectedCategory] || [] 
-    }];
+  ],
+  zimmer: [
+    {
+      id: 'z1',
+      name: 'צימר רומנטי - ערדית',
+      location: 'גליל עליון',
+      type: 'צימר',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg',
+      price: '₪800-1,200 ללילה',
+      rating: 4.9,
+      features: ['ג\'קוזי ענק', 'אח בוערת', 'נוף הרים', 'פרטיות מלאה']
+    },
+    {
+      id: 'z2',
+      name: 'צימר בוטיק מעוצב',
+      location: 'הגליל המערבי',
+      type: 'צימר',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/BB_ksavxw.jpg',
+      price: '₪900-1,400 ללילה',
+      rating: 5.0,
+      features: ['עיצוב יוקרתי', 'ג\'קוזי פרטי', 'מרפסת רומנטית', 'ארוחת בוקר']
+    }
+  ],
+  apartment: [
+    {
+      id: 'a1',
+      name: 'דירת יוקרה - תל אביב',
+      location: 'תל אביב',
+      type: 'דירת נופש',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg',
+      price: '₪1,200-1,800 ללילה',
+      rating: 4.7,
+      features: ['נוף לים', '4 חדרים', 'מיקום מרכזי', 'חניה פרטית']
+    },
+    {
+      id: 'a2',
+      name: 'פנטהאוז מרשים',
+      location: 'הרצליה פיתוח',
+      type: 'דירת נופש',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_rvcrhf.jpg',
+      price: '₪2,000-3,000 ללילה',
+      rating: 4.9,
+      features: ['גג עם בריכה', '5 חדרים', 'נוף 360', 'מעלית פרטית']
+    }
+  ],
+  hotel: [
+    {
+      id: 'h1',
+      name: 'מלון בוטיק פאר',
+      location: 'ירושלים',
+      type: 'מלון בוטיק',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg',
+      price: '₪1,500-2,500 ללילה',
+      rating: 5.0,
+      features: ['ספא מפנק', 'מסעדה כשרה', 'שירות חדרים 24/7', 'סוויטות יוקרה']
+    }
+  ],
+  event: [
+    {
+      id: 'e1',
+      name: 'מתחם אירועים מפואר',
+      location: 'מושב בצפון',
+      type: 'מתחם אירועים',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg',
+      price: 'לפי הצעת מחיר',
+      rating: 4.9,
+      features: ['עד 200 איש', 'מטבח כשר', 'לינה 50 איש', 'גינה 5 דונם']
+    },
+    {
+      id: 'e2',
+      name: 'אולם יוקרתי',
+      location: 'גליל עליון',
+      type: 'מתחם אירועים',
+      image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/2_gkqxlg.jpg',
+      price: 'לפי הצעת מחיר',
+      rating: 5.0,
+      features: ['עד 150 איש', 'אולם מעוצב', 'דיג\'יי + תאורה', 'לינה במקום']
+    }
+  ]
+};
+
+// ============================================
+// CAROUSEL COMPONENT (Netflix Style)
+// ============================================
+function PropertyCarousel({ title, items, category }: { title: string; items: Property[]; category: string }) {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
   };
 
-  // ============================================
-  // RENDER
-  // ============================================
   return (
-    <div className={styles.galleryPage}>
-      {/* Hero Section */}
-      <div className={styles.galleryHero}>
-        <div className={styles.heroContentInner}>
-          <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
-          <p className={styles.heroSubtitle}>הצצה למקומות הכי שווים בארץ</p>
-        </div>
+    <div className={styles.carouselSection}>
+      <div className={styles.carouselHeader}>
+        <h2 className={styles.carouselTitle}>{title}</h2>
+        <Link href={`/gallery/${category}`} className={styles.viewAll}>
+          צפה בהכל →
+        </Link>
       </div>
 
-      {/* Filter Buttons */}
-      <div className={styles.filterContainer}>
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            className={`${styles.filterBtn} ${selectedCategory === cat.id ? styles.active : ''}`}
-            onClick={() => setSelectedCategory(cat.id)}
-          >
-            {cat.icon === '🏠' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            )}
-            {cat.icon === '🏛️' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-            )}
-            {cat.icon === '🏡' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-            )}
-            {cat.icon === '🏙️' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <path d="M9 22V12h6v10"/>
-              </svg>
-            )}
-            {cat.icon === '🏨' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-            )}
-            {cat.icon === '💍' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="8" r="7"/>
-                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-              </svg>
-            )}
-            <span>{cat.name}</span>
-          </button>
-        ))}
-      </div>
+      <div className={styles.carouselWrapper}>
+        <button 
+          className={`${styles.scrollBtn} ${styles.scrollLeft}`}
+          onClick={() => scroll('left')}
+          aria-label="גלול שמאלה"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
 
-      {/* Gallery Grid */}
-      <div className={styles.gallerySection}>
-        {getFilteredItems().map(({ category, items }) => {
-          const categoryData = categories.find(c => c.id === category);
-          if (!items || items.length === 0) return null;
-
-          return (
-            <div key={category} className={styles.categorySection}>
-              <div className={styles.categoryHeader}>
-                <div className={styles.categoryIconWrapper}>
-                  {categoryData?.icon === '🏛️' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                  )}
-                  {categoryData?.icon === '🏡' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                  )}
-                  {categoryData?.icon === '🏙️' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                      <path d="M9 22V12h6v10"/>
-                    </svg>
-                  )}
-                  {categoryData?.icon === '🏨' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                  )}
-                  {categoryData?.icon === '💍' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="8" r="7"/>
-                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                    </svg>
-                  )}
+        <div className={styles.carousel} ref={carouselRef}>
+          {items.map((property) => (
+            <div
+              key={property.id}
+              className={`${styles.propertyCard} ${hoveredId === property.id ? styles.hovered : ''}`}
+              onMouseEnter={() => setHoveredId(property.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
+              <div className={styles.imageWrapper}>
+                <Image
+                  src={property.image}
+                  alt={property.name}
+                  fill
+                  className={styles.propertyImage}
+                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 40vw, 30vw"
+                />
+                
+                {/* Rating Badge */}
+                <div className={styles.ratingBadge}>
+                  <span className={styles.star}>★</span>
+                  <span>{property.rating}</span>
                 </div>
-                <h2 className={styles.categoryTitle}>
-                  {categoryData?.name}
-                </h2>
-              </div>
-              {categoryData?.description && (
-                <p className={styles.categoryDescription}>
-                  {categoryData.description}
-                </p>
-              )}
-              <div className={styles.galleryRow}>
-                {items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className={styles.galleryCard}
-                    onClick={() => openModal(item, idx, items)}
-                  >
-                    {item.type === 'image' ? (
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className={styles.galleryImage}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <>
-                        <video className={styles.galleryImage} muted playsInline>
-                          <source src={`${item.src}#t=0.1`} type="video/mp4" />
-                        </video>
-                        <div className={styles.videoPlayOverlay}>
-                          <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </>
-                    )}
+
+                {/* Hover Overlay */}
+                {hoveredId === property.id && (
+                  <div className={styles.hoverOverlay}>
+                    <div className={styles.overlayContent}>
+                      <h3 className={styles.propertyName}>{property.name}</h3>
+                      <div className={styles.propertyLocation}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>{property.location}</span>
+                      </div>
+                      <p className={styles.propertyPrice}>{property.price}</p>
+                      
+                      <div className={styles.features}>
+                        {property.features.slice(0, 3).map((feature, idx) => (
+                          <span key={idx} className={styles.feature}>{feature}</span>
+                        ))}
+                      </div>
+
+                      <button className={styles.detailsBtn}>
+                        צפה בפרטים
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      {/* Modal */}
-      {modalOpen && (
-        <div className={styles.videoModal} onClick={closeModal}>
-          <div className={styles.modalCloseBtn} onClick={closeModal}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </div>
-          
-          {/* Previous Button */}
-          {filteredGalleryItems.length > 1 && (
-            <button 
-              className={`${styles.modalNavBtn} ${styles.modalPrevBtn}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                prevImage();
-              }}
-              aria-label="תמונה קודמת"
-            >
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-            </button>
-          )}
-
-          {/* Next Button */}
-          {filteredGalleryItems.length > 1 && (
-            <button 
-              className={`${styles.modalNavBtn} ${styles.modalNextBtn}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                nextImage();
-              }}
-              aria-label="תמונה הבאה"
-            >
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-          )}
-
-          <div onClick={(e) => e.stopPropagation()}>
-            {modalContent.type === 'image' ? (
-              <Image
-                src={modalContent.src}
-                alt={modalContent.alt}
-                width={1200}
-                height={800}
-                className={styles.modalImage}
-              />
-            ) : (
-              <video className={styles.modalVideo} controls autoPlay>
-                <source src={modalContent.src} type="video/mp4" />
-              </video>
-            )}
-          </div>
+          ))}
         </div>
-      )}
+
+        <button 
+          className={`${styles.scrollBtn} ${styles.scrollRight}`}
+          onClick={() => scroll('right')}
+          aria-label="גלול ימינה"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
 
 // ============================================
-// MAIN EXPORT WITH SUSPENSE
+// MAIN GALLERY PAGE
 // ============================================
 export default function GalleryPage() {
   return (
-    <Suspense fallback={
-      <div style={{ 
-        minHeight: '100vh', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        fontSize: '1.5rem',
-        color: '#667eea'
-      }}>
-        טוען גלריה...
+    <div className={styles.galleryPage}>
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <div className={styles.heroOverlay}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
+            <p className={styles.heroSubtitle}>
+              חוויית נופש יוקרתית • נכסים מובחרים • שירות ברמה הגבוהה ביותר
+            </p>
+          </div>
+        </div>
+        <Image
+          src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762004983/HERO_zb7pwc.jpg"
+          alt="Hero Background"
+          fill
+          className={styles.heroImage}
+          priority
+          sizes="100vw"
+        />
+      </section>
+
+      {/* Property Carousels */}
+      <div className={styles.carouselsContainer}>
+        <PropertyCarousel
+          title="🏛️ וילות יוקרה"
+          items={properties.villa}
+          category="villa"
+        />
+
+        <PropertyCarousel
+          title="🏡 צימרים רומנטיים"
+          items={properties.zimmer}
+          category="zimmer"
+        />
+
+        <PropertyCarousel
+          title="🏙️ דירות נופש"
+          items={properties.apartment}
+          category="apartment"
+        />
+
+        <PropertyCarousel
+          title="🏨 מלונות בוטיק"
+          items={properties.hotel}
+          category="hotel"
+        />
+
+        <PropertyCarousel
+          title="💍 מתחמי אירועים"
+          items={properties.event}
+          category="event"
+        />
       </div>
-    }>
-      <GalleryContent />
-    </Suspense>
+
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaContent}>
+          <h2 className={styles.ctaTitle}>לא מצאתם את מה שחיפשתם?</h2>
+          <p className={styles.ctaSubtitle}>ערדית, העוזרת הדיגיטלית שלנו, תעזור לכם למצוא בדיוק מה שאתם צריכים</p>
+          <button className={styles.ctaButton}>
+            דברו עם ערדית
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.35-3.83-.96l-.27-.16-2.83.48.48-2.83-.16-.27C4.35 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+    </div>
   );
 }
