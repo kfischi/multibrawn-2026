@@ -295,6 +295,11 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                           <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                       </a>
+
+                      {/* Tzimer360 Credit */}
+                      <div className={styles.partnerCredit}>
+                        בשיתוף עם צימר360
+                      </div>
                     </div>
                   </div>
                 )}
@@ -323,25 +328,31 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
 export default function GalleryPage() {
   return (
     <div className={styles.galleryPage}>
-      {/* Hero Section */}
+      {/* Hero Section with VIDEO */}
       <section className={styles.hero}>
-        <div className={styles.heroOverlay}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
-            <p className={styles.heroSubtitle}>
-              10 נכסים מובחרים מצימר360 • חוויית נופש יוקרתית • שירות ברמה הגבוהה ביותר
-            </p>
-          </div>
-        </div>
-        <Image
-          src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762004983/HERO_zb7pwc.jpg"
-          alt="Hero Background"
-          fill
-          className={styles.heroImage}
-          priority
-          sizes="100vw"
-        />
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        >
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/q_auto,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className={styles.heroOverlay} />
       </section>
+
+      {/* Titles BELOW Video */}
+      <div className={styles.heroTitlesBelow}>
+        <h1 className={styles.heroTitleBelow}>הגלריה שלנו</h1>
+        <p className={styles.heroSubtitleBelow}>
+          נכסים מובחרים • חוויית נופש יוקרתית • שירות ברמה הגבוהה ביותר
+        </p>
+      </div>
 
       {/* Property Carousels */}
       <div className={styles.carouselsContainer}>
