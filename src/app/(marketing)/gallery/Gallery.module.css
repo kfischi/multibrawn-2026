@@ -10,18 +10,27 @@
 }
 
 /* ============================================
-   HERO SECTION
+   HERO SECTION - VIDEO
    ============================================ */
 .hero {
   position: relative;
   height: 70vh;
   width: 100%;
   overflow: hidden;
+  background: #000;
 }
 
-.heroImage {
+.heroVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: cover;
-  object-position: center;
+  z-index: 1;
 }
 
 .heroOverlay {
@@ -29,20 +38,18 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.7) 70%,
-    rgba(10, 10, 10, 1) 100%
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 70%,
+    rgba(10, 10, 10, 0.9) 100%
   );
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.heroContent {
+/* Titles BELOW Video */
+.heroTitlesBelow {
+  background: #0a0a0a;
+  padding: 3rem 2rem;
   text-align: center;
-  padding: 2rem;
-  max-width: 900px;
   animation: fadeInUp 1s ease-out;
 }
 
@@ -57,24 +64,26 @@
   }
 }
 
-.heroTitle {
-  font-size: clamp(3rem, 7vw, 5rem);
+.heroTitleBelow {
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 900;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-.heroSubtitle {
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  color: rgba(255, 255, 255, 0.9);
+.heroSubtitleBelow {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   font-weight: 300;
   letter-spacing: 0.5px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 /* ============================================
@@ -352,11 +361,24 @@
   gap: 8px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+  text-decoration: none;
 }
 
 .detailsBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 30px rgba(0, 212, 255, 0.5);
+}
+
+/* Partner Credit - Tzimer360 */
+.partnerCredit {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 /* ============================================
@@ -426,6 +448,18 @@
 @media (max-width: 768px) {
   .hero {
     height: 50vh;
+  }
+
+  .heroTitlesBelow {
+    padding: 2rem 1.5rem;
+  }
+
+  .heroTitleBelow {
+    font-size: 2rem;
+  }
+
+  .heroSubtitleBelow {
+    font-size: 0.95rem;
   }
 
   .carouselSection {
