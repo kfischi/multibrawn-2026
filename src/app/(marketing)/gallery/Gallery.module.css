@@ -1,256 +1,503 @@
-/* Gallery Page Styles */
+/* ============================================
+   NETFLIX-STYLE LUXURY GALLERY
+   ============================================ */
 
 .galleryPage {
   min-height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  overflow-x: hidden;
 }
 
-/* === Hero === */
-.galleryHero {
-  height: 60vh;
-  max-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
   position: relative;
-  color: white;
-  text-align: center;
-  margin-top: -90px;
-  padding-top: 90px;
-  background: url('https://res.cloudinary.com/dptyfvwyo/image/upload/v1762004983/HERO_zb7pwc.jpg') no-repeat center/cover;
-  border-radius: 0 0 40px 40px;
-  margin-bottom: 3rem;
+  height: 70vh;
+  width: 100%;
   overflow: hidden;
 }
 
-.galleryHero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 0 0 40px 40px;
+.heroImage {
+  object-fit: cover;
+  object-position: center;
 }
 
-.heroContentInner {
-  position: relative;
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.7) 70%,
+    rgba(10, 10, 10, 1) 100%
+  );
   z-index: 2;
-  padding-top: 80px;
-  max-width: 800px;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .heroTitle {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  margin-bottom: 1rem;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
 }
 
 .heroSubtitle {
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  opacity: 0.95;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  font-weight: 300;
+  letter-spacing: 0.5px;
 }
 
-/* === Filter Buttons === */
-.filterContainer {
+/* ============================================
+   CAROUSELS CONTAINER
+   ============================================ */
+.carouselsContainer {
+  padding: 3rem 0;
+  background: #0a0a0a;
+  margin-top: -100px;
+  position: relative;
+  z-index: 3;
+}
+
+/* ============================================
+   CAROUSEL SECTION
+   ============================================ */
+.carouselSection {
+  margin-bottom: 4rem;
+  padding: 0 clamp(1rem, 4vw, 4rem);
+}
+
+.carouselHeader {
   display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-right: 1rem;
 }
 
-.filterBtn {
-  padding: 0.6rem 1.5rem;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--site-text);
+.carouselTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.viewAll {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.filterBtn:hover,
-.filterBtn.active {
-  background: var(--site-accent);
+.viewAll:hover {
   color: white;
-  border-color: var(--site-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 94, 161, 0.3);
 }
 
-/* === Gallery Section === */
-.gallerySection {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem 4rem;
-}
-
-.categorySection {
-  margin-bottom: 4rem;
-}
-
-.categoryTitle {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: var(--site-text);
-  text-align: center;
-}
-
-.galleryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-/* === Gallery Item === */
-.galleryItem {
+/* ============================================
+   CAROUSEL WRAPPER & SCROLLING
+   ============================================ */
+.carouselWrapper {
   position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  height: 350px;
 }
 
-.galleryItem:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+.carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1.5rem 1rem;
+  margin: 0 -1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll Buttons */
+.scrollBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 100px;
+  background: rgba(10, 10, 10, 0.8);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+}
+
+.carouselWrapper:hover .scrollBtn {
+  opacity: 1;
+}
+
+.scrollBtn:hover {
+  background: rgba(10, 10, 10, 0.95);
+}
+
+.scrollLeft {
+  left: 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.scrollRight {
+  right: 0;
+  border-radius: 8px 0 0 8px;
+}
+
+/* ============================================
+   PROPERTY CARD (Netflix Style)
+   ============================================ */
+.propertyCard {
+  position: relative;
+  flex: 0 0 350px;
+  height: 200px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.propertyCard:hover {
+  transform: scale(1.05) translateY(-10px);
+  z-index: 100;
+}
+
+.propertyCard.hovered {
+  flex: 0 0 450px;
+  height: 320px;
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
-  height: 250px;
-  overflow: hidden;
-}
-
-.galleryImage {
-  width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #1a1a1a;
 }
 
-.galleryItem:hover .galleryImage {
+.propertyImage {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.propertyCard:hover .propertyImage {
   transform: scale(1.1);
 }
 
-.itemContent {
-  padding: 1rem;
-}
-
-.itemTitle {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--site-text);
-}
-
-.itemDescription {
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.5;
-}
-
-/* === Lightbox === */
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
+/* Rating Badge */
+.ratingBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 6px 12px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 2rem;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 5;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.lightboxContent {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
+.star {
+  color: #FFD700;
+  font-size: 1.1rem;
 }
 
-.lightboxImage {
-  max-width: 100%;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: var(--radius-lg);
-}
-
-.closeBtn {
+/* ============================================
+   HOVER OVERLAY (המידע שמופיע ב-Hover)
+   ============================================ */
+.hoverOverlay {
   position: absolute;
-  top: -50px;
-  right: 0;
-  background: white;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.95) 70%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-in;
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.overlayContent {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.propertyName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+  line-height: 1.3;
+}
+
+.propertyLocation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.propertyPrice {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00D4FF;
+  margin-bottom: 1rem;
+}
+
+/* Features */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Details Button */
+.detailsBtn {
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  color: white;
   border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  gap: 8px;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
 }
 
-.closeBtn:hover {
-  background: var(--site-accent);
+.detailsBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(0, 212, 255, 0.5);
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.ctaSection {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.ctaContent {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
   color: white;
-  transform: rotate(90deg);
 }
 
-/* === Responsive === */
+.ctaSubtitle {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+}
+
+.ctaButton:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.6);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .propertyCard {
+    flex: 0 0 300px;
+  }
+
+  .propertyCard.hovered {
+    flex: 0 0 380px;
+    height: 280px;
+  }
+}
+
 @media (max-width: 768px) {
-  .galleryHero {
+  .hero {
     height: 50vh;
-    max-height: 400px;
-    margin-top: -70px;
-    padding-top: 70px;
+  }
+
+  .carouselSection {
+    margin-bottom: 3rem;
+  }
+
+  .propertyCard {
+    flex: 0 0 280px;
+    height: 180px;
+  }
+
+  .propertyCard:hover {
+    transform: scale(1.03) translateY(-5px);
+  }
+
+  .propertyCard.hovered {
+    flex: 0 0 320px;
+    height: 240px;
+  }
+
+  .scrollBtn {
+    width: 40px;
+    height: 80px;
+  }
+
+  .ctaSection {
+    padding: 4rem 1.5rem;
+  }
+
+  .propertyName {
+    font-size: 1.2rem;
+  }
+
+  .features {
+    gap: 0.4rem;
+  }
+
+  .feature {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselsContainer {
+    margin-top: -50px;
+  }
+
+  .propertyCard {
+    flex: 0 0 250px;
+    height: 160px;
+  }
+
+  .propertyCard.hovered {
+    flex: 0 0 280px;
+    height: 220px;
   }
 
   .heroTitle {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
-  .heroSubtitle {
-    font-size: 1rem;
+  .carouselTitle {
+    font-size: 1.3rem;
   }
 
-  .galleryGrid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-
-  .galleryItem {
-    height: 300px;
-  }
-
-  .imageWrapper {
-    height: 200px;
-  }
-
-  .filterContainer {
+  .overlayContent {
     padding: 1rem;
   }
 
-  .filterBtn {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+  .detailsBtn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 }
