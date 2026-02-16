@@ -269,7 +269,80 @@
 }
 
 /* ============================================
-   HOVER OVERLAY (המידע שמופיע ב-Hover)
+   ALWAYS VISIBLE INFO (Desktop + Mobile)
+   ============================================ */
+
+/* Tzimer360 Credit - Always Visible */
+.alwaysCredit {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 5;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Basic Info - Always Visible */
+.basicInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.8) 60%,
+    transparent 100%
+  );
+  z-index: 4;
+  transition: opacity 0.3s ease;
+}
+
+.basicName {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+  color: white;
+}
+
+.basicLocation {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.basicLocation svg {
+  flex-shrink: 0;
+}
+
+.basicPrice {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #00D4FF;
+  margin: 0;
+}
+
+/* Hide basic info when hovering (desktop only) */
+@media (min-width: 769px) {
+  .propertyCard:hover .basicInfo {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* ============================================
+   HOVER OVERLAY (Desktop - More Details)
    ============================================ */
 .hoverOverlay {
   position: absolute;
@@ -287,46 +360,37 @@
   z-index: 10;
 }
 
-/* MOBILE - Show overlay by default */
+/* ============================================
+   MOBILE SPECIFIC ADJUSTMENTS
+   ============================================ */
 @media (max-width: 768px) {
-  /* Mobile Info - Always visible */
-  .mobileInfo {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 12px;
+  /* Smaller text on mobile */
+  .basicName {
+    font-size: 0.9rem;
+  }
+
+  .basicLocation {
+    font-size: 0.75rem;
+  }
+
+  .basicLocation svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .basicPrice {
+    font-size: 0.85rem;
+  }
+
+  /* Smaller gradient on mobile */
+  .basicInfo {
+    padding: 10px;
     background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.95) 0%,
-      rgba(0, 0, 0, 0.85) 60%,
+      rgba(0, 0, 0, 0.75) 50%,
       transparent 100%
     );
-    z-index: 4;
-  }
-
-  .mobileInfo .propertyName {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 0.4rem;
-    color: white;
-  }
-
-  .mobileInfo .propertyLocation {
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 0.4rem;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  .mobileInfo .propertyPrice {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #00D4FF;
-    margin: 0;
   }
 
   /* Hide hover overlay on mobile */
@@ -334,17 +398,26 @@
     display: none;
   }
 
-  /* Smaller cards on mobile */
+  /* Bigger cards on mobile */
   .propertyCard {
-    flex: 0 0 280px;
-    height: 180px;
+    flex: 0 0 300px;
+    height: 200px;
   }
-}
 
-/* Desktop - Hide mobile info */
-@media (min-width: 769px) {
-  .mobileInfo {
-    display: none;
+  /* Smaller rating badge */
+  .ratingBadge {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .ratingBadge .star {
+    font-size: 0.9rem;
+  }
+
+  /* Smaller credit badge */
+  .alwaysCredit {
+    font-size: 0.65rem;
+    padding: 4px 8px;
   }
 }
 
