@@ -328,7 +328,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
 export default function GalleryPage() {
   return (
     <div className={styles.galleryPage}>
-      {/* Hero Section with VIDEO */}
+      {/* Hero Section with OPTIMIZED VIDEO */}
       <section className={styles.hero}>
         <video
           className={styles.heroVideo}
@@ -336,12 +336,38 @@ export default function GalleryPage() {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
         >
+          {/* 4K for large screens */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/q_auto,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_3840,h_2160,c_fill,q_auto:best,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+            media="(min-width: 2560px)"
+          />
+          {/* 1440p for desktop */}
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_2560,h_1440,c_fill,q_auto:best,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+            media="(min-width: 1920px)"
+          />
+          {/* 1080p for standard desktop */}
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_1920,h_1080,c_fill,q_auto:best,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+            media="(min-width: 1280px)"
+          />
+          {/* 720p for tablets */}
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_1280,h_720,c_fill,q_auto:good,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+            media="(min-width: 768px)"
+          />
+          {/* 480p for mobile */}
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_854,h_480,c_fill,q_auto:good,f_auto/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
           />
+          הדפדפן שלך לא תומך בהצגת וידאו.
         </video>
         <div className={styles.heroOverlay} />
       </section>
