@@ -328,7 +328,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
 export default function GalleryPage() {
   return (
     <div className={styles.galleryPage}>
-      {/* Hero Section with OPTIMIZED VIDEO */}
+      {/* Hero Section with OPTIMIZED VIDEO + ZOOM OUT */}
       <section className={styles.hero}>
         <video
           className={styles.heroVideo}
@@ -338,33 +338,33 @@ export default function GalleryPage() {
           playsInline
           preload="auto"
         >
-          {/* 4K for large screens */}
+          {/* 4K for large screens - WITH ZOOM OUT */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/w_3840,h_2160,c_fill,q_auto:best,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_3840,h_2160,c_fit,q_auto:best,f_auto,e_zoom:0.8/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
             media="(min-width: 2560px)"
           />
-          {/* 1440p for desktop */}
+          {/* 1440p for desktop - WITH ZOOM OUT */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/w_2560,h_1440,c_fill,q_auto:best,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_2560,h_1440,c_fit,q_auto:best,f_auto,e_zoom:0.8/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
             media="(min-width: 1920px)"
           />
-          {/* 1080p for standard desktop */}
+          {/* 1080p for standard desktop - WITH ZOOM OUT */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/w_1920,h_1080,c_fill,q_auto:best,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_1920,h_1080,c_fit,q_auto:best,f_auto,e_zoom:0.8/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
             media="(min-width: 1280px)"
           />
-          {/* 720p for tablets */}
+          {/* 720p for tablets - WITH ZOOM OUT */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/w_1280,h_720,c_fill,q_auto:good,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_1280,h_720,c_fit,q_auto:good,f_auto,e_zoom:0.85/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
             media="(min-width: 768px)"
           />
-          {/* 480p for mobile */}
+          {/* 480p for mobile - WITH ZOOM OUT */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/w_854,h_480,c_fill,q_auto:good,f_auto/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/w_854,h_480,c_fit,q_auto:good,f_auto,e_zoom:0.85/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
           />
           הדפדפן שלך לא תומך בהצגת וידאו.
