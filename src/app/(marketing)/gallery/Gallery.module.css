@@ -42,6 +42,18 @@
   z-index: 2;
 }
 
+/* Mobile - Lighter overlay for video */
+@media (max-width: 768px) {
+  .heroOverlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.3) 70%,
+      rgba(10, 10, 10, 0.7) 100%
+    );
+  }
+}
+
 /* Titles BELOW Video */
 .heroTitlesBelow {
   background: #0a0a0a;
@@ -273,6 +285,67 @@
   padding: 2rem;
   animation: fadeIn 0.3s ease-in;
   z-index: 10;
+}
+
+/* MOBILE - Show overlay by default */
+@media (max-width: 768px) {
+  /* Mobile Info - Always visible */
+  .mobileInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.85) 60%,
+      transparent 100%
+    );
+    z-index: 4;
+  }
+
+  .mobileInfo .propertyName {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+    color: white;
+  }
+
+  .mobileInfo .propertyLocation {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0.4rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .mobileInfo .propertyPrice {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #00D4FF;
+    margin: 0;
+  }
+
+  /* Hide hover overlay on mobile */
+  .hoverOverlay {
+    display: none;
+  }
+
+  /* Smaller cards on mobile */
+  .propertyCard {
+    flex: 0 0 280px;
+    height: 180px;
+  }
+}
+
+/* Desktop - Hide mobile info */
+@media (min-width: 769px) {
+  .mobileInfo {
+    display: none;
+  }
 }
 
 @keyframes fadeIn {
