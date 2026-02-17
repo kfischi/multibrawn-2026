@@ -31,17 +31,16 @@
   z-index: 1;
 }
 
-/* Mobile - Show full video frame */
+/* Mobile - Better video display */
 @media (max-width: 768px) {
-  .heroVideo {
-    object-fit: contain; /* Changed from cover to contain */
-    object-position: center center;
-    background: #000; /* Black background for letterbox */
+  .hero {
+    height: 60vh;
+    background: #000;
   }
   
-  .hero {
-    height: 50vh; /* Shorter on mobile to see full frame */
-    background: #000;
+  .heroVideo {
+    object-fit: cover; /* Fill screen */
+    object-position: center center;
   }
 }
 
@@ -664,16 +663,16 @@
 
 @media (max-width: 768px) {
   .hero {
-    height: 50vh; /* Matches above */
+    height: 60vh;
     background: #000;
   }
 
   .heroOverlay {
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.2) 0%,
-      rgba(0, 0, 0, 0.4) 70%,
-      rgba(10, 10, 10, 0.8) 100%
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.3) 70%,
+      rgba(10, 10, 10, 0.7) 100%
     );
   }
 
