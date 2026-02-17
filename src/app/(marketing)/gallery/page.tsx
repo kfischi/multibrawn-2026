@@ -268,7 +268,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                   צימר360
                 </div>
 
-                {/* Basic Info - Always Visible (Desktop & Mobile) */}
+                {/* Basic Info - Desktop Only (overlay) */}
                 <div className={styles.basicInfo}>
                   <h3 className={styles.basicName}>{property.name}</h3>
                   <div className={styles.basicLocation}>
@@ -281,7 +281,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                   <p className={styles.basicPrice}>{property.price}</p>
                 </div>
 
-                {/* Hover Overlay - Desktop (More Details) */}
+                {/* Hover Overlay - Desktop */}
                 {hoveredId === property.id && (
                   <div className={styles.hoverOverlay}>
                     <div className={styles.overlayContent}>
@@ -321,6 +321,31 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                     </div>
                   </div>
                 )}
+              </div>
+
+              {/* Mobile Text - BELOW Image */}
+              <div className={styles.mobileTextBelow}>
+                <h3 className={styles.basicName}>{property.name}</h3>
+                <div className={styles.basicLocation}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <span>{property.location}</span>
+                </div>
+                <p className={styles.basicPrice}>{property.price}</p>
+                
+                <a 
+                  href={property.affiliateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.mobileActionBtn}
+                >
+                  צפה בנכס
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
               </div>
             </div>
           ))}
