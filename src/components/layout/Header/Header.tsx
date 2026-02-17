@@ -1,147 +1,497 @@
-'use client';
+/* ============================================
+   HEADER BASE
+   ============================================ */
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import styles from './Header.module.css';
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
 
-export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+/* ============================================
+   LOGO
+   ============================================ */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+.logoContainer:hover {
+  opacity: 0.8;
+}
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+.logo {
+  position: relative;
+  width: 100px;
+  height: auto;
+}
 
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+.logo img {
+  max-width: 100px !important;
+  height: auto !important;
+}
 
-  const navLinks = [
-    { href: '/', label: 'בית' },
-    { href: '/gallery', label: 'גלריה' },
-    { href: '/shabbat-hatan', label: 'שבת חתן' },
-    { href: '/blog', label: 'בלוג' },
-    { href: '/about', label: 'אודות' },
-    { href: '/contact', label: 'צור קשר' },
-  ];
+.brandName {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname?.startsWith(href);
-  };
+/* ============================================
+   DESKTOP NAVIGATION
+   ============================================ */
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 
-  return (
-    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      <div className={styles.container}>
-        {/* Logo + Text */}
-        <Link href="/" className={styles.logoLink}>
-          <div className={styles.logoContainer}>
-            <div className={styles.logo}>
-              <Image
-                src="https://res.cloudinary.com/decirk3zb/image/upload/e_background_removal/f_png/v1766783584/Logo_1_sneunp.jpg"
-                alt="MULTIBRAWN"
-                width={100}
-                height={33}
-                priority
-                style={{ 
-                  maxWidth: '100px', 
-                  height: 'auto',
-                  objectFit: 'contain'
-                }}
-              />
-            </div>
-            <span className={styles.brandName}>MULTIBRAWN</span>
-          </div>
-        </Link>
+.navLink {
+  color: #1a202c;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
 
-        {/* Desktop Navigation */}
-        <nav className={styles.desktopNav}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`${styles.navLink} ${isActive(link.href) ? styles.active : ''}`}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+  transition: width 0.3s ease;
+}
 
-        {/* WhatsApp Button + Hamburger */}
-        <div className={styles.headerActions}>
-          {/* WhatsApp Button */}
-          <a
-            href="https://wa.me/972523983394"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.whatsappButton}
-            aria-label="WhatsApp"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-            </svg>
-            <span className={styles.whatsappText}>WhatsApp</span>
-          </a>
+.navLink:hover {
+  color: #06b6d4;
+}
 
-          {/* Mobile Hamburger */}
-          <button
-            className={styles.hamburger}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="תפריט"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
-            <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
-            <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
-          </button>
-        </div>
-      </div>
+.navLink:hover::after {
+  width: 100%;
+}
 
-      {/* Mobile Menu */}
-      <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-        <nav className={styles.mobileNav}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`${styles.mobileNavLink} ${isActive(link.href) ? styles.active : ''}`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          
-          {/* WhatsApp in Mobile Menu */}
-          <a
-            href="https://wa.me/972523983394"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.mobileWhatsapp}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-            </svg>
-            צור קשר ב-WhatsApp
-          </a>
-        </nav>
-      </div>
+.navLink.active {
+  color: #06b6d4;
+  font-weight: 600;
+}
 
-      {/* Overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className={styles.overlay}
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-    </header>
-  );
+.navLink.active::after {
+  width: 100%;
+}
+
+/* ============================================
+   HEADER ACTIONS
+   ============================================ */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* WhatsApp Button */
+.whatsappButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.whatsappButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
+.whatsappButton svg {
+  flex-shrink: 0;
+}
+
+.whatsappText {
+  white-space: nowrap;
+}
+
+/* ============================================
+   MOBILE MENU BUTTON WITH INDICATORS
+   ============================================ */
+.menuButtonWrapper {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  position: relative;
+  z-index: 1001;
+  animation: gentleBounce 3s ease-in-out infinite;
+}
+
+/* Stop animations after interaction */
+.hamburger.interacted {
+  animation: none;
+}
+
+.hamburger.interacted::before {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+@keyframes gentleBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Glow effect */
+.hamburger::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* Highlight flash */
+.menuHighlight {
+  animation: highlight 1.5s ease-out;
+}
+
+@keyframes highlight {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: rgba(0, 212, 255, 0.15);
+    border-radius: 8px;
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+/* Hamburger lines */
+.line {
+  width: 25px;
+  height: 3px;
+  background: #1a202c;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+  box-shadow: 0 0 4px rgba(0, 212, 255, 0.3);
+}
+
+.line.lineOpen:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.line.lineOpen:nth-child(2) {
+  opacity: 0;
+}
+
+.line.lineOpen:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Pulsing Badge */
+.menuBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+  z-index: 10;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+  }
+}
+
+/* Menu Label - ABOVE hamburger, small and clear */
+.menuLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-align: center;
+  margin-bottom: 2px;
+  order: -1;
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
+
+/* Tooltip */
+.menuTooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: #1a202c;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.menuTooltip::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #1a202c;
+}
+
+.menuTooltip.showTooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+.mobileMenu {
+  display: none;
+  position: fixed;
+  top: 70px;
+  right: -100%;
+  width: 280px;
+  height: calc(100vh - 70px);
+  background: white;
+  box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.mobileMenu.mobileMenuOpen {
+  right: 0;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  gap: 0.5rem;
+}
+
+.mobileNavLink {
+  color: #1a202c;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mobileNavLink:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+  color: #06b6d4;
+}
+
+.mobileNavLink.active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.15));
+  color: #06b6d4;
+  font-weight: 600;
+}
+
+.mobileWhatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.mobileWhatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
+.overlay {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 70px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .whatsappText {
+    display: none;
+  }
+
+  .whatsappButton {
+    padding: 0.625rem;
+    min-width: 44px;
+    justify-content: center;
+  }
+
+  .menuButtonWrapper {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo {
+    max-width: 85px;
+  }
+
+  .logo img {
+    max-width: 85px !important;
+  }
+
+  .brandName {
+    font-size: 1.2rem;
+  }
+
+  .whatsappButton {
+    padding: 0.5rem;
+    min-width: 40px;
+  }
+
+  .whatsappButton svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .logo {
+    max-width: 70px;
+  }
+
+  .logo img {
+    max-width: 70px !important;
+  }
+
+  .brandName {
+    font-size: 1rem;
+  }
+
+  .mobileMenu {
+    width: 100%;
+  }
+}
+
+/* Hide desktop indicators */
+@media (min-width: 1025px) {
+  .menuBadge,
+  .menuLabel,
+  .menuTooltip {
+    display: none !important;
+  }
+
+  .hamburger {
+    animation: none !important;
+  }
+
+  .hamburger::before {
+    display: none !important;
+  }
 }
