@@ -273,12 +273,16 @@
   }
 }
 
-/* Menu Label */
+/* Menu Label - ABOVE hamburger, small and clear */
 .menuLabel {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  color: #1a202c;
+  color: #4a5568;
   text-align: center;
+  margin-bottom: 2px;
+  order: -1;
+  letter-spacing: 0.5px;
+  text-transform: none;
 }
 
 /* Tooltip */
