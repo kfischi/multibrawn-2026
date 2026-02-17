@@ -380,24 +380,18 @@ export default function GalleryPage() {
           muted
           playsInline
           preload="auto"
-          poster="https://res.cloudinary.com/decirk3zb/image/upload/c_fill,w_720,h_1280,g_center/v1771101549/Gallery_zlvjwx.jpg"
         >
-          {/* Desktop - Landscape */}
+          {/* Desktop - Landscape 16:9 */}
           <source
             src="https://res.cloudinary.com/decirk3zb/video/upload/c_scale,w_1920,q_80/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
             media="(min-width: 769px)"
           />
-          {/* Mobile - Better crop center focus */}
+          {/* Mobile - Square/Vertical optimized */}
           <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/c_crop,w_720,h_1280,g_center,q_80/v1771101549/Gallery_zlvjwx.mp4"
+            src="https://res.cloudinary.com/decirk3zb/video/upload/ar_9:16,c_fill,g_center,w_720,q_80/v1771101549/Gallery_zlvjwx.mp4"
             type="video/mp4"
             media="(max-width: 768px)"
-          />
-          {/* Fallback */}
-          <source
-            src="https://res.cloudinary.com/decirk3zb/video/upload/c_scale,w_1920,q_80/v1771101549/Gallery_zlvjwx.mp4"
-            type="video/mp4"
           />
         </video>
         <div className={styles.heroOverlay} />
