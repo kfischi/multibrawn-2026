@@ -210,12 +210,18 @@ const properties = {
 function PropertyCarousel({ title, items, category }: { title: string; items: Property[]; category: string }) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [tappedId, setTappedId] = useState<string | null>(null); // For mobile tap
 
   const scroll = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
       const scrollAmount = direction === 'left' ? -400 : 400;
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+  };
+
+  const handleCardClick = (id: string) => {
+    // Toggle tapped state on mobile
+    setTappedId(tappedId === id ? null : id);
   };
 
   if (!items || items.length === 0) return null;
@@ -244,9 +250,10 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
           {items.map((property) => (
             <div
               key={property.id}
-              className={`${styles.propertyCard} ${hoveredId === property.id ? styles.hovered : ''}`}
+              className={`${styles.propertyCard} ${(hoveredId === property.id || tappedId === property.id) ? styles.hovered : ''}`}
               onMouseEnter={() => setHoveredId(property.id)}
               onMouseLeave={() => setHoveredId(null)}
+              onClick={() => handleCardClick(property.id)}
             >
               <div className={styles.imageWrapper}>
                 <Image
@@ -268,6 +275,11 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                   צימר360
                 </div>
 
+                {/* Tap Indicator - Mobile Only */}
+                {tappedId !== property.id && (
+                  <div className={styles.tapIndicator}>לחץ לפרטים</div>
+                )}
+
                 {/* Basic Info - Desktop Only (overlay) */}
                 <div className={styles.basicInfo}>
                   <h3 className={styles.basicName}>{property.name}</h3>
@@ -281,8 +293,8 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                   <p className={styles.basicPrice}>{property.price}</p>
                 </div>
 
-                {/* Hover Overlay - Desktop */}
-                {hoveredId === property.id && (
+                {/* Desktop Hover Overlay + Mobile Tap Overlay */}
+                {(hoveredId === property.id || tappedId === property.id) && (
                   <div className={styles.hoverOverlay}>
                     <div className={styles.overlayContent}>
                       <h3 className={styles.propertyName}>{property.name}</h3>
@@ -334,18 +346,6 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                   <span>{property.location}</span>
                 </div>
                 <p className={styles.basicPrice}>{property.price}</p>
-                
-                <a 
-                  href={property.affiliateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.mobileActionBtn}
-                >
-                  צפה בנכס
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </a>
               </div>
             </div>
           ))}
