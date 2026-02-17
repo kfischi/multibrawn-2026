@@ -27,7 +27,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   z-index: 1;
+}
+
+/* Mobile - Better video fit */
+@media (max-width: 768px) {
+  .heroVideo {
+    object-fit: cover;
+    object-position: center center;
+  }
+  
+  .hero {
+    height: 60vh; /* Taller on mobile */
+  }
 }
 
 .heroOverlay {
@@ -209,12 +222,12 @@
    ============================================ */
 .propertyCard {
   position: relative;
-  flex: 0 0 440px; /* 350px → 440px (+25%) */
-  height: 250px;   /* 200px → 250px (+25%) */
+  flex: 0 0 485px; /* 440px → 485px (+10%) */
+  height: 275px;   /* 250px → 275px (+10%) */
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 8px;
-  overflow: visible; /* Changed for mobile text below */
+  overflow: visible;
 }
 
 .propertyCard:hover {
@@ -223,8 +236,8 @@
 }
 
 .propertyCard.hovered {
-  flex: 0 0 560px; /* 450px → 560px (+25%) */
-  height: 400px;   /* 320px → 400px (+25%) */
+  flex: 0 0 615px; /* 560px → 615px (+10%) */
+  height: 440px;   /* 400px → 440px (+10%) */
 }
 
 .imageWrapper {
@@ -649,7 +662,16 @@
 
 @media (max-width: 768px) {
   .hero {
-    height: 50vh;
+    height: 60vh; /* Increased from 50vh */
+  }
+
+  .heroOverlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.3) 70%,
+      rgba(10, 10, 10, 0.7) 100%
+    );
   }
 
   .heroTitlesBelow {
@@ -735,5 +757,130 @@
   .detailsBtn {
     padding: 10px 20px;
     font-size: 0.9rem;
+  }
+}
+
+/* ============================================
+   TAP INDICATOR - MOBILE
+   ============================================ */
+.tapIndicator {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 3;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .tapIndicator {
+    display: none;
+  }
+}
+
+/* ============================================
+   MOBILE TEXT BELOW IMAGE
+   ============================================ */
+.mobileTextBelow {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Show text below on mobile */
+  .mobileTextBelow {
+    display: block;
+    padding: 12px;
+    background: #1a1a1a;
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* Adjust card structure for mobile */
+  .propertyCard {
+    flex: 0 0 413px !important;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .imageWrapper {
+    height: 275px;
+    flex-shrink: 0;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Hide desktop basicInfo on mobile */
+  .basicInfo {
+    display: none !important;
+  }
+
+  /* Mobile overlay - hidden by default */
+  .hoverOverlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.95) 70%
+    );
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    z-index: 10;
+    border-radius: 8px;
+  }
+
+  /* Show overlay when tapped */
+  .propertyCard.hovered .hoverOverlay {
+    display: flex !important;
+  }
+
+  /* Hide tap indicator when tapped */
+  .propertyCard.hovered .tapIndicator {
+    display: none;
+  }
+
+  /* Adjust overlay content for mobile */
+  .hoverOverlay .propertyName {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hoverOverlay .propertyLocation {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hoverOverlay .propertyPrice {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hoverOverlay .features {
+    margin-bottom: 1rem;
+  }
+
+  .hoverOverlay .feature {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .hoverOverlay .detailsBtn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hoverOverlay .partnerCredit {
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
   }
 }
