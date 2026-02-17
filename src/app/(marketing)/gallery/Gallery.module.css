@@ -209,12 +209,12 @@
    ============================================ */
 .propertyCard {
   position: relative;
-  flex: 0 0 350px;
-  height: 200px;
+  flex: 0 0 440px; /* 350px → 440px (+25%) */
+  height: 250px;   /* 200px → 250px (+25%) */
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible; /* Changed for mobile text below */
 }
 
 .propertyCard:hover {
@@ -223,8 +223,8 @@
 }
 
 .propertyCard.hovered {
-  flex: 0 0 450px;
-  height: 320px;
+  flex: 0 0 560px; /* 450px → 560px (+25%) */
+  height: 400px;   /* 320px → 400px (+25%) */
 }
 
 .imageWrapper {
@@ -339,6 +339,11 @@
     opacity: 0;
     pointer-events: none;
   }
+
+  /* Hide mobile text below on desktop */
+  .mobileTextBelow {
+    display: none;
+  }
 }
 
 /* ============================================
@@ -364,60 +369,114 @@
    MOBILE SPECIFIC ADJUSTMENTS
    ============================================ */
 @media (max-width: 768px) {
-  /* Smaller text on mobile */
-  .basicName {
-    font-size: 0.9rem;
+  /* Bigger cards on mobile */
+  .propertyCard {
+    flex: 0 0 375px; /* 300px → 375px (+25%) */
+    height: auto;    /* Auto height for text below */
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
   }
 
-  .basicLocation {
-    font-size: 0.75rem;
+  /* Image takes fixed height */
+  .imageWrapper {
+    height: 250px; /* 200px → 250px (+25%) */
+    flex-shrink: 0;
   }
 
-  .basicLocation svg {
-    width: 12px;
-    height: 12px;
-  }
-
-  .basicPrice {
-    font-size: 0.85rem;
-  }
-
-  /* Smaller gradient on mobile */
+  /* Hide desktop overlay on mobile */
   .basicInfo {
-    padding: 10px;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.95) 0%,
-      rgba(0, 0, 0, 0.75) 50%,
-      transparent 100%
-    );
+    display: none;
+  }
+
+  /* Mobile Info - BELOW image, not overlay */
+  .mobileTextBelow {
+    padding: 12px;
+    background: #1a1a1a;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .mobileTextBelow .basicName {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+
+  .mobileTextBelow .basicLocation {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .mobileTextBelow .basicLocation svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .mobileTextBelow .basicPrice {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #00D4FF;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Mobile Action Button - below text */
+  .mobileActionBtn {
+    width: 100%;
+    background: linear-gradient(135deg, #00D4FF 0%, #5E63D8 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .mobileActionBtn:active {
+    transform: scale(0.98);
+  }
+
+  .mobileActionBtn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Credit badge stays on image */
+  .alwaysCredit {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+  }
+
+  /* Rating badge */
+  .ratingBadge {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .ratingBadge .star {
+    font-size: 0.95rem;
   }
 
   /* Hide hover overlay on mobile */
   .hoverOverlay {
-    display: none;
+    display: none !important;
   }
 
-  /* Bigger cards on mobile */
-  .propertyCard {
-    flex: 0 0 300px;
-    height: 200px;
-  }
-
-  /* Smaller rating badge */
-  .ratingBadge {
-    padding: 4px 8px;
-    font-size: 0.75rem;
-  }
-
-  .ratingBadge .star {
-    font-size: 0.9rem;
-  }
-
-  /* Smaller credit badge */
-  .alwaysCredit {
-    font-size: 0.65rem;
-    padding: 4px 8px;
+  /* Remove hover transform on mobile */
+  .propertyCard:hover {
+    transform: none;
   }
 }
 
