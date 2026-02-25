@@ -1,5 +1,4 @@
 // src/app/layout.tsx
-
 import type { Metadata } from 'next';
 import { Heebo } from 'next/font/google';
 import Script from 'next/script';
@@ -59,7 +58,6 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl" className={heebo.variable}>
       <head>
-        {/* Schema.org Organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -86,8 +84,6 @@ export default function RootLayout({
       </head>
       <body className={heebo.className}>
         {children}
-
-        {/* Google Analytics GA4 - G-7JN4LBTR2B */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-7JN4LBTR2B"
           strategy="afterInteractive"
@@ -97,10 +93,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-7JN4LBTR2B', {
-              page_path: window.location.pathname,
-              send_page_view: true
-            });
+            gtag('config', 'G-7JN4LBTR2B');
           `}
         </Script>
       </body>
