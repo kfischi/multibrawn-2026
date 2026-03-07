@@ -137,26 +137,44 @@
 }
 
 .carouselTitle {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 700;
-  color: white;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.95);
   margin: 0;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.carouselTitle::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, #00E0FF, #A06BFF);
+  flex-shrink: 0;
 }
 
 .viewAll {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.45);
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   transition: color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding-bottom: 2px;
 }
 
 .viewAll:hover {
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(255,255,255,0.4);
 }
 
 /* ============================================
