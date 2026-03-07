@@ -15,7 +15,7 @@ export default function ContactPage() {
       {/* ── HERO ── */}
       <section className={styles.hero}>
         <Image
-          src="https://res.cloudinary.com/decirk3zb/image/upload/v1772918658/%D7%A6%D7%95%D7%A8_%D7%A7%D7%A9%D7%A8_fio3el.png"
+          src="https://res.cloudinary.com/decirk3zb/image/upload/v1772919503/%D7%A6%D7%95%D7%A8_%D7%A7%D7%A9%D7%A82_kia2nl.png"
           alt="צרו קשר עם Multibrawn"
           fill
           className={styles.heroImg}
