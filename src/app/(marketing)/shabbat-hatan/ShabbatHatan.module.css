@@ -4,7 +4,7 @@
 
 .page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  background: #0a0618;
 }
 
 /* ===================================
@@ -273,7 +273,7 @@
 
 .videoSection {
   padding: 5rem 0;
-  background: #0d0a1e;
+  background: transparent;
 }
 
 .videoHeader {
@@ -362,7 +362,7 @@
 .kashrutFooter {
   margin-top: 3rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  background: rgba(0,224,255,0.06);
   border-radius: 16px;
   border-right: 4px solid #00D4FF;
 }
@@ -515,7 +515,7 @@
 }
 
 .testimonialHighlight blockquote {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  background: rgba(0,224,255,0.06);
   border-radius: 20px;
   padding: 2.5rem;
   border-right: 4px solid #00D4FF;
@@ -542,7 +542,7 @@
 
 .howItWorks {
   padding: 5rem 0;
-  background: #0d0a1e;
+  background: transparent;
 }
 
 .stepsGrid {
@@ -886,7 +886,7 @@
 
 .relatedLinks {
   padding: 3rem 0;
-  background: #0d0a1e;
+  background: transparent;
 }
 
 .relatedLinks h3 {
