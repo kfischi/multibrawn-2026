@@ -1,334 +1,469 @@
 'use client';
 
-import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Gallery.module.css';
 
-export default function GalleryPage() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'all';
-  
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+// ============================================
+// 10 REAL PROPERTIES - EXACT FROM CSV
+// ============================================
+interface Property {
+  id: string;
+  name: string;
+  description: string;
+  location: string;
+  type: string;
+  image: string;
+  gallery: string[];
+  price: string;
+  rating: number;
+  features: string[];
+  affiliateUrl: string;
+}
 
-  const categories = [
-    { 
-      id: 'all', 
-      name: 'הכל', 
-      icon: '🏠',
-      description: '' 
-    },
-    { 
-      id: 'villa', 
-      name: 'וילות', 
-      icon: '🏛️',
-      description: 'וילות מרווחות ומפנקות עם בריכות פרטיות, גינות מטופחות ומתקנים לכל המשפחה. מושלם למשפחות גדולות, שבתות חתן ואירועים משפחתיים.' 
-    },
-    { 
-      id: 'zimmer', 
-      name: 'צימרים', 
-      icon: '🏡',
-      description: 'צימרים אינטימיים וחלומיים לזוגות ומשפחות. ג\'קוזי פרטי, נוף מרהיב ופרטיות מלאה. האפשרות המושלמת לסופ"ש רומנטי, חופשה משפחתית או חגיגה זוגית.' 
-    },
-    { 
-      id: 'apartment', 
-      name: 'דירות', 
-      icon: '🏙️',
-      description: 'דירות נופש מאובזרות במלואן במיקומים מרכזיים. מושלם למשפחות קטנות, זוגות או קבוצות חברים. קרוב לאטרקציות, חופים ומסעדות.' 
-    },
-    { 
-      id: 'hotel', 
-      name: 'מלונות', 
-      icon: '🏨',
-      description: 'מלונות בוטיק ויוקרתיים עם שירות אישי ברמה הגבוהה ביותר. ארוחות בוקר עשירות, ספא, בריכות מחוממות וחוויה בלתי נשכחת.' 
-    },
-    { 
-      id: 'event', 
-      name: 'אירועים', 
-      icon: '💍',
-      description: 'מתחמים ייחודיים לשבתות חתן, בר/בת מצווה ואירועים משפחתיים. כולל אולמות, חצרות מרווחות, מטבחים כשרים ואפשרות לינה לעשרות אורחים.' 
-    },
-  ];
-
-  const galleryItems = {
-    villa: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/21_f14cql.jpg', alt: 'וילה MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg', alt: 'וילה MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818933/18_uwsdum.jpg', alt: 'וילה MULTIBRAWN' },
-      { type: 'video', src: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1760818935/villa4.1_dhev1f.mp4', alt: 'וילה MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg', alt: 'וילה MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/20_t6yw8m.jpg', alt: 'וילה MULTIBRAWN' },
+const allProperties: Property[] = [
+  {
+    id: 'tzimer-001',
+    name: 'מתחם נופש יוקרתי בנווה זוהר',
+    description: 'מתחם אירוח יוקרתי על חוף ים המלח. בריכה מקורה, נוף פנורמי, מושלם לאירועים.',
+    location: 'נווה זוהר, ים המלח',
+    type: 'event',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771098896/1_tdqjak.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771098898/2_bo2h0b.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771098901/3_mdkgrd.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771098905/4_yyckc8.webp'
     ],
-    zimmer: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726367/AA_s4nej0.jpg', alt: 'צימר MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726074/A7_rwzsuo.jpg', alt: 'צימר MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A6_h6irii.jpg', alt: 'צימר MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726071/A5_irr575.jpg', alt: 'צימר MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726070/A4_mtzg9u.jpg', alt: 'צימר MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818996/Zimmer2_ge7g6h.jpg', alt: 'צימר MULTIBRAWN' },
+    price: '₪1,810 - ₪8,910',
+    rating: 4.8,
+    features: ['בריכה מקורה', 'נוף לים המלח', 'מתאים לאירועים'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4642?t=affiliate26'
+  },
+  {
+    id: 'tzimer-002',
+    name: 'בקתות יער רומנטיות בגליל העליון',
+    description: 'בקתות עץ יוקרתיות בלב הגליל. ג׳קוזי פרטי, נוף הרים, שקט מוחלט.',
+    location: 'אליפלט, גליל עליון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771089103/1_p7eoq1.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771089104/2_earbgy.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771089104/3_vtwulx.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771089106/4_ghmhbk.webp'
     ],
-    apartment: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment1_mrxdad.jpg', alt: 'דירת נופש MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Apartment2_u9fsdk.jpg', alt: 'דירת נופש MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/20_t6yw8m.jpg', alt: 'דירת נופש MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763724320/2_tlbzz1.jpg', alt: 'דירת נופש MULTIBRAWN' },
+    price: '₪1,200 - ₪2,500',
+    rating: 4.9,
+    features: ['ג\'קוזי פרטי', 'בקתות עץ', 'נוף הרים'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4655?t=affiliate26'
+  },
+  {
+    id: 'tzimer-003',
+    name: 'וילת אבן יוקרתית בחורשות הכרמל',
+    description: 'וילת אבן בכפר הדרוזי. בריכה פרטית, אירוח אותנטי, נוף פנורמי.',
+    location: 'בית ג\'ן, הגליל המערבי',
+    type: 'villa',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092098/1_x8csz9.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092099/2_wpcf6r.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092101/3_cmtzvf.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092102/4_e0welx.webp'
     ],
-    hotel: [
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel1_ihkey7.jpg', alt: 'מלון MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818995/Hotel2_ag6ani.jpg', alt: 'מלון MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1764666932/1_dywsb8.jpg', alt: 'מלון MULTIBRAWN' },
+    price: '₪2,800 - ₪5,500',
+    rating: 4.7,
+    features: ['בריכה פרטית', 'אירוח דרוזי', 'וילת אבן'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4658?t=affiliate26'
+  },
+  {
+    id: 'tzimer-004',
+    name: 'וילה משפחתית עם בריכה פרטית',
+    description: 'וילה עם בריכה מחוממת. נוף מדברי, קרוב לים המלח, פרטיות מלאה.',
+    location: 'נווה זוהר, ים המלח',
+    type: 'villa',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092557/1_iynoio.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092558/2_shaom2.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092560/3_eozreh.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092562/4_gwi0s9.webp'
     ],
-    event: [
-      { type: 'video', src: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1762002985/1_s3cpd8.mp4', alt: 'מתחם אירועים MULTIBRAWN' },
-      { type: 'image', src: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg', alt: 'מתחם אירועים MULTIBRAWN' },
+    price: '₪2,200 - ₪6,800',
+    rating: 4.6,
+    features: ['בריכה מחוממת', 'נוף מדברי', 'קרוב לים המלח'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4671?t=affiliate26'
+  },
+  {
+    id: 'tzimer-005',
+    name: 'אחוזת נופש מרווחת בבקעה',
+    description: '12 סוויטות מול הכנרת. בריכה, ג׳קוזי בחדר, עיצוב מודרני.',
+    location: 'טבריה, טבריה והכנרת',
+    type: 'hotel',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771092885/1_gmw173.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092886/2_xmk5n8.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092889/3_ptfjog.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771092891/4_syf3il.webp'
     ],
-  };
+    price: '₪400 - ₪1,200',
+    rating: 4.8,
+    features: ['נוף לכנרת', 'בריכה משותפת', 'ג\'קוזי בחדר'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4675?t=affiliate26'
+  },
+  {
+    id: 'tzimer-006',
+    name: 'סוויטה רומנטית בשומרון',
+    description: 'סוויטה רומנטית לזוגות. ג׳קוזי ספא, פרטיות מוחלטת, נוף כפרי.',
+    location: 'מעלה עמוס, השומרון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093199/1_bk0rev.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093201/2_yzzx0u.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093203/3_zfijdd.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093206/4_slwn4l.webp'
+    ],
+    price: '₪800 - ₪1,500',
+    rating: 4.9,
+    features: ['ג\'קוזי ספא', 'לזוגות בלבד', 'פרטיות מלאה'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4676?t=affiliate26'
+  },
+  {
+    id: 'tzimer-007',
+    name: 'צימר רומנטי בשומרון',
+    description: 'צימר רומנטי עם עיצוב חלומי. ג׳קוזי זוגי, תאורה מיוחדת, שקט.',
+    location: 'מעלה עמוס, השומרון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093472/1_yfow2s.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093473/2_zdfqfq.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093476/3_spdloh.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093478/4_tttlsm.webp'
+    ],
+    price: '₪700 - ₪1,300',
+    rating: 4.7,
+    features: ['ג\'קוזי זוגי', 'עיצוב רומנטי', 'לזוגות בלבד'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4677?t=affiliate26'
+  },
+  {
+    id: 'tzimer-008',
+    name: 'פנטהאוז מודרני בתל אביב',
+    description: 'פנטהאוז מודרני בלב תל אביב. הליכה לים, מרפסת גדולה, מיקום מעולה.',
+    location: 'תל אביב, מרכז',
+    type: 'apartment',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093741/1_enya03.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093744/2_zf6z40.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093746/3_xvxvqy.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093749/4_zz1amp.webp'
+    ],
+    price: '₪1,800 - ₪4,500',
+    rating: 4.8,
+    features: ['מיקום מרכזי', 'קרוב לים', 'מרפסת גדולה'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C4678?t=affiliate26'
+  },
+  {
+    id: 'tzimer-009',
+    name: 'סוויטה מעוצבת בגליל',
+    description: 'סוויטה יוקרתית מעוצבת בסגנון מודרני מינימליסטי עם קווים נקיים וחומרים איכותיים. כוללת ג׳קוזי ספא פרטי, מיטת קינג סייז, מטבח מאובזר, מרפסת עם נוף ופינת ישיבה מעוצבת.',
+    location: 'הגליל, גליל עליון',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771093971/1_g8twuh.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093974/2_ptkprq.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093977/3_gbsjai.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771093980/4_wjxmcb.webp'
+    ],
+    price: '₪700 - ₪1,100',
+    rating: 4.8,
+    features: ['עיצוב מודרני', 'ג\'קוזי ספא', 'מיטת קינג'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C2303?t=affiliate26'
+  },
+  {
+    id: 'tzimer-010',
+    name: 'צימר יוקרתי ברמת הגולן',
+    description: 'צימר יוקרתי ברמת הגולן עם נוף פנורמי עוצר נשימה להר חרמון והכנרת. הצימר כולל ג׳קוזי ספא, סאונה פרטית, אח, מרפסת גדולה עם פינת ישיבה ונוף מרהיב.',
+    location: 'רמת הגולן, גולן',
+    type: 'zimmer',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1771094272/1_gq2ici.webp',
+    gallery: [
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771094276/2_odtudx.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771094279/3_qzwwmr.webp',
+      'https://res.cloudinary.com/decirk3zb/image/upload/v1771094283/4_fj6vhc.webp'
+    ],
+    price: '₪900 - ₪1,400',
+    rating: 4.9,
+    features: ['נוף לחרמון', 'ג\'קוזי ספא', 'סאונה פרטית'],
+    affiliateUrl: 'https://www.tzimer360.co.il/Location/C2302?t=affiliate26'
+  }
+];
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ type: '', src: '', alt: '' });
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [filteredGalleryItems, setFilteredGalleryItems] = useState<any[]>([]);
+// Group by type
+const properties = {
+  villa: allProperties.filter(p => p.type === 'villa'),
+  zimmer: allProperties.filter(p => p.type === 'zimmer'),
+  apartment: allProperties.filter(p => p.type === 'apartment'),
+  hotel: allProperties.filter(p => p.type === 'hotel'),
+  event: allProperties.filter(p => p.type === 'event')
+};
 
-  const openModal = (item: any, index: number, items: any[]) => {
-    setModalContent(item);
-    setCurrentImageIndex(index);
-    setFilteredGalleryItems(items);
-    setModalOpen(true);
-  };
+// ============================================
+// CAROUSEL COMPONENT (Netflix Style)
+// ============================================
+function PropertyCarousel({ title, items, category }: { title: string; items: Property[]; category: string }) {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [tappedId, setTappedId] = useState<string | null>(null); // For mobile tap
 
-  const closeModal = () => {
-    setModalOpen(false);
-    setModalContent({ type: '', src: '', alt: '' });
-  };
-
-  const nextImage = () => {
-    const nextIndex = (currentImageIndex + 1) % filteredGalleryItems.length;
-    const nextItem = filteredGalleryItems[nextIndex];
-    setCurrentImageIndex(nextIndex);
-    setModalContent(nextItem);
-  };
-
-  const prevImage = () => {
-    const prevIndex = (currentImageIndex - 1 + filteredGalleryItems.length) % filteredGalleryItems.length;
-    const prevItem = filteredGalleryItems[prevIndex];
-    setCurrentImageIndex(prevIndex);
-    setModalContent(prevItem);
-  };
-
-  const getFilteredItems = () => {
-    if (selectedCategory === 'all') {
-      return Object.entries(galleryItems).map(([category, items]) => ({
-        category,
-        items,
-      }));
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
-    return [{ category: selectedCategory, items: galleryItems[selectedCategory as keyof typeof galleryItems] || [] }];
   };
+
+  const handleCardClick = (id: string) => {
+    // Toggle tapped state on mobile
+    setTappedId(tappedId === id ? null : id);
+  };
+
+  if (!items || items.length === 0) return null;
 
   return (
-    <div className={styles.galleryPage}>
-      {/* Hero */}
-      <div className={styles.galleryHero}>
-        <div className={styles.heroContentInner}>
-          <h1 className={styles.heroTitle}>הגלריה שלנו</h1>
-          <p className={styles.heroSubtitle}>הצצה למקומות הכי שווים בארץ</p>
-        </div>
+    <div className={styles.carouselSection}>
+      <div className={styles.carouselHeader}>
+        <h2 className={styles.carouselTitle}>{title}</h2>
+        <Link href={`/gallery?category=${category}`} className={styles.viewAll}>
+          צפה בהכל →
+        </Link>
       </div>
 
-      {/* Filter Buttons */}
-      <div className={styles.filterContainer}>
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            className={`${styles.filterBtn} ${selectedCategory === cat.id ? styles.active : ''}`}
-            onClick={() => setSelectedCategory(cat.id)}
-          >
-            {cat.id === 'all' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            )}
-            {cat.id === 'villa' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-            )}
-            {cat.id === 'zimmer' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-            )}
-            {cat.id === 'apartment' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <path d="M9 22V12h6v10"/>
-              </svg>
-            )}
-            {cat.id === 'hotel' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-            )}
-            {cat.id === 'event' && (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="8" r="7"/>
-                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-              </svg>
-            )}
-            <span>{cat.name}</span>
-          </button>
-        ))}
-      </div>
+      <div className={styles.carouselWrapper}>
+        <button 
+          className={`${styles.scrollBtn} ${styles.scrollLeft}`}
+          onClick={() => scroll('left')}
+          aria-label="גלול שמאלה"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
 
-      {/* Gallery Grid */}
-      <div className={styles.gallerySection}>
-        {getFilteredItems().map(({ category, items }) => {
-          const categoryData = categories.find(c => c.id === category);
-          return (
-            <div key={category} className={styles.categorySection}>
-              <div className={styles.categoryHeader}>
-                <div className={styles.categoryIconWrapper}>
-                  {categoryData?.id === 'villa' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                  )}
-                  {categoryData?.id === 'zimmer' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                  )}
-                  {categoryData?.id === 'apartment' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                      <path d="M9 22V12h6v10"/>
-                    </svg>
-                  )}
-                  {categoryData?.id === 'hotel' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                  )}
-                  {categoryData?.id === 'event' && (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="8" r="7"/>
-                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                    </svg>
-                  )}
+        <div className={styles.carousel} ref={carouselRef}>
+          {items.map((property) => (
+            <div
+              key={property.id}
+              className={`${styles.propertyCard} ${(hoveredId === property.id || tappedId === property.id) ? styles.hovered : ''}`}
+              onMouseEnter={() => setHoveredId(property.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              onClick={() => handleCardClick(property.id)}
+            >
+              <div className={styles.imageWrapper}>
+                <Image
+                  src={property.image}
+                  alt={property.name}
+                  fill
+                  className={styles.propertyImage}
+                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 40vw, 30vw"
+                />
+                
+                {/* Rating Badge */}
+                <div className={styles.ratingBadge}>
+                  <span className={styles.star}>★</span>
+                  <span>{property.rating.toFixed(1)}</span>
                 </div>
-                <h2 className={styles.categoryTitle}>
-                  {categoryData?.name}
-                </h2>
-              </div>
-              {categoryData?.description && (
-                <p className={styles.categoryDescription}>
-                  {categoryData.description}
-                </p>
-              )}
-              <div className={styles.galleryRow}>
-              {items.map((item, idx) => (
-                <div
-                  key={idx}
-                  className={styles.galleryCard}
-                  onClick={() => openModal(item, idx, items)}
-                >
-                  {item.type === 'image' ? (
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className={styles.galleryImage}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <>
-                      <video className={styles.galleryImage} muted playsInline>
-                        <source src={`${item.src}#t=0.1`} type="video/mp4" />
-                      </video>
-                      <div className={styles.videoPlayOverlay}>
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
-                          <path d="M8 5v14l11-7z" />
+
+                {/* Tzimer360 Credit - Always Visible */}
+                <div className={styles.alwaysCredit}>
+                  צימר360
+                </div>
+
+                {/* Tap Indicator - Mobile Only */}
+                {tappedId !== property.id && (
+                  <div className={styles.tapIndicator}>לחץ לפרטים</div>
+                )}
+
+                {/* Basic Info - Desktop Only (overlay) */}
+                <div className={styles.basicInfo}>
+                  <h3 className={styles.basicName}>{property.name}</h3>
+                  <div className={styles.basicLocation}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>{property.location}</span>
+                  </div>
+                  <p className={styles.basicPrice}>{property.price}</p>
+                </div>
+
+                {/* Desktop Hover Overlay + Mobile Tap Overlay */}
+                {(hoveredId === property.id || tappedId === property.id) && (
+                  <div className={styles.hoverOverlay}>
+                    <div className={styles.overlayContent}>
+                      <h3 className={styles.propertyName}>{property.name}</h3>
+                      <div className={styles.propertyLocation}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
                         </svg>
+                        <span>{property.location}</span>
                       </div>
-                    </>
-                  )}
+                      <p className={styles.propertyPrice}>{property.price}</p>
+                      
+                      <div className={styles.features}>
+                        {property.features.slice(0, 3).map((feature, idx) => (
+                          <span key={idx} className={styles.feature}>{feature}</span>
+                        ))}
+                      </div>
+
+                      <a 
+                        href={property.affiliateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.detailsBtn}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        צפה בנכס
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                      </a>
+
+                      {/* Tzimer360 Credit */}
+                      <div className={styles.partnerCredit}>
+                        בשיתוף עם צימר360
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Text - BELOW Image */}
+              <div className={styles.mobileTextBelow}>
+                <h3 className={styles.basicName}>{property.name}</h3>
+                <div className={styles.basicLocation}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <span>{property.location}</span>
                 </div>
-              ))}
+                <p className={styles.basicPrice}>{property.price}</p>
+              </div>
             </div>
-          </div>
-          );
-        })}
+          ))}
+        </div>
+
+        <button 
+          className={`${styles.scrollBtn} ${styles.scrollRight}`}
+          onClick={() => scroll('right')}
+          aria-label="גלול ימינה"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
+// MAIN GALLERY PAGE
+// ============================================
+export default function GalleryPage() {
+  return (
+    <div className={styles.galleryPage}>
+      {/* Hero Section with VIDEO */}
+      <section className={styles.hero}>
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        >
+          {/* Desktop - Landscape 16:9 */}
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/c_scale,w_1920,q_80/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+            media="(min-width: 769px)"
+          />
+          {/* Mobile - Square/Vertical optimized */}
+          <source
+            src="https://res.cloudinary.com/decirk3zb/video/upload/ar_9:16,c_fill,g_center,w_720,q_80/v1771101549/Gallery_zlvjwx.mp4"
+            type="video/mp4"
+            media="(max-width: 768px)"
+          />
+        </video>
+        <div className={styles.heroOverlay} />
+      </section>
+
+      {/* Titles BELOW Video */}
+      <div className={styles.heroTitlesBelow}>
+        <h1 className={styles.heroTitleBelow}>הגלריה שלנו</h1>
+        <p className={styles.heroSubtitleBelow}>
+          נכסים מובחרים • חוויית נופש יוקרתית • שירות ברמה הגבוהה ביותר
+        </p>
       </div>
 
-      {/* Modal */}
-      {modalOpen && (
-        <div className={styles.videoModal} onClick={closeModal}>
-          <div className={styles.modalCloseBtn} onClick={closeModal}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
+      {/* Property Carousels */}
+      <div className={styles.carouselsContainer}>
+        {properties.villa.length > 0 && (
+          <PropertyCarousel
+            title="🏛️ וילות יוקרה"
+            items={properties.villa}
+            category="villa"
+          />
+        )}
+
+        {properties.zimmer.length > 0 && (
+          <PropertyCarousel
+            title="🏡 צימרים רומנטיים"
+            items={properties.zimmer}
+            category="zimmer"
+          />
+        )}
+
+        {properties.apartment.length > 0 && (
+          <PropertyCarousel
+            title="🏙️ דירות נופש"
+            items={properties.apartment}
+            category="apartment"
+          />
+        )}
+
+        {properties.hotel.length > 0 && (
+          <PropertyCarousel
+            title="🏨 מלונות בוטיק"
+            items={properties.hotel}
+            category="hotel"
+          />
+        )}
+
+        {properties.event.length > 0 && (
+          <PropertyCarousel
+            title="💍 מתחמי אירועים"
+            items={properties.event}
+            category="event"
+          />
+        )}
+      </div>
+
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaContent}>
+          <h2 className={styles.ctaTitle}>לא מצאתם את מה שחיפשתם?</h2>
+          <p className={styles.ctaSubtitle}>ערדית, העוזרת הדיגיטלית שלנו, תעזור לכם למצוא בדיוק מה שאתם צריכים</p>
+          <button className={styles.ctaButton} onClick={() => {
+            const chatBtn = document.querySelector('[data-chatbot]') as HTMLButtonElement;
+            if (chatBtn) chatBtn.click();
+          }}>
+            דברו עם ערדית
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.35-3.83-.96l-.27-.16-2.83.48.48-2.83-.16-.27C4.35 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
             </svg>
-          </div>
-          
-          {/* Previous Button */}
-          {filteredGalleryItems.length > 1 && (
-            <button 
-              className={styles.modalNavBtn + ' ' + styles.modalPrevBtn}
-              onClick={(e) => {
-                e.stopPropagation();
-                prevImage();
-              }}
-              aria-label="תמונה קודמת"
-            >
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-            </button>
-          )}
-
-          {/* Next Button */}
-          {filteredGalleryItems.length > 1 && (
-            <button 
-              className={styles.modalNavBtn + ' ' + styles.modalNextBtn}
-              onClick={(e) => {
-                e.stopPropagation();
-                nextImage();
-              }}
-              aria-label="תמונה הבאה"
-            >
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-          )}
-
-          <div onClick={(e) => e.stopPropagation()}>
-          {modalContent.type === 'image' ? (
-            <Image
-              src={modalContent.src}
-              alt={modalContent.alt}
-              width={1200}
-              height={800}
-              className={styles.modalImage}
-            />
-          ) : (
-            <video className={styles.modalVideo} controls autoPlay>
-              <source src={modalContent.src} type="video/mp4" />
-            </video>
-          )}
-          </div>
+          </button>
         </div>
-      )}
+      </section>
     </div>
   );
 }
