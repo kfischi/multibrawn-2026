@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import styles from './Contact.module.css';
 
 export default function ContactPage() {
@@ -23,6 +24,17 @@ export default function ContactPage() {
             אנחנו כאן 24/7 — לא רק כדי לענות על שאלות,<br />
             אלא כדי למצוא יחד את המקום המושלם עבורכם.
           </p>
+        </div>
+        <div className={styles.heroImageWrap}>
+          <Image
+            src="https://res.cloudinary.com/decirk3zb/image/upload/v1772917316/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%9C%D7%A6%D7%95%D7%A8_%D7%A7%D7%A9%D7%A8_gag6r6.png"
+            alt="צרו קשר עם Multibrawn"
+            fill
+            className={styles.heroImg}
+            priority
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
+          <div className={styles.heroImgOverlay} />
         </div>
         <div className={styles.heroDivider} />
       </section>
