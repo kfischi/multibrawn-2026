@@ -249,14 +249,19 @@ export default function ShabbatHatanPage() {
             </div>
           </div>
           <div className={styles.heroImage}>
-            <Image
-              src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png"
-              alt="שבת חתן מושלם במתחם יוקרתי - Multibrawn"
-              width={800}
-              height={600}
-              priority
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
               className={styles.heroImg}
-            />
+              poster="https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png"
+            >
+              <source
+                src="https://res.cloudinary.com/decirk3zb/video/upload/q_auto,f_auto/v1772901601/%D7%99%D7%A6%D7%99%D7%A8%D7%AA_%D7%A1%D7%A8%D7%98%D7%95%D7%9F_%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_%D7%91%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D_jbjkgu.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </section>
 
