@@ -102,11 +102,13 @@
 }
 
 .heroImg {
+  display: block;
   width: 100%;
   height: auto;
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   transition: transform 0.5s ease;
+  object-fit: cover;
 }
 
 .heroImg:hover {
@@ -146,7 +148,7 @@
 .btnSecondary {
   display: inline-block;
   padding: 1rem 2rem;
-  background: white;
+  background: rgba(255,255,255,0.05);
   color: #5E63D8;
   text-decoration: none;
   border-radius: 50px;
@@ -235,7 +237,7 @@
 
 .intro {
   padding: 4rem 0;
-  background: white;
+  background: rgba(255,255,255,0.05);
 }
 
 .introContent {
@@ -316,7 +318,7 @@
 
 .kashrut {
   padding: 5rem 0;
-  background: white;
+  background: rgba(255,255,255,0.05);
 }
 
 .kashrutGrid {
@@ -387,7 +389,7 @@
 }
 
 .accommodationCard {
-  background: white;
+  background: rgba(255,255,255,0.05);
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -461,7 +463,7 @@
 
 .whyUs {
   padding: 5rem 0;
-  background: white;
+  background: rgba(255,255,255,0.05);
 }
 
 .benefitsGrid {
@@ -547,7 +549,7 @@
 }
 
 .step {
-  background: white;
+  background: rgba(255,255,255,0.05);
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -606,7 +608,7 @@
 
 .faq {
   padding: 5rem 0;
-  background: white;
+  background: rgba(255,255,255,0.05);
 }
 
 .faqIntro {
@@ -729,7 +731,7 @@
 }
 
 .propertyCard {
-  background: white;
+  background: rgba(255,255,255,0.05);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
