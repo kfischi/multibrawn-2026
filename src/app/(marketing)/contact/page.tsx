@@ -14,15 +14,17 @@ export default function ContactPage() {
 
       {/* ── HERO ── */}
       <section className={styles.hero}>
-        <Image
-          src="https://res.cloudinary.com/decirk3zb/image/upload/v1772919503/%D7%A6%D7%95%D7%A8_%D7%A7%D7%A9%D7%A82_kia2nl.png"
-          alt="צרו קשר עם Multibrawn"
-          fill
-          className={styles.heroImg}
-          priority
-          sizes="100vw"
-        />
-        <div className={styles.heroImgOverlay} />
+        <div className={styles.heroImgWrap}>
+          <Image
+            src="https://res.cloudinary.com/decirk3zb/image/upload/v1772920196/%D7%A6%D7%95%D7%A8_%D7%A7%D7%A9%D7%A82_tf2lo5.png"
+            alt="צרו קשר עם Multibrawn"
+            fill
+            className={styles.heroImg}
+            priority
+            sizes="(max-width: 900px) 100vw, 1200px"
+          />
+          <div className={styles.heroImgOverlay} />
+        </div>
       </section>
 
       {/* ── MAIN GRID ── */}
