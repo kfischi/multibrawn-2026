@@ -50,7 +50,7 @@
 }
 
 .breadcrumb li[aria-current='page'] {
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
   font-weight: 600;
 }
 
@@ -85,7 +85,7 @@
 
 .heroSubtitle {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   margin-bottom: 2rem;
   line-height: 1.6;
 }
@@ -219,12 +219,12 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .sectionIntro {
   font-size: 1.1rem;
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.8;
   max-width: 800px;
   margin: 0 auto 3rem;
@@ -247,14 +247,14 @@
 
 .leadParagraph {
   font-size: 1.25rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
   line-height: 1.9;
   margin-bottom: 2rem;
 }
 
 .introContent p {
   font-size: 1.1rem;
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.8;
   margin-bottom: 1.5rem;
 }
@@ -273,7 +273,7 @@
 
 .videoSection {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  background: #0d0a1e;
 }
 
 .videoHeader {
@@ -284,7 +284,7 @@
 
 .videoSubtitle {
   font-size: 1.1rem;
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.7;
 }
 
@@ -329,10 +329,11 @@
 }
 
 .kashrutCard {
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 20px;
   padding: 2.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 
@@ -350,11 +351,11 @@
 .kashrutCard h3 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .kashrutCard p {
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.7;
 }
 
@@ -368,7 +369,7 @@
 
 .kashrutFooter p {
   margin: 0;
-  color: #0f172a;
+  color: rgba(240, 234, 255, 0.95);
   line-height: 1.7;
 }
 
@@ -378,7 +379,8 @@
 
 .accommodation {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+  background: rgba(160,107,255,0.08);
+  border: 1px solid rgba(160,107,255,0.18);
 }
 
 .accommodationGrid {
@@ -422,17 +424,18 @@
 .accommodationCard h3 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
   margin-top: 1rem;
 }
 
 .accommodationCard p {
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.7;
 }
 
 .calloutBox {
-  background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+  background: rgba(0,224,255,0.06);
+  border: 1px solid rgba(0,224,255,0.15);
   border-radius: 16px;
   padding: 2.5rem;
   margin-top: 3rem;
@@ -442,11 +445,11 @@
 .calloutBox h4 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .calloutBox p {
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.7;
   margin: 0;
 }
@@ -474,10 +477,11 @@
 }
 
 .benefitCard {
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 20px;
   padding: 2.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 
@@ -495,11 +499,11 @@
 .benefitCard h3 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .benefitCard p {
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.7;
 }
 
@@ -521,14 +525,14 @@
 .testimonialHighlight p {
   font-size: 1.2rem;
   font-style: italic;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
   line-height: 1.8;
   margin-bottom: 1rem;
 }
 
 .testimonialHighlight cite {
   font-style: normal;
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   font-weight: 600;
 }
 
@@ -538,7 +542,7 @@
 
 .howItWorks {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  background: #0d0a1e;
 }
 
 .stepsGrid {
@@ -582,11 +586,11 @@
 .step h3 {
   font-size: 1.3rem;
   margin: 1rem 0;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .step p {
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.7;
 }
 
@@ -608,7 +612,8 @@
 
 .faq {
   padding: 5rem 0;
-  background: rgba(255,255,255,0.05);
+  background: #0a0618;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .faqIntro {
@@ -733,7 +738,8 @@
 
 .relatedProperties {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+  background: rgba(160,107,255,0.08);
+  border: 1px solid rgba(160,107,255,0.18);
 }
 
 .propertiesGrid {
@@ -777,12 +783,12 @@
 .propertyCard h3 {
   font-size: 1.4rem;
   padding: 1.5rem 1.5rem 0.5rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
 }
 
 .propertyCard p {
   padding: 0 1.5rem;
-  color: #475569;
+  color: rgba(184, 168, 216, 0.85);
   line-height: 1.6;
 }
 
@@ -880,13 +886,13 @@
 
 .relatedLinks {
   padding: 3rem 0;
-  background: #f8fafc;
+  background: #0d0a1e;
 }
 
 .relatedLinks h3 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: #1e293b;
+  color: rgba(240, 234, 255, 0.95);
   text-align: center;
 }
 
