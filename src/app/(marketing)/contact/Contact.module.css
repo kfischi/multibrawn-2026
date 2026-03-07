@@ -11,10 +11,33 @@
 
 /* ── HERO ── */
 .hero {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 2rem 0;
+  background: #0a0618;
+}
+
+.heroImgWrap {
   position: relative;
   width: 100%;
-  height: 80svh;
+  max-width: 1200px;
+  aspect-ratio: 16 / 7;
+  border-radius: 20px;
   overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .heroImgWrap {
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroImgWrap {
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+  }
 }
 
 .heroImg {
@@ -425,7 +448,12 @@
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero {
-    height: 60svh;
+    padding: 2rem 1.5rem 0;
+  }
+
+  .heroImgWrap {
+    height: 45svh;
+    border-radius: 14px;
   }
 
   .grid {
@@ -440,7 +468,12 @@
 
 @media (max-width: 600px) {
   .hero {
-    height: 50svh;
+    padding: 1.5rem 1rem 0;
+  }
+
+  .heroImgWrap {
+    height: 38svh;
+    border-radius: 10px;
   }
 
   .main {
