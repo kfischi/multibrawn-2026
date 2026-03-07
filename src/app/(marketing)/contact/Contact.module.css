@@ -1,490 +1,494 @@
-/* Contact Page Styles */
+/* ============================================
+   CONTACT PAGE — Luxury Dark Theme
+   ============================================ */
 
-.contactPage {
+.page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  padding: 120px 20px 60px;
+  background: #0a0618;
+  color: rgba(240, 234, 255, 0.95);
+  direction: rtl;
 }
 
-.container {
+/* ── HERO ── */
+.hero {
+  padding: 10rem 2rem 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.heroInner {
+  max-width: 700px;
+}
+
+.heroEyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(160, 107, 255, 0.7);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.heroTitle {
+  margin: 0 0 2rem;
+  line-height: 0.9;
+}
+
+.heroLine1 {
+  display: block;
+  font-size: clamp(5rem, 14vw, 10rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(240,234,255,0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+}
+
+.heroLine2 {
+  display: block;
+  font-size: clamp(5rem, 14vw, 10rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #00E0FF 0%, #A06BFF 60%, #FF5EA1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+}
+
+.heroSub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(184, 168, 216, 0.8);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 500px;
+}
+
+.heroDivider {
+  margin-top: 5rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(160,107,255,0.4), transparent);
+}
+
+/* ── MAIN ── */
+.main {
+  padding: 5rem 2rem 8rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Page Header */
-.pageHeader {
-  text-align: center;
-  margin-bottom: 60px;
-  animation: fadeIn 0.8s ease;
-}
-
-.title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  background: linear-gradient(135deg, #00E0FF 0%, #A06BFF 50%, #FF5EA1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 20px;
-  line-height: 1.2;
-}
-
-.subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: #94a3b8;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* Content Grid */
-.contentGrid {
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  animation: slideUp 1s ease;
+  gap: 3rem;
+  align-items: start;
 }
 
-/* Contact Info Section */
-.contactInfo {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
-  border: 1px solid rgba(160, 107, 255, 0.2);
-}
-
-.infoTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #00E0FF;
-  margin-bottom: 30px;
-}
-
-.infoList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.infoItem {
+/* ── LEFT ── */
+.left {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-  transition: all 0.3s ease;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.infoItem:last-child {
-  border-bottom: none;
+/* AI Card */
+.aiCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(160, 107, 255, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem;
+  transition: border-color 0.3s;
 }
 
-.infoItem:hover {
-  transform: translateX(-5px);
-  padding-right: 10px;
+.aiCard:hover {
+  border-color: rgba(160, 107, 255, 0.4);
 }
 
-.iconWrapper {
-  min-width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #00E0FF 0%, #A06BFF 100%);
-  border-radius: 12px;
+.aiCardTop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.aiAvatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #A06BFF, #FF5EA1);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
   flex-shrink: 0;
 }
 
-.iconWrapper svg {
-  width: 24px;
-  height: 24px;
-  color: white;
+.aiName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgba(240, 234, 255, 0.95);
+  margin: 0 0 0.2rem;
 }
 
-.infoContent {
+.aiRole {
+  font-size: 0.8rem;
+  color: rgba(184, 168, 216, 0.6);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.aiBadge {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: rgba(0, 224, 100, 0.9);
+  letter-spacing: 0.08em;
+  background: rgba(0, 224, 100, 0.08);
+  border: 1px solid rgba(0, 224, 100, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.aiBadgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 224, 100, 0.9);
+  animation: pulse 2s infinite;
+}
+
+.aiDesc {
+  font-size: 0.95rem;
+  color: rgba(184, 168, 216, 0.8);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.aiFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aiFeatures li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: rgba(240, 234, 255, 0.75);
+}
+
+.aiFeatures li svg {
+  color: #A06BFF;
+  flex-shrink: 0;
+}
+
+.aiBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #A06BFF 0%, #FF5EA1 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(160, 107, 255, 0.25);
+  letter-spacing: 0.02em;
+}
+
+.aiBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(160, 107, 255, 0.4);
+}
+
+/* Or Divider */
+.orDivider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.orDivider span {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.orDivider p {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(184, 168, 216, 0.4);
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Contact Methods */
+.methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.method:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 224, 255, 0.25);
+  transform: translateX(-4px);
+}
+
+.methodIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(0, 224, 255, 0.08);
+  border: 1px solid rgba(0, 224, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00E0FF;
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+
+.method:hover .methodIcon {
+  background: rgba(0, 224, 255, 0.14);
+}
+
+.methodText {
   flex: 1;
 }
 
-.infoLabel {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  margin-bottom: 5px;
-  font-weight: 500;
+.methodText h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(240, 234, 255, 0.9);
+  margin: 0 0 0.2rem;
 }
 
-.infoValue {
-  font-size: 1.1rem;
-  color: #f1f5f9;
-  font-weight: 600;
+.methodText p {
+  font-size: 0.85rem;
+  color: rgba(184, 168, 216, 0.6);
+  margin: 0;
   direction: ltr;
   text-align: right;
 }
 
-.infoValue a {
-  color: #00E0FF;
-  text-decoration: none;
-  transition: all 0.3s ease;
+.methodArrow {
+  color: rgba(255, 255, 255, 0.2);
+  transition: all 0.25s;
+  flex-shrink: 0;
 }
 
-.infoValue a:hover {
+.method:hover .methodArrow {
+  color: #00E0FF;
+  transform: translateX(-4px);
+}
+
+/* ── RIGHT ── */
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: 7rem;
+}
+
+/* Promise Card */
+.promiseCard {
+  background: linear-gradient(135deg, rgba(160, 107, 255, 0.08) 0%, rgba(0, 224, 255, 0.05) 100%);
+  border: 1px solid rgba(160, 107, 255, 0.2);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+}
+
+.promiseEyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: #A06BFF;
-  text-shadow: 0 0 10px rgba(0, 224, 255, 0.5);
+  margin-bottom: 1rem;
 }
 
-/* Working Hours */
-.workingHours {
-  margin-top: 40px;
-  padding: 25px;
-  background: rgba(0, 224, 255, 0.05);
-  border-radius: 15px;
-  border: 1px solid rgba(0, 224, 255, 0.2);
+.promiseTitle {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: rgba(240, 234, 255, 0.95);
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
 }
 
-.workingHours h3 {
-  color: #00E0FF;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.workingHours p {
-  color: #94a3b8;
-  margin: 8px 0;
+.promiseText {
   font-size: 1rem;
-  line-height: 1.6;
+  color: rgba(184, 168, 216, 0.75);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
 }
 
-.workingHours strong {
-  color: #f1f5f9;
-  font-weight: 600;
+.promiseStats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-/* AI Bot Section */
-.aiBotSection {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
-  border: 1px solid rgba(255, 94, 161, 0.2);
+.stat {
+  flex: 1;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
-.aiBotTitle {
+.stat strong {
   font-size: 1.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
+  font-weight: 800;
+  background: linear-gradient(135deg, #00E0FF, #A06BFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
+  line-height: 1;
 }
 
-.aiBotDescription {
-  color: #94a3b8;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 30px;
+.stat span {
+  font-size: 0.75rem;
+  color: rgba(184, 168, 216, 0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.aiBotFeatures {
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Hours Card */
+.hoursCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.hoursTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(240, 234, 255, 0.7);
+  margin: 0 0 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+.hoursTitle svg {
+  color: #00E0FF;
+}
+
+.hoursList {
   list-style: none;
   padding: 0;
-  margin: 30px 0;
-  text-align: right;
-}
-
-.aiBotFeatures li {
-  padding: 12px 0;
-  color: #cbd5e1;
-  font-size: 1rem;
+  margin: 0 0 1.25rem;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 0;
 }
 
-.aiBotFeatures li::before {
-  content: "✓";
-  color: #00E0FF;
-  font-weight: bold;
-  font-size: 1.3rem;
-  min-width: 20px;
-}
-
-.aiBotButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 40px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #FF5EA1 0%, #A06BFF 100%);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(255, 94, 161, 0.3);
-}
-
-.aiBotButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(255, 94, 161, 0.5);
-  background: linear-gradient(135deg, #A06BFF 0%, #FF5EA1 100%);
-}
-
-.aiBotButton:active {
-  transform: translateY(-1px);
-}
-
-.aiBotButton svg {
-  width: 28px;
-  height: 28px;
-  animation: pulse 2s infinite;
-}
-
-/* Contact Form */
-.contactForm {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
-  border: 1px solid rgba(0, 224, 255, 0.2);
-}
-
-.formTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #A06BFF;
-  margin-bottom: 30px;
-}
-
-.formGroup {
-  margin-bottom: 25px;
-}
-
-.formLabel {
-  display: block;
-  color: #cbd5e1;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.formInput,
-.formTextarea {
-  width: 100%;
-  padding: 15px 20px;
-  background: rgba(15, 23, 42, 0.5);
-  border: 2px solid rgba(148, 163, 184, 0.2);
-  border-radius: 12px;
-  color: #f1f5f9;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-.formInput:focus,
-.formTextarea:focus {
-  outline: none;
-  border-color: #00E0FF;
-  box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
-  background: rgba(15, 23, 42, 0.8);
-}
-
-.formTextarea {
-  min-height: 150px;
-  resize: vertical;
-}
-
-.submitButton {
-  width: 100%;
-  padding: 18px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #00E0FF 0%, #A06BFF 100%);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-
-.submitButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 224, 255, 0.3);
-}
-
-.submitButton:active {
-  transform: translateY(0);
-}
-
-.submitButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Social Section */
-.socialSection {
-  margin-top: 60px;
-  text-align: center;
-  animation: fadeIn 1.2s ease;
-}
-
-.socialTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #f1f5f9;
-  margin-bottom: 30px;
-}
-
-.socialLinks {
+.hoursList li {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.socialLink {
-  width: 60px;
-  height: 60px;
-  background: rgba(30, 41, 59, 0.6);
-  border: 2px solid rgba(160, 107, 255, 0.3);
-  border-radius: 50%;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  color: #00E0FF;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.9rem;
 }
 
-.socialLink:hover {
-  transform: translateY(-5px) scale(1.1);
-  background: linear-gradient(135deg, #00E0FF 0%, #A06BFF 100%);
-  color: white;
-  box-shadow: 0 10px 30px rgba(0, 224, 255, 0.4);
+.hoursList li:last-child {
+  border-bottom: none;
 }
 
-.socialLink svg {
-  width: 28px;
-  height: 28px;
+.hoursList li span:first-child {
+  color: rgba(184, 168, 216, 0.7);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hoursList li span:last-child {
+  color: rgba(240, 234, 255, 0.9);
+  font-weight: 500;
+  direction: ltr;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hoursNote {
+  font-size: 0.8rem;
+  color: rgba(184, 168, 216, 0.45);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
 
+/* ── ANIMATIONS ── */
 @keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
-/* Responsive Design */
-@media (max-width: 968px) {
-  .contentGrid {
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 2.5rem;
   }
-  
-  .contactInfo,
-  .aiBotSection,
-  .contactForm {
-    padding: 30px;
+
+  .right {
+    position: static;
   }
 }
 
-@media (max-width: 768px) {
-  .contactPage {
-    padding: 100px 15px 40px;
+@media (max-width: 600px) {
+  .hero {
+    padding: 7rem 1.5rem 3rem;
   }
-  
-  .title {
-    font-size: 2rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-  }
-  
-  .infoTitle,
-  .aiBotTitle,
-  .formTitle {
-    font-size: 1.5rem;
-  }
-  
-  .contactInfo,
-  .aiBotSection,
-  .contactForm {
-    padding: 25px;
-  }
-  
-  .iconWrapper {
-    min-width: 45px;
-    height: 45px;
-  }
-  
-  .aiBotButton {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-  }
-  
-  .socialLink {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .socialLink svg {
-    width: 24px;
-    height: 24px;
-  }
-}
 
-@media (max-width: 480px) {
-  .contactPage {
-    padding: 90px 10px 30px;
+  .main {
+    padding: 3rem 1.5rem 5rem;
   }
-  
-  .contactInfo,
-  .aiBotSection,
-  .contactForm {
-    padding: 20px;
+
+  .aiCard {
+    padding: 1.75rem;
   }
-  
-  .infoItem {
-    gap: 15px;
+
+  .promiseCard {
+    padding: 2rem 1.75rem;
   }
-  
-  .formInput,
-  .formTextarea {
-    padding: 12px 15px;
-  }
-  
-  .aiBotFeatures li {
-    font-size: 0.95rem;
+
+  .aiBadge {
+    display: none;
   }
 }
