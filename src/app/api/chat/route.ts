@@ -66,6 +66,44 @@ const SYSTEM_PROMPT = `אתה ערדית, העוזרת הדיגיטלית של M
 
 זכור/י: את/ה לא רק צ'אטבוט - את/ה ערדית, חברה שבאמת רוצה לעזור למצוא את המקום המושלם! 🏡✨`;
 
+// Extract lead data from conversation history
+function extractLeadData(history: Array<{ role: string; content: string }>) {
+  const fullText = history.map(m => m.content).join(' ');
+  const phoneMatch = fullText.match(/0[5-9]\d[-\s]?\d{3}[-\s]?\d{4}/);
+  const nameMatch = fullText.match(/(?:שמי|אני|קוראים לי)\s+([א-ת\s]{2,20})/);
+  return {
+    phone: phoneMatch?.[0] ?? null,
+    name: nameMatch?.[1]?.trim() ?? null,
+    conversationLength: history.length,
+    extractedAt: new Date().toISOString(),
+  };
+}
+
+// Forward lead to N8N webhook
+async function forwardLeadToN8N(
+  leadData: Record<string, unknown>,
+  history: Array<{ role: string; content: string }>
+) {
+  const n8nUrl = process.env.N8N_WEBHOOK_URL;
+  if (!n8nUrl) return;
+  try {
+    await fetch(n8nUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Source': 'multibrawn-chatbot' },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        source: 'chatbot',
+        lead: leadData,
+        conversationHistory: history,
+        siteUrl: 'https://multibrawn.co.il',
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+  } catch {
+    // Non-blocking — don't fail the chat response
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { message, conversationHistory = [] } = await request.json();
@@ -110,13 +148,19 @@ export async function POST(request: NextRequest) {
     ];
 
     // Detect if this is a summary/ready for WhatsApp
-    const isSummary = 
+    const isSummary =
       response.includes('סיכום') ||
       response.includes('מעולה! יש לי') ||
       response.includes('אעביר אותך') ||
       response.includes('WhatsApp') ||
       response.includes('וואטסאפ') ||
       updatedHistory.length >= 10;
+
+    // When conversation is ready — extract and forward lead to N8N (non-blocking)
+    if (isSummary) {
+      const leadData = extractLeadData(updatedHistory);
+      forwardLeadToN8N(leadData, updatedHistory);
+    }
 
     return NextResponse.json({
       response,

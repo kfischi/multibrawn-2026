@@ -4,8 +4,25 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "קמין אמיתי | MULTIBRAWN",
-  description: "מאמר על קמין אמיתי",
+  title: "קמין אמיתי בצימר — או פשוט דקורטיבי? המדריך | MULTIBRAWN",
+  description: "מחפשים צימר עם קמין לחורף? הבדל בין קמין אמיתי לדקורטיבי, איך לוודא שהוא עובד, ואיזה צימרים בישראל יש בהם קמין אמיתי.",
+  keywords: ["צימר עם קמין", "קמין בצימר", "צימר חורף", "קמין עצים", "נופש חורף ישראל"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/real-fireplace-guide' },
+  openGraph: {
+    title: "קמין אמיתי בצימר — או פשוט דקורטיבי? המדריך | MULTIBRAWN",
+    description: "מחפשים צימר עם קמין לחורף? הבדל בין קמין אמיתי לדקורטיבי, איך לוודא שהוא עובד, ואיזה צימרים בישראל יש בהם קמין אמיתי.",
+    url: 'https://multibrawn.co.il/blog/real-fireplace-guide',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766253408/תמונה_fwjqkl.png', width: 1200, height: 630, alt: "קמין אמיתי בצימר — או פשוט דקורטיבי? המדריך | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "קמין אמיתי בצימר — או פשוט דקורטיבי? המדריך | MULTIBRAWN",
+    description: "מחפשים צימר עם קמין לחורף? הבדל בין קמין אמיתי לדקורטיבי, איך לוודא שהוא עובד, ואיזה צימרים בישראל יש בהם קמין אמיתי.",
+    images: ['https://res.cloudinary.com/decirk3zb/image/upload/v1766253408/תמונה_fwjqkl.png'],
+  },
 };
 
 export default function Article() {

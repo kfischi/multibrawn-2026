@@ -4,8 +4,25 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "עלויות נסתרות בצימרים | MULTIBRAWN",
-  description: "כל העלויות הנסתרות שצריך לדעת לפני ההזמנה",
+  title: "עלויות נסתרות בוילה — מה לא סיפרו לכם לפני ההזמנה | MULTIBRAWN",
+  description: "דמי ניקיון, פיקדון, חשמל, מיזוג — גלו את כל העלויות הנסתרות שצריך לחשב לפני שמזמינים וילה. שקיפות מלאה כדי שלא תופתעו.",
+  keywords: ["עלויות נסתרות וילה", "דמי ניקיון צימר", "פיקדון וילה", "מחיר אמיתי צימר", "עלויות נסתרות נופש"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/hidden-villa-costs' },
+  openGraph: {
+    title: "עלויות נסתרות בוילה — מה לא סיפרו לכם לפני ההזמנה | MULTIBRAWN",
+    description: "דמי ניקיון, פיקדון, חשמל, מיזוג — גלו את כל העלויות הנסתרות שצריך לחשב לפני שמזמינים וילה. שקיפות מלאה כדי שלא תופתעו.",
+    url: 'https://multibrawn.co.il/blog/hidden-villa-costs',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766253191/תמונה_mujulg.png', width: 1200, height: 630, alt: "עלויות נסתרות בוילה — מה לא סיפרו לכם לפני ההזמנה | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "עלויות נסתרות בוילה — מה לא סיפרו לכם לפני ההזמנה | MULTIBRAWN",
+    description: "דמי ניקיון, פיקדון, חשמל, מיזוג — גלו את כל העלויות הנסתרות שצריך לחשב לפני שמזמינים וילה. שקיפות מלאה כדי שלא תופתעו.",
+    images: ['https://res.cloudinary.com/decirk3zb/image/upload/v1766253191/תמונה_mujulg.png'],
+  },
 };
 
 export default function Article() {

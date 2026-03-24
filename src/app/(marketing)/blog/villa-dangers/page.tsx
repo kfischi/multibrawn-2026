@@ -3,9 +3,25 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "ממה להיזהר בוילה | טיפים MULTIBRAWN",
-  description: "כל מה שצריך לדעת כדי להימנע מבעיות בוילה",
-  keywords: ["וילות", "בטיחות", "טיפים"],
+  title: "ממה להיזהר בוילה — 8 דברים לבדוק עם ההגעה | MULTIBRAWN",
+  description: "הגעתם לוילה? לפני שמניחים את המזוודות — 8 בדיקות קריטיות. בטיחות, ציוד, רעש, כניסה ויציאה, ואיך להגן על עצמכם.",
+  keywords: ["ממה להיזהר בוילה", "בדיקות וילה", "וילה בטוחה", "אחריות בוילה", "הזמנת וילה", "טיפים לנופש בוילה"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/villa-dangers' },
+  openGraph: {
+    title: "ממה להיזהר בוילה — 8 דברים לבדוק עם ההגעה | MULTIBRAWN",
+    description: "הגעתם לוילה? לפני שמניחים את המזוודות — 8 בדיקות קריטיות. בטיחות, ציוד, רעש, כניסה ויציאה, ואיך להגן על עצמכם.",
+    url: 'https://multibrawn.co.il/blog/villa-dangers',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg', width: 1200, height: 630, alt: "ממה להיזהר בוילה — 8 דברים לבדוק עם ההגעה | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "ממה להיזהר בוילה — 8 דברים לבדוק עם ההגעה | MULTIBRAWN",
+    description: "הגעתם לוילה? לפני שמניחים את המזוודות — 8 בדיקות קריטיות. בטיחות, ציוד, רעש, כניסה ויציאה, ואיך להגן על עצמכם.",
+    images: ['https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg'],
+  },
 };
 
 export default function Article() {

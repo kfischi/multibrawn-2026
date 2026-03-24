@@ -1,15 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
-import { Heebo } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
-
-const heebo = Heebo({
-  subsets: ['latin', 'hebrew'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-heebo',
-  display: 'swap',
-});
 
 // ── GTM ID ── החלף כאן כשיהיה לך את ה-ID
 const GTM_ID = 'GTM-T2DCKBL5';
@@ -184,7 +176,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className={heebo.variable}>
+    <html lang="he" dir="rtl">
       <head>
         {/* ── Google Tag Manager ── */}
         <Script id="gtm-init" strategy="beforeInteractive">
@@ -197,12 +189,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* ── Fonts ── */}
+        {/* ── Fonts (loaded at runtime to avoid build-time network dependency) ── */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap"
           rel="stylesheet"
         />
 
@@ -217,7 +209,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
 
-      <body className={heebo.className}>
+      <body>
         {/* ── GTM noscript fallback ── */}
         <noscript>
           <iframe
