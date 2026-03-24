@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  waha:
+    image: devlikeapro/waha:latest
+    restart: unless-stopped
+    container_name: waha
+    ports:
+      - "3000:3000"
+    environment:
+      - WAHA_LOG_LEVEL=error
+      - WAHA_PRINT_QR=true
+      # Optional: API key security (set a strong secret)
+      - WHATSAPP_API_KEY=${WAHA_API_KEY:-}
+    volumes:
+      - waha_sessions:/app/.sessions
+    networks:
+      - waha_net
+
+volumes:
+  waha_sessions:
+
+networks:
+  waha_net:
+    driver: bridge
