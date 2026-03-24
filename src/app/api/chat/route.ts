@@ -12,46 +12,47 @@ const model = genAI.getGenerativeModel({
   },
 });
 
-const SYSTEM_PROMPT = `אתה ערדית, סוכן AI חכם של MULTIBRAWN — חברת השכרת נכסים יוקרתיים בישראל.
+const SYSTEM_PROMPT = `אתה ערדית, סוכנת AI חכמה של MULTIBRAWN — חברת נכסים יוקרתיים בישראל.
 
 🎯 המשימה שלך:
-להבין את הלקוח, לאסוף מידע חיוני, ולהפנות אותו לפתרון הנכון ביותר.
+להבין את הלקוח, לאסוף מידע, ולהפנות אותו לפתרון הנכון. **לא לאפשר שיחת מת** — תמיד תן כפתורי המשך.
 
-🏡 הנכסים שלנו:
-- צימרים רומנטיים (לזוגות, ג'קוזי פרטי, בריכה, נוף)
-- וילות משפחתיות (עד 20 אנשים, בריכה פרטית, גינה)
-- דירות נופש (מרכזיות, מאובזרות)
-- מלוני בוטיק (ספא, ארוחות, שירות VIP)
-- מתחמי אירועים (חתונות, בר מצווה, שבת חתן, אירועי חברה)
+🏡 הנכסים:
+- צימרים רומנטיים (ג'קוזי, בריכה, נוף)
+- וילות משפחתיות (עד 20 איש, בריכה פרטית)
+- דירות נופש (מרכזיות)
+- מלוני בוטיק (ספא, VIP)
+- מתחמי אירועים (חתונות, בר/בת מצווה, שבת חתן)
 
-📍 אזורים: צפון (גליל, גולן, כנרת), מרכז, דרום (מדבר, אילת), ירושלים
+📍 אזורים: צפון (גליל/גולן/כנרת), מרכז, דרום (מדבר/אילת), ירושלים
 
 💡 כללי תגובה:
-1. עד 3 משפטים קצרים, שפה חמה ואישית
+1. עד 3 משפטים קצרים, שפה חמה
 2. שאל שאלה אחת בכל פעם
-3. אסוף: סוג נכס, מיקום, תאריכים, כמה אנשים, תקציב, דרישות מיוחדות
-4. לאחר 3-4 הודעות — הצע להמשיך בוואטסאפ
-5. אם מדובר בשבת חתן — הצע לעבור לדף המיוחד
-6. אם מדובר באירוע גדול — הפנה לדף אירועים
-7. תמיד תהיה חיובי, אמפתי, ואנרגטי
+3. מלא extractedData בכל מה שמוזכר בשיחה
+4. **תמיד** כלול 3-5 כפתורי actions — לעולם לא פחות מ-3!
+5. כשיש לפחות: סוג נכס + תאריך + מספר אנשים → הצע לשלוח לוואטסאפ
+6. שבת חתן → הפנה לדף /shabbat-hatan
+7. אירוע גדול → הפנה לדף /events-gallery
+8. שאלה על תמונות → הפנה ל-/gallery
 
-🔀 ניתוב חכם:
-- צימר/וילה/דירה → שלח לוואטסאפ עם סיכום
-- שבת חתן → הפנה לדף /shabbat-hatan
-- אירוע גדול (חתונה/בר מצווה) → הפנה לדף /events
-- שאלה על מחירים → תן טווח כללי + הפנה לוואטסאפ
-- שאלה על גלריה/תמונות → הפנה לדף /gallery
-- בלגן/תלונה → הצע שיחה טלפונית
+🔀 לוגיקת כפתורים:
+- quick_reply: תשובה מהירה שהלקוח שולח
+- whatsapp: לשלוח סיכום לנציג (רק כשיש מספיק פרטים)
+- page: ניווט לדף רלוונטי
+- phone: התקשרות ישירה
+- **חשוב**: תמיד כלול לפחות 2-3 quick_reply כפתורים שמקדמים את השיחה
 
-⚠️ חשוב מאוד: ענה רק ב-JSON תקני, ללא טקסט נוסף:
+⚠️ ענה רק ב-JSON תקני, ללא טקסט נוסף:
 {
-  "message": "הטקסט שלך בעברית כאן",
+  "message": "הטקסט שלך בעברית",
   "intent": "greeting|booking|event|shabbat_hatan|info|ready|complaint",
   "actions": [
-    {"type": "quick_reply", "label": "טקסט כפתור", "value": "הטקסט שיישלח"},
-    {"type": "whatsapp", "label": "שלח לוואטסאפ 📱", "summary": "סיכום קצר לוואטסאפ"},
+    {"type": "quick_reply", "label": "תשובה 1", "value": "הטקסט שיישלח"},
+    {"type": "quick_reply", "label": "תשובה 2", "value": "הטקסט שיישלח"},
+    {"type": "whatsapp", "label": "שלח לוואטסאפ 📱", "summary": "סיכום השיחה לנציג"},
     {"type": "page", "label": "ראה גלריה 📸", "url": "/gallery"},
-    {"type": "phone", "label": "התקשר עכשיו 📞"}
+    {"type": "phone", "label": "התקשר 📞"}
   ],
   "extractedData": {
     "name": null,
@@ -60,17 +61,24 @@ const SYSTEM_PROMPT = `אתה ערדית, סוכן AI חכם של MULTIBRAWN —
     "location": null,
     "dates": null,
     "guestCount": null,
-    "budget": null
+    "budget": null,
+    "specialRequests": null
   }
 }
 
-כללי actions:
-- תמיד כלול 2-4 כפתורים רלוונטיים
-- quick_reply = לקוח לוחץ ושולח תשובה מהירה
-- whatsapp = כשיש מספיק פרטים לשלוח סיכום
-- page = ניווט לדף רלוונטי
-- phone = להתקשרות ישירה
-- מלא extractedData בכל מה שכבר ידוע מהשיחה`;
+דוגמה לתגובה בשלב ראשוני:
+{
+  "message": "שלום! 👋 אני ערדית. מה מעניין אותך?",
+  "intent": "greeting",
+  "actions": [
+    {"type": "quick_reply", "label": "צימר רומנטי 💕", "value": "אני מחפש צימר רומנטי לזוג"},
+    {"type": "quick_reply", "label": "וילה למשפחה 🏡", "value": "אני מחפש וילה גדולה למשפחה"},
+    {"type": "quick_reply", "label": "אירוע / שבת חתן 🎊", "value": "אני מתכנן אירוע"},
+    {"type": "page", "label": "ראה גלריה 📸", "url": "/gallery"},
+    {"type": "phone", "label": "דבר עם נציג 📞"}
+  ],
+  "extractedData": {}
+}`;
 
 interface Action {
   type: 'quick_reply' | 'whatsapp' | 'page' | 'phone';
@@ -88,13 +96,28 @@ interface GeminiResponse {
 }
 
 function parseGeminiResponse(text: string): GeminiResponse {
-  // Clean markdown fences if present
   const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
   const parsed = JSON.parse(clean);
+  const actions: Action[] = Array.isArray(parsed.actions) ? parsed.actions : [];
+
+  // Guarantee at least 3 actions — add defaults if needed
+  const hasQuickReplies = actions.filter((a) => a.type === 'quick_reply').length;
+  if (hasQuickReplies < 2) {
+    if (!actions.find((a) => a.type === 'phone')) {
+      actions.push({ type: 'phone', label: 'דבר עם נציג 📞' });
+    }
+    if (!actions.find((a) => a.type === 'whatsapp')) {
+      actions.push({ type: 'whatsapp', label: 'שלח לוואטסאפ 📱', summary: 'שלום! פניתי דרך האתר' });
+    }
+    if (actions.length < 3) {
+      actions.push({ type: 'page', label: 'ראה גלריה 📸', url: '/gallery' });
+    }
+  }
+
   return {
     message: parsed.message || text,
     intent: parsed.intent || 'info',
-    actions: Array.isArray(parsed.actions) ? parsed.actions : [],
+    actions,
     extractedData: parsed.extractedData || {},
   };
 }
@@ -105,25 +128,67 @@ function fallbackResponse(msgCount: number): GeminiResponse {
       message: 'שלום! 👋 אני ערדית. איך אוכל לעזור לך היום?',
       intent: 'greeting',
       actions: [
-        { type: 'quick_reply', label: 'צימר רומנטי 💕', value: 'אני מחפש צימר רומנטי' },
-        { type: 'quick_reply', label: 'וילה משפחתית 🏡', value: 'אני מחפש וילה משפחתית' },
-        { type: 'quick_reply', label: 'אירוע מיוחד 🎊', value: 'אני מתכנן אירוע' },
-        { type: 'quick_reply', label: 'שבת חתן 🕍', value: 'אני מחפש מקום לשבת חתן' },
+        { type: 'quick_reply', label: 'צימר רומנטי 💕', value: 'אני מחפש צימר רומנטי לזוג' },
+        { type: 'quick_reply', label: 'וילה משפחתית 🏡', value: 'אני מחפש וילה גדולה למשפחה' },
+        { type: 'quick_reply', label: 'אירוע / שבת חתן 🎊', value: 'אני מתכנן אירוע' },
+        { type: 'page', label: 'ראה גלריה 📸', url: '/gallery' },
+        { type: 'phone', label: 'דבר עם נציג 📞' },
       ],
       extractedData: {},
     };
   }
   return {
-    message: 'אשמח לעזור! אפשר לפנות אלינו ישירות בוואטסאפ ונמצא לך את הפתרון המושלם 😊',
+    message: 'אשמח לעזור! אפשר לפנות אלינו בוואטסאפ ונמצא לך את המקום המושלם 😊',
     intent: 'ready',
     actions: [
-      { type: 'whatsapp', label: 'שלח לוואטסאפ 📱', summary: 'שלום! פניתי דרך הצ\u05D0ט ואשמח לעזרה' },
+      { type: 'whatsapp', label: 'שלח לוואטסאפ 📱', summary: 'שלום! פניתי דרך האתר ואשמח לעזרה' },
       { type: 'phone', label: 'התקשר עכשיו 📞' },
+      { type: 'quick_reply', label: 'חזור לתחילה 🔄', value: 'בוא נתחיל מחדש' },
     ],
     extractedData: {},
   };
 }
 
+// ============================================
+// WAHA — Send summary to Ardit's WhatsApp
+// ============================================
+async function sendToWahaArdit(summary: string, extractedData: Record<string, string | null>) {
+  const wahaUrl = process.env.WAHA_API_URL;
+  const arditNumber = process.env.ARDIT_WHATSAPP_NUMBER;
+
+  if (!wahaUrl || !arditNumber) return;
+
+  const lines = ['📩 *ליד חדש מהאתר!*', ''];
+  if (extractedData.name) lines.push(`👤 *שם:* ${extractedData.name}`);
+  if (extractedData.phone) lines.push(`📱 *טלפון:* ${extractedData.phone}`);
+  if (extractedData.propertyType) lines.push(`🏠 *סוג:* ${extractedData.propertyType}`);
+  if (extractedData.location) lines.push(`📍 *אזור:* ${extractedData.location}`);
+  if (extractedData.dates) lines.push(`📅 *תאריכים:* ${extractedData.dates}`);
+  if (extractedData.guestCount) lines.push(`👥 *אורחים:* ${extractedData.guestCount}`);
+  if (extractedData.budget) lines.push(`💰 *תקציב:* ${extractedData.budget}`);
+  if (extractedData.specialRequests) lines.push(`✨ *בקשות:* ${extractedData.specialRequests}`);
+  lines.push('');
+  lines.push(`📝 *סיכום שיחה:* ${summary}`);
+
+  try {
+    await fetch(`${wahaUrl}/api/sendText`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chatId: `${arditNumber}@c.us`,
+        text: lines.join('\n'),
+        session: 'default',
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+  } catch {
+    // Non-blocking
+  }
+}
+
+// ============================================
+// N8N — Forward lead
+// ============================================
 async function forwardLeadToN8N(
   leadData: Record<string, unknown>,
   history: Array<{ role: string; content: string }>
@@ -148,6 +213,9 @@ async function forwardLeadToN8N(
   }
 }
 
+// ============================================
+// POST handler
+// ============================================
 export async function POST(request: NextRequest) {
   try {
     const { message, conversationHistory = [] } = await request.json();
@@ -169,7 +237,7 @@ export async function POST(request: NextRequest) {
           parts: [
             {
               text: JSON.stringify({
-                message: 'הבנתי! אני ערדית, סוכן AI חכם של MULTIBRAWN. אני מוכנה לעזור!',
+                message: 'הבנתי! אני ערדית, סוכנת AI של MULTIBRAWN. אני מוכנה לעזור!',
                 intent: 'greeting',
                 actions: [],
                 extractedData: {},
@@ -197,14 +265,24 @@ export async function POST(request: NextRequest) {
       { role: 'assistant', content: parsed.message },
     ];
 
+    // Detect readiness
     const isReady = parsed.intent === 'ready' || updatedHistory.length >= 12;
+    const hasEnoughData = !!(
+      parsed.extractedData?.propertyType &&
+      (parsed.extractedData?.dates || parsed.extractedData?.guestCount)
+    );
 
-    // Forward to N8N if ready or has enough data
-    if (isReady || (parsed.extractedData?.phone && parsed.extractedData?.name)) {
-      forwardLeadToN8N(
-        { ...parsed.extractedData, source: 'chatbot_ai', intent: parsed.intent },
-        updatedHistory
-      );
+    // When ready OR enough data collected — fire automations
+    if (isReady || hasEnoughData) {
+      const leadData = { ...parsed.extractedData, source: 'chatbot_ai', intent: parsed.intent };
+
+      // Forward to N8N (manages CRM/email flows)
+      forwardLeadToN8N(leadData, updatedHistory);
+
+      // Send to Ardit's WhatsApp via WAHA
+      const whatsappAction = parsed.actions.find((a) => a.type === 'whatsapp');
+      const summary = whatsappAction?.summary || parsed.message;
+      sendToWahaArdit(summary, parsed.extractedData);
     }
 
     return NextResponse.json({
