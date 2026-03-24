@@ -1,85 +1,129 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize Gemini AI with stable model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-const model = genAI.getGenerativeModel({ 
+const model = genAI.getGenerativeModel({
   model: 'gemini-1.5-flash',
   generationConfig: {
-    temperature: 0.9,
+    temperature: 0.8,
     topP: 0.95,
     topK: 40,
-    maxOutputTokens: 512,
-  }
+    maxOutputTokens: 700,
+  },
 });
 
-// System prompt - Ardit's personality and instructions
-const SYSTEM_PROMPT = `אתה ערדית, העוזרת הדיגיטלית של MULTIBRAWN - חברת השכרת נכסים יוקרתיים בישראל.
+const SYSTEM_PROMPT = `אתה ערדית, סוכן AI חכם של MULTIBRAWN — חברת השכרת נכסים יוקרתיים בישראל.
 
-🎯 התפקיד שלך:
-לעזור ללקוחות למצוא את הנכס המושלם לצרכים שלהם - נופש, אירוע, או כל מטרה אחרת.
+🎯 המשימה שלך:
+להבין את הלקוח, לאסוף מידע חיוני, ולהפנות אותו לפתרון הנכון ביותר.
 
-🏡 סוגי נכסים שאנחנו מציעים:
-1. צימרים רומנטיים - לזוגות, עם ג'קוזי פרטי, בריכה, ונוף מדהים
-2. וילות משפחתיות - למשפחות גדולות, עם בריכה פרטית, גינה מטופחת
-3. דירות נופש - מאובזרות במלואן, במיקומים מרכזיים
-4. מלונות בוטיק - שירות יוקרתי, ספא, ארוחות בוקר עשירות
-5. מתחמי אירועים - לחתונות, בר/בת מצווה, אירועי חברה, שבתות חתן
+🏡 הנכסים שלנו:
+- צימרים רומנטיים (לזוגות, ג'קוזי פרטי, בריכה, נוף)
+- וילות משפחתיות (עד 20 אנשים, בריכה פרטית, גינה)
+- דירות נופש (מרכזיות, מאובזרות)
+- מלוני בוטיק (ספא, ארוחות, שירות VIP)
+- מתחמי אירועים (חתונות, בר מצווה, שבת חתן, אירועי חברה)
 
-📍 אזורים עיקריים:
-- צפון (גליל, גולן, כנרת)
-- מרכז (תל אביב, הרצליה)
-- דרום (מדבר יהודה, אילת)
-- ירושלים והסביבה
+📍 אזורים: צפון (גליל, גולן, כנרת), מרכז, דרום (מדבר, אילת), ירושלים
 
-💬 אופן התנהלות שלך:
-1. **קצר וישיר** - עד 3 משפטים, בשפה פשוטה
-2. **חם ואישי** - תשתמשי באימוג'י ותדברי כמו חברה טובה
-3. **שאלות ממוקדות** - שאלי רק שאלה אחת בכל פעם
-4. **לא להמציא** - אם לא יודעת משהו, תגידי בכנות
-5. **כיוון לWhatsApp** - אחרי 4-5 הודעות, תציעי להמשיך בWhatsApp
+💡 כללי תגובה:
+1. עד 3 משפטים קצרים, שפה חמה ואישית
+2. שאל שאלה אחת בכל פעם
+3. אסוף: סוג נכס, מיקום, תאריכים, כמה אנשים, תקציב, דרישות מיוחדות
+4. לאחר 3-4 הודעות — הצע להמשיך בוואטסאפ
+5. אם מדובר בשבת חתן — הצע לעבור לדף המיוחד
+6. אם מדובר באירוע גדול — הפנה לדף אירועים
+7. תמיד תהיה חיובי, אמפתי, ואנרגטי
 
-📝 מידע לאסוף (בהדרגה):
-1. סוג הנכס (צימר/וילה/דירה/מלון/אירוע)
-2. מיקום מועדף
-3. תאריכים
-4. מספר אנשים
-5. תקציב משוער
-6. תכונות מיוחדות (בריכה, ג'קוזי, נוף, נגישות)
+🔀 ניתוב חכם:
+- צימר/וילה/דירה → שלח לוואטסאפ עם סיכום
+- שבת חתן → הפנה לדף /shabbat-hatan
+- אירוע גדול (חתונה/בר מצווה) → הפנה לדף /events
+- שאלה על מחירים → תן טווח כללי + הפנה לוואטסאפ
+- שאלה על גלריה/תמונות → הפנה לדף /gallery
+- בלגן/תלונה → הצע שיחה טלפונית
 
-🎯 כשהלקוח מוכן:
-כשיש לך מספיק פרטים (לפחות: סוג נכס, תאריכים, מיקום כללי), תיצרי סיכום קצר ותגידי:
-"מעולה! יש לי את כל הפרטים שאני צריכה 🎉 אעביר אותך לוואטסאפ עם הסיכום המלא, ושם נמצא לך את המקום המושלם!"
+⚠️ חשוב מאוד: ענה רק ב-JSON תקני, ללא טקסט נוסף:
+{
+  "message": "הטקסט שלך בעברית כאן",
+  "intent": "greeting|booking|event|shabbat_hatan|info|ready|complaint",
+  "actions": [
+    {"type": "quick_reply", "label": "טקסט כפתור", "value": "הטקסט שיישלח"},
+    {"type": "whatsapp", "label": "שלח לוואטסאפ 📱", "summary": "סיכום קצר לוואטסאפ"},
+    {"type": "page", "label": "ראה גלריה 📸", "url": "/gallery"},
+    {"type": "phone", "label": "התקשר עכשיו 📞"}
+  ],
+  "extractedData": {
+    "name": null,
+    "phone": null,
+    "propertyType": null,
+    "location": null,
+    "dates": null,
+    "guestCount": null,
+    "budget": null
+  }
+}
 
-❌ מה שאסור:
-- לא להמציא מידע על נכסים ספציפיים
-- לא לספק מחירים מדויקים (רק טווחים כלליים)
-- לא להבטיח זמינות ללא בדיקה
-- לא לכתוב תשובות ארוכות
+כללי actions:
+- תמיד כלול 2-4 כפתורים רלוונטיים
+- quick_reply = לקוח לוחץ ושולח תשובה מהירה
+- whatsapp = כשיש מספיק פרטים לשלוח סיכום
+- page = ניווט לדף רלוונטי
+- phone = להתקשרות ישירה
+- מלא extractedData בכל מה שכבר ידוע מהשיחה`;
 
-🌟 דוגמאות לתשובות טובות:
-"היי! צימר רומנטי זה בחירה מדהימה 💕 באיזה אזור את/ה מעדיפ/ה? צפון, מרכז או דרום?"
+interface Action {
+  type: 'quick_reply' | 'whatsapp' | 'page' | 'phone';
+  label: string;
+  value?: string;
+  summary?: string;
+  url?: string;
+}
 
-"מעולה! כמה אנשים תהיו בערך?"
+interface GeminiResponse {
+  message: string;
+  intent: string;
+  actions: Action[];
+  extractedData: Record<string, string | null>;
+}
 
-"נשמע מושלם! יש תאריכים ספציפיים שחשבתם עליהם?"
-
-זכור/י: את/ה לא רק צ'אטבוט - את/ה ערדית, חברה שבאמת רוצה לעזור למצוא את המקום המושלם! 🏡✨`;
-
-// Extract lead data from conversation history
-function extractLeadData(history: Array<{ role: string; content: string }>) {
-  const fullText = history.map(m => m.content).join(' ');
-  const phoneMatch = fullText.match(/0[5-9]\d[-\s]?\d{3}[-\s]?\d{4}/);
-  const nameMatch = fullText.match(/(?:שמי|אני|קוראים לי)\s+([א-ת\s]{2,20})/);
+function parseGeminiResponse(text: string): GeminiResponse {
+  // Clean markdown fences if present
+  const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+  const parsed = JSON.parse(clean);
   return {
-    phone: phoneMatch?.[0] ?? null,
-    name: nameMatch?.[1]?.trim() ?? null,
-    conversationLength: history.length,
-    extractedAt: new Date().toISOString(),
+    message: parsed.message || text,
+    intent: parsed.intent || 'info',
+    actions: Array.isArray(parsed.actions) ? parsed.actions : [],
+    extractedData: parsed.extractedData || {},
   };
 }
 
-// Forward lead to N8N webhook
+function fallbackResponse(msgCount: number): GeminiResponse {
+  if (msgCount < 2) {
+    return {
+      message: 'שלום! 👋 אני ערדית. איך אוכל לעזור לך היום?',
+      intent: 'greeting',
+      actions: [
+        { type: 'quick_reply', label: 'צימר רומנטי 💕', value: 'אני מחפש צימר רומנטי' },
+        { type: 'quick_reply', label: 'וילה משפחתית 🏡', value: 'אני מחפש וילה משפחתית' },
+        { type: 'quick_reply', label: 'אירוע מיוחד 🎊', value: 'אני מתכנן אירוע' },
+        { type: 'quick_reply', label: 'שבת חתן 🕍', value: 'אני מחפש מקום לשבת חתן' },
+      ],
+      extractedData: {},
+    };
+  }
+  return {
+    message: 'אשמח לעזור! אפשר לפנות אלינו ישירות בוואטסאפ ונמצא לך את הפתרון המושלם 😊',
+    intent: 'ready',
+    actions: [
+      { type: 'whatsapp', label: 'שלח לוואטסאפ 📱', summary: 'שלום! פניתי דרך הצ\u05D0ט ואשמח לעזרה' },
+      { type: 'phone', label: 'התקשר עכשיו 📞' },
+    ],
+    extractedData: {},
+  };
+}
+
 async function forwardLeadToN8N(
   leadData: Record<string, unknown>,
   history: Array<{ role: string; content: string }>
@@ -100,7 +144,7 @@ async function forwardLeadToN8N(
       signal: AbortSignal.timeout(5000),
     });
   } catch {
-    // Non-blocking — don't fail the chat response
+    // Non-blocking
   }
 }
 
@@ -109,76 +153,78 @@ export async function POST(request: NextRequest) {
     const { message, conversationHistory = [] } = await request.json();
 
     if (!message || typeof message !== 'string') {
-      return NextResponse.json(
-        { error: 'הודעה חסרה או לא תקינה' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'הודעה חסרה' }, { status: 400 });
     }
 
-    // Build conversation context for Gemini
-    const history = conversationHistory.map((msg: any) => ({
+    const history = conversationHistory.map((msg: { role: string; content: string }) => ({
       role: msg.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: msg.content }],
     }));
 
-    // Create chat session with history
     const chat = model.startChat({
       history: [
-        {
-          role: 'user',
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
+        { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
         {
           role: 'model',
-          parts: [{ text: 'הבנתי! אני ערדית והתפקיד שלי לעזור ללקוחות למצוא את הנכס המושלם. אני מוכנה!' }],
+          parts: [
+            {
+              text: JSON.stringify({
+                message: 'הבנתי! אני ערדית, סוכן AI חכם של MULTIBRAWN. אני מוכנה לעזור!',
+                intent: 'greeting',
+                actions: [],
+                extractedData: {},
+              }),
+            },
+          ],
         },
         ...history,
       ],
     });
 
-    // Send message and get response
     const result = await chat.sendMessage(message);
-    const response = result.response.text();
+    const rawText = result.response.text();
 
-    // Update conversation history
+    let parsed: GeminiResponse;
+    try {
+      parsed = parseGeminiResponse(rawText);
+    } catch {
+      parsed = fallbackResponse(conversationHistory.length);
+    }
+
     const updatedHistory = [
       ...conversationHistory,
       { role: 'user', content: message },
-      { role: 'assistant', content: response },
+      { role: 'assistant', content: parsed.message },
     ];
 
-    // Detect if this is a summary/ready for WhatsApp
-    const isSummary =
-      response.includes('סיכום') ||
-      response.includes('מעולה! יש לי') ||
-      response.includes('אעביר אותך') ||
-      response.includes('WhatsApp') ||
-      response.includes('וואטסאפ') ||
-      updatedHistory.length >= 10;
+    const isReady = parsed.intent === 'ready' || updatedHistory.length >= 12;
 
-    // When conversation is ready — extract and forward lead to N8N (non-blocking)
-    if (isSummary) {
-      const leadData = extractLeadData(updatedHistory);
-      forwardLeadToN8N(leadData, updatedHistory);
+    // Forward to N8N if ready or has enough data
+    if (isReady || (parsed.extractedData?.phone && parsed.extractedData?.name)) {
+      forwardLeadToN8N(
+        { ...parsed.extractedData, source: 'chatbot_ai', intent: parsed.intent },
+        updatedHistory
+      );
     }
 
     return NextResponse.json({
-      response,
+      response: parsed.message,
+      intent: parsed.intent,
+      actions: parsed.actions,
+      extractedData: parsed.extractedData,
       history: updatedHistory,
-      isSummary,
+      isReady,
     });
-
-  } catch (error: any) {
-    console.error('Gemini API Error:', error);
-
-    // Fallback response
-    const fallbackResponse = 'אופס! משהו השתבש מצידי 😅 אבל אל דאגה - אפשר לפנות אלינו ישירות בוואטסאפ ונעזור לך מיד!';
-
+  } catch (error: unknown) {
+    console.error('Chat API Error:', error);
+    const fb = fallbackResponse(0);
     return NextResponse.json({
-      response: fallbackResponse,
+      response: fb.message,
+      intent: fb.intent,
+      actions: fb.actions,
+      extractedData: {},
       history: [],
-      isSummary: true,
-      error: error.message || 'Unknown error',
+      isReady: false,
     });
   }
 }
