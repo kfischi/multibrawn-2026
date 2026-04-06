@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אילת בלי פילטר | MULTIBRAWN</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;600;700;800&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --fc:#FF0090;--fc2:#FF3CAE;--fc3:#FFE0F0;
+  --li:#B44AFF;--li2:#CE80FF;--li3:#F0E0FF;
+  --sk:#00BCD4;--sk2:#4DD0E1;--sk3:#E0F7FA;
+  --sv:#B0BCC8;--sv2:#D0D8E0;
+  --wh:#fff;
+  --bg:linear-gradient(170deg,#FFF5FA 0%,#F8F0FF 25%,#F0FAFF 55%,#FFF8FC 100%);
+  --grd:linear-gradient(135deg,#FF0090,#B44AFF);
+  --grd2:linear-gradient(135deg,#B44AFF,#00BCD4);
+  --t1:#2A2035;--t2:#5A5068;--t3:#9590A5;
+}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--t1);line-height:1.8;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1614007151820-27af89c290a7?w=1600&q=80') center 40%/cover no-repeat}
+.hero::before{content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(180,74,255,.8) 0%,rgba(255,0,144,.4) 28%,rgba(0,0,0,.12) 55%,transparent 100%)}
+.hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;z-index:2;background:#FFF5FA;
+  clip-path:polygon(0 55%,5% 42%,10% 50%,15% 38%,20% 48%,25% 35%,30% 45%,35% 32%,40% 42%,45% 30%,50% 40%,55% 30%,60% 42%,65% 32%,70% 45%,75% 35%,80% 48%,85% 38%,90% 50%,95% 40%,100% 50%,100% 100%,0 100%)}
+.hi{position:relative;z-index:3;text-align:center;padding:2rem 1.5rem 5rem;max-width:750px}
+.htag{display:inline-block;font-family:'Dancing Script',cursive;font-size:1.05rem;color:var(--wh);
+  border:1px solid rgba(255,255,255,.35);padding:.3rem 1.2rem;border-radius:30px;margin-bottom:1rem;
+  backdrop-filter:blur(10px);background:rgba(255,255,255,.12);animation:u .9s ease .2s both}
+.hero h1{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(2.3rem,6.5vw,4rem);
+  color:var(--wh);line-height:1.12;margin-bottom:1.2rem;text-shadow:0 4px 30px rgba(0,0,0,.2);animation:u .9s ease .35s both}
+.hero h1 em{font-style:normal;color:var(--sk2)}
+.hsub{font-size:1.05rem;color:rgba(255,255,255,.85);font-weight:300;max-width:560px;margin:0 auto 2.2rem;animation:u .9s ease .5s both}
+.ctrs{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:u .9s ease .7s both}
+.ctr{text-align:center;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:.7rem 1.3rem;min-width:88px}
+.ctr .n{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.8rem;color:var(--wh);display:block}
+.ctr .l{font-size:.62rem;color:rgba(255,255,255,.65);letter-spacing:1.5px;text-transform:uppercase}
+@keyframes u{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+
+/* PARALLAX BREAK */
+.pbreak{position:relative;height:40vh;min-height:250px;background-attachment:fixed;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+.pbreak::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(180,74,255,.5),rgba(255,0,144,.35),rgba(0,188,212,.25))}
+.pbreak-txt{position:relative;z-index:1;text-align:center;color:var(--wh);padding:1.5rem}
+.pbreak-txt h3{font-family:'Frank Ruhl Libre',serif;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;text-shadow:0 2px 15px rgba(0,0,0,.25)}
+.pbreak-txt p{font-size:.95rem;color:rgba(255,255,255,.85);margin-top:.3rem}
+
+/* LAYOUT */
+.wrap{max-width:820px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+.crumb{max-width:820px;margin:1.5rem auto 0;padding:0 1.5rem;font-size:.78rem;color:var(--t3)}.crumb a{color:var(--fc);text-decoration:none}
+.intro{font-size:1.08rem;color:var(--t2);line-height:2.1;padding:1.5rem 0 2rem;border-bottom:2px solid var(--fc3);margin-bottom:2.5rem}.intro strong{color:var(--fc);font-weight:600}
+p.b{font-size:1rem;color:var(--t2);line-height:2;margin-bottom:1rem}
+
+/* SECTION */
+.sh{display:flex;align-items:center;gap:.8rem;margin:3rem 0 1.2rem}
+.si{font-size:1.2rem;width:48px;height:48px;border-radius:14px;background:var(--grd);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 20px rgba(180,74,255,.25);color:var(--wh)}
+.sh h2{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.45rem;line-height:1.3}
+.sh h2 small{display:block;font-family:'Dancing Script',cursive;font-size:.88rem;color:var(--li);font-weight:400}
+
+/* CARD - glass */
+.cd{background:rgba(255,255,255,.75);backdrop-filter:blur(12px);border-radius:18px;padding:1.6rem;margin:1rem 0;
+  border-right:4px solid var(--fc);box-shadow:0 4px 20px rgba(255,0,144,.04);border:1px solid rgba(255,255,255,.6)}
+.cd.tp{border-right:4px solid var(--li)}
+.cd h3{font-family:'Frank Ruhl Libre',serif;font-size:1.08rem;margin-bottom:.4rem;color:var(--fc)}
+.cd h3.hs{color:var(--li)}
+.cd p{font-size:.93rem;color:var(--t2);line-height:1.85}
+.bdg{display:inline-block;margin-top:.5rem;font-size:.72rem;font-weight:700;padding:.22rem .7rem;border-radius:20px;background:var(--fc3);color:var(--fc)}
+
+/* TABLE */
+.tb{background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-radius:18px;overflow:hidden;margin:1.2rem 0;box-shadow:0 4px 20px rgba(255,0,144,.04);border:1px solid rgba(255,255,255,.6)}
+.tb table{width:100%;border-collapse:collapse;font-size:.88rem}
+.tb th{background:var(--fc);color:var(--wh);padding:.7rem 1rem;text-align:right;font-family:'Frank Ruhl Libre',serif;font-size:.82rem}
+.tb td{padding:.55rem 1rem;border-bottom:1px solid rgba(255,0,144,.05)}.tb tr:last-child td{border:none}
+.tb .hl{color:var(--fc);font-weight:700}
+
+/* SWIPE */
+.sr{display:flex;gap:.9rem;overflow-x:auto;padding:.5rem 0 1.2rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}.sr::-webkit-scrollbar{display:none}
+.sc{min-width:252px;max-width:270px;background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:18px;padding:1.3rem;scroll-snap-align:start;flex-shrink:0;transition:transform .3s,box-shadow .3s;border:1px solid rgba(255,255,255,.6)}
+.sc:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(255,0,144,.08)}
+.sc .ic{font-size:1.8rem;margin-bottom:.5rem;display:block}
+.sc .tg{display:inline-block;font-size:.65rem;padding:.14rem .5rem;border-radius:20px;font-weight:600;margin-bottom:.4rem;background:var(--li3);color:var(--li)}
+.sc h4{font-family:'Frank Ruhl Libre',serif;font-size:1rem;margin-bottom:.3rem}
+.sc p{font-size:.85rem;color:var(--t2);line-height:1.7}
+.swh{font-size:.7rem;color:var(--t3);text-align:center;margin-bottom:1rem}
+
+/* CHECKLIST */
+.ck{background:var(--grd);border-radius:20px;padding:2rem;margin:1.5rem 0;color:var(--wh);position:relative;overflow:hidden}
+.ck::before{content:'';position:absolute;top:-30%;right:-20%;width:70%;height:70%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 60%)}
+.ck h3{font-family:'Frank Ruhl Libre',serif;font-size:1.25rem;margin-bottom:.2rem;position:relative}
+.ck .sub{font-size:.8rem;color:rgba(255,255,255,.75);margin-bottom:1rem;position:relative}
+.ck-item{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.65rem;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ck-item input{display:none}
+.ck-box{width:26px;height:26px;border-radius:8px;border:2px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px;transition:all .25s;font-size:0;background:rgba(255,255,255,.1)}
+.ck-item input:checked+.ck-box{background:var(--wh);border-color:var(--wh);font-size:.8rem}
+.ck-item input:checked+.ck-box::after{content:'✓';color:var(--fc)}
+.ck-item input:checked~.ck-txt{opacity:.4;text-decoration:line-through}
+.ck-txt{font-size:.9rem;color:rgba(255,255,255,.92);line-height:1.7;transition:all .25s}.ck-txt strong{color:var(--wh)}
+.pbar{height:6px;background:rgba(255,255,255,.2);border-radius:3px;margin-top:1.2rem;overflow:hidden}
+.pfill{height:100%;background:var(--wh);border-radius:3px;transition:width .5s;width:0}
+.ptxt{font-size:.72rem;color:rgba(255,255,255,.75);margin-top:.4rem;text-align:center;position:relative}
+
+/* ACCORDION */
+.acc{margin:1rem 0}
+.acc-item{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:16px;margin-bottom:.6rem;overflow:hidden;border:1px solid rgba(255,255,255,.6)}
+.acc-q{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.3rem;cursor:pointer;font-family:'Frank Ruhl Libre',serif;font-size:1rem;font-weight:700;color:var(--t1);-webkit-tap-highlight-color:transparent;gap:.5rem}
+.acc-q .arr{font-size:.75rem;color:var(--li);transition:transform .3s;flex-shrink:0}
+.acc-item.open .arr{transform:rotate(180deg)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.acc-item.open .acc-a{max-height:600px}
+.acc-a-in{padding:0 1.3rem 1rem}
+.acc-a p{font-size:.9rem;color:var(--t2);line-height:1.85}
+
+/* GALLERY */
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.5rem 0}
+.gal img{width:100%;height:185px;object-fit:cover;border-radius:14px;transition:transform .4s,box-shadow .3s;cursor:pointer;border:2px solid rgba(255,255,255,.6)}
+.gal img:hover{transform:scale(1.02);box-shadow:0 10px 30px rgba(255,0,144,.1)}
+.gal .wide{grid-column:1/-1;height:260px}
+
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(40,10,50,.92);align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.lb.show{display:flex}
+.lb img{max-width:92vw;max-height:85vh;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-close{position:absolute;top:1.5rem;left:1.5rem;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:var(--wh);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+
+/* QUOTE */
+.qb{background:var(--grd2);border-radius:20px;padding:2rem;margin:2rem 0;text-align:center;position:relative;overflow:hidden}
+.qb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.08),transparent 70%)}
+.qb p{font-family:'Frank Ruhl Libre',serif;font-size:1.15rem;color:var(--wh);line-height:1.6;position:relative}
+.qb .au{font-family:'Heebo',sans-serif;font-size:.85rem;color:rgba(255,255,255,.7);margin-top:.7rem;position:relative}
+
+/* CTA */
+.cta{background:rgba(255,255,255,.75);backdrop-filter:blur(15px);border-radius:22px;padding:2.5rem 2rem;text-align:center;margin:2.5rem 0;border:1px solid rgba(255,255,255,.6);box-shadow:0 8px 30px rgba(255,0,144,.06)}
+.cta h3{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;background:var(--grd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.7rem}
+.cta>p{color:var(--t2);font-size:.98rem;margin-bottom:1.5rem}
+.cta-r{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.4rem;font-family:'Heebo',sans-serif;font-weight:700;font-size:.95rem;padding:.75rem 1.8rem;border-radius:50px;text-decoration:none;transition:transform .3s,box-shadow .3s}
+.btn:hover{transform:scale(1.04);box-shadow:0 8px 25px rgba(0,0,0,.15)}
+.btn-fc{background:var(--fc);color:var(--wh)}
+.btn-o{background:transparent;color:var(--li);border:2px solid var(--li)}
+
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin:2rem 0;justify-content:center}
+.tag{font-size:.72rem;padding:.22rem .65rem;border-radius:20px;background:var(--li3);color:var(--li);font-weight:500}
+.ft{text-align:center;padding:2rem 1.5rem;margin-top:2rem}
+.ft .br{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.2rem;background:var(--grd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:2px}
+.ft p{font-size:.78rem;color:var(--t3);margin-top:.3rem}
+
+@media(max-width:600px){.hero{min-height:75vh}.hero h1{font-size:2.1rem}.wrap{padding:1.5rem 1rem}.ck{padding:1.5rem}.sc{min-width:235px}.gal img{height:140px}.gal .wide{height:190px}.pbreak{height:30vh;background-attachment:scroll}}
+</style>
+</head>
+<body>
+<section class="hero"><div class="hero-bg"></div><div class="hi"><div class="htag">✍️ הבלוג של MULTIBRAWN</div><h1>אילת <em>בלי פילטר</em><br>הדברים שלא יגידו לכם</h1><p class="hsub">מוניות, מלכודות, חופים, וילות ענקיות ומה באמת שווה. מישהי צריכה להגיד את זה.</p><div class="ctrs"><div class="ctr"><span class="n">12</span><span class="l">ק"מ חוף</span></div><div class="ctr"><span class="n">650+</span><span class="l">מוניות</span></div><div class="ctr"><span class="n">11</span><span class="l">חד' בוילה</span></div></div></div></section>
+<div class="crumb"><a href="https://multibrawn.co.il">בית</a> / <a href="https://multibrawn.co.il/blog">בלוג</a> / אילת בלי פילטר</div>
+<div class="wrap">
+<p class="intro">אני כותבת את זה כמישהי שחיה בדרום ומכירה את אילת מבפנים. הבלוג הזה הוא <strong>מדריך הישרדות</strong> – כדי שלא יעבדו עליכם, כדי שתחסכו כסף, וכדי שהחופשה באמת תהיה שווה.</p>
+
+<div class="sh"><div class="si">✈️</div><h2><small>עוד לפני שיוצאים</small>לפני הנסיעה – מה אסור לפספס</h2></div>
+<div class="ck" id="ck"><h3>📋 סמנו מה סיימתם</h3><p class="sub">לחצו על כל פריט – ותראו את ההתקדמות</p>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>הזמנת לינה חודש+ מראש</strong> – בחגים הטובים נתפסים מהר</span></label>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>בקשתם סרטון מהנכס</strong> – תמונות משקרות</span></label>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>שאלתם על עלויות נסתרות</strong> – ניקיון, פיקדון, חניה</span></label>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>הורדתם Gett</strong> – מוניות עם מחיר מראש</span></label>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>קרם הגנה + נעלי ים</strong> – חובה</span></label>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>שנורקל + משקפת</strong> – החוויה הכי שווה בחינם</span></label>
+<label class="ck-item"><input type="checkbox" onchange="up()"><div class="ck-box"></div><span class="ck-txt"><strong>בדקתם כשרות/שבת</strong> – לא כל "כשר" זה מהדרין</span></label>
+<div class="pbar"><div class="pfill" id="pf"></div></div><p class="ptxt" id="pt">0 מתוך 7 ✓</p></div>
+
+<div class="cd tp"><h3 class="hs">💡 למשפחות מורחבות</h3><p>אל תתפזרו על 5 דירות – קחו <strong>וילה אחת גדולה</strong>. באילת יש וילות של 8, 9 ו-11 חדרי שינה עם בריכה פרטית.</p></div>
+</div>
+
+<div class="pbreak" style="background-image:url('https://images.unsplash.com/photo-1580834341580-8c17a3a630c8?w=1400&q=80')"><div class="pbreak-txt"><h3>🚕 מוניות באילת</h3><p>שלא יעבדו עליכם</p></div></div>
+
+<div class="wrap">
+<div class="sh"><div class="si">🚕</div><h2><small>כסף על הכביש</small>תעריפים ואזהרות</h2></div>
+<div class="tb"><table><tr><th>פרט</th><th>סכום</th></tr><tr><td>פתיחת מונה באילת</td><td class="hl">10.86 ₪</td></tr><tr><td>תעריף א' (יום) – לק"מ</td><td>1.70 ₪</td></tr><tr><td>תעריף ב' (לילה/שבת/חג)</td><td class="hl">2.04 ₪ (+25%)</td></tr><tr><td>תוספת הזמנה טלפונית</td><td>5.01 ₪</td></tr><tr><td>ממוצע נסיעה בעיר</td><td>20–30 ₪</td></tr></table></div>
+<div class="cd"><h3>🚨 "בוא נסגור מחיר"</h3><p>נהג שמציע "מחיר סגור" – ב-99% גובה יותר. <strong>חובה מונה</strong> לפי חוק. מסרב? תרדו.</p><span class="bdg">⚠️ תמיד דרשו מונה</span></div>
+<div class="cd"><h3>🚨 תעריף 2 "בטעות"</h3><p>14:00 = תעריף 1. רואים 2? זה 25% יותר! בדקו מיד.</p><span class="bdg">⚠️ בדקו את המונה</span></div>
+<div class="cd tp"><h3 class="hs">✅ מוניות עם הפלוס</h3><p>מדבקת <strong>"הפלוס"</strong> = מפוקחות תאגיד התיירות. או Gett.</p></div>
+
+<div class="sh"><div class="si">⚠️</div><h2><small>לא יגידו לכם</small>מלכודות תיירים</h2></div>
+<div class="sr"><div class="sc"><span class="ic">📸</span><span class="tg">אזהרה</span><h4>תמונות מול מציאות</h4><p>פישאיי = 15מ"ר נראה וילה. <strong>בקשו סרטון.</strong></p></div><div class="sc"><span class="ic">🛁</span><span class="tg">אזהרה</span><h4>הג'קוזי "המפנק"</h4><p>קצף צהוב = לא ניקו. שאלו!</p></div><div class="sc"><span class="ic">🏊</span><span class="tg">אזהרה</span><h4>"בריכה מחוממת"</h4><p>22° = קפוא. אמיתית = 28-30°.</p></div><div class="sc"><span class="ic">💸</span><span class="tg">כסף</span><h4>עלויות נסתרות</h4><p>ניקיון 300₪, פיקדון 1,000₪, חניה 50₪/יום.</p></div><div class="sc"><span class="ic">🔇</span><span class="tg">טיפ</span><h4>"פרטיות מלאה"</h4><p>השכן מרפסת אחת. בדקו כמה יחידות.</p></div><div class="sc"><span class="ic">🍳</span><span class="tg">כסף</span><h4>ארוחת בוקר 150₪</h4><p>בדקו אם המלון כולל ארוחת בוקר.</p></div><div class="sc"><span class="ic">⏰</span><span class="tg">טיפ</span><h4>"דקה 90"</h4><p>בחגים הטובים נתפסים חודשים מראש.</p></div></div><p class="swh">👈 גוללים לעוד</p>
+</div>
+
+<div class="pbreak" style="background-image:url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80')"><div class="pbreak-txt"><h3>🏖️ חופים באילת</h3><p>הסודות של המקומיים</p></div></div>
+
+<div class="wrap">
+<div class="sh"><div class="si">🏖️</div><h2><small>לא כל חוף שווה</small>חופים מומלצים</h2></div>
+<div class="sr"><div class="sc"><span class="ic">🐚</span><span class="tg">שקט</span><h4>חוף הנסיכה</h4><p>בתולי, שקט, מזכיר סיני. לזוגות.</p></div><div class="sc"><span class="ic">🐠</span><span class="tg">שנירקול</span><h4>חוף המגדלור</h4><p>דגים ברגליים. בר, חינם.</p></div><div class="sc"><span class="ic">🌿</span><span class="tg">אקולוגי</span><h4>החוף של מוש</h4><p>צמחוני, חינם. שישי – DJ.</p></div><div class="sc"><span class="ic">🤿</span><span class="tg">שמורה</span><h4>שמורת האלמוגים</h4><p>השונית הצפונית בעולם.</p></div><div class="sc"><span class="ic">🎶</span><span class="tg">אווירה</span><h4>חוף מיקונוס</h4><p>יוונית, אוכל, אווירה.</p></div><div class="sc"><span class="ic">👨‍👩‍👧‍👦</span><span class="tg">משפחות</span><h4>חוף הדקל</h4><p>מתקנים, צלילה, דקלים.</p></div></div><p class="swh">👈 גוללים</p>
+
+<div class="sh"><div class="si">🎢</div><h2><small>שווה ולא שווה</small>שאלות נפוצות</h2></div>
+<div class="acc"><div class="acc-item"><div class="acc-q" onclick="tog(this)">מה חינמי ושווה?<span class="arr">▼</span></div><div class="acc-a"><div class="acc-a-in"><p><strong>פארק הטרמינל</strong> – חינם. <strong>המזרקה המוזיקלית</strong> – אור וקול. <strong>תמנע</strong> – 30 דק'.</p></div></div></div><div class="acc-item"><div class="acc-q" onclick="tog(this)">אטרקציות במולים שוות?<span class="arr">▼</span></div><div class="acc-a"><div class="acc-a-in"><p>3 ילדים × 4 מתקנים = 900₪. <strong>בדקו מראש.</strong></p></div></div></div><div class="acc-item"><div class="acc-q" onclick="tog(this)">סיורי ג'יפים כדאי?<span class="arr">▼</span></div><div class="acc-a"><div class="acc-a-in"><p>יש מעולים ויש גרועים. <strong>בדקו ביקורות.</strong></p></div></div></div><div class="acc-item"><div class="acc-q" onclick="tog(this)">מה בערב?<span class="arr">▼</span></div><div class="acc-a"><div class="acc-a-in"><p>טיילת, דוכנים, מופעים. מגדלור בלילה – בר + רומנטיקה.</p></div></div></div><div class="acc-item"><div class="acc-q" onclick="tog(this)">חוף נפרד לדתיים?<span class="arr">▼</span></div><div class="acc-a"><div class="acc-a-in"><p><strong>חוף 4</strong> – גדר, מחיצה בים. <strong>בשבת לא נפרד!</strong> חצץ – קחו כפכפים.</p></div></div></div></div>
+</div>
+
+<div class="pbreak" style="background-image:url('v-pool.jpg')"><div class="pbreak-txt"><h3>🏠 וילות באילת</h3><p>8, 9 ו-11 חדרי שינה</p></div></div>
+
+<div class="wrap">
+<div class="sh"><div class="si">🏠</div><h2><small>הבית הרחק מהבית</small>וילת 11 חדרים באילת</h2></div>
+<p class="b">20, 30, 40 איש – אתם צריכים <strong>וילה אחת</strong> עם בריכה, גינה, סלון שמכיל את כולם:</p>
+
+<div class="gal"><img src="v-pool.jpg" alt="בריכה" class="wide" onclick="openLb(this)"><img src="v-salon.jpg" alt="סלון" onclick="openLb(this)"><img src="v-bed2.jpg" alt="חדר שינה" onclick="openLb(this)"><img src="v-wine.jpg" alt="יין" onclick="openLb(this)"><img src="v-front.jpg" alt="חזית" onclick="openLb(this)"><img src="v-patio.jpg" alt="פרגולה" class="wide" onclick="openLb(this)"><img src="v-pool2.jpg" alt="בריכה" onclick="openLb(this)"><img src="v-salon2.jpg" alt="סלון" onclick="openLb(this)"><img src="v-hall.jpg" alt="מבואה" onclick="openLb(this)"><img src="v-bed1.jpg" alt="חדר" onclick="openLb(this)"></div>
+
+<p class="b" style="margin-top:1rem">11 חדרי שינה. בריכה. פרגולה ל-14. סלונים. פינג פונג. <strong>לא מוצאים את זה בגוגל</strong> – צריך מישהי שמכירה מבפנים.</p>
+
+<div class="qb"><p>חופשה טובה מתחילה בידע.<br>מי שמגיע מוכן – נהנה יותר, משלם פחות, ולא חוזר מאוכזב.</p><div class="au">— ערדית, Multibrawn</div></div>
+
+<div class="cta"><h3>🌴 רוצים חופשה בלי הפתעות?</h3><p>וילות 8-11 חדרים, סוויטות, דירות – בשקיפות מלאה.</p><div class="cta-r"><a href="https://wa.me/972523983394" class="btn btn-fc">💬 וואטסאפ</a><a href="https://www.instagram.com/multibrawn" class="btn btn-o">📸 אינסטגרם</a></div></div>
+
+<div class="tags"><span class="tag">#אילת_בלי_פילטר</span><span class="tag">#מוניות_אילת</span><span class="tag">#וילות_אילת</span><span class="tag">#חופים_באילת</span><span class="tag">#multibrawn</span><span class="tag">#אילת2026</span></div>
+<div class="ft"><div class="br">MULTIBRAWN</div><p>צימרים, וילות ומתחמי אירועים מובחרים בישראל</p><p>© 2026 MULTIBRAWN – כל הזכויות שמורות</p></div>
+</div>
+
+<div class="lb" id="lb" onclick="closeLb()"><button class="lb-close">✕</button><img id="lbi" src="" alt=""></div>
+<script>function up(){const b=document.querySelectorAll('#ck input');const c=[...b].filter(x=>x.checked).length;document.getElementById('pf').style.width=Math.round(c/b.length*100)+'%';document.getElementById('pt').textContent=c+' מתוך '+b.length+' ✓'+(c===b.length?' 🎉 מוכנים!':'')}function tog(e){e.parentElement.classList.toggle('open')}function openLb(i){document.getElementById('lbi').src=i.src;document.getElementById('lb').classList.add('show');document.body.style.overflow='hidden'}function closeLb(){document.getElementById('lb').classList.remove('show');document.body.style.overflow=''}</script>
+</body></html>
