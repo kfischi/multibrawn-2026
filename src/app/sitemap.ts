@@ -60,6 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const landingPages = [
     `${baseUrl}/zimmerim-galil-elyon`,
     `${baseUrl}/affiliate-gallery`,
+    `${baseUrl}/multi-global`,
   ].map(url => ({
     url,
     lastModified: currentDate,
