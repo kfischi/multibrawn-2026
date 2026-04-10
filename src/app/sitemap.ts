@@ -86,6 +86,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     `${baseUrl}/blog/massage-to-room-guide`,
     `${baseUrl}/blog/hidden-villa-costs`,
     `${baseUrl}/blog/luxury-villa-wear-and-tear`,
+    `${baseUrl}/blog/villa-greece-guide`,
+    `${baseUrl}/blog/10-zimmer-mistakes`,
+    `${baseUrl}/blog/villa-vs-hotel`,
+    `${baseUrl}/blog/galil-elyon-family`,
+    `${baseUrl}/blog/passover-vacation-tips`,
+    `${baseUrl}/blog/pool-villa-checklist`,
   ].map(url => ({
     url,
     lastModified: currentDate,

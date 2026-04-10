@@ -226,10 +226,16 @@ input, textarea, select {
 body.access-large-text    { font-size: 120%; }
 body.access-high-contrast { filter: contrast(160%); }
 body.access-grayscale     { filter: grayscale(100%); }
-body.access-links-highlight a {
+body.access-links-highlight a,
+html.highlight-links a {
   text-decoration: underline !important;
-  background: #ffff00 !important;
-  color: #000 !important;
+  background: rgba(255,235,0,0.25) !important;
+  outline: 1px solid #ffeb00;
+  border-radius: 2px;
+}
+
+html.high-contrast {
+  filter: contrast(170%) brightness(1.05);
 }
 
 /* ============ RESPONSIVE ============ */

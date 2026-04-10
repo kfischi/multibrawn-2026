@@ -17,14 +17,22 @@ const SYSTEM_PROMPT = `אתה ערדית, סוכנת AI חכמה של MULTIBRAWN
 🎯 המשימה שלך:
 להבין את הלקוח, לאסוף מידע, ולהפנות אותו לפתרון הנכון. **לא לאפשר שיחת מת** — תמיד תן כפתורי המשך.
 
-🏡 הנכסים:
+🏡 הנכסים בישראל:
 - צימרים רומנטיים (ג'קוזי, בריכה, נוף)
 - וילות משפחתיות (עד 20 איש, בריכה פרטית)
 - דירות נופש (מרכזיות)
 - מלוני בוטיק (ספא, VIP)
 - מתחמי אירועים (חתונות, בר/בת מצווה, שבת חתן)
 
-📍 אזורים: צפון (גליל/גולן/כנרת), מרכז, דרום (מדבר/אילת), ירושלים
+🌍 Multi-Global — נכסים בינלאומיים:
+- וילות ביוון (סנטוריני, מיקונוס, כרתים)
+- וילות באיטליה (טוסקנה, אמאלפי, לייק קומו)
+- פינקות בספרד (מאיורקה, איביזה, ברצלונה)
+- וילות VIP בדובאי
+- וילות בתאילנד (קו סמוי, פוקט)
+- קינטות בפורטוגל (אלגרב)
+
+📍 אזורי ישראל: צפון (גליל/גולן/כנרת), מרכז, דרום (מדבר/אילת), ירושלים
 
 💡 כללי תגובה:
 1. עד 3 משפטים קצרים, שפה חמה
@@ -35,6 +43,7 @@ const SYSTEM_PROMPT = `אתה ערדית, סוכנת AI חכמה של MULTIBRAWN
 6. שבת חתן → הפנה לדף /shabbat-hatan
 7. אירוע גדול → הפנה לדף /events-gallery
 8. שאלה על תמונות → הפנה ל-/gallery
+9. שאלה על חו"ל / בינלאומי / יוון / איטליה / ספרד / דובאי / תאילנד / פורטוגל → הפנה ל-/multi-global
 
 🔀 לוגיקת כפתורים:
 - quick_reply: תשובה מהירה שהלקוח שולח
@@ -74,6 +83,7 @@ const SYSTEM_PROMPT = `אתה ערדית, סוכנת AI חכמה של MULTIBRAWN
     {"type": "quick_reply", "label": "צימר רומנטי 💕", "value": "אני מחפש צימר רומנטי לזוג"},
     {"type": "quick_reply", "label": "וילה למשפחה 🏡", "value": "אני מחפש וילה גדולה למשפחה"},
     {"type": "quick_reply", "label": "אירוע / שבת חתן 🎊", "value": "אני מתכנן אירוע"},
+    {"type": "quick_reply", "label": "נכס בחו\"ל 🌍", "value": "אני מעוניין בנכס בחו\"ל - Multi-Global"},
     {"type": "page", "label": "ראה גלריה 📸", "url": "/gallery"},
     {"type": "phone", "label": "דבר עם נציג 📞"}
   ],
@@ -131,6 +141,7 @@ function fallbackResponse(msgCount: number): GeminiResponse {
         { type: 'quick_reply', label: 'צימר רומנטי 💕', value: 'אני מחפש צימר רומנטי לזוג' },
         { type: 'quick_reply', label: 'וילה משפחתית 🏡', value: 'אני מחפש וילה גדולה למשפחה' },
         { type: 'quick_reply', label: 'אירוע / שבת חתן 🎊', value: 'אני מתכנן אירוע' },
+        { type: 'quick_reply', label: 'נכס בחו"ל 🌍', value: 'אני מעוניין בנכס בחו"ל' },
         { type: 'page', label: 'ראה גלריה 📸', url: '/gallery' },
         { type: 'phone', label: 'דבר עם נציג 📞' },
       ],
@@ -288,6 +299,24 @@ function smartMockResponse(
     };
   }
 
+  // ─── International / Multi-Global ────────────────────────
+  const intlKeywords = ['חו"ל', 'חוץ לארץ', 'בינלאומי', 'multi-global', 'יוון', 'איטליה', 'ספרד', 'דובאי', 'תאילנד', 'פורטוגל', 'אירופה'];
+  if (intlKeywords.some(k => msg.includes(k))) {
+    return {
+      message: 'MULTI-GLOBAL — הגעת למקום הנכון! 🌍 יש לנו וילות יוקרתיות ביוון, איטליה, ספרד, דובאי, תאילנד ופורטוגל. לאיזה יעד חולמים?',
+      intent: 'info',
+      actions: [
+        { type: 'quick_reply', label: 'יוון 🇬🇷', value: 'אני מעוניין בוילה ביוון' },
+        { type: 'quick_reply', label: 'איטליה 🇮🇹', value: 'אני מעוניין בוילה באיטליה' },
+        { type: 'quick_reply', label: 'ספרד 🇪🇸', value: 'אני מעוניין בנכס בספרד' },
+        { type: 'quick_reply', label: 'דובאי 🇦🇪', value: 'אני מעוניין בוילה בדובאי' },
+        { type: 'page', label: 'כל היעדים 🌍', url: '/multi-global' },
+        { type: 'whatsapp', label: 'וואטסאפ ישיר 📱', summary: 'שלום! אני מעוניין בנכס בחו"ל דרך Multi-Global' },
+      ],
+      extractedData: { propertyType: 'נכס בינלאומי' },
+    };
+  }
+
   if (msg.includes('גלרי') || msg.includes('תמונ')) {
     return {
       message: 'בשמחה! 📸 הנה הגלריה שלנו עם כל הנכסים המדהימים.',
@@ -390,6 +419,7 @@ function smartMockResponse(
       { type: 'quick_reply', label: 'צימר רומנטי 💕', value: 'אני מחפש צימר רומנטי לזוג' },
       { type: 'quick_reply', label: 'וילה משפחתית 🏡', value: 'אני מחפש וילה למשפחה' },
       { type: 'quick_reply', label: 'אירוע / שבת חתן 🎊', value: 'אני מתכנן אירוע' },
+      { type: 'quick_reply', label: 'נכס בחו"ל 🌍', value: 'אני מעוניין בנכס בחו"ל' },
       { type: 'page', label: 'ראה גלריה 📸', url: '/gallery' },
       { type: 'phone', label: 'דבר עם נציג 📞' },
     ],

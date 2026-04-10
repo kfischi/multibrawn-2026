@@ -457,6 +457,38 @@
    ANIMATIONS
    ============================================ */
 
+/* ── Progress bar ── */
+.progressBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.progressDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: background 0.3s;
+}
+.progressDotDone {
+  background: linear-gradient(135deg, #00E0FF, #A06BFF);
+}
+
+/* ── Notified badge ── */
+.notifiedBadge {
+  text-align: center;
+  padding: 10px 16px;
+  background: rgba(16, 185, 129, 0.15);
+  border-top: 1px solid rgba(16,185,129,0.3);
+  color: #10b981;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 @keyframes floatPulse {
   0%, 100% { transform: scale(1) translateY(0); box-shadow: 0 8px 32px rgba(255, 94, 161, 0.45); }
   50% { transform: scale(1.04) translateY(-3px); box-shadow: 0 12px 40px rgba(255, 94, 161, 0.6); }
