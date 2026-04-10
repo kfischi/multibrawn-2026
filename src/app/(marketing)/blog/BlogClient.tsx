@@ -5,7 +5,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Blog.module.css';
 
-const articles = [
+interface Article {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  image: string;
+  videoUrl?: string;
+  date: string;
+  readTime: string;
+}
+
+interface BlogClientProps {
+  sanityPosts?: Article[];
+}
+
+const hardcodedArticles: Article[] = [
   // 4 סרטונים ראשונים
   {
     slug: 'shabbat-hatan-rosh-shaket',
@@ -204,7 +219,14 @@ const articles = [
   },
 ];
 
-export default function BlogPage() {
+export default function BlogPage({ sanityPosts = [] }: BlogClientProps) {
+  // Sanity posts first, then hardcoded (avoid duplicates by slug)
+  const sanityslugs = new Set(sanityPosts.map(p => p.slug));
+  const articles = [
+    ...sanityPosts,
+    ...hardcodedArticles.filter(a => !sanityslugs.has(a.slug)),
+  ];
+
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
   return (
