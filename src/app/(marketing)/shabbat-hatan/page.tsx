@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
 import styles from './ShabbatHatan.module.css';
+import { GuideSection } from './GuideSection';
 
 // ✅ SEO Metadata מושלם
 export const metadata: Metadata = {
@@ -557,6 +558,9 @@ export default function ShabbatHatanPage() {
             </div>
           </div>
         </section>
+
+        {/* ✅ Guide Section – 25 Steps */}
+        <GuideSection />
 
         {/* ✅ FAQ - שאלות ותשובות */}
         <section className={styles.faq}>
