@@ -252,7 +252,7 @@ export default function ShabbatHatanPage() {
                 rel="noopener noreferrer"
                 className={styles.btnGuide}
               >
-                📋 25 שלבים לשבת חתן מושלמת
+                קבלו את המדריך לשבת חתן מושלמת ←
               </a>
             </div>
           </div>
