@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
 import styles from './ShabbatHatan.module.css';
-import { GuideSection } from './GuideSection';
 
 // ✅ SEO Metadata מושלם
 export const metadata: Metadata = {
@@ -247,6 +246,14 @@ export default function ShabbatHatanPage() {
               <Link href="/gallery" className={styles.btnSecondary}>
                 צפו בגלריה המלאה →
               </Link>
+              <a
+                href="https://guide.multibrawn.co.il"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.btnGuide}
+              >
+                📋 25 שלבים לשבת חתן מושלמת
+              </a>
             </div>
           </div>
           <div className={styles.heroImage}>
@@ -558,9 +565,6 @@ export default function ShabbatHatanPage() {
             </div>
           </div>
         </section>
-
-        {/* ✅ Guide Section – 25 Steps */}
-        <GuideSection />
 
         {/* ✅ FAQ - שאלות ותשובות */}
         <section className={styles.faq}>
