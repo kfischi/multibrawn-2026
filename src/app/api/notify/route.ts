@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabasePublic } from '@/lib/supabase/server';
+import { sendLeadEmail } from '@/lib/email';
 
 interface CollectedData {
   propertyType?: string;
@@ -39,7 +40,19 @@ export async function POST(request: NextRequest) {
     console.error('Supabase notify error:', e);
   }
 
-  // 2. Forward to N8N (non-blocking)
+  // 2. Send email notification (non-blocking)
+  sendLeadEmail({
+    name:         collected.name,
+    phone:        collected.phone,
+    propertyType: collected.propertyType,
+    location:     collected.region,
+    dates:        collected.dates,
+    guestCount:   collected.guestCount,
+    budget:       collected.budget,
+    source:       'chatbot_form',
+  }).catch(e => console.error('Email error:', e));
+
+  // 3. Forward to N8N (non-blocking)
   const n8nUrl = process.env.N8N_WEBHOOK_URL;
   if (n8nUrl) {
     fetch(n8nUrl, {

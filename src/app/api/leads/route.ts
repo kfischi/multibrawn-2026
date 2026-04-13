@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabasePublic } from '@/lib/supabase/server';
+import { sendLeadEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,6 +37,19 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Supabase lead insert error:', error);
     }
+
+    // Send email notification (non-blocking)
+    sendLeadEmail({
+      name:         leadData.name,
+      phone:        leadData.phone,
+      propertyType: leadData.propertyType,
+      location:     leadData.location,
+      dates:        leadData.dates || leadData.specificDate,
+      guestCount:   leadData.guestCount || leadData.eventGuests || leadData.shabbatHatanGuests,
+      budget:       leadData.budget,
+      source,
+      leadId:       savedLead?.id,
+    }).catch(e => console.error('Email error:', e));
 
     // Forward to N8N webhook if configured
     const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;

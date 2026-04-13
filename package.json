@@ -23,6 +23,7 @@
     "next-sanity": "^12.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "resend": "^6.11.0",
     "sanity": "^5.20.0",
     "styled-components": "^6.4.0"
   },
