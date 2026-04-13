@@ -1,7 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './Admin.module.css';
+import { ImageUploader } from './ImageUploader';
+import { RichEditor } from './RichEditor';
+import { ToastContainer, ToastMsg } from './Toast';
 
 const ADMIN_SECRET = 'multibrawn-admin-2025';
 
@@ -98,14 +101,10 @@ function BlogForm({ post, adminKey, onSave, onClose }: {
             <input className={styles.formInput} value={form.excerpt} placeholder="משפט קצר על הכתבה" onChange={e => set('excerpt', e.target.value)} />
           </div>
           <div className={`${styles.formGroup} ${styles.formFull}`}>
-            <label className={styles.formLabel}>כתובת תמונה (URL)</label>
-            <input className={styles.formInput} value={form.image_url} placeholder="https://..." onChange={e => set('image_url', e.target.value)} />
-            {form.image_url && <img src={form.image_url} alt="" className={styles.imagePreview} onError={e => { (e.currentTarget as any).style.display = 'none'; }} />}
+            <ImageUploader value={form.image_url} onChange={url => set('image_url', url)} label="תמונה לכתבה" />
           </div>
           <div className={`${styles.formGroup} ${styles.formFull}`}>
-            <label className={styles.formLabel}>תוכן הכתבה</label>
-            <textarea className={styles.formTextarea} value={form.body} rows={10}
-              placeholder="כתוב את תוכן הכתבה כאן..." onChange={e => set('body', e.target.value)} style={{ minHeight: 200 }} />
+            <RichEditor value={form.body} onChange={v => set('body', v)} label="תוכן הכתבה" minHeight={240} />
           </div>
           <div className={`${styles.formGroup} ${styles.formFull}`}>
             <div className={styles.toggleRow}>
@@ -183,13 +182,10 @@ function PropertyForm({ property, adminKey, onSave, onClose }: {
             <input className={styles.formInput} type="number" value={form.max_guests} placeholder="10" onChange={e => set('max_guests', e.target.value)} />
           </div>
           <div className={`${styles.formGroup} ${styles.formFull}`}>
-            <label className={styles.formLabel}>תיאור הנכס</label>
-            <textarea className={styles.formTextarea} value={form.description} rows={4} placeholder="תיאור הנכס..." onChange={e => set('description', e.target.value)} />
+            <RichEditor value={form.description} onChange={v => set('description', v)} label="תיאור הנכס" minHeight={120} />
           </div>
           <div className={`${styles.formGroup} ${styles.formFull}`}>
-            <label className={styles.formLabel}>כתובת תמונה (URL)</label>
-            <input className={styles.formInput} value={form.image_url} placeholder="https://..." onChange={e => set('image_url', e.target.value)} />
-            {form.image_url && <img src={form.image_url} alt="" className={styles.imagePreview} onError={e => { (e.currentTarget as any).style.display = 'none'; }} />}
+            <ImageUploader value={form.image_url} onChange={url => set('image_url', url)} label="תמונת הנכס" />
           </div>
           <div className={`${styles.formGroup} ${styles.formFull}`}>
             <label className={styles.formLabel}>טקסט WhatsApp (לפנייה ראשונה)</label>
@@ -232,6 +228,13 @@ export default function AdminPage() {
 
   const [properties, setProperties] = useState<Property[]>([]);
   const [editProperty, setEditProperty] = useState<Property | null | undefined>(undefined);
+
+  const [toasts, setToasts] = useState<ToastMsg[]>([]);
+  const toastIdRef = useRef(0);
+  const addToast = (text: string, type: ToastMsg['type'] = 'success') => {
+    setToasts(p => [...p, { id: ++toastIdRef.current, text, type }]);
+  };
+  const removeToast = (id: number) => setToasts(p => p.filter(t => t.id !== id));
 
   useEffect(() => {
     const saved = sessionStorage.getItem('admin_key');
@@ -288,12 +291,14 @@ export default function AdminPage() {
     if (!confirm('למחוק את הכתבה?')) return;
     await fetch(`/api/admin/blog/${id}`, { method: 'DELETE', headers: { 'x-admin-secret': adminKey } });
     setPosts(p => p.filter(x => x.id !== id));
+    addToast('הכתבה נמחקה', 'info');
   };
 
   const deleteProperty = async (id: string) => {
     if (!confirm('למחוק את הנכס?')) return;
     await fetch(`/api/admin/properties/${id}`, { method: 'DELETE', headers: { 'x-admin-secret': adminKey } });
     setProperties(p => p.filter(x => x.id !== id));
+    addToast('הנכס נמחק', 'info');
   };
 
   const filteredLeads = leads.filter(l => {
@@ -321,6 +326,7 @@ export default function AdminPage() {
   /* ── Dashboard ── */
   return (
     <div className={styles.dashboard} dir="rtl">
+      <ToastContainer toasts={toasts} remove={removeToast} />
 
       {/* Header */}
       <header className={styles.header}>
@@ -556,12 +562,12 @@ export default function AdminPage() {
       {/* ── Modals ── */}
       {editPost !== undefined && (
         <BlogForm post={editPost} adminKey={adminKey}
-          onSave={saved => { setPosts(p => { const i = p.findIndex(x=>x.id===saved.id); return i>=0?p.map(x=>x.id===saved.id?saved:x):[saved,...p]; }); setEditPost(undefined); }}
+          onSave={saved => { setPosts(p => { const i = p.findIndex(x=>x.id===saved.id); return i>=0?p.map(x=>x.id===saved.id?saved:x):[saved,...p]; }); setEditPost(undefined); addToast('הכתבה נשמרה בהצלחה'); }}
           onClose={() => setEditPost(undefined)} />
       )}
       {editProperty !== undefined && (
         <PropertyForm property={editProperty} adminKey={adminKey}
-          onSave={saved => { setProperties(p => { const i = p.findIndex(x=>x.id===saved.id); return i>=0?p.map(x=>x.id===saved.id?saved:x):[saved,...p]; }); setEditProperty(undefined); }}
+          onSave={saved => { setProperties(p => { const i = p.findIndex(x=>x.id===saved.id); return i>=0?p.map(x=>x.id===saved.id?saved:x):[saved,...p]; }); setEditProperty(undefined); addToast('הנכס נשמר בהצלחה'); }}
           onClose={() => setEditProperty(undefined)} />
       )}
     </div>

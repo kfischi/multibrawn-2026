@@ -30,15 +30,3 @@ function Toast({ msg, remove }: { msg: ToastMsg; remove: (id: number) => void })
     </div>
   );
 }
-
-let _id = 0;
-export function useToast() {
-  const [toasts, setToasts] = ([[] as ToastMsg[], () => {}] as any);
-  // We export a factory pattern instead — use in component with useState
-  return {
-    add: (text: string, type: ToastMsg['type'] = 'success') => {
-      setToasts((p: ToastMsg[]) => [...p, { id: ++_id, text, type }]);
-    },
-    remove: (id: number) => setToasts((p: ToastMsg[]) => p.filter(t => t.id !== id)),
-  };
-}
