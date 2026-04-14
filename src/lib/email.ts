@@ -9,7 +9,7 @@ function getResend(): Resend | null {
 }
 
 const ADMIN_EMAIL = process.env.RESEND_TO_EMAIL || 'ardit@multibrawn.co.il';
-const FROM_EMAIL  = process.env.RESEND_FROM_EMAIL || 'leads@multibrawn.co.il';
+const FROM_EMAIL  = process.env.RESEND_FROM_EMAIL || 'info@multibrawn.co.il';
 
 interface LeadEmailData {
   name?:         string | null;
