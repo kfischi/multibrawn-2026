@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import styles from './Footer.module.css';
+import NewsletterForm from '@/components/ui/NewsletterForm';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -73,7 +74,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* שורה 2: Copyright */}
+        {/* שורה 2: Newsletter */}
+        <div className={styles.newsletter}>
+          <NewsletterForm />
+        </div>
+
+        {/* שורה 3: Copyright */}
         <div className={styles.bottom}>
           <p>
             © {currentYear} <strong>MULTIBRAWN</strong> - כל הזכויות שמורות | 
