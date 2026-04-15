@@ -5,11 +5,13 @@ import styles from './Admin.module.css';
 import { ImageUploader } from './ImageUploader';
 import { RichEditor } from './RichEditor';
 import { ToastContainer, ToastMsg } from './Toast';
+import { SocialPublisher } from './SocialPublisher';
+import { RealtimeEvents } from './RealtimeEvents';
 
 const ADMIN_SECRET = 'multibrawn-admin-2025';
 
 type LeadStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
-type AdminTab = 'dashboard' | 'leads' | 'events' | 'blog' | 'properties';
+type AdminTab = 'dashboard' | 'leads' | 'events' | 'blog' | 'properties' | 'social';
 
 interface Lead {
   id: string; created_at: string; name: string | null; phone: string | null;
@@ -231,9 +233,9 @@ export default function AdminPage() {
 
   const [toasts, setToasts] = useState<ToastMsg[]>([]);
   const toastIdRef = useRef(0);
-  const addToast = (text: string, type: ToastMsg['type'] = 'success') => {
+  const addToast = useCallback((text: string, type: ToastMsg['type'] = 'success') => {
     setToasts(p => [...p, { id: ++toastIdRef.current, text, type }]);
-  };
+  }, []);
   const removeToast = (id: number) => setToasts(p => p.filter(t => t.id !== id));
 
   useEffect(() => {
@@ -327,6 +329,7 @@ export default function AdminPage() {
   return (
     <div className={styles.dashboard} dir="rtl">
       <ToastContainer toasts={toasts} remove={removeToast} />
+      <RealtimeEvents addToast={addToast} />
 
       {/* Header */}
       <header className={styles.header}>
@@ -378,6 +381,7 @@ export default function AdminPage() {
           ['blog',        `📝 בלוג (${posts.length})`],
           ['properties',  `🏠 נכסים (${properties.length})`],
           ['events',      '📡 אירועים'],
+          ['social',      '📢 פרסום'],
         ] as [AdminTab, string][]).map(([t, l]) => (
           <button key={t}
             className={`${styles.tab} ${activeTab === t ? styles.tabActive : ''}`}
@@ -557,6 +561,11 @@ export default function AdminPage() {
             </div>
           )}
         </section>
+      )}
+
+      {/* ── Social Publisher Tab ── */}
+      {activeTab === 'social' && (
+        <SocialPublisher adminKey={adminKey} addToast={addToast} />
       )}
 
       {/* ── Modals ── */}
