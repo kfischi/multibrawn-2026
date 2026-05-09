@@ -46,6 +46,7 @@
   padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  background: transparent;
 }
 
 .storyGrid {
@@ -106,7 +107,7 @@
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--site-text);
+  color: var(--color-text-primary);
 }
 
 .storyParagraph {
@@ -117,19 +118,19 @@
 
 .quoteBox {
   padding: 1.5rem;
-  background: rgba(255, 94, 161, 0.05);
-  border-right: 4px solid var(--site-accent);
+  background: rgba(255, 94, 161, 0.12);
+  border-right: 4px solid #FF5EA1;
   border-radius: var(--radius-md);
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.6;
-  color: var(--site-text);
+  color: var(--color-text-primary);
 }
 
 .socialSection {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .socialHeading {
@@ -142,8 +143,9 @@
 /* === Stats Section === */
 .statsSection {
   padding: 4rem 2rem;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
 .statsGrid {
@@ -155,32 +157,37 @@
 }
 
 .statBox {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .statBox:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 30px rgba(160,107,255,0.2);
+  border-color: rgba(160,107,255,0.3);
 }
 
 .statNumber {
   font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--site-accent);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0.5rem;
 }
 
 .statLabel {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--site-text);
+  color: var(--color-text-secondary);
 }
 
 /* === Video Section === */
@@ -244,7 +251,10 @@
   font-weight: 800;
   text-align: center;
   margin-bottom: 1rem;
-  color: var(--color-text-primary);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .subHeading {
@@ -409,10 +419,10 @@
   color: var(--color-text-primary);
 }
 
-/* === Offer Section - 🔥 FIXED! === */
+/* === Offer Section === */
 .offerSection {
   padding: 4rem 2rem;
-  background: white;
+  background: transparent;
 }
 
 .offerGrid {
@@ -423,18 +433,19 @@
 }
 
 .offerBox {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.9));
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 94, 161, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 94, 161, 0.15);
   transition: all 0.3s ease;
 }
 
 .offerBox:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(255, 94, 161, 0.15);
-  border-color: var(--color-pink);
+  box-shadow: 0 8px 30px rgba(255, 94, 161, 0.2);
+  border-color: rgba(255, 94, 161, 0.4);
 }
 
 .offerBox h3 {
@@ -475,7 +486,8 @@
 /* === Unique Section === */
 .uniqueSection {
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(248, 249, 250, 0.5));
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
 
 .uniqueGrid {
@@ -486,23 +498,26 @@
 }
 
 .uniqueBox {
-  background: white;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
   padding: 2.5rem;
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   transition: all 0.3s ease;
 }
 
 .uniqueBox:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 30px rgba(160,107,255,0.2);
+  border-color: rgba(160,107,255,0.3);
 }
 
 .uniqueBox h3 {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--color-pink);
+  color: #FF5EA1;
 }
 
 .uniqueBox p {
@@ -513,7 +528,7 @@
 /* === Clients Section === */
 .clientsSection {
   padding: 4rem 2rem;
-  background: white;
+  background: transparent;
 }
 
 .clientsGrid {
@@ -524,24 +539,27 @@
 }
 
 .clientCard {
-  background: linear-gradient(135deg, rgba(255, 94, 161, 0.05), rgba(160, 107, 255, 0.05));
+  background: rgba(255,94,161,0.07);
+  backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: var(--radius-lg);
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 2px solid transparent;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,94,161,0.15);
   transition: all 0.3s ease;
 }
 
 .clientCard:hover {
   transform: translateY(-5px);
-  border-color: var(--color-pink);
-  box-shadow: 0 8px 20px rgba(255, 94, 161, 0.2);
+  border-color: #FF5EA1;
+  box-shadow: 0 8px 30px rgba(255, 94, 161, 0.25);
 }
 
 .clientIcon {
-  font-size: 3rem;
+  color: #A06BFF;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .clientCard h3 {

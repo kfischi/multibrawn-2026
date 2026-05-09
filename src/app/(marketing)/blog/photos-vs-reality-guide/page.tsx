@@ -4,8 +4,25 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "תמונות מול מציאות | MULTIBRAWN",
-  description: "מאמר על תמונות מול מציאות",
+  title: "תמונות מול מציאות בצימרים — איך לא ליפול במלכודת | MULTIBRAWN",
+  description: "תמונות מהצימר נראות מדהימות — והמציאות שונה לחלוטין? גלו איך לזהות שהצימר קטן, ישן או לא מה שנראה. 10 סימנים לזהירות.",
+  keywords: ["תמונות צימר מול מציאות", "הטעיה בצימרים", "בדיקת צימר לפני הזמנה", "ביקורות צימר", "איך לבחור צימר"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/photos-vs-reality-guide' },
+  openGraph: {
+    title: "תמונות מול מציאות בצימרים — איך לא ליפול במלכודת | MULTIBRAWN",
+    description: "תמונות מהצימר נראות מדהימות — והמציאות שונה לחלוטין? גלו איך לזהות שהצימר קטן, ישן או לא מה שנראה. 10 סימנים לזהירות.",
+    url: 'https://multibrawn.co.il/blog/photos-vs-reality-guide',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766253283/תמונה_ga3cj2.png', width: 1200, height: 630, alt: "תמונות מול מציאות בצימרים — איך לא ליפול במלכודת | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "תמונות מול מציאות בצימרים — איך לא ליפול במלכודת | MULTIBRAWN",
+    description: "תמונות מהצימר נראות מדהימות — והמציאות שונה לחלוטין? גלו איך לזהות שהצימר קטן, ישן או לא מה שנראה. 10 סימנים לזהירות.",
+    images: ['https://res.cloudinary.com/decirk3zb/image/upload/v1766253283/תמונה_ga3cj2.png'],
+  },
 };
 
 export default function Article() {

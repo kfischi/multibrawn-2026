@@ -1,0 +1,78 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.label {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.4;
+}
+
+.form {
+  display: flex;
+  gap: 0;
+  border-radius: 100px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s;
+}
+
+.form:focus-within {
+  border-color: rgba(160, 107, 255, 0.5);
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  color: #fff;
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.btn {
+  background: linear-gradient(135deg, #A06BFF, #FF5EA1);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.btn:hover:not(:disabled) { opacity: 0.88; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.successMsg {
+  font-size: 0.875rem;
+  color: #00FF88;
+  font-weight: 600;
+}
+
+.errorMsg {
+  font-size: 0.78rem;
+  color: #FF5EA1;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .wrapper { max-width: 100%; }
+  .form { border-radius: 12px; flex-direction: column; border-radius: 16px; }
+  .input { padding: 0.75rem 1rem; }
+  .btn { border-radius: 0 0 14px 14px; padding: 0.75rem; }
+}

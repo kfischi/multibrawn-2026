@@ -65,7 +65,15 @@
   color: #FF5EA1;
 }
 
-/* שורה 2: Copyright */
+/* שורה 2: Newsletter */
+.newsletter {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+/* שורה 3: Copyright */
 .bottom {
   padding-top: 1.5rem;
   text-align: center;

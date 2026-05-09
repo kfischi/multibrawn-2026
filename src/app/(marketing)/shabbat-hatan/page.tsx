@@ -246,6 +246,14 @@ export default function ShabbatHatanPage() {
               <Link href="/gallery" className={styles.btnSecondary}>
                 צפו בגלריה המלאה →
               </Link>
+              <a
+                href="https://guide.multibrawn.co.il"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.btnGuide}
+              >
+                קבלו את המדריך לשבת חתן מושלמת ←
+              </a>
             </div>
           </div>
           <div className={styles.heroImage}>

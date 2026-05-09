@@ -55,9 +55,11 @@
   --ease-normal: 0.30s ease;
   --ease-slow:   0.50s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* === Font vars (injected via html.variable by next/font) === */
-  --font-body:    var(--font-heebo, 'Heebo'), sans-serif;
-  --font-display: var(--font-playfair, 'Playfair Display'), serif;
+  /* === Font vars === */
+  --font-heebo:   'Heebo', system-ui, sans-serif;
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-body:    var(--font-heebo);
+  --font-display: var(--font-playfair);
 }
 
 /* ============ RESET ============ */
@@ -224,10 +226,16 @@ input, textarea, select {
 body.access-large-text    { font-size: 120%; }
 body.access-high-contrast { filter: contrast(160%); }
 body.access-grayscale     { filter: grayscale(100%); }
-body.access-links-highlight a {
+body.access-links-highlight a,
+html.highlight-links a {
   text-decoration: underline !important;
-  background: #ffff00 !important;
-  color: #000 !important;
+  background: rgba(255,235,0,0.25) !important;
+  outline: 1px solid #ffeb00;
+  border-radius: 2px;
+}
+
+html.high-contrast {
+  filter: contrast(170%) brightness(1.05);
 }
 
 /* ============ RESPONSIVE ============ */

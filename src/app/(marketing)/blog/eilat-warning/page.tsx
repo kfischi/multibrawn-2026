@@ -3,9 +3,25 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "נוסעים לאילת? תיזהרו | טיפים MULTIBRAWN",
-  description: "טיפים חשובים לפני שנוסעים לאילת - מה חשוב לדעת",
-  keywords: ["אילת", "טיפים", "נופש"],
+  title: "נוסעים לאילת? 5 דברים שחייבים לדעת לפני | MULTIBRAWN",
+  description: "אילת בעיניים פתוחות — מה לא יספרו לכם ביקורות. מחירי עונה, חום קיצוני, שמורות טבע ומה עדיף להזמין מראש. הטיפים האמיתיים.",
+  keywords: ["נסיעה לאילת", "אילת מלון", "חופשה באילת", "אילת טיפים", "אילת עם ילדים", "אילת קיץ"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/eilat-warning' },
+  openGraph: {
+    title: "נוסעים לאילת? 5 דברים שחייבים לדעת לפני | MULTIBRAWN",
+    description: "אילת בעיניים פתוחות — מה לא יספרו לכם ביקורות. מחירי עונה, חום קיצוני, שמורות טבע ומה עדיף להזמין מראש. הטיפים האמיתיים.",
+    url: 'https://multibrawn.co.il/blog/eilat-warning',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828637/אילת_rtmczk.png', width: 1200, height: 630, alt: "נוסעים לאילת? 5 דברים שחייבים לדעת לפני | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "נוסעים לאילת? 5 דברים שחייבים לדעת לפני | MULTIBRAWN",
+    description: "אילת בעיניים פתוחות — מה לא יספרו לכם ביקורות. מחירי עונה, חום קיצוני, שמורות טבע ומה עדיף להזמין מראש. הטיפים האמיתיים.",
+    images: ['https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828637/אילת_rtmczk.png'],
+  },
 };
 
 export default function Article() {

@@ -28,6 +28,7 @@ export default function Header() {
     { href: '/', label: 'בית' },
     { href: '/gallery', label: 'גלריה' },
     { href: '/shabbat-hatan', label: 'שבת חתן' },
+    { href: '/multi-global', label: '🌍 Multi-Global' },
     { href: '/blog', label: 'בלוג' },
     { href: '/about', label: 'אודות' },
     { href: '/contact', label: 'צור קשר' },

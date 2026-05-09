@@ -4,8 +4,25 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "המדריך המלא לבריכות מחוממות | MULTIBRAWN",
-  description: "מאמר על המדריך המלא לבריכות מחוממות",
+  title: "בריכה מחוממת בצימר — מחוממת אמיתית או פושרת? המדריך | MULTIBRAWN",
+  description: "לפני שאתם מזמינים צימר עם בריכה מחוממת לחורף — חייבים לקרוא. ההבדל בין משאבת חום לסולארי, אילו שאלות לשאול, ומה כתוב בכוכבית.",
+  keywords: ["בריכה מחוממת", "צימר עם בריכה", "וילה עם בריכה מחוממת", "בריכה חורף", "משאבת חום בריכה", "צימר עם בריכה בחורף"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/heated-pool-guide' },
+  openGraph: {
+    title: "בריכה מחוממת בצימר — מחוממת אמיתית או פושרת? המדריך | MULTIBRAWN",
+    description: "לפני שאתם מזמינים צימר עם בריכה מחוממת לחורף — חייבים לקרוא. ההבדל בין משאבת חום לסולארי, אילו שאלות לשאול, ומה כתוב בכוכבית.",
+    url: 'https://multibrawn.co.il/blog/heated-pool-guide',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766252877/תמונה_bqjuyx.png', width: 1200, height: 630, alt: "בריכה מחוממת בצימר — מחוממת אמיתית או פושרת? המדריך | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "בריכה מחוממת בצימר — מחוממת אמיתית או פושרת? המדריך | MULTIBRAWN",
+    description: "לפני שאתם מזמינים צימר עם בריכה מחוממת לחורף — חייבים לקרוא. ההבדל בין משאבת חום לסולארי, אילו שאלות לשאול, ומה כתוב בכוכבית.",
+    images: ['https://res.cloudinary.com/decirk3zb/image/upload/v1766252877/תמונה_bqjuyx.png'],
+  },
 };
 
 export default function Article() {

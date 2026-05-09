@@ -54,50 +54,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly' as const,
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
   ];
 
-  // Landing pages by region (SEO gold!)
+  // Existing landing page
   const landingPages = [
-    // By Region
-    `${baseUrl}/zimmers-north`,
-    `${baseUrl}/zimmers-center`,
-    `${baseUrl}/zimmers-south`,
-    `${baseUrl}/villas-north`,
-    `${baseUrl}/villas-center`,
-    `${baseUrl}/villas-south`,
-    `${baseUrl}/hotels-north`,
-    `${baseUrl}/hotels-center`,
-    `${baseUrl}/hotels-south`,
-    
-    // By Specific Location
-    `${baseUrl}/zimmers-galilee`,
-    `${baseUrl}/zimmers-golan`,
-    `${baseUrl}/zimmers-jerusalem`,
-    `${baseUrl}/zimmers-dead-sea`,
-    `${baseUrl}/villas-galilee`,
-    `${baseUrl}/event-venues-north`,
-    `${baseUrl}/event-venues-center`,
-    `${baseUrl}/event-venues-south`,
-    
-    // By Feature
-    `${baseUrl}/zimmers-with-pool`,
-    `${baseUrl}/zimmers-with-jacuzzi`,
-    `${baseUrl}/romantic-zimmers`,
-    `${baseUrl}/family-villas`,
-    `${baseUrl}/shabbat-observant`,
-    `${baseUrl}/kosher-venues`,
-    
-    // By Occasion
-    `${baseUrl}/bar-mitzvah-venues`,
-    `${baseUrl}/wedding-venues`,
-    `${baseUrl}/birthday-venues`,
-    `${baseUrl}/corporate-events`,
+    `${baseUrl}/zimmerim-galil-elyon`,
+    `${baseUrl}/affiliate-gallery`,
+    `${baseUrl}/multi-global`,
   ].map(url => ({
     url,
     lastModified: currentDate,
@@ -105,19 +68,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Blog posts (to be created)
+  // Actual blog posts that exist
   const blogPosts = [
     `${baseUrl}/blog`,
-    `${baseUrl}/blog/best-zimmers-north-2025`,
-    `${baseUrl}/blog/planning-perfect-shabbat-hatan`,
-    `${baseUrl}/blog/zimmers-with-pools-guide`,
-    `${baseUrl}/blog/romantic-weekend-getaway-ideas`,
-    `${baseUrl}/blog/family-vacation-villas-israel`,
+    `${baseUrl}/blog/shabbat-hatan-rosh-shaket`,
+    `${baseUrl}/blog/eilat-warning`,
+    `${baseUrl}/blog/cheap-zimmer-warning`,
+    `${baseUrl}/blog/villa-dangers`,
+    `${baseUrl}/blog/heated-pool-guide`,
+    `${baseUrl}/blog/modesty-check-religious`,
+    `${baseUrl}/blog/jacuzzi-hygiene-check`,
+    `${baseUrl}/blog/adults-only-quiet-guide`,
+    `${baseUrl}/blog/breakfast-value-guide`,
+    `${baseUrl}/blog/photos-vs-reality-guide`,
+    `${baseUrl}/blog/real-fireplace-guide`,
+    `${baseUrl}/blog/last-minute-deals-guide`,
+    `${baseUrl}/blog/massage-to-room-guide`,
+    `${baseUrl}/blog/hidden-villa-costs`,
+    `${baseUrl}/blog/luxury-villa-wear-and-tear`,
+    `${baseUrl}/blog/villa-greece-guide`,
+    `${baseUrl}/blog/10-zimmer-mistakes`,
+    `${baseUrl}/blog/villa-vs-hotel`,
+    `${baseUrl}/blog/galil-elyon-family`,
+    `${baseUrl}/blog/passover-vacation-tips`,
+    `${baseUrl}/blog/pool-villa-checklist`,
   ].map(url => ({
     url,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    priority: 0.75,
   }));
 
   return [...mainPages, ...landingPages, ...blogPosts];

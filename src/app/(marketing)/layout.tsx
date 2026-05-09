@@ -1,6 +1,8 @@
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import ChatBot from '@/components/layout/ChatBot/ChatBot';
+import AccessibilityMenu from '@/components/ui/AccessibilityMenu/AccessibilityMenu';
+import CookieBanner from '@/components/ui/CookieBanner/CookieBanner';
 
 export default function MarketingLayout({
   children,
@@ -15,6 +17,8 @@ export default function MarketingLayout({
       </main>
       <Footer />
       <ChatBot />
+      <AccessibilityMenu />
+      <CookieBanner />
     </>
   );
 }

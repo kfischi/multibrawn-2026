@@ -3,9 +3,25 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "שבת חתן בראש שקט | טיפים MULTIBRAWN",
-  description: "כל מה שצריך לדעת על ארגון שבת חתן מושלם בראש שקט",
-  keywords: ["שבת חתן", "ראש שקט", "צימרים"],
+  title: "שבת חתן בראש שקט — המדריך המלא לארגון מושלם | MULTIBRAWN",
+  description: "איך מארגנים שבת חתן בראש שקט, שמח ומסודר? וידאו + מדריך מלא: איפה לשמור, כמה אורחים, כשרות, צניעות ומה חשוב לבדוק.",
+  keywords: ["שבת חתן", "ראש שקט", "ארגון שבת חתן", "שבת חתן ירושלים", "מקום לשבת חתן", "שבת חתן דתי"],
+  alternates: { canonical: 'https://multibrawn.co.il/blog/shabbat-hatan-rosh-shaket' },
+  openGraph: {
+    title: "שבת חתן בראש שקט — המדריך המלא לארגון מושלם | MULTIBRAWN",
+    description: "איך מארגנים שבת חתן בראש שקט, שמח ומסודר? וידאו + מדריך מלא: איפה לשמור, כמה אורחים, כשרות, צניעות ומה חשוב לבדוק.",
+    url: 'https://multibrawn.co.il/blog/shabbat-hatan-rosh-shaket',
+    siteName: 'MULTIBRAWN',
+    locale: 'he_IL',
+    type: 'article',
+    images: [{ url: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/שבת_חתן_zo14ig.png', width: 1200, height: 630, alt: "שבת חתן בראש שקט — המדריך המלא לארגון מושלם | MULTIBRAWN" }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "שבת חתן בראש שקט — המדריך המלא לארגון מושלם | MULTIBRAWN",
+    description: "איך מארגנים שבת חתן בראש שקט, שמח ומסודר? וידאו + מדריך מלא: איפה לשמור, כמה אורחים, כשרות, צניעות ומה חשוב לבדוק.",
+    images: ['https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/שבת_חתן_zo14ig.png'],
+  },
 };
 
 export default function Article() {

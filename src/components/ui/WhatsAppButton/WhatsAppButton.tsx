@@ -19,6 +19,20 @@ export default function WhatsAppButton() {
 
   const whatsappUrl = `https://wa.me/972523983394?text=${message}`;
 
+  const handleClick = () => {
+    try {
+      fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventType: 'whatsapp_click',
+          page: typeof window !== 'undefined' ? window.location.pathname : null,
+          metadata: { source: 'whatsapp_button' },
+        }),
+      });
+    } catch {}
+  };
+
   return (
     <a
       href={whatsappUrl}
@@ -27,6 +41,7 @@ export default function WhatsAppButton() {
       className={styles.button}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
       aria-label="שלח הודעה בוואטסאפ"
     >
       <div className={styles.iconContainer}>
