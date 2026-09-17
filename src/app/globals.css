@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ============================================
    MULTIBRAWN — Global Styles
    Dark luxury theme | next/font loaded in layout
