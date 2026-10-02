@@ -1,0 +1,161 @@
+/* MULTIBRAWN CHECK — תוספות ללשונית הניהול. הבסיס מגיע מ-Admin.module.css. */
+
+.list { display: grid; gap: 0.9rem; }
+
+.card {
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cardActive { border-color: rgba(0, 224, 255, 0.35); }
+
+.cardHead,
+.rowWrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.summary {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #f0eaff;
+  overflow-wrap: anywhere;
+}
+
+.note { margin: 0; font-size: 0.875rem; color: #b8a8d8; }
+.muted { font-size: 0.82rem; color: #7a6a9a; }
+.price { font-weight: 700; color: #00E0FF; }
+
+.status {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  color: #b8a8d8;
+  white-space: nowrap;
+}
+
+.status_new      { background: rgba(255, 94, 161, 0.18); color: #FF8DBB; }
+.status_approved { background: rgba(160, 107, 255, 0.2); color: #C3A2FF; }
+.status_sent     { background: rgba(45, 127, 255, 0.2);  color: #8DB8FF; }
+.status_meeting,
+.status_closed   { background: rgba(0, 224, 255, 0.15);  color: #00E0FF; }
+
+.resp_available   { background: rgba(37, 211, 102, 0.16); color: #4BE08A; }
+.resp_unavailable { background: rgba(255, 94, 161, 0.14); color: #FF8DBB; }
+
+.tagOk, .tagWarn, .tagBad {
+  font-size: 0.76rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.tagOk   { background: rgba(37, 211, 102, 0.14); color: #4BE08A; }
+.tagWarn { background: rgba(255, 255, 255, 0.08); color: #b8a8d8; }
+.tagBad  { background: rgba(255, 94, 161, 0.14); color: #FF8DBB; }
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: #b8a8d8;
+  cursor: pointer;
+}
+
+.check input { width: 17px; height: 17px; accent-color: #A06BFF; }
+
+.linkBtn {
+  background: none;
+  border: none;
+  padding: 0.2rem 0;
+  color: #00E0FF;
+  font-size: 0.82rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.linkBtn:hover { opacity: 0.75; }
+
+.picker,
+.sent {
+  display: grid;
+  gap: 0.6rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pickRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.7rem;
+  padding: 0.5rem 0.7rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pickRow input { width: 18px; height: 18px; accent-color: #A06BFF; }
+.pickName { font-weight: 600; color: #f0eaff; }
+
+.sentRow {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.counter {
+  padding: 0.35rem 0.8rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.82rem;
+  color: #b8a8d8;
+}
+
+.counter strong { color: #f0eaff; margin-inline-start: 0.3rem; }
+.counterFull { border-color: rgba(255, 94, 161, 0.5); }
+.counterFull strong { color: #FF8DBB; }
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.8rem;
+  align-items: end;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.setup {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(255, 94, 161, 0.4);
+  background: rgba(255, 94, 161, 0.08);
+  border-radius: 12px;
+  color: #f0eaff;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.setup p { margin: 0; font-size: 0.9rem; color: #b8a8d8; }

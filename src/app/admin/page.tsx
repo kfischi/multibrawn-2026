@@ -7,11 +7,10 @@ import { RichEditor } from './RichEditor';
 import { ToastContainer, ToastMsg } from './Toast';
 import { SocialPublisher } from './SocialPublisher';
 import { RealtimeEvents } from './RealtimeEvents';
-
-const ADMIN_SECRET = 'multibrawn-admin-2025';
+import { CheckPanel } from './CheckPanel';
 
 type LeadStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
-type AdminTab = 'dashboard' | 'leads' | 'events' | 'blog' | 'properties' | 'social';
+type AdminTab = 'dashboard' | 'leads' | 'check' | 'events' | 'blog' | 'properties' | 'social';
 
 interface Lead {
   id: string; created_at: string; name: string | null; phone: string | null;
@@ -273,11 +272,15 @@ export default function AdminPage() {
     fetchCRM(); fetchBlog(); fetchProperties();
   }, [isAuthenticated, fetchCRM, fetchBlog, fetchProperties]);
 
-  const handleLogin = () => {
-    if (keyInput === ADMIN_SECRET) {
+  // המפתח נבדק מול השרת ולא מול ערך שכתוב בקוד הדפדפן.
+  const handleLogin = async () => {
+    if (!keyInput) return;
+    try {
+      const res = await fetch('/api/admin/stats', { headers: { 'x-admin-secret': keyInput } });
+      if (res.status === 401) { setAuthError('מפתח שגוי'); return; }
       sessionStorage.setItem('admin_key', keyInput);
       setAdminKey(keyInput); setIsAuthenticated(true); setAuthError('');
-    } else setAuthError('מפתח שגוי');
+    } catch { setAuthError('אין חיבור לשרת'); }
   };
 
   const updateLeadStatus = async (id: string, status: LeadStatus) => {
@@ -378,6 +381,7 @@ export default function AdminPage() {
         {([
           ['dashboard',   '📊 לוח בקרה'],
           ['leads',       `📋 לידים (${leads.length})`],
+          ['check',       '✅ CHECK'],
           ['blog',        `📝 בלוג (${posts.length})`],
           ['properties',  `🏠 נכסים (${properties.length})`],
           ['events',      '📡 אירועים'],
@@ -561,6 +565,11 @@ export default function AdminPage() {
             </div>
           )}
         </section>
+      )}
+
+      {/* ── MULTIBRAWN CHECK Tab ── */}
+      {activeTab === 'check' && (
+        <CheckPanel adminKey={adminKey} addToast={addToast} />
       )}
 
       {/* ── Social Publisher Tab ── */}
