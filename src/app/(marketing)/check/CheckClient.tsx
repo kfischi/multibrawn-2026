@@ -167,7 +167,7 @@ export default function CheckClient() {
       <div className={styles.page} ref={topRef}>
         <div className={styles.card}>
           <span className={styles.badge}>הבקשה התקבלה</span>
-          <h1 className={styles.title}>תודה, {form.name.trim()}.</h1>
+          <h1 className={styles.title}>תודה, {form.name.trim().split(/\s+/)[0]}.</h1>
           <p className={styles.lead}>זו הבקשה שלכם, כמו שהיא תוצג למקומות:</p>
           <div className={styles.summary}>{doneSummary}</div>
           <ol className={styles.nextList}>
