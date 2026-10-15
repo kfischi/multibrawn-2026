@@ -8,8 +8,6 @@ import { ToastContainer, ToastMsg } from './Toast';
 import { SocialPublisher } from './SocialPublisher';
 import { RealtimeEvents } from './RealtimeEvents';
 
-const ADMIN_SECRET = 'multibrawn-admin-2025';
-
 type LeadStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
 type AdminTab = 'dashboard' | 'leads' | 'events' | 'blog' | 'properties' | 'social';
 
@@ -273,11 +271,22 @@ export default function AdminPage() {
     fetchCRM(); fetchBlog(); fetchProperties();
   }, [isAuthenticated, fetchCRM, fetchBlog, fetchProperties]);
 
-  const handleLogin = () => {
-    if (keyInput === ADMIN_SECRET) {
-      sessionStorage.setItem('admin_key', keyInput);
-      setAdminKey(keyInput); setIsAuthenticated(true); setAuthError('');
-    } else setAuthError('מפתח שגוי');
+  const handleLogin = async () => {
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: keyInput }),
+      });
+      if (res.ok) {
+        sessionStorage.setItem('admin_key', keyInput);
+        setAdminKey(keyInput); setIsAuthenticated(true); setAuthError('');
+      } else {
+        setAuthError('מפתח שגוי');
+      }
+    } catch {
+      setAuthError('שגיאת רשת, נסה שוב');
+    }
   };
 
   const updateLeadStatus = async (id: string, status: LeadStatus) => {

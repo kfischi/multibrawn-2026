@@ -77,7 +77,7 @@ export default function WearAndTearPage() {
           <h2>רוצים את מה שראיתם בתמונות?</h2>
           <p>תנו לנו לוודא שהוילה מתוחזקת ברמה גבוהה גם היום.</p>
           <div className={styles.ctaButtons}>
-            <a href="https://wa.me/972XXXXXXXXX" className={styles.ctaButtonWhatsapp}>מצאו לי וילה שמורה ונקייה 💬</a>
+            <a href="https://wa.me/972523983394?text=%D7%A9%D7%9C%D7%95%D7%9D%2C+%D7%90%D7%A0%D7%99+%D7%9E%D7%97%D7%A4%D7%A9+%D7%95%D7%99%D7%9C%D7%94+%D7%9E%D7%AA%D7%95%D7%97%D7%96%D7%A7%D7%AA+%D7%95%D7%A0%D7%A7%D7%99%D7%99%D7%94" className={styles.ctaButtonWhatsapp}>מצאו לי וילה שמורה ונקייה 💬</a>
           </div>
         </div>
       </div>

@@ -4,11 +4,12 @@ import { useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import type { ToastMsg } from './Toast';
 
-// Browser-side Supabase client for Realtime subscriptions (anon key is fine)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://cfulruffxneijmcvpclz.supabase.co';
+const SUPABASE_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+const supabase = SUPABASE_ANON
+  ? createClient(SUPABASE_URL, SUPABASE_ANON)
+  : null;
 
 interface Props {
   addToast: (text: string, type?: ToastMsg['type']) => void;
@@ -16,6 +17,8 @@ interface Props {
 
 export function RealtimeEvents({ addToast }: Props) {
   useEffect(() => {
+    if (!supabase) return;
+
     const channel = supabase
       .channel('inbound-events-admin')
       .on(

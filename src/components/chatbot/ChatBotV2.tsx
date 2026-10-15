@@ -197,7 +197,7 @@ export default function ChatBotV2({ properties }: { properties: Property[] }) {
         <textarea
           value={inputValue}
           onChange={e => setInputValue(e.target.value)}
-          onKeyPress={e => {
+          onKeyDown={e => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
               handleSend();
