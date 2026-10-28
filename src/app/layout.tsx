@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     'וילה ביוון', 'וילה בספרד', 'וילה איטליה', 'נכס בחו"ל',
     'נופש בדובאי', 'וילה תאילנד', 'חופשה בחו"ל',
     // מותג
-    'multibrawn', 'מולטיברון', 'ערדית בראון',
+    'multibrawn', 'מולטיבראון', 'מולטי בראון', 'מולטיברון', 'ערדית בראון',
   ],
   authors: [{ name: 'MULTIBRAWN', url: 'https://multibrawn.co.il' }],
   creator: 'MULTIBRAWN',
@@ -135,9 +135,19 @@ const organizationSchema = {
     availableLanguage: 'Hebrew',
     contactOption: 'TollFree',
   },
+  founder: {
+    '@type': 'Person',
+    '@id': 'https://multibrawn.co.il/#ardit',
+    name: 'ערדית בראון',
+    alternateName: 'Ardit Brown',
+    jobTitle: 'מייסדת MULTIBRAWN',
+    url: 'https://multibrawn.co.il/about',
+  },
   sameAs: [
     'https://www.facebook.com/multibrawn',
     'https://www.instagram.com/multibrawn',
+    'https://www.tiktok.com/@multibrawn',
+    'https://www.youtube.com/@multibrawn',
     'https://wa.me/972523983394',
   ],
   priceRange: '₪₪',
