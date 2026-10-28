@@ -22,6 +22,15 @@ interface BlogClientProps {
 
 const hardcodedArticles: Article[] = [
   {
+    slug: 'villa-30-guests',
+    title: '🏡 וילה ל-30 איש ומעלה',
+    excerpt: 'מה שבעל הווילה יודע ואתם לא — למה מסננים קבוצות, מה באמת סופרים במקום מיטות, ואיך נפתחות הדלתות',
+    category: 'קבוצות גדולות',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    date: '28 באוקטובר 2026',
+    readTime: '6 דק׳',
+  },
+  {
     slug: 'why-multi',
     title: '✨ למה קוראים לנו מולטי?',
     excerpt: 'הסיפור מאחורי השם — ערדית בראון, שבתות חתן, קהילת וילות וצימרים, וכל סוגי המולטי',

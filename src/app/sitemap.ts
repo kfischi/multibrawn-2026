@@ -75,6 +75,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     `${baseUrl}/blog/shabbat-hatan-cost-guide`,
     `${baseUrl}/blog/shabbat-hatan-jerusalem`,
     `${baseUrl}/blog/why-multi`,
+    `${baseUrl}/blog/villa-30-guests`,
     `${baseUrl}/blog/eilat-warning`,
     `${baseUrl}/blog/cheap-zimmer-warning`,
     `${baseUrl}/blog/villa-dangers`,
