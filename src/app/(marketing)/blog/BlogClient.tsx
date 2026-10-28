@@ -22,6 +22,15 @@ interface BlogClientProps {
 
 const hardcodedArticles: Article[] = [
   {
+    slug: 'why-multi',
+    title: '✨ למה קוראים לנו מולטי?',
+    excerpt: 'הסיפור מאחורי השם — ערדית בראון, שבתות חתן, קהילת וילות וצימרים, וכל סוגי המולטי',
+    category: 'הסיפור שלנו',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    date: '28 באוקטובר 2026',
+    readTime: '4 דק׳',
+  },
+  {
     slug: 'shabbat-hatan-jerusalem',
     title: '🕯️ שבת חתן בירושלים והסביבה',
     excerpt: 'איך בוחרים מתחם באזור ירושלים — מרחקי הליכה, בית כנסת, חורף בהרים, וחמש שאלות ששוכחים לשאול',
