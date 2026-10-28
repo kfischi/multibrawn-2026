@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import HomeClient from './HomeClient';
 
 export const metadata: Metadata = {
-  title: 'MULTIBRAWN | צימרים, וילות ומתחמי אירועים — ישראל 2025',
+  title: { absolute: 'MULTIBRAWN | צימרים, וילות ומתחמי אירועים בישראל' },
   description: 'מחפשים צימר רומנטי, וילה למשפחה גדולה או מתחם שבת חתן? ערדית, העוזרת החכמה של MULTIBRAWN, תמצא לכם את המקום המושלם בישראל. 10+ שנות ניסיון · 500+ לקוחות מרוצים · שירות אישי בוואטסאפ.',
   keywords: ['צימרים בישראל', 'וילות להשכרה', 'מתחמי אירועים', 'שבת חתן', 'בריכה מחוממת', 'צימר רומנטי', 'וילה גליל', 'צימר עם ג׳קוזי', 'נופש בישראל', 'מלון בוטיק', 'דירת נופש', 'multibrawn'],
   alternates: { canonical: 'https://multibrawn.co.il' },

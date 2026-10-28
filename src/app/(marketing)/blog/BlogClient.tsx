@@ -21,6 +21,42 @@ interface BlogClientProps {
 }
 
 const hardcodedArticles: Article[] = [
+  {
+    slug: 'villa-30-guests',
+    title: '🏡 וילה ל-30 איש ומעלה',
+    excerpt: 'מה שבעל הווילה יודע ואתם לא — למה מסננים קבוצות, מה באמת סופרים במקום מיטות, ואיך נפתחות הדלתות',
+    category: 'קבוצות גדולות',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    date: '28 באוקטובר 2026',
+    readTime: '6 דק׳',
+  },
+  {
+    slug: 'why-multi',
+    title: '✨ למה קוראים לנו מולטי?',
+    excerpt: 'הסיפור מאחורי השם — ערדית בראון, שבתות חתן, קהילת וילות וצימרים, וכל סוגי המולטי',
+    category: 'הסיפור שלנו',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    date: '28 באוקטובר 2026',
+    readTime: '4 דק׳',
+  },
+  {
+    slug: 'shabbat-hatan-jerusalem',
+    title: '🕯️ שבת חתן בירושלים והסביבה',
+    excerpt: 'איך בוחרים מתחם באזור ירושלים — מרחקי הליכה, בית כנסת, חורף בהרים, וחמש שאלות ששוכחים לשאול',
+    category: 'שבת חתן',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+    date: '28 באוקטובר 2026',
+    readTime: '5 דק׳',
+  },
+  {
+    slug: 'shabbat-hatan-cost-guide',
+    title: '💸 כמה עולה שבת חתן?',
+    excerpt: 'פירוק התקציב המלא — חמשת הסעיפים, הטעויות שמייקרות, ואיך סוגרים מחיר בלי הפתעות',
+    category: 'שבת חתן',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+    date: '28 באוקטובר 2026',
+    readTime: '6 דק׳',
+  },
   // 4 סרטונים ראשונים
   {
     slug: 'shabbat-hatan-rosh-shaket',
