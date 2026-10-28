@@ -49,7 +49,7 @@ export default function ChatWidget() {
           setConversationState('event');
           addMessage('נהדר! אשמח לעזור לך לארגן את האירוע. איזה סוג אירוע אתה מתכנן?', false);
         } else {
-          addMessage('שלום! אני ארדית, העוזר הדיגיטלי של MULTIBRAWN. אני יכול לעזור לך למצוא לינה מושלמת או לארגן אירועים. במה אוכל לעזור?', false);
+          addMessage('שלום! אני ערדית, העוזרת הדיגיטלית של MULTIBRAWN. אני יכולה לעזור לך למצוא לינה מושלמת או לארגן אירועים. במה אוכל לעזור?', false);
         }
       } else {
         addMessage('תודה על הפרטים! אעביר אותך לנציג שלנו ב-WhatsApp להמשך טיפול.', false);
@@ -105,8 +105,8 @@ export default function ChatWidget() {
                 <span>🤖</span>
               </div>
               <div className={styles.headerText}>
-                <h3>ארדית</h3>
-                <p>העוזר הדיגיטלי שלך</p>
+                <h3>ערדית</h3>
+                <p>העוזרת הדיגיטלית שלך</p>
               </div>
             </div>
             <button
@@ -126,7 +126,7 @@ export default function ChatWidget() {
                   <span>🤖</span>
                 </div>
                 <div className={styles.welcomeText}>
-                  <h4>שלום! אני ארדית 👋</h4>
+                  <h4>שלום! אני ערדית 👋</h4>
                   <p>אני כאן לעזור לך למצוא את הלינה המושלמת או לארגן אירועים מיוחדים.</p>
                   <div className={styles.quickButtons}>
                     <button onClick={() => {
