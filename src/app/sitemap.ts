@@ -72,6 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogPosts = [
     `${baseUrl}/blog`,
     `${baseUrl}/blog/shabbat-hatan-rosh-shaket`,
+    `${baseUrl}/blog/shabbat-hatan-cost-guide`,
     `${baseUrl}/blog/eilat-warning`,
     `${baseUrl}/blog/cheap-zimmer-warning`,
     `${baseUrl}/blog/villa-dangers`,

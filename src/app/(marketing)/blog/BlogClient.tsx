@@ -21,6 +21,15 @@ interface BlogClientProps {
 }
 
 const hardcodedArticles: Article[] = [
+  {
+    slug: 'shabbat-hatan-cost-guide',
+    title: '💸 כמה עולה שבת חתן?',
+    excerpt: 'פירוק התקציב המלא — חמשת הסעיפים, הטעויות שמייקרות, ואיך סוגרים מחיר בלי הפתעות',
+    category: 'שבת חתן',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+    date: '28 באוקטובר 2026',
+    readTime: '6 דק׳',
+  },
   // 4 סרטונים ראשונים
   {
     slug: 'shabbat-hatan-rosh-shaket',
