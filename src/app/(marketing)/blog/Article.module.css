@@ -140,11 +140,12 @@
   font-weight: 600;
 }
 
+/* קופסת הדגשה — סגול המותג הבוהק (הוחלף מצהוב לפי כללי המותג) */
 .highlight {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  background: linear-gradient(135deg, #f1e6ff, #e3d0ff);
   padding: 1.5rem;
   border-radius: 12px;
-  border-right: 4px solid #f59e0b;
+  border-right: 4px solid #A06BFF;
   margin: 2rem 0;
   font-weight: 500;
 }
