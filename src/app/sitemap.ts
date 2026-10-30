@@ -29,9 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts with real publish dates
   const blogPosts: Array<{ url: string; lastModified: string }> = [
-    { url: `${baseUrl}/blog`, lastModified: '2026-10-01' },
+    { url: `${baseUrl}/blog`, lastModified: '2026-10-30' },
     { url: `${baseUrl}/blog/shabbat-hatan-rosh-shaket`, lastModified: '2025-03-01' },
     { url: `${baseUrl}/blog/shabbat-hatan-cost-guide`, lastModified: '2025-04-01' },
+    { url: `${baseUrl}/blog/shabbat-hatan-north`, lastModified: '2026-10-30' },
+    { url: `${baseUrl}/blog/sheva-brachot-guide`, lastModified: '2026-10-30' },
     { url: `${baseUrl}/blog/shabbat-hatan-jerusalem`, lastModified: '2025-04-01' },
     { url: `${baseUrl}/blog/why-multi`, lastModified: '2025-05-01' },
     { url: `${baseUrl}/blog/villa-30-guests`, lastModified: '2025-05-01' },

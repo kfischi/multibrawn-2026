@@ -22,6 +22,24 @@ interface BlogClientProps {
 
 const hardcodedArticles: Article[] = [
   {
+    slug: 'shabbat-hatan-north',
+    title: '🌲 שבת חתן בצפון',
+    excerpt: 'החלום ומה שחייבים לבדוק לפני שסוגרים — מה בעל המתחם לא אומר בטלפון, כניסת השבת בחורף, ואיזה אזור מתאים לקבוצה שלכם',
+    category: 'שבת חתן',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+    date: '30 באוקטובר 2026',
+    readTime: '6 דק׳',
+  },
+  {
+    slug: 'sheva-brachot-guide',
+    title: '💍 שבע ברכות בלי להתיש אף אחד',
+    excerpt: 'למה לא כל ערב צריך להיות מיני-חתונה, הפורמטים מהקל לכבד, שבת שבע ברכות — וחמשת הדברים ששוכחים תמיד',
+    category: 'שבע ברכות',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+    date: '30 באוקטובר 2026',
+    readTime: '5 דק׳',
+  },
+  {
     slug: 'villa-30-guests',
     title: '🏡 וילה ל-30 איש ומעלה',
     excerpt: 'מה שבעל הווילה יודע ואתם לא — למה מסננים קבוצות, מה באמת סופרים במקום מיטות, ואיך נפתחות הדלתות',
