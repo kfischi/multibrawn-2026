@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="שבתות חתן עם ערדית בראון - מדריך חינמי, חיפוש מתחם מותאם, המדריך המלא וכל הכלים במקום אחד">
+<meta property="og:title" content="שבתות חתן עם ערדית בראון">
+<meta property="og:description" content="שבתות חתן עם ערדית בראון - מדריך חינמי, חיפוש מתחם מותאם, המדריך המלא וכל הכלים במקום אחד">
+<meta property="og:site_name" content="Multibrawn">
+<meta property="og:locale" content="he_IL">
+<meta property="og:type" content="website">
+<title>שבתות חתן עם ערדית בראון</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellefair&family=Heebo:wght@300;400;500;700&display=swap">
+<style>
+/* Hub: hero + 3 funnel cards + tools row + CTA. Wine & ivory, matches the Shabbat Chatan family */
+:root{
+  --bg:#faf6f1; --surface:#fffdfb; --ink:#3a1050; --muted:#8a6fa0;
+  --wine:#9b1fe8; --wine-deep:#6a0db3; --sand:#d6006f; --line:#f0d3ec;
+  --hl:#fbe9f6; --whatsapp:#1faa59;
+  --shadow:0 10px 30px rgba(155,31,232,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1f1128; --surface:#2b1839; --ink:#f6ecf9; --muted:#c3a3d6;
+    --wine:#c884f5; --wine-deep:#dfb3fa; --sand:#ff6ec7; --line:#45305c;
+    --hl:#3a2250; --whatsapp:#2ecc71; --shadow:0 10px 30px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1f1128; --surface:#2b1839; --ink:#f6ecf9; --muted:#c3a3d6;
+  --wine:#c884f5; --wine-deep:#dfb3fa; --sand:#ff6ec7; --line:#45305c;
+  --hl:#3a2250; --whatsapp:#2ecc71; --shadow:0 10px 30px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+body{background:var(--bg); color:var(--ink);
+  font-family:'Heebo',system-ui,sans-serif; font-size:17px; line-height:1.6; direction:rtl;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0;}
+.wrap{max-width:560px; margin:0 auto; padding-block:28px 48px; display:flex; flex-direction:column; gap:24px;}
+.brand{display:flex; align-items:center; gap:10px; justify-content:center;
+  font-size:13px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;}
+.brand::before,.brand::after{content:""; height:1px; width:42px; background:var(--line);}
+.serif{font-family:'Bellefair','Heebo',serif;}
+h1{font-family:'Bellefair','Heebo',serif; font-size:clamp(30px,8vw,42px); font-weight:400;
+  line-height:1.2; text-align:center; text-wrap:balance; margin:0; color:var(--wine-deep);}
+.lead{text-align:center; color:var(--muted); margin:0; font-weight:300; text-wrap:balance;}
+.proof{text-align:center; font-size:14.5px; color:var(--sand); font-weight:500; margin:0;}
+h2{font-family:'Bellefair','Heebo',serif; font-size:22px; font-weight:400;
+  color:var(--wine-deep); margin:0; text-align:center;}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:18px;
+  box-shadow:var(--shadow); padding:24px 22px; display:flex; flex-direction:column; gap:12px;
+  position:relative;}
+.tier{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+.tname{font-family:'Bellefair','Heebo',serif; font-size:23px; font-weight:400; color:var(--wine-deep);}
+.price{font-size:15px; font-weight:700; color:var(--sand); white-space:nowrap; letter-spacing:.04em;}
+.card p{margin:0; font-size:15.5px; color:var(--ink);}
+.card .note{font-size:14px; color:var(--muted);}
+a.btn, button.btn{display:flex; align-items:center; justify-content:center; gap:9px;
+  font:inherit; font-weight:700; font-size:16px; border:none; cursor:pointer;
+  border-radius:999px; padding:13px 22px; text-decoration:none; width:100%;}
+.btn-wine{background:var(--wine); color:#fff;}
+:root[data-theme="dark"] .btn-wine{color:#2d0a44;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .btn-wine{color:#2d0a44;} }
+.btn-ghost{background:transparent; color:var(--wine); border:1.5px solid var(--wine); font-weight:500;}
+.btn-wa{background:var(--whatsapp); color:#fff;}
+.featured{border-color:var(--sand); background:var(--hl);}
+.badge{position:absolute; top:-12px; right:22px; background:var(--sand); color:#2d0a44;
+  font-size:13px; font-weight:700; border-radius:999px; padding:3px 14px; letter-spacing:.03em;}
+.tools{display:flex; flex-direction:column; gap:10px;}
+.tool{display:flex; align-items:center; gap:14px; background:var(--surface);
+  border:1px solid var(--line); border-radius:14px; padding:14px 16px; text-decoration:none; color:var(--ink);}
+.tool .ti{font-size:22px; flex:0 0 auto;}
+.tool .tt{flex:1 1 auto; min-width:0;}
+.tool .tt b{display:block; font-size:16px; color:var(--wine-deep);}
+.tool .tt span{font-size:13.5px; color:var(--muted);}
+.tool .arrow{color:var(--sand); font-weight:700;}
+.divider{height:1px; background:var(--line);}
+footer{text-align:center; font-size:13px; color:var(--muted); line-height:1.8;}
+footer b{color:var(--wine); font-weight:700;}
+.copied{color:var(--sand); font-size:13.5px; text-align:center; min-height:1.2em; margin:0;}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;} }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <div class="brand">Multibrawn · שבתות חתן</div>
+  <h1 class="serif">שבת החתן שלכם מתחילה כאן</h1>
+  <p class="lead">ערדית בראון מחברת בין קבוצות למתחמים, וילות ומלונות בוטיק בכל הארץ — ומלווה אתכם עד שסוגרים את המקום הנכון.</p>
+  <p class="proof">מאחורי הדף: קהילת מתחמים ואירועים של 11,200+ חברים</p>
+
+  <h2>איך מתקדמים?</h2>
+
+  <div class="card">
+    <div class="tier"><span class="tname">המדריך החינמי</span><span class="price">חינם</span></div>
+    <p>מה באמת קורה בשבת חתן ולמה — הדינמיקה, התפקידים והרגעים שחשוב להכיר, עוד לפני שמתחילים לארגן.</p>
+    <a class="btn btn-ghost" href="https://free-guide.multibrawn.co.il" target="_blank" rel="noopener">למדריך החינמי ‹</a>
+  </div>
+
+  <div class="card featured">
+    <span class="badge">ליווי אישי</span>
+    <div class="tier"><span class="tname">ערדית מחפשת לכם מתחם</span><span class="price">דמי רצינות 50 ₪</span></div>
+    <p>משאירים פרטים, וערדית בראון מאתרת עבורכם מתחמים מתאימים לפי הגודל, האזור, הכשרות והתקציב שלכם — עד שנמצא המקום.</p>
+    <p class="note">התשלום בהעברת ביט למספר 052-3983394, והחיפוש יוצא לדרך.</p>
+    <a class="btn btn-wa" href="https://wa.me/972523983394?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%A8%D7%93%D7%99%D7%AA%2C%20%D7%90%D7%A0%D7%97%D7%A0%D7%95%20%D7%9E%D7%AA%D7%9B%D7%A0%D7%A0%D7%99%D7%9D%20%D7%A9%D7%91%D7%AA%20%D7%97%D7%AA%D7%9F%20%D7%95%D7%A8%D7%95%D7%A6%D7%99%D7%9D%20%D7%A9%D7%AA%D7%97%D7%A4%D7%A9%D7%99%20%D7%9C%D7%A0%D7%95%20%D7%9E%D7%AA%D7%97%D7%9D%20%F0%9F%99%82" target="_blank" rel="noopener">מתחילים חיפוש — וואטסאפ ‹</a>
+  </div>
+
+  <div class="card">
+    <div class="tier"><span class="tname">המדריך המלא — 25 שלבים</span><span class="price">97 ₪</span></div>
+    <p>איך מבצעים בפועל: לוחות זמנים, כמויות, סגירת מתחם וצ'קליסטים לכל שלב — מהחלטה ועד מוצאי שבת.</p>
+    <a class="btn btn-wine" href="https://premium-guide.multibrawn.co.il" target="_blank" rel="noopener">למדריך המלא ‹</a>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>כלים שלנו, בחינם</h2>
+  <div class="tools">
+    <a class="tool" href="/shabbat-chatan-quiz.html" target="_blank" rel="noopener">
+      <span class="ti">🧭</span>
+      <span class="tt"><b>איזו שבת חתן מתאימה לכם?</b><span>שאלון קצר שממפה אתכם לסגנון המתחם הנכון</span></span>
+      <span class="arrow">‹</span>
+    </a>
+    <a class="tool" href="/parasha.html" target="_blank" rel="noopener">
+      <span class="ti">🕯️</span>
+      <span class="tt"><b>פרשת השבוע</b><span>הפרשה של השבת, רעיון לשולחן, ולוח הפרשות לכל השנה</span></span>
+      <span class="arrow">‹</span>
+    </a>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <p><b class="serif" style="font-size:18px; color:var(--wine-deep)">יש לכם שאלה? פשוט תכתבו</b></p>
+    <a class="btn btn-wa" href="https://wa.me/972523983394" target="_blank" rel="noopener">וואטסאפ · 052-3983394 ‹</a>
+    <button class="btn btn-ghost" id="copyphone" type="button">העתיקו את המספר</button>
+    <p class="copied" id="copynote"></p>
+  </div>
+
+  <footer>
+    <b>ערדית בראון · Multibrawn</b><br>
+    מתחמים, וילות ומלונות בוטיק לשבתות חתן וקבוצות — בכל רחבי הארץ<br>
+    www.multibrawn.co.il
+  </footer>
+</div>
+
+<script>
+"use strict";
+document.getElementById("copyphone").addEventListener("click", function(){
+  var note = document.getElementById("copynote");
+  var num = "052-3983394";
+  function ok(){ note.textContent = "המספר הועתק ✓"; }
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = num; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); ok(); } catch(e){ note.textContent = num; }
+    ta.remove();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(num).then(ok, fallback);
+  } else fallback();
+});
+</script>
+
+</body>
+</html>
