@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ענו על 7 שאלות קצרות וגלו איזה סגנון מתחם מתאים לשבת החתן שלכם - מתחם פרטי, מלון בוטיק, כפרי בטבע או אירוח עם שף">
+<meta property="og:title" content="איזו שבת חתן מתאימה לכם?">
+<meta property="og:description" content="ענו על 7 שאלות קצרות וגלו איזה סגנון מתחם מתאים לשבת החתן שלכם - מתחם פרטי, מלון בוטיק, כפרי בטבע או אירוח עם שף">
+<meta property="og:site_name" content="Multibrawn">
+<meta property="og:locale" content="he_IL">
+<meta property="og:type" content="website">
+<title>איזו שבת חתן מתאימה לכם?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellefair&family=Heebo:wght@300;400;500;700&display=swap">
+<style>
+/* Layout: centered single-column card flow, wine & ivory, serif display over clean sans */
+:root{
+  --bg:#faf6f1;          /* warm ivory */
+  --surface:#fffdfb;
+  --ink:#3a1050;          /* deep plum ink */
+  --muted:#8a6fa0;
+  --wine:#9b1fe8;         /* primary */
+  --wine-deep:#6a0db3;
+  --sand:#d6006f;         /* warm sand accent */
+  --line:#f0d3ec;
+  --ok:#2e6e4e;
+  --err:#b4323c;
+  --whatsapp:#1faa59;
+  --shadow:0 10px 30px rgba(155,31,232,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1f1128; --surface:#2b1839; --ink:#f6ecf9; --muted:#c3a3d6;
+    --wine:#c884f5; --wine-deep:#dfb3fa; --sand:#ff6ec7; --line:#45305c;
+    --ok:#6fcf97; --err:#ff8a94; --whatsapp:#2ecc71; --shadow:0 10px 30px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1f1128; --surface:#2b1839; --ink:#f6ecf9; --muted:#c3a3d6;
+  --wine:#c884f5; --wine-deep:#dfb3fa; --sand:#ff6ec7; --line:#45305c;
+  --ok:#6fcf97; --err:#ff8a94; --whatsapp:#2ecc71; --shadow:0 10px 30px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Heebo',system-ui,sans-serif; font-size:17px; line-height:1.6;
+  direction:rtl;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0;
+}
+.wrap{max-width:560px; margin:0 auto; padding-block:28px 48px;
+  display:flex; flex-direction:column; gap:20px; min-height:92vh;}
+.brand{display:flex; align-items:center; gap:10px; justify-content:center;
+  font-size:13px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;}
+.brand::before,.brand::after{content:""; height:1px; width:42px; background:var(--line);}
+h1,h2,.serif{font-family:'Bellefair','Heebo',serif;}
+h1{font-size:clamp(28px,7vw,40px); font-weight:400; line-height:1.2;
+  text-align:center; text-wrap:balance; margin:0; color:var(--wine-deep);}
+.lead{text-align:center; color:var(--muted); margin:0; font-weight:300; text-wrap:balance;}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:18px;
+  box-shadow:var(--shadow); padding:26px 22px; display:flex; flex-direction:column; gap:18px;}
+.benefits{display:flex; flex-direction:column; gap:10px; margin:0; padding:0; list-style:none;}
+.benefits li{display:flex; gap:10px; align-items:flex-start;}
+.benefits li::before{content:"✦"; color:var(--sand); flex:0 0 auto; margin-top:2px;}
+.meta{font-size:14px; color:var(--muted); text-align:center;}
+button{font:inherit; cursor:pointer; border:none; border-radius:999px;}
+.btn-primary{background:var(--wine); color:#fff; font-weight:700; font-size:18px;
+  padding:15px 28px; width:100%; transition:transform .15s ease, opacity .15s;}
+:root[data-theme="dark"] .btn-primary{color:#2d0a44;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .btn-primary{color:#2d0a44;} }
+.btn-primary:active{transform:scale(.98);}
+.btn-ghost{background:transparent; color:var(--wine); border:1.5px solid var(--wine);
+  font-weight:500; font-size:15px; padding:11px 22px;}
+.progress{height:5px; background:var(--line); border-radius:99px; overflow:hidden;}
+.progress>i{display:block; height:100%; background:var(--sand); width:0%;
+  transition:width .35s ease; border-radius:99px;}
+.qnum{font-size:13px; letter-spacing:.1em; color:var(--muted);}
+h2.question{font-size:clamp(21px,5.5vw,26px); font-weight:700; margin:0; line-height:1.35; text-wrap:balance;}
+.opts{display:flex; flex-direction:column; gap:10px;}
+.opt{background:var(--bg); border:1.5px solid var(--line); border-radius:14px;
+  padding:14px 16px; text-align:right; font-size:16px; color:var(--ink);
+  transition:border-color .15s, background .15s; width:100%;}
+.opt:hover{border-color:var(--sand);}
+.opt.picked{border-color:var(--wine); background:var(--surface); font-weight:600;}
+.navrow{display:flex; justify-content:space-between; align-items:center;}
+.back{background:none; color:var(--muted); font-size:14px; padding:6px 2px; text-decoration:underline;}
+/* form */
+label{display:flex; flex-direction:column; gap:6px; font-weight:500; font-size:15px;}
+input,select{font:inherit; padding:12px 14px; border-radius:12px; border:1.5px solid var(--line);
+  background:var(--bg); color:var(--ink); width:100%;}
+input:focus,select:focus,.opt:focus-visible,button:focus-visible{outline:2px solid var(--sand); outline-offset:2px;}
+.err{color:var(--err); font-size:14px; min-height:1.2em; margin:0;}
+/* loading */
+.calc{display:flex; flex-direction:column; align-items:center; gap:16px; padding:34px 0; text-align:center;}
+.ring{width:46px; height:46px; border-radius:50%; border:3px solid var(--line);
+  border-top-color:var(--wine); animation:spin 0.9s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){ .ring{animation:none; border-top-color:var(--sand);} *{transition:none!important;} }
+/* result */
+.eyebrow{font-size:13px; letter-spacing:.16em; color:var(--sand); font-weight:700; text-align:center;}
+.result-name{font-size:clamp(26px,7vw,36px); font-weight:400; color:var(--wine-deep);
+  text-align:center; margin:0; line-height:1.25; text-wrap:balance;}
+.tagline{text-align:center; color:var(--muted); margin:0; font-style:italic;}
+.checks{display:flex; flex-direction:column; gap:12px; margin:0; padding:0; list-style:none;}
+.checks li{display:flex; gap:10px; align-items:flex-start; font-size:15.5px;}
+.checks li::before{content:"✓"; color:var(--ok); font-weight:700; flex:0 0 auto;}
+.divider{height:1px; background:var(--line); margin:4px 0;}
+.btn-wa{background:var(--whatsapp); color:#fff; font-weight:700; font-size:17px;
+  padding:15px 24px; width:100%; display:flex; align-items:center; justify-content:center; gap:10px;}
+.btn-wa svg{flex:0 0 auto;}
+.copied{color:var(--ok); font-size:14px; text-align:center; min-height:1.2em; margin:0;}
+footer{margin-top:auto; text-align:center; font-size:13px; color:var(--muted); line-height:1.8;}
+footer b{color:var(--wine); font-weight:700;}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" id="app">
+
+  <!-- INTRO -->
+  <section id="s-intro">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="brand">Multibrawn · שבתות חתן</div>
+      <h1 class="serif">איזו שבת חתן מתאימה לכם?</h1>
+      <p class="lead">שבע שאלות קצרות — ותקבלו את סגנון המתחם שמתאים בדיוק לקבוצה שלכם, עם מה שחשוב לבדוק לפני שסוגרים.</p>
+      <div class="card">
+        <ul class="benefits">
+          <li>הסגנון שמתאים לכם: מתחם פרטי, מלון בוטיק, כפרי בטבע או אירוח עם שף</li>
+          <li>3 דברים קריטיים לבדוק לפני שסוגרים מקום</li>
+          <li>אפשרות לקבל 3 המלצות מותאמות אישית — בלי לחפש לבד</li>
+        </ul>
+        <button class="btn-primary" id="start">מתחילים ‹</button>
+        <p class="meta">פחות מ־2 דקות · ללא עלות</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="s-quiz" hidden>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="progress"><i id="bar"></i></div>
+      <div class="card">
+        <span class="qnum" id="qnum"></span>
+        <h2 class="question" id="qtext"></h2>
+        <div class="opts" id="opts"></div>
+        <div class="navrow">
+          <button class="back" id="back">› חזרה</button>
+          <span class="meta" id="hint">בחרו תשובה כדי להמשיך</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALC -->
+  <section id="s-calc" hidden>
+    <div class="card calc">
+      <div class="ring" aria-hidden="true"></div>
+      <h2 class="serif" style="margin:0;font-size:22px">מחשבים את ההתאמה שלכם…</h2>
+      <p class="meta" style="margin:0">מצליבים גודל קבוצה, אווירה, כשרות ותקציב</p>
+    </div>
+  </section>
+
+  <!-- LEAD FORM -->
+  <section id="s-form" hidden>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 class="serif" style="text-align:center;margin:0;font-size:24px;color:var(--wine-deep)">ההתאמה שלכם מוכנה ✨</h2>
+      <p class="lead" style="font-size:16px">כמה פרטים אחרונים — כדי שנוכל לשלוח לכם גם 3 המלצות מותאמות למקומות פנויים.</p>
+      <form class="card" id="leadform" novalidate>
+        <label>שם מלא
+          <input id="f-name" type="text" autocomplete="name" placeholder="לדוגמה: משפחת לוי">
+        </label>
+        <label>טלפון נייד
+          <input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-0000000">
+        </label>
+        <label>מתי בערך שבת החתן?
+          <select id="f-when">
+            <option value="">בחרו…</option>
+            <option>בחודש הקרוב</option>
+            <option>בעוד 1–3 חודשים</option>
+            <option>בעוד 3–6 חודשים</option>
+            <option>עוד לא קבענו תאריך</option>
+          </select>
+        </label>
+        <p class="err" id="f-err"></p>
+        <button class="btn-primary" type="submit">הציגו לי את התוצאה ‹</button>
+        <p class="meta">בסיום — לחיצה אחת על כפתור הוואטסאפ שולחת את הפרטים ישירות לערדית בראון · Multibrawn. הפרטים לא מועברים לאף גורם אחר</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="s-result" hidden>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <p class="eyebrow">ההתאמה שלכם</p>
+      <h2 class="result-name serif" id="r-name"></h2>
+      <p class="tagline" id="r-tag"></p>
+      <div class="card">
+        <p id="r-desc" style="margin:0"></p>
+        <div class="divider"></div>
+        <strong style="font-size:15px">לפני שסוגרים — 3 דברים לבדוק:</strong>
+        <ul class="checks" id="r-checks"></ul>
+        <div class="divider"></div>
+        <button class="btn-wa" id="wa-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.3.5-.5.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.2Z"/></svg>
+          <span id="wa-label">קבלו 3 המלצות מותאמות בוואטסאפ</span>
+        </button>
+        <p class="copied" id="wa-note"></p>
+        <button class="btn-ghost" id="share">שתפו את השאלון עם חברים ‹</button>
+        <p class="copied" id="share-note"></p>
+      </div>
+      <p class="meta">ליווי אישי של ערדית — עד שסוגרים את המקום הנכון</p>
+    </div>
+  </section>
+
+  <footer>
+    <b>ערדית בראון · Multibrawn</b><br>
+    מתחמים, וילות ומלונות בוטיק לשבתות חתן וקבוצות — בכל רחבי הארץ
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ====== CONFIG ====== */
+var WHATSAPP_NUMBER = "972523983394";
+
+/* ====== DATA ====== */
+var QUESTIONS = [
+  {q:"כמה אנשים תהיו בשבת?", key:"guests", opts:[
+    {t:"עד 30", w:{D:2,B:1}},
+    {t:"30–60", w:{A:2,C:1}},
+    {t:"60–100", w:{A:2,B:1}},
+    {t:"מעל 100", w:{B:2,A:1}}
+  ]},
+  {q:"איזו אווירה הכי מתאימה לכם?", key:"vibe", opts:[
+    {t:"יוקרתי ומפנק", w:{B:2,D:1}},
+    {t:"ביתי ומשפחתי", w:{A:2,C:1}},
+    {t:"טבע, נוף ואוויר פתוח", w:{C:2,A:1}},
+    {t:"חוויה קולינרית מיוחדת", w:{D:2,B:1}}
+  ]},
+  {q:"מה הכי חשוב שיהיה במקום?", key:"must", opts:[
+    {t:"בריכה ופינוקים לקבוצה", w:{A:2,D:1}},
+    {t:"בית כנסת וספר תורה במקום", w:{A:2,C:1}},
+    {t:"חדרים ושירות ברמת מלון", w:{B:2}},
+    {t:"שקט, פרטיות ונוף", w:{C:2,D:1}}
+  ]},
+  {q:"איך תרצו לפתור את האוכל?", key:"food", opts:[
+    {t:"קייטרינג מלא — שהכל יהיה מוכן", w:{B:1,A:1}},
+    {t:"שף פרטי שמבשל במקום", w:{D:2}},
+    {t:"מביאים בעצמנו — צריך מטבח מאובזר", w:{A:2,C:1}},
+    {t:"גמישים, תלוי במקום", w:{}}
+  ]},
+  {q:"רמת כשרות?", key:"kashrut", opts:[
+    {t:"מהדרין / בד״ץ", w:{B:1,A:1}},
+    {t:"כשר רגיל", w:{}},
+    {t:"גמישים", w:{C:1,D:1}}
+  ]},
+  {q:"איזה אזור בארץ?", key:"region", opts:[
+    {t:"צפון", w:{}},
+    {t:"מרכז", w:{}},
+    {t:"ירושלים והסביבה", w:{}},
+    {t:"דרום", w:{}},
+    {t:"גמישים — העיקר שהמקום מתאים", w:{}}
+  ]},
+  {q:"תקציב משוער לאדם לכל השבת?", key:"budget", opts:[
+    {t:"עד 300 ₪", w:{C:2,A:1}},
+    {t:"300–500 ₪", w:{A:2,B:1}},
+    {t:"500 ₪ ומעלה", w:{B:2,D:2}},
+    {t:"עוד אין לנו מושג", w:{}}
+  ]}
+];
+
+var RESULTS = {
+  A:{name:"מתחם אירוח פרטי", tag:"המקום כולו — שלכם בלבד",
+     desc:"וילה גדולה או מתחם סגור שמתאכסנת בו רק הקבוצה שלכם. פרטיות מלאה, מטבח לרשותכם, מרחב לילדים — ובדרך כלל גם בית כנסת במקום או במרחק הליכה. סגנון אהוב במיוחד לשבתות חתן משפחתיות.",
+     checks:["כמה מיטות יש בפועל (ולא ״עד 80 איש״ על הנייר)","האם יש ספר תורה ובית כנסת במרחק הליכה","מה כלול במחיר: מצעים, חימום בריכה, ניקיון וערכת שבת"]},
+  B:{name:"מלון בוטיק", tag:"אפס התעסקות, מקסימום פינוק",
+     desc:"חדרים מפנקים, חדר אוכל מסודר וצוות שדואג להכל. הפתרון הנכון לקבוצות גדולות או לכל מי שרוצה להגיע — ופשוט לחגוג. בלי לוגיסטיקה, בלי משאיות אוכל, בלי כאב ראש.",
+     checks:["האם מקבלים חדר אוכל פרטי לקבוצה או יושבים עם שאר האורחים","רמת הכשרות של המטבח והאם יש השגחה בשבת","סידורי שבת: מפתח רגיל, קומה ייעודית, פלטה ומיחם"]},
+  C:{name:"מתחם כפרי בטבע", tag:"פשטות, נוף ואווירה של פעם",
+     desc:"צימרים או מתחם כפרי עם דשא, נוף ושקט. אווירה חמה ולא מתאמצת, ומחיר שנשאר הגיוני גם לקבוצה גדולה. מי שחשוב לו החיבור והאווירה יותר מהשיש במטבח — זה הכיוון.",
+     checks:["המרחק בין יחידות האירוח — שהקבוצה לא תתפזר","איפה אוכלים יחד: חדר אוכל, פרגולה סגורה או אוהל מחומם","גישה ומזג אוויר בעונה שלכם (חורף בצפון ≠ קיץ בצפון)"]},
+  D:{name:"אירוח יוקרה עם שף פרטי", tag:"שבת שמרגישה כמו אירוע",
+     desc:"קבוצה אינטימית, מקום מיוחד, ושף שמבשל לכם במקום את כל סעודות השבת. חוויה קולינרית ברמה של מסעדה — בלי לצאת מהמתחם. מתאים למי שרוצה שבת חתן שמדברים עליה הרבה אחרי.",
+     checks:["מה בדיוק כולל התפריט: כל הסעודות, קידושים ומלווה מלכה","התאמות כשרות ואלרגיות — סגורות מראש ובכתב","האם השף נשאר לאורך השבת או רק מכין מראש"]}
+};
+
+/* ====== STATE ====== */
+var step = 0;
+var answers = [];
+var resultKey = null;
+
+/* ====== HELPERS ====== */
+function $(id){ return document.getElementById(id); }
+function show(id){
+  ["s-intro","s-quiz","s-calc","s-form","s-result"].forEach(function(s){ $(s).hidden = (s!==id); });
+  window.scrollTo(0,0);
+}
+function computeResult(ans){
+  var score = {A:0,B:0,C:0,D:0};
+  ans.forEach(function(oi, qi){
+    var w = QUESTIONS[qi].opts[oi].w;
+    for (var k in w) score[k] += w[k];
+  });
+  var best = "A", order = ["A","B","C","D"];
+  order.forEach(function(k){ if (score[k] > score[best]) best = k; });
+  return best;
+}
+
+/* ====== QUIZ FLOW ====== */
+function renderQ(){
+  var q = QUESTIONS[step];
+  $("qnum").textContent = "שאלה " + (step+1) + " מתוך " + QUESTIONS.length;
+  $("qtext").textContent = q.q;
+  $("bar").style.width = Math.round((step)/QUESTIONS.length*100) + "%";
+  var box = $("opts");
+  box.innerHTML = "";
+  q.opts.forEach(function(o, i){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "opt";
+    b.textContent = o.t;
+    if (answers[step] === i) b.classList.add("picked");
+    b.addEventListener("click", function(){
+      answers[step] = i;
+      Array.prototype.forEach.call(box.children, function(c){ c.classList.remove("picked"); });
+      b.classList.add("picked");
+      setTimeout(next, 220);
+    });
+    box.appendChild(b);
+  });
+  $("back").style.visibility = step === 0 ? "hidden" : "visible";
+}
+function next(){
+  if (step < QUESTIONS.length - 1){ step++; renderQ(); }
+  else {
+    $("bar").style.width = "100%";
+    show("s-calc");
+    setTimeout(function(){ show("s-form"); }, 1400);
+  }
+}
+$("start").addEventListener("click", function(){ show("s-quiz"); renderQ(); });
+$("back").addEventListener("click", function(){ if (step>0){ step--; renderQ(); } });
+
+/* ====== LEAD FORM ====== */
+$("leadform").addEventListener("submit", function(e){
+  e.preventDefault();
+  var name = $("f-name").value.trim();
+  var phone = $("f-phone").value.trim();
+  var when = $("f-when").value;
+  var err = "";
+  if (!name) err = "איך קוראים לכם? :)";
+  else if (!/^0\d{1,2}[\s-]?\d{3}[\s-]?\d{4}$/.test(phone)) err = "נראה שהטלפון לא תקין — בדקו רגע";
+  else if (!when) err = "בחרו מתי בערך שבת החתן";
+  $("f-err").textContent = err;
+  if (err) return;
+  resultKey = computeResult(answers);
+  renderResult(name, phone, when);
+  show("s-result");
+});
+
+/* ====== RESULT ====== */
+function buildMessage(name, phone, when){
+  var q = function(qi){ return QUESTIONS[qi].opts[answers[qi]].t; };
+  return "היי ערדית! עשינו את שאלון שבת החתן 🙂\n"
+    + "יצא לנו: " + RESULTS[resultKey].name + "\n"
+    + "שם: " + name + "\n"
+    + "טלפון: " + phone + "\n"
+    + "אורחים: " + q(0) + "\n"
+    + "אזור: " + q(5) + "\n"
+    + "כשרות: " + q(4) + "\n"
+    + "תקציב לאדם: " + q(6) + "\n"
+    + "מתי: " + when + "\n"
+    + "נשמח ל-3 המלצות מותאמות!";
+}
+function renderResult(name, phone, when){
+  var r = RESULTS[resultKey];
+  $("r-name").textContent = r.name;
+  $("r-tag").textContent = r.tag;
+  $("r-desc").textContent = r.desc;
+  var ul = $("r-checks"); ul.innerHTML = "";
+  r.checks.forEach(function(c){
+    var li = document.createElement("li"); li.textContent = c; ul.appendChild(li);
+  });
+  var msg = buildMessage(name, phone, when);
+  var btn = $("wa-btn");
+  btn.onclick = function(){
+    if (WHATSAPP_NUMBER){
+      var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+      var a = document.createElement("a");
+      a.href = url; a.target = "_blank"; a.rel = "noopener";
+      document.body.appendChild(a); a.click(); a.remove();
+      $("wa-note").textContent = "לא נפתח הוואטסאפ? שלחו את הפרטים בהודעה למספר 052-3983394";
+    } else {
+      copyText(msg, $("wa-note"), "הפרטים הועתקו — הדביקו בוואטסאפ של ערדית ושלחו");
+    }
+  };
+}
+function copyText(text, noteEl, okMsg){
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); noteEl.textContent = okMsg; }
+    catch(e){ noteEl.textContent = "לא הצלחנו להעתיק — סמנו ושלחו ידנית"; }
+    ta.remove();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ noteEl.textContent = okMsg; }, fallback);
+  } else fallback();
+}
+
+/* ====== SHARE ====== */
+$("share").addEventListener("click", function(){
+  var txt = "עשינו עכשיו שאלון קצר שמגלה איזה סוג שבת חתן מתאים לקבוצה — שווה! 👇\n" + location.href.split("#")[0];
+  copyText(txt, $("share-note"), "הקישור הועתק — שתפו בקבוצה 🎉");
+});
+</script>
+
+</body>
+</html>
