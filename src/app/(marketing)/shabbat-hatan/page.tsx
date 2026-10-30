@@ -74,39 +74,6 @@ export const metadata: Metadata = {
 export default function ShabbatHatanPage() {
   return (
     <>
-      {/* ✅ Schema.org Structured Data - מתקדם */}
-      <Script
-        id="schema-organization"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Multibrawn',
-            url: 'https://multibrawn.co.il',
-            logo: 'https://multibrawn.co.il/logo.png',
-            description: 'צימרים, וילות ומתחמי אירועים מובחרים',
-            address: {
-              '@type': 'PostalAddress',
-              addressCountry: 'IL',
-              addressLocality: 'ישראל',
-            },
-            contactPoint: {
-              '@type': 'ContactPoint',
-              telephone: '+972-52-398-3394',
-              contactType: 'customer service',
-              availableLanguage: ['Hebrew', 'English'],
-            },
-            sameAs: [
-              'https://facebook.com/multibrawn',
-              'https://instagram.com/multibrawn',
-              'https://tiktok.com/@multibrawn',
-              'https://youtube.com/@multibrawn',
-            ],
-          }),
-        }}
-      />
-
       <Script
         id="schema-breadcrumb"
         type="application/ld+json"
@@ -151,7 +118,7 @@ export default function ShabbatHatanPage() {
               name: 'Multibrawn',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://multibrawn.co.il/logo.png',
+                url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
               },
             },
           }),

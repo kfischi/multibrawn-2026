@@ -356,7 +356,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
         </button>
 
         <div className={styles.carousel} ref={carouselRef}>
-          {items.map((property) => (
+          {items.map((property, idx) => (
             <div
               key={property.id}
               className={`${styles.propertyCard} ${(hoveredId === property.id || tappedId === property.id) ? styles.hovered : ''}`}
@@ -369,6 +369,7 @@ function PropertyCarousel({ title, items, category }: { title: string; items: Pr
                   src={property.image}
                   alt={property.name}
                   fill
+                  priority={idx < 3}
                   className={styles.propertyImage}
                   sizes="(max-width: 768px) 90vw, (max-width: 1200px) 40vw, 30vw"
                 />

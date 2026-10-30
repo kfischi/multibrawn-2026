@@ -11,6 +11,14 @@ export const metadata: Metadata = {
     description: 'כל מה שצריך לדעת לפני שמזמינים צימר או וילה בישראל.',
     url: 'https://multibrawn.co.il/blog',
     type: 'website',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'בלוג MULTIBRAWN - טיפים ומדריכים לנופש',
+      },
+    ],
   },
 };
 
