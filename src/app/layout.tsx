@@ -1,11 +1,24 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { Heebo, Playfair_Display } from 'next/font/google';
 import './globals.css';
 
-// ── GTM ID ── החלף כאן כשיהיה לך את ה-ID
 const GTM_ID = 'GTM-T2DCKBL5';
-const GA4_ID = 'G-7JN4LBTR2B';
+
+const heebo = Heebo({
+  subsets: ['hebrew', 'latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-heebo',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://multibrawn.co.il'),
@@ -188,7 +201,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he" dir="rtl" className={`${heebo.variable} ${playfair.variable}`}>
       <head>
         {/* ── Google Tag Manager ── */}
         <Script id="gtm-init" strategy="afterInteractive">
@@ -200,15 +213,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })(window,document,'script','dataLayer','${GTM_ID}');
           `}
         </Script>
-
-        {/* ── Fonts (loaded at runtime to avoid build-time network dependency) ── */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap"
-          rel="stylesheet"
-        />
 
         {/* ── Schema.org JSON-LD ── */}
         <script
