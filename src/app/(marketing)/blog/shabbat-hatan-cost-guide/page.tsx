@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '../Article.module.css';
+import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
   title: "כמה עולה שבת חתן? פירוק התקציב המלא | MULTIBRAWN",
@@ -26,6 +27,15 @@ export const metadata: Metadata = {
 
 export default function Article() {
   return (
+    <>
+    <ArticleJsonLd
+      url="https://multibrawn.co.il/blog/shabbat-hatan-cost-guide"
+      title="כמה עולה שבת חתן? פירוק התקציב המלא"
+      description="כמה באמת עולה שבת חתן? פירוק מסודר של כל סעיפי התקציב — מתחם, אוכל, לינה, שינוע והבלתמים — עם הטעויות שמייקרות את השבת ואיך להימנע מהן."
+      datePublished="2025-04-01"
+      image="https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png"
+      keywords={["כמה עולה שבת חתן", "תקציב שבת חתן", "מחיר שבת חתן", "שבת חתן עלויות"]}
+    />
     <article className={styles.article}>
       <div className={styles.container}>
         <nav className={styles.breadcrumb}>
@@ -105,5 +115,6 @@ export default function Article() {
         </div>
       </div>
     </article>
+    </>
   );
 }
