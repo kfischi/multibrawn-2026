@@ -2,105 +2,64 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://multibrawn.co.il';
-  const currentDate = new Date().toISOString().split('T')[0];
 
   // Main pages
   const mainPages = [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/gallery`,
-      lastModified: currentDate,
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/shabbat-hatan`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tips`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/accessibility-statement`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
+    { url: baseUrl, lastModified: '2026-10-01', changeFrequency: 'daily' as const, priority: 1.0 },
+    { url: `${baseUrl}/gallery`, lastModified: '2026-10-01', changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: `${baseUrl}/shabbat-hatan`, lastModified: '2026-09-01', changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/tips`, lastModified: '2026-08-01', changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${baseUrl}/about`, lastModified: '2026-09-01', changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${baseUrl}/contact`, lastModified: '2026-08-01', changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/privacy`, lastModified: '2025-01-01', changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/accessibility-statement`, lastModified: '2025-01-01', changeFrequency: 'yearly' as const, priority: 0.3 },
   ];
 
-  // Existing landing page
+  // Landing pages
   const landingPages = [
-    `${baseUrl}/zimmerim-galil-elyon`,
-    `${baseUrl}/affiliate-gallery`,
-    `${baseUrl}/multi-global`,
-  ].map(url => ({
+    { url: `${baseUrl}/zimmerim-galil-elyon`, lastModified: '2026-09-01' },
+    { url: `${baseUrl}/affiliate-gallery`, lastModified: '2026-10-01' },
+    { url: `${baseUrl}/multi-global`, lastModified: '2026-09-01' },
+  ].map(({ url, lastModified }) => ({
     url,
-    lastModified: currentDate,
+    lastModified,
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }));
 
-  // Actual blog posts that exist
-  const blogPosts = [
-    `${baseUrl}/blog`,
-    `${baseUrl}/blog/shabbat-hatan-rosh-shaket`,
-    `${baseUrl}/blog/shabbat-hatan-cost-guide`,
-    `${baseUrl}/blog/shabbat-hatan-north`,
-    `${baseUrl}/blog/sheva-brachot-guide`,
-    `${baseUrl}/blog/shabbat-hatan-jerusalem`,
-    `${baseUrl}/blog/why-multi`,
-    `${baseUrl}/blog/villa-30-guests`,
-    `${baseUrl}/blog/eilat-warning`,
-    `${baseUrl}/blog/cheap-zimmer-warning`,
-    `${baseUrl}/blog/villa-dangers`,
-    `${baseUrl}/blog/heated-pool-guide`,
-    `${baseUrl}/blog/modesty-check-religious`,
-    `${baseUrl}/blog/jacuzzi-hygiene-check`,
-    `${baseUrl}/blog/adults-only-quiet-guide`,
-    `${baseUrl}/blog/breakfast-value-guide`,
-    `${baseUrl}/blog/photos-vs-reality-guide`,
-    `${baseUrl}/blog/real-fireplace-guide`,
-    `${baseUrl}/blog/last-minute-deals-guide`,
-    `${baseUrl}/blog/massage-to-room-guide`,
-    `${baseUrl}/blog/hidden-villa-costs`,
-    `${baseUrl}/blog/luxury-villa-wear-and-tear`,
-    `${baseUrl}/blog/villa-greece-guide`,
-    `${baseUrl}/blog/10-zimmer-mistakes`,
-    `${baseUrl}/blog/villa-vs-hotel`,
-    `${baseUrl}/blog/galil-elyon-family`,
-    `${baseUrl}/blog/passover-vacation-tips`,
-    `${baseUrl}/blog/pool-villa-checklist`,
-  ].map(url => ({
+  // Blog posts with real publish dates
+  const blogPosts: Array<{ url: string; lastModified: string }> = [
+    { url: `${baseUrl}/blog`, lastModified: '2026-10-30' },
+    { url: `${baseUrl}/blog/shabbat-hatan-rosh-shaket`, lastModified: '2025-03-01' },
+    { url: `${baseUrl}/blog/shabbat-hatan-cost-guide`, lastModified: '2025-04-01' },
+    { url: `${baseUrl}/blog/shabbat-hatan-north`, lastModified: '2026-10-30' },
+    { url: `${baseUrl}/blog/sheva-brachot-guide`, lastModified: '2026-10-30' },
+    { url: `${baseUrl}/blog/shabbat-hatan-jerusalem`, lastModified: '2025-04-01' },
+    { url: `${baseUrl}/blog/why-multi`, lastModified: '2025-05-01' },
+    { url: `${baseUrl}/blog/villa-30-guests`, lastModified: '2025-05-01' },
+    { url: `${baseUrl}/blog/eilat-warning`, lastModified: '2025-06-01' },
+    { url: `${baseUrl}/blog/cheap-zimmer-warning`, lastModified: '2025-06-01' },
+    { url: `${baseUrl}/blog/villa-dangers`, lastModified: '2025-06-01' },
+    { url: `${baseUrl}/blog/heated-pool-guide`, lastModified: '2025-07-01' },
+    { url: `${baseUrl}/blog/modesty-check-religious`, lastModified: '2025-07-01' },
+    { url: `${baseUrl}/blog/jacuzzi-hygiene-check`, lastModified: '2025-07-01' },
+    { url: `${baseUrl}/blog/adults-only-quiet-guide`, lastModified: '2025-08-01' },
+    { url: `${baseUrl}/blog/breakfast-value-guide`, lastModified: '2025-08-01' },
+    { url: `${baseUrl}/blog/photos-vs-reality-guide`, lastModified: '2025-08-01' },
+    { url: `${baseUrl}/blog/real-fireplace-guide`, lastModified: '2025-09-01' },
+    { url: `${baseUrl}/blog/last-minute-deals-guide`, lastModified: '2025-09-01' },
+    { url: `${baseUrl}/blog/massage-to-room-guide`, lastModified: '2025-09-01' },
+    { url: `${baseUrl}/blog/hidden-villa-costs`, lastModified: '2025-10-01' },
+    { url: `${baseUrl}/blog/luxury-villa-wear-and-tear`, lastModified: '2025-10-01' },
+    { url: `${baseUrl}/blog/villa-greece-guide`, lastModified: '2025-11-01' },
+    { url: `${baseUrl}/blog/10-zimmer-mistakes`, lastModified: '2025-11-01' },
+    { url: `${baseUrl}/blog/villa-vs-hotel`, lastModified: '2025-12-01' },
+    { url: `${baseUrl}/blog/galil-elyon-family`, lastModified: '2026-01-01' },
+    { url: `${baseUrl}/blog/passover-vacation-tips`, lastModified: '2026-02-01' },
+    { url: `${baseUrl}/blog/pool-villa-checklist`, lastModified: '2026-03-01' },
+  ].map(({ url, lastModified }) => ({
     url,
-    lastModified: currentDate,
+    lastModified,
     changeFrequency: 'weekly' as const,
     priority: 0.75,
   }));
