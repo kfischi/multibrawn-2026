@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '../Article.module.css';
+import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
   title: "מתחם לשבת חתן בירושלים והסביבה — איך בוחרים נכון | MULTIBRAWN",
@@ -26,6 +27,15 @@ export const metadata: Metadata = {
 
 export default function Article() {
   return (
+    <>
+    <ArticleJsonLd
+      url="https://multibrawn.co.il/blog/shabbat-hatan-jerusalem"
+      title="מתחם לשבת חתן בירושלים והסביבה — איך בוחרים נכון"
+      description="מחפשים מתחם לשבת חתן בירושלים, בהרי ירושלים או בסביבה? המדריך לבחירה נכונה: מרחקי הליכה, בית כנסת, לינה לכולם, חורף מול קיץ."
+      datePublished="2025-04-01"
+      image="https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png"
+      keywords={["שבת חתן בירושלים", "מתחם לשבת חתן בירושלים", "שבת חתן הרי ירושלים", "מתחם אירוח ירושלים"]}
+    />
     <article className={styles.article}>
       <div className={styles.container}>
         <nav className={styles.breadcrumb}>
@@ -94,5 +104,6 @@ export default function Article() {
         </div>
       </div>
     </article>
+    </>
   );
 }

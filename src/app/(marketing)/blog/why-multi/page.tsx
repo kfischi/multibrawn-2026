@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '../Article.module.css';
+import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
   title: "למה קוראים לנו מולטי? הסיפור של MULTIBRAWN וערדית בראון",
@@ -26,6 +27,14 @@ export const metadata: Metadata = {
 
 export default function Article() {
   return (
+    <>
+    <ArticleJsonLd
+      url="https://multibrawn.co.il/blog/why-multi"
+      title="למה קוראים לנו מולטי? הסיפור של MULTIBRAWN וערדית בראון"
+      description="מולטי בראון, MULTIBRAWN, ערדית בראון — למה דווקא מולטי? הסיפור מאחורי השם: שבתות חתן, וילות וצימרים, קהילת וילות וצימרים, ואיך הכול מתחבר לשירות אחד."
+      datePublished="2025-05-01"
+      keywords={["מולטי בראון", "MULTIBRAWN", "ערדית בראון", "מולטיבראון"]}
+    />
     <article className={styles.article}>
       <div className={styles.container}>
         <nav className={styles.breadcrumb}>
@@ -76,5 +85,6 @@ export default function Article() {
         </div>
       </div>
     </article>
+    </>
   );
 }

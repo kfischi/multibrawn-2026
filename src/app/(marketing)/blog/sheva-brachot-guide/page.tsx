@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '../Article.module.css';
+import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
   title: "שבע ברכות בלי להתיש אף אחד — המדריך שחסר לכל משפחה | MULTIBRAWN",
@@ -26,6 +27,15 @@ export const metadata: Metadata = {
 
 export default function Article() {
   return (
+    <>
+    <ArticleJsonLd
+      url="https://multibrawn.co.il/blog/sheva-brachot-guide"
+      title="שבע ברכות בלי להתיש אף אחד — המדריך שחסר לכל משפחה"
+      description="איך מארגנים שבע ברכות נכון: למה לא כל ערב צריך להיות מיני-חתונה, הפורמטים מהקל לכבד, שבת שבע ברכות — וחמשת הדברים ששוכחים תמיד."
+      datePublished="2026-10-30"
+      image="https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png"
+      keywords={["שבע ברכות", "ארגון שבע ברכות", "שבת שבע ברכות", "מקום לשבע ברכות"]}
+    />
     <article className={styles.article}>
       <div className={styles.container}>
         <nav className={styles.breadcrumb}>
@@ -85,5 +95,6 @@ export default function Article() {
         </div>
       </div>
     </article>
+    </>
   );
 }
