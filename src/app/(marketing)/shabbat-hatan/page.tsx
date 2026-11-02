@@ -118,7 +118,7 @@ export default function ShabbatHatanPage() {
               name: 'Multibrawn',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+                url: 'https://multibrawn.co.il/logo-multibrawn.png',
               },
             },
           }),

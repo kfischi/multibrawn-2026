@@ -63,7 +63,7 @@ export const metadata: Metadata = {
       'מומחים למציאת הלוקיישן המושלם — שבת חתן, נופש משפחתי, רומנטיקה. שירות אישי 24/7.',
     images: [
       {
-        url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+        url: 'https://multibrawn.co.il/logo-multibrawn.png',
         width: 1200,
         height: 630,
         alt: 'MULTIBRAWN - צימרים, וילות ומתחמי אירועים',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'MULTIBRAWN | צימרים, וילות ומתחמי אירועים',
     description: 'מומחים למציאת הלוקיישן המושלם בישראל',
-    images: ['https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg'],
+    images: ['https://multibrawn.co.il/logo-multibrawn.png'],
   },
 
   robots: {
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: '/favicon.ico',
-    apple: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    apple: 'https://multibrawn.co.il/logo-multibrawn.png',
   },
 };
 
@@ -109,11 +109,11 @@ const organizationSchema = {
   url: 'https://multibrawn.co.il',
   logo: {
     '@type': 'ImageObject',
-    url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    url: 'https://multibrawn.co.il/logo-multibrawn.png',
     width: 512,
     height: 512,
   },
-  image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+  image: 'https://multibrawn.co.il/logo-multibrawn.png',
   description: 'מומחים למציאת צימרים, וילות ומתחמי אירועים בישראל. שירות אישי 24/7.',
   telephone: '+972-52-398-3394',
   email: 'info@multibrawn.co.il',

@@ -47,10 +47,10 @@ export default function Header() {
           <div className={styles.logoContainer}>
             <div className={styles.logo}>
               <Image
-                src="https://res.cloudinary.com/decirk3zb/image/upload/e_background_removal/f_png/v1766783584/Logo_1_sneunp.jpg"
+                src="/logo-multibrawn.png"
                 alt="MULTIBRAWN"
                 width={100}
-                height={33}
+                height={28}
                 priority
                 style={{ 
                   maxWidth: '100px', 

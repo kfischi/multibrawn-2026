@@ -15,7 +15,7 @@ export default function SchemaMarkup({ type, data }: SchemaProps) {
           name: 'MULTIBRAWN',
           alternateName: 'מולטיבראון',
           url: 'https://multibrawn.co.il',
-          logo: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+          logo: 'https://multibrawn.co.il/logo-multibrawn.png',
           description: 'MULTIBRAWN - צימרים, וילות ומתחמי אירועים מובחרים בכל הארץ. 9+ שנות ניסיון במציאת המקום המושלם לחופשה ולאירועים מיוחדים',
           contactPoint: {
             '@type': 'ContactPoint',
@@ -45,7 +45,7 @@ export default function SchemaMarkup({ type, data }: SchemaProps) {
           '@context': 'https://schema.org',
           '@type': 'TravelAgency',
           name: 'MULTIBRAWN - מולטיבראון',
-          image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+          image: 'https://multibrawn.co.il/logo-multibrawn.png',
           '@id': 'https://multibrawn.co.il',
           url: 'https://multibrawn.co.il',
           telephone: '+972523983394',
@@ -197,7 +197,7 @@ export default function SchemaMarkup({ type, data }: SchemaProps) {
             name: 'MULTIBRAWN',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png',
+              url: 'https://multibrawn.co.il/logo-multibrawn.png',
             },
           },
           datePublished: data?.datePublished || '',

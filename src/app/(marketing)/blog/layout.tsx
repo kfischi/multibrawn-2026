@@ -8,7 +8,7 @@ const authorSchema = {
   alternateName: ['Ardit Brown', 'Ardit', 'ערדית'],
   jobTitle: 'מומחית נופש ואירועים | מייסדת MULTIBRAWN',
   url: 'https://multibrawn.co.il/about',
-  image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+  image: 'https://multibrawn.co.il/logo-multibrawn.png',
   worksFor: { '@id': 'https://multibrawn.co.il/#organization' },
   sameAs: [
     'https://www.instagram.com/multibrawn',
