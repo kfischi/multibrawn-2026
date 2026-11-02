@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contact`, lastModified: '2026-08-01', changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/privacy`, lastModified: '2025-01-01', changeFrequency: 'yearly' as const, priority: 0.3 },
     { url: `${baseUrl}/accessibility-statement`, lastModified: '2025-01-01', changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/shabbat-chatan.html`, lastModified: '2026-11-02', changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/shabbat-chatan-quiz.html`, lastModified: '2026-11-02', changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${baseUrl}/parasha.html`, lastModified: '2026-11-02', changeFrequency: 'weekly' as const, priority: 0.6 },
   ];
 
   // Landing pages
