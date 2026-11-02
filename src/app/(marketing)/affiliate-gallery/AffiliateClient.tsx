@@ -51,7 +51,7 @@ function PropertyCard({ property }: { property: AffiliateProperty }) {
 
         {property.rating && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1">
-            <span className="text-yellow-500">★</span>
+            <span className="text-fuchsia-500">★</span>
             <span>{property.rating}</span>
           </div>
         )}
