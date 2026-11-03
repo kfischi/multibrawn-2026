@@ -60,6 +60,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog/galil-elyon-family`, lastModified: '2026-01-01' },
     { url: `${baseUrl}/blog/passover-vacation-tips`, lastModified: '2026-02-01' },
     { url: `${baseUrl}/blog/pool-villa-checklist`, lastModified: '2026-03-01' },
+    { url: `${baseUrl}/blog/my-questionnaire-process`, lastModified: '2026-11-03' },
+    { url: `${baseUrl}/blog/private-chef-guide`, lastModified: '2026-11-03' },
   ].map(({ url, lastModified }) => ({
     url,
     lastModified,

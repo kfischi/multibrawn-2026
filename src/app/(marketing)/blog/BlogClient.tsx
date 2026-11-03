@@ -22,6 +22,24 @@ interface BlogClientProps {
 
 const hardcodedArticles: Article[] = [
   {
+    slug: 'my-questionnaire-process',
+    title: '📋 איך עובד השאלון שלי',
+    excerpt: 'לפני כל המלצה — שאלון. חמש השאלות שחייבים לענות עליהן לפני שסוגרים מתחם, ולמה בלעדיהן אני לא ממליצה',
+    category: 'הסיפור שלנו',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    date: '3 בנובמבר 2026',
+    readTime: '4 דק׳',
+  },
+  {
+    slug: 'private-chef-guide',
+    title: '👨‍🍳 שף פרטי לאירוע',
+    excerpt: 'מתי כדאי להביא שף פרטי, כמה עולה, ואיך בודקים כשרות — המדריך המלא לפני שסוגרים',
+    category: 'מדריכים',
+    image: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+    date: '3 בנובמבר 2026',
+    readTime: '6 דק׳',
+  },
+  {
     slug: 'shabbat-hatan-north',
     title: '🌲 שבת חתן בצפון',
     excerpt: 'החלום ומה שחייבים לבדוק לפני שסוגרים — מה בעל המתחם לא אומר בטלפון, כניסת השבת בחורף, ואיזה אזור מתאים לקבוצה שלכם',
