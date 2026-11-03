@@ -5,7 +5,8 @@
 
 .homePage {
   min-height: 100vh;
-  background: #faf8f4; /* pearl */
+  /* light purple surround — the space around the white cards */
+  background: linear-gradient(180deg, #f3eaff 0%, #ecdfff 50%, #f3eaff 100%);
 }
 
 /* ── Scroll Reveal ── */
@@ -317,11 +318,11 @@
 
 .featureCard {
   background: #ffffff;
-  border: 1px solid #efe9df;
+  border: 1px solid #e6d9f8;
   padding: 2rem 1.75rem;
   border-radius: var(--radius-lg, 22px);
   text-align: center;
-  box-shadow: 0 6px 18px rgba(40, 30, 20, 0.05);
+  box-shadow: 0 6px 18px rgba(80, 40, 140, 0.07);
   transition: transform 0.30s ease, box-shadow 0.30s ease, border-color 0.30s ease;
 }
 
@@ -378,10 +379,10 @@
   position: relative;
   padding: 2.2rem 1.75rem 1.75rem;
   background: #ffffff;
-  border: 1px solid #efe9df;
+  border: 1px solid #e6d9f8;
   border-radius: var(--radius-lg, 22px);
   text-align: center;
-  box-shadow: 0 6px 18px rgba(40, 30, 20, 0.05);
+  box-shadow: 0 6px 18px rgba(80, 40, 140, 0.07);
   transition: transform 0.30s ease, box-shadow 0.30s ease;
 }
 .step:hover {
@@ -445,9 +446,9 @@
 
 .identityInner {
   background: #ffffff;
-  border: 1px solid #efe9df;
+  border: 1px solid #e6d9f8;
   border-radius: var(--radius-xl, 28px);
-  box-shadow: 0 10px 30px rgba(40, 30, 20, 0.06);
+  box-shadow: 0 10px 30px rgba(80, 40, 140, 0.08);
   padding: 3rem 2rem;
   text-align: center;
 }
