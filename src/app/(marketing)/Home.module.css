@@ -186,7 +186,7 @@
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  background: #ffffff;
+  background: #f8f4ff;
   border-radius: 16px;
   padding: 1rem 1.2rem;
   text-decoration: none;
@@ -317,7 +317,7 @@
 }
 
 .featureCard {
-  background: #ffffff;
+  background: #f8f4ff;
   border: 1px solid #e6d9f8;
   padding: 2rem 1.75rem;
   border-radius: var(--radius-lg, 22px);
@@ -378,7 +378,7 @@
 .step {
   position: relative;
   padding: 2.2rem 1.75rem 1.75rem;
-  background: #ffffff;
+  background: #f8f4ff;
   border: 1px solid #e6d9f8;
   border-radius: var(--radius-lg, 22px);
   text-align: center;
@@ -445,7 +445,7 @@
 }
 
 .identityInner {
-  background: #ffffff;
+  background: #f8f4ff;
   border: 1px solid #e6d9f8;
   border-radius: var(--radius-xl, 28px);
   box-shadow: 0 10px 30px rgba(80, 40, 140, 0.08);
