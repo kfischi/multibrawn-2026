@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     siteName: 'MULTIBRAWN',
     locale: 'he_IL',
     type: 'article',
-    images: [{ url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg', width: 1200, height: 630, alt: "וילה ל-30 איש ומעלה | MULTIBRAWN" }],
+    images: [{ url: 'https://multibrawn.co.il/logo-multibrawn.png', width: 1200, height: 630, alt: "וילה ל-30 איש ומעלה | MULTIBRAWN" }],
   },
   twitter: {
     card: 'summary_large_image',
     title: "וילה ל-30 איש ומעלה — מה שבעל הווילה יודע ואתם לא",
     description: "מה קורה בצד השני של הטלפון כשאתם מחפשים וילה לקבוצה גדולה.",
-    images: ['https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg'],
+    images: ['https://multibrawn.co.il/logo-multibrawn.png'],
   },
 };
 

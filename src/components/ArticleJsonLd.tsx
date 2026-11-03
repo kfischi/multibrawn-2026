@@ -16,7 +16,7 @@ export default function ArticleJsonLd({
   description,
   datePublished,
   dateModified,
-  image = 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+  image = 'https://multibrawn.co.il/logo-multibrawn.png',
   keywords = [],
 }: ArticleJsonLdProps) {
   const slug = url.split('/').pop() ?? '';

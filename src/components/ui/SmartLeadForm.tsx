@@ -75,7 +75,7 @@ export default function SmartLeadForm() {
             <input 
               name="name" 
               required 
-              className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-amber-500 outline-none transition-all text-gray-900"
+              className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-fuchsia-500 outline-none transition-all text-gray-900"
               placeholder="ישראל ישראלי" 
             />
           </div>
@@ -85,7 +85,7 @@ export default function SmartLeadForm() {
               name="phone" 
               type="tel" 
               required 
-              className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-amber-500 outline-none transition-all text-gray-900"
+              className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-fuchsia-500 outline-none transition-all text-gray-900"
               placeholder="050-0000000" 
             />
           </div>
@@ -94,7 +94,7 @@ export default function SmartLeadForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
             <label className="text-white/80 text-sm">סוג החופשה/אירוע</label>
-            <select name="eventType" className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-amber-500 outline-none transition-all text-gray-900">
+            <select name="eventType" className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-fuchsia-500 outline-none transition-all text-gray-900">
               <option value="vacation">חופשה משפחתית</option>
               <option value="couple">חופשה זוגית</option>
               <option value="villa">וילה למסיבה</option>
@@ -107,7 +107,7 @@ export default function SmartLeadForm() {
             <input 
               name="guests" 
               type="number" 
-              className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-amber-500 outline-none transition-all text-gray-900"
+              className="w-full p-3 bg-white/80 rounded-lg focus:bg-white focus:ring-2 focus:ring-fuchsia-500 outline-none transition-all text-gray-900"
               placeholder="10" 
             />
           </div>
@@ -116,7 +116,7 @@ export default function SmartLeadForm() {
         <button 
           type="submit" 
           disabled={loading}
-          className="w-full py-4 mt-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-lg rounded-xl shadow-lg transform hover:scale-[1.02] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 mt-2 bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:from-fuchsia-600 hover:to-purple-700 text-white font-bold text-lg rounded-xl shadow-lg transform hover:scale-[1.02] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? <Loader2 className="animate-spin" /> : <Send className="w-5 h-5" />}
           {loading ? 'שולח לערדית...' : 'התחל חיפוש חכם'}

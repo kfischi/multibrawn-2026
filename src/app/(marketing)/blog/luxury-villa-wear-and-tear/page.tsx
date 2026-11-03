@@ -44,7 +44,7 @@ export default function WearAndTearPage() {
 
         <div className={styles.featuredImage}>
           <Image 
-            src="https://res.cloudinary.com/dptyfvwyo/image/upload/f_auto,q_auto/v1765034116/Logo_1_dgyryu_e_background_removal_f_png_xpwl2w.png"
+            src="/logo-multibrawn.png"
             alt="סלון בוילה" 
             fill 
             style={{ objectFit: 'cover' }} 

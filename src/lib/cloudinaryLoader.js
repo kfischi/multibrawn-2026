@@ -43,7 +43,7 @@ export default function cloudinaryLoader({ src, width, quality }) {
  * 
  * 1. תמונה רגילה:
  * <Image
- *   src="https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg"
+ *   src="https://multibrawn.co.il/logo-multibrawn.png"
  *   width={180}
  *   height={60}
  *   alt="לוגו"

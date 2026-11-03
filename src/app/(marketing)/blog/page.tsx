@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://res.cloudinary.com/decirk3zb/image/upload/v1766783584/Logo_1_sneunp.jpg',
+        url: 'https://multibrawn.co.il/logo-multibrawn.png',
         width: 1200,
         height: 630,
         alt: 'בלוג MULTIBRAWN - טיפים ומדריכים לנופש',

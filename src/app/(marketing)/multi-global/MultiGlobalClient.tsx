@@ -170,9 +170,9 @@ export default function MultiGlobalClient() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: rgba(202,138,4,0.15);
-          border: 1px solid rgba(202,138,4,0.4);
-          color: #CA8A04;
+          background: rgba(139,92,246,0.15);
+          border: 1px solid rgba(139,92,246,0.4);
+          color: #8B5CF6;
           font-size: 0.75rem;
           font-weight: 700;
           letter-spacing: 3px;
@@ -185,7 +185,7 @@ export default function MultiGlobalClient() {
         .heroBadgeDot {
           width: 6px;
           height: 6px;
-          background: #CA8A04;
+          background: #8B5CF6;
           border-radius: 50%;
           animation: pulse 2s infinite;
         }
@@ -203,7 +203,7 @@ export default function MultiGlobalClient() {
           letter-spacing: -0.02em;
         }
         .heroTitle .gold {
-          color: #CA8A04;
+          color: #8B5CF6;
           display: block;
         }
         .heroSub {
@@ -222,8 +222,8 @@ export default function MultiGlobalClient() {
         }
         .btnGold {
           padding: 16px 44px;
-          background: linear-gradient(135deg, #CA8A04, #D97706);
-          color: #0C0A09;
+          background: linear-gradient(135deg, #8B5CF6, #1E40AF);
+          color: #FFFFFF;
           border: none;
           border-radius: 4px;
           font-size: 1rem;
@@ -233,11 +233,11 @@ export default function MultiGlobalClient() {
           letter-spacing: 1px;
           text-transform: uppercase;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 20px rgba(202,138,4,0.3);
+          box-shadow: 0 4px 20px rgba(139,92,246,0.3);
         }
         .btnGold:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(202,138,4,0.45);
+          box-shadow: 0 8px 30px rgba(139,92,246,0.45);
         }
         .btnOutline {
           padding: 15px 44px;
@@ -259,8 +259,8 @@ export default function MultiGlobalClient() {
           backdrop-filter: blur(6px);
         }
         .btnOutline:hover {
-          border-color: rgba(202,138,4,0.6);
-          color: #CA8A04;
+          border-color: rgba(139,92,246,0.6);
+          color: #8B5CF6;
           transform: translateY(-2px);
         }
         .heroScroll {
@@ -285,9 +285,9 @@ export default function MultiGlobalClient() {
 
         /* ── STATS ── */
         .statsBar {
-          background: rgba(202,138,4,0.06);
-          border-top: 1px solid rgba(202,138,4,0.15);
-          border-bottom: 1px solid rgba(202,138,4,0.15);
+          background: rgba(139,92,246,0.06);
+          border-top: 1px solid rgba(139,92,246,0.15);
+          border-bottom: 1px solid rgba(139,92,246,0.15);
           padding: 3rem 2rem;
         }
         .statsGrid {
@@ -302,7 +302,7 @@ export default function MultiGlobalClient() {
           font-family: 'Cinzel', serif;
           font-size: clamp(2rem, 4vw, 3rem);
           font-weight: 700;
-          color: #CA8A04;
+          color: #8B5CF6;
           margin: 0 0 4px;
           line-height: 1;
         }
@@ -324,7 +324,7 @@ export default function MultiGlobalClient() {
           font-weight: 700;
           letter-spacing: 4px;
           text-transform: uppercase;
-          color: #CA8A04;
+          color: #8B5CF6;
           margin: 0 0 1rem;
         }
         .sectionTitle {
@@ -353,7 +353,7 @@ export default function MultiGlobalClient() {
         .featureCard {
           background: rgba(245,240,232,0.03);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(202,138,4,0.12);
+          border: 1px solid rgba(139,92,246,0.12);
           border-radius: 2px;
           padding: 2.5rem 2rem;
           transition: all 0.3s ease;
@@ -364,31 +364,31 @@ export default function MultiGlobalClient() {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(202,138,4,0.05) 0%, transparent 60%);
+          background: linear-gradient(135deg, rgba(139,92,246,0.05) 0%, transparent 60%);
           opacity: 0;
           transition: opacity 0.3s;
         }
         .featureCard:hover::before { opacity: 1; }
         .featureCard:hover {
-          border-color: rgba(202,138,4,0.3);
+          border-color: rgba(139,92,246,0.3);
           transform: translateY(-4px);
           box-shadow: 0 16px 40px rgba(0,0,0,0.4);
         }
         .featureIconWrap {
           width: 56px;
           height: 56px;
-          border: 1px solid rgba(202,138,4,0.25);
+          border: 1px solid rgba(139,92,246,0.25);
           border-radius: 2px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #CA8A04;
+          color: #8B5CF6;
           margin-bottom: 1.5rem;
           transition: all 0.3s;
         }
         .featureCard:hover .featureIconWrap {
-          background: rgba(202,138,4,0.1);
-          border-color: rgba(202,138,4,0.5);
+          background: rgba(139,92,246,0.1);
+          border-color: rgba(139,92,246,0.5);
         }
         .featureTitle {
           font-family: 'Cinzel', serif;
@@ -429,7 +429,7 @@ export default function MultiGlobalClient() {
         .destCard:hover {
           transform: scale(1.02);
           box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-          border-color: rgba(202,138,4,0.25);
+          border-color: rgba(139,92,246,0.25);
           z-index: 1;
         }
         .destImg {
@@ -452,8 +452,8 @@ export default function MultiGlobalClient() {
           position: absolute;
           top: 14px;
           right: 14px;
-          background: rgba(202,138,4,0.9);
-          color: #0C0A09;
+          background: rgba(139,92,246,0.9);
+          color: #FFFFFF;
           font-size: 0.65rem;
           font-weight: 700;
           letter-spacing: 2px;
@@ -509,7 +509,7 @@ export default function MultiGlobalClient() {
         }
         .destCard:hover .destArrowBtn {
           opacity: 1;
-          background: rgba(202,138,4,0.8);
+          background: rgba(139,92,246,0.8);
           border-color: transparent;
         }
 
@@ -517,7 +517,7 @@ export default function MultiGlobalClient() {
         .divider {
           width: 60px;
           height: 1px;
-          background: linear-gradient(90deg, transparent, #CA8A04, transparent);
+          background: linear-gradient(90deg, transparent, #8B5CF6, transparent);
           margin: 0 auto 3rem;
         }
 
@@ -550,7 +550,7 @@ export default function MultiGlobalClient() {
           letter-spacing: -0.02em;
           line-height: 1.2;
         }
-        .ctaTitle .gold { color: #CA8A04; }
+        .ctaTitle .gold { color: #8B5CF6; }
         .ctaDesc {
           font-size: 1.05rem;
           color: rgba(245,240,232,0.6);
