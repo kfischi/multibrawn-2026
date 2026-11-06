@@ -159,9 +159,17 @@
   z-index: 1001;
 }
 
+.hamburgerLabel {
+  font-size: 0.6rem;
+  color: rgba(240, 234, 255, 0.75);
+  letter-spacing: 0.05em;
+  margin-top: 1px;
+  font-family: inherit;
+}
+
 .line {
   width: 24px;
-  height: 2px;
+  height: 3px;
   background: rgba(240, 234, 255, 0.85);
   border-radius: 2px;
   transition: all 0.3s ease;

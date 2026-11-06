@@ -221,8 +221,13 @@
 }
 
 /* ============================================
-   LOCATION CARDS GRID
+   LOCATION CARDS BAND + GRID
    ============================================ */
+.locationsBand {
+  background: #280d5a;
+  padding: 3rem 0;
+}
+
 .locationsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

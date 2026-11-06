@@ -101,6 +101,7 @@ export default function Header() {
             <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
             <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
             <span className={`${styles.line} ${isMobileMenuOpen ? styles.lineOpen : ''}`}></span>
+            <span className={styles.hamburgerLabel}>תפריט</span>
           </button>
         </div>
       </div>
