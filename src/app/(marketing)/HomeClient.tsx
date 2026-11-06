@@ -64,6 +64,7 @@ export default function HomePage() {
       </section>
 
       {/* Location Cards Grid */}
+      <div className={styles.locationsBand}>
       <section className={styles.locationsGrid}>
         {/* Villa Card */}
         <Link href="/gallery?category=villa" className={styles.locationCard}>
@@ -135,6 +136,7 @@ export default function HomePage() {
           </div>
         </Link>
       </section>
+      </div>
 
       {/* Why Choose Us Section */}
       <section className={`${styles.whyUs} ${styles.revealOnScroll}`}>
