@@ -29,36 +29,74 @@ export default function HomePage() {
 
   return (
     <div className={styles.homePage}>
-      {/* Hero Video Section */}
-      <section className={styles.heroVideo}>
-        <video
-          className={styles.videoBg}
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source
-            src="https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4"
-            type="video/mp4"
-          />
-        </video>
-        
-        <div className={styles.videoOverlay}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>הלוקיישן המושלם מחכה לכם</h1>
-            <p className={styles.heroSubtitle}>
-              וילות יוקרה, צימרים ומתחמי אירועים בסטנדרט בינלאומי
-            </p>
-            
-            <div className={styles.heroBtnGroup}>
-              <Link href="/contact" className={`${styles.heroBtn} ${styles.btnPrimary}`}>
-                בואו נמצא לכם מקום
-              </Link>
-              <Link href="/gallery" className={`${styles.heroBtn} ${styles.btnGlass}`}>
-                צפו בגלריה
-              </Link>
+      {/* Hero — black jewel inside a vivid purple frame */}
+      <div className={styles.heroFrame}>
+        <section className={styles.heroVideo}>
+          <video
+            className={styles.videoBg}
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
+            <source
+              src="https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4"
+              type="video/mp4"
+            />
+          </video>
+
+          <div className={styles.videoOverlay}>
+            <div className={styles.heroContent}>
+              <h1 className={styles.heroTitle}>
+                הלוקיישן המושלם <span className={styles.heroAccent}>מחכה לכם</span>
+              </h1>
+              <div className={styles.ornament} aria-hidden="true">◆</div>
+              <p className={styles.heroSubtitle}>
+                וילות יוקרה, צימרים ומתחמי אירועים בסטנדרט בינלאומי
+              </p>
+
+              <div className={styles.heroBtnGroup}>
+                <Link href="/contact" className={`${styles.heroBtn} ${styles.btnPrimary}`}>
+                  בואו נמצא לכם מקום
+                </Link>
+                <Link href="/gallery" className={`${styles.heroBtn} ${styles.btnGlass}`}>
+                  צפו בגלריה
+                </Link>
+              </div>
+              <p className={styles.heroTrust}>ליווי אישי · בכל רחבי הארץ</p>
             </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Audience paths */}
+      <section className={styles.paths}>
+        <div className={styles.container}>
+          <div className={styles.pathsGrid}>
+            <Link href="/gallery" className={styles.pathCard}>
+              <span className={styles.pathIcon} aria-hidden="true">🏡</span>
+              <span className={styles.pathText}>
+                <strong>נופש וקבוצות</strong>
+                <span>וילות, צימרים ומתחמים למשפחות ולקבוצות</span>
+              </span>
+              <span className={styles.pathArrow} aria-hidden="true">‹</span>
+            </Link>
+            <Link href="/shabbat-hatan" className={styles.pathCard}>
+              <span className={styles.pathIcon} aria-hidden="true">🕯️</span>
+              <span className={styles.pathText}>
+                <strong>שבתות חתן</strong>
+                <span>התאמה אישית לפי הקהל, הכשרות והתקציב</span>
+              </span>
+              <span className={styles.pathArrow} aria-hidden="true">‹</span>
+            </Link>
+            <Link href="/gallery?category=event" className={styles.pathCard}>
+              <span className={styles.pathIcon} aria-hidden="true">🎉</span>
+              <span className={styles.pathText}>
+                <strong>אירועים</strong>
+                <span>מתחמים לאירועים קטנים וגדולים</span>
+              </span>
+              <span className={styles.pathArrow} aria-hidden="true">‹</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -140,30 +178,29 @@ export default function HomePage() {
       <section className={`${styles.whyUs} ${styles.revealOnScroll}`}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>למה לבחור ב-MULTIBRAWN?</h2>
-          <p className={styles.sectionSubtitle}>אנחנו לא רק מוצאים לכם מקום - אנחנו מוצאים את המקום המושלם</p>
-          
+          <div className={styles.ornamentDark} aria-hidden="true">◆</div>
+          <p className={styles.sectionSubtitle}>אנחנו לא רק מוצאים לכם מקום — אנחנו מוצאים את המקום המושלם</p>
+
           <div className={styles.featuresGrid}>
             <div className={styles.featureCard}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h3>ניסיון של 10+ שנים</h3>
-              <p>מומחיות מוכחת במציאת הלוקיישנים הטובים ביותר בישראל</p>
+              <h3>התאמה אישית אמיתית</h3>
+              <p>לא רשימה גנרית — שאלון קצר שממפה בדיוק מה אתם צריכים, והתאמה אחת מדויקת</p>
             </div>
 
             <div className={styles.featureCard}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h3>500+ לקוחות מרוצים</h3>
-              <p>לקוחות שמצאו את החופשה המושלמת דרכנו</p>
+              <h3>היכרות אמיתית מהשטח</h3>
+              <p>מה שלא כתוב באתר של המתחם ומה שלא מספרים בטלפון — אנחנו כבר יודעים</p>
             </div>
 
             <div className={styles.featureCard}>
@@ -195,8 +232,9 @@ export default function HomePage() {
       <section className={`${styles.howItWorks} ${styles.revealOnScroll}`}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>איך זה עובד?</h2>
+          <div className={styles.ornamentDark} aria-hidden="true">◆</div>
           <p className={styles.sectionSubtitle}>4 שלבים פשוטים למציאת הלוקיישן המושלם עם ערדית</p>
-          
+
           <div className={styles.stepsGrid}>
             <div className={styles.step}>
               <div className={styles.stepNumber}>1</div>
@@ -206,7 +244,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3>פתחו שיחה עם ערדית</h3>
-              <p>הצ'אטבוט החכם שלנו ישאל אתכם כמה שאלות כדי להבין בדיוק מה אתם מחפשים</p>
+              <p>הצ&apos;אטבוט החכם שלנו ישאל אתכם כמה שאלות כדי להבין בדיוק מה אתם מחפשים</p>
             </div>
 
             <div className={styles.step}>
@@ -241,156 +279,41 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3>תהנו מהחופשה המושלמת</h3>
-              <p>רק צריך להגיע ולהתחיל ליהנות - דאגנו לכם לכל הפרטים!</p>
+              <p>רק צריך להגיע ולהתחיל ליהנות — דאגנו לכם לכל הפרטים!</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Success Stories Section */}
-      <section className={`${styles.featured} ${styles.revealOnScroll}`}>
+      {/* Ardit identity + guides */}
+      <section className={`${styles.identity} ${styles.revealOnScroll}`}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>הצלחות אחרונות שלנו</h2>
-          <p className={styles.sectionSubtitle}>לקוחות שמצאו את המקום המושלם דרך ערדית והצ'אטבוט החכם שלנו</p>
-          
-          <div className={styles.featuredGrid}>
-            {/* Success Story 1 */}
-            <article className={styles.featuredCard}>
-              <div className={styles.featuredImageWrapper}>
-                <Image
-                  src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg"
-                  alt="וילה יוקרתית שמצאנו למשפחת כהן בגליל"
-                  fill
-                  className={styles.featuredImage}
-                  loading="lazy"
-                />
-                <span className={styles.featuredBadge}>סיפור הצלחה</span>
-              </div>
-              <div className={styles.featuredContent}>
-                <h3>משפחת כהן - וילה בגליל</h3>
-                <p className={styles.featuredLocation}>
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  גליל עליון
-                </p>
-                <p className={styles.featuredDesc}>
-                  "חיפשנו וילה ל-20 איש עם בריכה מחוממת. דיברנו עם ערדית בצ'אט והיא מצאה לנו תוך יום את המקום המושלם!"
-                </p>
-                <div className={styles.featuredFeatures}>
-                  <span>20 אורחים</span>
-                  <span>בריכה מחוממת</span>
-                  <span>תוך יום!</span>
-                </div>
-              </div>
-            </article>
-
-            {/* Success Story 2 */}
-            <article className={styles.featuredCard}>
-              <div className={styles.featuredImageWrapper}>
-                <Image
-                  src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1763726074/A7_rwzsuo.jpg"
-                  alt="צימר רומנטי שמצאנו לדני ורונית"
-                  fill
-                  className={styles.featuredImage}
-                  loading="lazy"
-                />
-                <span className={styles.featuredBadge}>סיפור הצלחה</span>
-              </div>
-              <div className={styles.featuredContent}>
-                <h3>דני ורונית - צימר רומנטי</h3>
-                <p className={styles.featuredLocation}>
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  גליל מערבי
-                </p>
-                <p className={styles.featuredDesc}>
-                  "הצ'אטבוט הבין בדיוק מה אנחנו רוצים - צימר שקט עם ג'קוזי ונוף. התוצאה הייתה מדויקת ומושלמת!"
-                </p>
-                <div className={styles.featuredFeatures}>
-                  <span>זוג</span>
-                  <span>ג'קוזי פרטי</span>
-                  <span>התאמה מושלמת</span>
-                </div>
-              </div>
-            </article>
-
-            {/* Success Story 3 */}
-            <article className={styles.featuredCard}>
-              <div className={styles.featuredImageWrapper}>
-                <Image
-                  src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762003191/1_tsc6xx.jpg"
-                  alt="מתחם אירועים שמצאנו לחברת Hi-Tech"
-                  fill
-                  className={styles.featuredImage}
-                  loading="lazy"
-                />
-                <span className={styles.featuredBadge}>סיפור הצלחה</span>
-              </div>
-              <div className={styles.featuredContent}>
-                <h3>חברת Hi-Tech - אירוע חברה</h3>
-                <p className={styles.featuredLocation}>
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  מרכז הארץ
-                </p>
-                <p className={styles.featuredDesc}>
-                  "ארגנו לנו אירוע ל-100 עובדים. ערדית הבינה את הצרכים המדויקים והמקום היה בדיוק מה שחיפשנו!"
-                </p>
-                <div className={styles.featuredFeatures}>
-                  <span>100 אורחים</span>
-                  <span>אירוע חברה</span>
-                  <span>מקצועיות מלאה</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className={`${styles.testimonials} ${styles.revealOnScroll}`}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>מה הלקוחות שלנו אומרים</h2>
-          <p className={styles.sectionSubtitle}>ביקורות אמיתיות מלקוחות מרוצים</p>
-          
-          <div className={styles.testimonialsGrid}>
-            <div className={styles.testimonialCard}>
-              <div className={styles.stars}>⭐⭐⭐⭐⭐</div>
-              <p className={styles.testimonialText}>
-                "מצאו לנו וילה מדהימה בצפון תוך יומיים. השירות היה מקצועי ואדיב. ממליצה בחום!"
-              </p>
-              <div className={styles.testimonialAuthor}>
-                <strong>שירה כהן</strong>
-                <span>תל אביב</span>
-              </div>
-            </div>
-
-            <div className={styles.testimonialCard}>
-              <div className={styles.stars}>⭐⭐⭐⭐⭐</div>
-              <p className={styles.testimonialText}>
-                "אחרי ניסיונות רבים בחיפושים סוף סוף מצאנו את הצימר המושלם לחופשה משפחתית. תודה ערדית!"
-              </p>
-              <div className={styles.testimonialAuthor}>
-                <strong>דני לוי</strong>
-                <span>ירושלים</span>
-              </div>
-            </div>
-
-            <div className={styles.testimonialCard}>
-              <div className={styles.stars}>⭐⭐⭐⭐⭐</div>
-              <p className={styles.testimonialText}>
-                "ארגנו אירוע חברה מושלם במתחם שמצאו לנו. הכל היה מקצועי ומדויק. חוויה נהדרת!"
-              </p>
-              <div className={styles.testimonialAuthor}>
-                <strong>מיכל רוזן</strong>
-                <span>חיפה</span>
-              </div>
+          <div className={styles.identityInner}>
+            <h2 className={styles.identityTitle}>מאחורי MULTIBRAWN — ערדית בראון</h2>
+            <div className={styles.ornament} aria-hidden="true">◆</div>
+            <p className={styles.identityText}>
+              חיבורים אישיים בין משפחות, קבוצות ועסקים למתחמים, וילות ומלונות בוטיק בכל הארץ —
+              עם היכרות מהשטח, שאלון התאמה מדויק וליווי עד שסוגרים את המקום הנכון.
+            </p>
+            <div className={styles.guideCards}>
+              <a
+                href="https://free-guide.multibrawn.co.il"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.guideCard}
+              >
+                <strong>המדריך החינמי לשבת חתן</strong>
+                <span>30 שלבים מעשיים, מהחזון ועד הפרידה</span>
+              </a>
+              <a
+                href="https://guide.multibrawn.co.il"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.guideCard} ${styles.guideCardFull}`}
+              >
+                <strong>המהדורה המלאה</strong>
+                <span>מערכת תכנון חיה: כמויות, לוח זמנים ותקציב</span>
+              </a>
             </div>
           </div>
         </div>
@@ -404,7 +327,7 @@ export default function HomePage() {
             ערדית, העוזרת הדיגיטלית שלנו, מחכה לעזור לכם למצוא את הלוקיישן שתמיד חלמתם עליו
           </p>
           <div className={styles.ctaBtnGroup}>
-            <button 
+            <button
               onClick={() => {
                 // Find chat button and click it
                 const chatButton = document.querySelector('[data-chatbot]') as HTMLButtonElement;
@@ -419,7 +342,7 @@ export default function HomePage() {
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              דברו עם ערדית - הצ'אטבוט שלנו
+              דברו עם ערדית — הצ&apos;אטבוט שלנו
             </button>
             <Link href="https://wa.me/972523983394" className={`${styles.ctaBtn} ${styles.ctaBtnSecondary}`} target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

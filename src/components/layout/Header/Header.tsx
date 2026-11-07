@@ -47,13 +47,13 @@ export default function Header() {
           <div className={styles.logoContainer}>
             <div className={styles.logo}>
               <Image
-                src="/logo-multibrawn.png"
+                src="/logo-multibrawn-clear.png"
                 alt="MULTIBRAWN"
-                width={100}
-                height={28}
+                width={118}
+                height={36}
                 priority
-                style={{ 
-                  maxWidth: '100px', 
+                style={{
+                  maxWidth: '118px',
                   height: 'auto',
                   objectFit: 'contain'
                 }}
