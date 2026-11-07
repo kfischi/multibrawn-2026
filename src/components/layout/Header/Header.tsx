@@ -59,7 +59,6 @@ export default function Header() {
                 }}
               />
             </div>
-            <span className={styles.brandName}>MULTIBRAWN</span>
           </div>
         </Link>
 
