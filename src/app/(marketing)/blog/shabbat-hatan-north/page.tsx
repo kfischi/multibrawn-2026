@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '../Article.module.css';
 import ArticleJsonLd from '@/components/ArticleJsonLd';
+import VideoEmbed from '@/components/VideoEmbed';
 
 export const metadata: Metadata = {
   title: "שבת חתן בצפון — החלום, ומה שחייבים לבדוק לפני שסוגרים | MULTIBRAWN",
@@ -75,6 +76,17 @@ export default function Article() {
           • <strong>רמת הגולן</strong> — מרחבים ואוויר צלול, נעים גם בשבתות קיץ.<br/>
           • <strong>סובב כנרת</strong> — קרוב ונוח להגעה, אבל חם מאוד בקיץ — מיזוג הוא לא המלצה, הוא תנאי.</p>
           <p>אין &quot;הצפון&quot; אחד. יש התאמה של אזור לקבוצה שלכם — לגיל האורחים, לעונה ולמרחק הנסיעה.</p>
+
+          <h2>רגע מהשטח: שבת חתן ל-60 איש בטבריה</h2>
+          <p>ואם בא לכם לראות איך הדילמה הזאת נראית בחיים האמיתיים — הנה שורט קצר מהערוץ שלי, בדיוק על קבוצה של 60 איש וסובב כנרת:</p>
+          <VideoEmbed
+            videoId="nLmoiijvxZs"
+            videoName="רגע! שבת חתן ל-60 איש בטבריה? 💍"
+            description="שורט מערוץ היוטיוב של ערדית בראון (MULTIBRAWN): שבת חתן ל-60 איש בטבריה — איך ניגשים להתאמת מתחם לקבוצה גדולה בסובב כנרת."
+            uploadDate="2026-11-05"
+            pageUrl="https://multibrawn.co.il/blog/shabbat-hatan-north"
+            caption="מתוך ערוץ היוטיוב של MULTIBRAWN"
+          />
 
           <h2>אוכל וכשרות בצפון</h2>
           <p>שתי דרכים: קייטרינג מקומי מהצפון, או שינוע מהמרכז. לכל אחת יתרון — ושתיהן דורשות לסגור מראש את רמת הכשרות (רבנות, מהדרין, בד&quot;ץ) לפי הקהל שלכם: חרדי, דתי או מעורב. מתחם ושירות שמושלמים לקהל אחד יכולים לא להתאים בכלל לקהל אחר — וזה דבר שמבררים לפני הסגירה, לא אחריה.</p>

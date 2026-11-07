@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from '../Article.module.css';
+import VideoEmbed from '@/components/VideoEmbed';
 
 export const metadata: Metadata = {
   title: "וילה ל-30 איש ומעלה — מה שבעל הווילה יודע ואתם לא | MULTIBRAWN",
@@ -62,6 +63,17 @@ export default function Article() {
 
           <h2>למה דווקא וילה, ולא מלון?</h2>
           <p>כתבתי על זה <Link href="/blog/shabbat-hatan-cost-guide">במאמר התקציב</Link>: מלונות בנויים לקבוצות של 15–25 חדרים, ומתחת לזה אתם פשוט לא מעניינים אותם. קבוצה של 30–50 איש היא בדיוק &quot;באמצע&quot; — גדולה מדי לצימרים, קטנה מדי למלון. וילות ומתחמים פרטיים הם הפתרון הטבעי: המקום כולו שלכם, המטבח שלכם (קריטי לכשרות — רבנות, מהדרין או בד&quot;ץ, אתם קובעים), והקצב שלכם.</p>
+
+          <h2>רגע מהשטח: וילה בקיסריה</h2>
+          <p>ולפני השאלות — טעימה מהשטח: שורט קצר מהערוץ שלי, מווילה בקיסריה:</p>
+          <VideoEmbed
+            videoId="EizzdcCjEXQ"
+            videoName="קיסריה: עם מי היית יוצאים לחופשה? 🏡"
+            description="שורט מערוץ היוטיוב של ערדית בראון (MULTIBRAWN): הצצה לווילה בקיסריה — מתוך סדרת הסרטונים על וילות ומתחמי אירוח בארץ."
+            uploadDate="2026-11-03"
+            pageUrl="https://multibrawn.co.il/blog/villa-30-guests"
+            caption="מתוך ערוץ היוטיוב של MULTIBRAWN"
+          />
 
           <h2>חמש שאלות שבעלי וילות מכבדים</h2>
           <p>כששואלים אותן, בעל הווילה מבין שמולו קבוצה רצינית — וזה משנה את הטון ולפעמים גם את המחיר:</p>
