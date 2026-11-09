@@ -48,22 +48,24 @@ export default function HomePage() {
           <div className={styles.videoOverlay}>
             <div className={styles.heroContent}>
               <h1 className={styles.heroTitle}>
-                הלוקיישן המושלם <span className={styles.heroAccent}>מחכה לכם</span>
+                לא מוצאים <span className={styles.heroAccent}>בגלילה.</span>
               </h1>
               <div className={styles.ornament} aria-hidden="true">◆</div>
               <p className={styles.heroSubtitle}>
-                וילות יוקרה, צימרים ומתחמי אירועים בסטנדרט בינלאומי
+                מתחמים · וילות · מלונות בוטיק<br/>
+                נסגרים בהתאמה אישית.<br/>
+                לא בקטלוג.
               </p>
 
               <div className={styles.heroBtnGroup}>
                 <Link href="/contact" className={`${styles.heroBtn} ${styles.btnPrimary}`}>
-                  בואו נמצא לכם מקום
+                  לקבלת התאמה אישית
                 </Link>
                 <Link href="/gallery" className={`${styles.heroBtn} ${styles.btnGlass}`}>
                   צפו בגלריה
                 </Link>
               </div>
-              <p className={styles.heroTrust}>ליווי אישי · בכל רחבי הארץ</p>
+              <p className={styles.heroTrust}>התאמה אישית · לא קטלוג · בכל הארץ</p>
             </div>
           </div>
         </section>

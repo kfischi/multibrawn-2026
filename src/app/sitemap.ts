@@ -38,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog/shabbat-hatan-north`, lastModified: '2026-10-30' },
     { url: `${baseUrl}/blog/sheva-brachot-guide`, lastModified: '2026-10-30' },
     { url: `${baseUrl}/blog/shabbat-hatan-jerusalem`, lastModified: '2025-04-01' },
+    { url: `${baseUrl}/blog/shabbat-hatan-south`, lastModified: '2026-11-09' },
     { url: `${baseUrl}/blog/why-multi`, lastModified: '2025-05-01' },
     { url: `${baseUrl}/blog/villa-30-guests`, lastModified: '2025-05-01' },
     { url: `${baseUrl}/blog/eilat-warning`, lastModified: '2025-06-01' },
