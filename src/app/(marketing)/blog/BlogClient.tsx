@@ -22,6 +22,15 @@ interface BlogClientProps {
 
 const hardcodedArticles: Article[] = [
   {
+    slug: 'shabbat-hatan-south',
+    title: '🌵 שבת חתן בדרום',
+    excerpt: 'ים המלח, ערבה ומכתש רמון — מה עובד ומה לא, החשבון הלוגיסטי, כשרות בבאר שבע, ואיך מתאימים מתחם לקהל שמגיע מכל הארץ',
+    category: 'שבת חתן',
+    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
+    date: '9 בנובמבר 2026',
+    readTime: '6 דק׳',
+  },
+  {
     slug: 'my-questionnaire-process',
     title: '📋 איך עובד השאלון שלי',
     excerpt: 'לפני כל המלצה — שאלון. חמש השאלות שחייבים לענות עליהן לפני שסוגרים מתחם, ולמה בלעדיהן אני לא ממליצה',
@@ -83,15 +92,6 @@ const hardcodedArticles: Article[] = [
     image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
     date: '28 באוקטובר 2026',
     readTime: '5 דק׳',
-  },
-  {
-    slug: 'shabbat-hatan-south',
-    title: '🌵 שבת חתן בדרום',
-    excerpt: 'ים המלח, ערבה ומכתש רמון — מה עובד ומה לא, החשבון הלוגיסטי, כשרות בבאר שבע, ואיך מתאימים מתחם לקהל שמגיע מכל הארץ',
-    category: 'שבת חתן',
-    image: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1763828299/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F_zo14ig.png',
-    date: '9 בנובמבר 2026',
-    readTime: '6 דק׳',
   },
   {
     slug: 'shabbat-hatan-cost-guide',
