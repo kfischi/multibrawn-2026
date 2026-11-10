@@ -186,16 +186,18 @@
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  background: #f8f4ff;
+  background: #ffffff;
+  border: 1px solid rgba(217, 70, 239, 0.18);
   border-radius: 16px;
   padding: 1rem 1.2rem;
   text-decoration: none;
-  box-shadow: 0 10px 26px rgba(40, 5, 70, 0.22);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 20px rgba(93, 56, 182, 0.14), 0 1px 4px rgba(93, 56, 182, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .pathCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(40, 5, 70, 0.30);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(139, 92, 246, 0.28), 0 0 0 2px rgba(217, 70, 239, 0.25);
+  border-color: rgba(217, 70, 239, 0.40);
 }
 
 .pathIcon {
@@ -292,7 +294,10 @@
   font-weight: 800;
   text-align: center;
   margin-bottom: 0.4rem;
-  color: #0d0a14;
+  background: linear-gradient(135deg, #5B21B6 0%, #9333EA 50%, #D946EF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .sectionSubtitle {
@@ -322,19 +327,19 @@
 }
 
 .featureCard {
-  background: #f8f4ff;
-  border: 1px solid #e6d9f8;
+  background: #ffffff;
+  border: 1px solid rgba(217, 70, 239, 0.14);
   padding: 2rem 1.75rem;
   border-radius: var(--radius-lg, 22px);
   text-align: center;
-  box-shadow: 0 6px 18px rgba(80, 40, 140, 0.07);
+  box-shadow: 0 4px 24px rgba(93, 56, 182, 0.10);
   transition: transform 0.30s ease, box-shadow 0.30s ease, border-color 0.30s ease;
 }
 
 .featureCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.16);
-  border-color: rgba(139, 92, 246, 0.35);
+  transform: translateY(-10px);
+  box-shadow: 0 24px 56px rgba(139, 92, 246, 0.22), 0 0 0 2px rgba(217, 70, 239, 0.22);
+  border-color: rgba(217, 70, 239, 0.38);
 }
 
 .featureIcon {
@@ -383,16 +388,17 @@
 .step {
   position: relative;
   padding: 2.2rem 1.75rem 1.75rem;
-  background: #f8f4ff;
-  border: 1px solid #e6d9f8;
+  background: #ffffff;
+  border: 1px solid rgba(217, 70, 239, 0.14);
   border-radius: var(--radius-lg, 22px);
   text-align: center;
-  box-shadow: 0 6px 18px rgba(80, 40, 140, 0.07);
-  transition: transform 0.30s ease, box-shadow 0.30s ease;
+  box-shadow: 0 4px 24px rgba(93, 56, 182, 0.10);
+  transition: transform 0.30s ease, box-shadow 0.30s ease, border-color 0.30s ease;
 }
 .step:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.16);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(139, 92, 246, 0.22), 0 0 0 2px rgba(217, 70, 239, 0.22);
+  border-color: rgba(217, 70, 239, 0.38);
 }
 
 .stepNumber {
@@ -450,10 +456,10 @@
 }
 
 .identityInner {
-  background: #f8f4ff;
-  border: 1px solid #e6d9f8;
+  background: #ffffff;
+  border: 1px solid rgba(217, 70, 239, 0.16);
   border-radius: var(--radius-xl, 28px);
-  box-shadow: 0 10px 30px rgba(80, 40, 140, 0.08);
+  box-shadow: 0 8px 40px rgba(93, 56, 182, 0.12), 0 2px 8px rgba(93, 56, 182, 0.06);
   padding: 3rem 2rem;
   text-align: center;
 }
@@ -489,22 +495,24 @@
   padding: 1.2rem 1.4rem;
   border-radius: 16px;
   text-decoration: none;
-  border: 1.5px solid #e2d4f5;
-  background: #faf7ff;
+  border: 1.5px solid rgba(109, 40, 217, 0.18);
+  background: #ffffff;
+  box-shadow: 0 2px 14px rgba(93, 56, 182, 0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   text-align: right;
 }
 .guideCard:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   border-color: #D946EF;
-  box-shadow: 0 12px 30px rgba(217, 70, 239, 0.14);
+  box-shadow: 0 16px 40px rgba(217, 70, 239, 0.22), 0 0 0 2px rgba(217, 70, 239, 0.18);
 }
 .guideCard strong { color: #6D28D9; font-size: 1.05rem; }
 .guideCard span { color: #6b6180; font-size: 0.88rem; line-height: 1.5; }
 
 .guideCardFull {
-  background: linear-gradient(135deg, #fdf4ff 0%, #f5f0ff 100%);
+  background: linear-gradient(135deg, #fff0ff 0%, #f5eeff 100%);
   border-color: #D946EF;
+  border-width: 2px;
 }
 .guideCardFull strong { color: #C026D3; }
 
