@@ -43,10 +43,11 @@
 
 /* Card */
 .card {
-  background: white;
+  background: var(--color-dark-3);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -57,7 +58,8 @@
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--glass-border-glow);
 }
 
 .cardImage {
