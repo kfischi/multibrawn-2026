@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: 'חופשת פסח — איך לתכנן בלי להוציא הון | MULTIBRAWN',
+  title: 'חופשת פסח — איך לתכנן בלי להוציא הון',
   description: 'פסח מגיע כל שנה ותמיד ברגע האחרון. כך תתכננו נכון, תוזילו משמעותית ותיהנו יותר.',
   keywords: ['חופשת פסח', 'נופש פסח', 'צימר פסח', 'וילה פסח', 'פסח משפחתי', 'הזמנת פסח מוקדמת'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/passover-vacation-tips' },

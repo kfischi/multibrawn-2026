@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "מחפשים צימר זול? למה לפעמים זול יוצא יקר | MULTIBRAWN",
+  title: "מחפשים צימר זול? למה לפעמים זול יוצא יקר",
   description: "צימר זול יכול לעלות לכם ביוקר. גלו את 7 הטעויות הנפוצות ביותר בחיפוש אחר מבצעים, ואיך לחסוך כסף בלי לקלקל את החופשה.",
   keywords: ["צימר זול", "מבצעי צימרים", "הנחות צימרים", "צימר במחיר טוב", "טעויות בהזמנת צימר"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/cheap-zimmer-warning' },

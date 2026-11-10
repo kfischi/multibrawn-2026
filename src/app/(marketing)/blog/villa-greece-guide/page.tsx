@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: 'וילה ביוון — המדריך המלא לישראלים | MULTIBRAWN',
+  title: 'וילה ביוון — המדריך המלא לישראלים',
   description: 'סנטוריני, מיקונוס או כרתים? כל מה שצריך לדעת לפני שמזמינים וילה ביוון — מחירים, עונות, שאלות שחייבים לשאול.',
   keywords: ['וילה ביוון', 'נופש ביוון', 'סנטוריני', 'מיקונוס', 'כרתים', 'וילה ים תיכוני', 'חופשה ביוון'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/villa-greece-guide' },

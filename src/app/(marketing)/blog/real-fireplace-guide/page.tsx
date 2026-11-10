@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "קמין אמיתי בצימר — או פשוט דקורטיבי? המדריך | MULTIBRAWN",
+  title: "קמין אמיתי בצימר — או פשוט דקורטיבי? המדריך",
   description: "מחפשים צימר עם קמין לחורף? הבדל בין קמין אמיתי לדקורטיבי, איך לוודא שהוא עובד, ואיזה צימרים בישראל יש בהם קמין אמיתי.",
   keywords: ["צימר עם קמין", "קמין בצימר", "צימר חורף", "קמין עצים", "נופש חורף ישראל"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/real-fireplace-guide' },

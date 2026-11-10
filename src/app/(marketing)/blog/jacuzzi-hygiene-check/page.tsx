@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "הג׳קוזי המלוכלך — בדיקות היגיינה לפני שנכנסים | MULTIBRAWN",
+  title: "הג׳קוזי המלוכלך — בדיקות היגיינה לפני שנכנסים",
   description: "נכנסתם לג׳קוזי ויש קצף צהוב? צאו מיד. מדריך לבדיקת ג׳קוזי בצימר: מה לחפש, מה מסוכן, ואיך לדרוש ג׳קוזי נקי.",
   keywords: ["ג׳קוזי נקי", "היגיינה צימר", "בדיקת ג׳קוזי", "ג׳קוזי בצימר", "ג׳קוזי פרטי", "בטיחות ג׳קוזי"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/jacuzzi-hygiene-check' },

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "בריכה מחוממת בצימר — מחוממת אמיתית או פושרת? המדריך | MULTIBRAWN",
+  title: "בריכה מחוממת בצימר — מחוממת אמיתית או פושרת? המדריך",
   description: "לפני שאתם מזמינים צימר עם בריכה מחוממת לחורף — חייבים לקרוא. ההבדל בין משאבת חום לסולארי, אילו שאלות לשאול, ומה כתוב בכוכבית.",
   keywords: ["בריכה מחוממת", "צימר עם בריכה", "וילה עם בריכה מחוממת", "בריכה חורף", "משאבת חום בריכה", "צימר עם בריכה בחורף"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/heated-pool-guide' },

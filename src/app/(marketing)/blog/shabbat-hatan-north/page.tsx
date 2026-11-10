@@ -5,7 +5,7 @@ import ArticleJsonLd from '@/components/ArticleJsonLd';
 import VideoEmbed from '@/components/VideoEmbed';
 
 export const metadata: Metadata = {
-  title: "שבת חתן בצפון — החלום, ומה שחייבים לבדוק לפני שסוגרים | MULTIBRAWN",
+  title: "שבת חתן בצפון — החלום, ומה שחייבים לבדוק לפני שסוגרים",
   description: "שבת חתן בצפון: למה מתחם פרטי בגליל או בגולן מנצח מלון במרכז, מה בעל המתחם לא אומר בטלפון, החשבון של כניסת השבת בחורף — ואיך בוחרים אזור לפי הקבוצה שלכם.",
   keywords: ["שבת חתן בצפון", "מתחם לשבת חתן בצפון", "שבת חתן בגליל", "שבת חתן ברמת הגולן", "מתחם אירוח לקבוצות בצפון", "שבת חתן", "ארגון שבת חתן"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/shabbat-hatan-north' },

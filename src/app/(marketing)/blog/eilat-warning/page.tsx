@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "נוסעים לאילת? 5 דברים שחייבים לדעת לפני | MULTIBRAWN",
+  title: "נוסעים לאילת? 5 דברים שחייבים לדעת לפני",
   description: "אילת בעיניים פתוחות — מה לא יספרו לכם ביקורות. מחירי עונה, חום קיצוני, שמורות טבע ומה עדיף להזמין מראש. הטיפים האמיתיים.",
   keywords: ["נסיעה לאילת", "אילת מלון", "חופשה באילת", "אילת טיפים", "אילת עם ילדים", "אילת קיץ"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/eilat-warning' },

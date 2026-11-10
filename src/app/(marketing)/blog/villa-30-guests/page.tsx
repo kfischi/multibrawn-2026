@@ -4,7 +4,7 @@ import styles from '../Article.module.css';
 import VideoEmbed from '@/components/VideoEmbed';
 
 export const metadata: Metadata = {
-  title: "וילה ל-30 איש ומעלה — מה שבעל הווילה יודע ואתם לא | MULTIBRAWN",
+  title: "וילה ל-30 איש ומעלה — מה שבעל הווילה יודע ואתם לא",
   description: "מחפשים וילה לקבוצה גדולה? הנה מה שקורה בצד השני של הטלפון: למה בעלי וילות מסננים קבוצות, מה באמת סופרים במקום מיטות, ואיך קבוצה טובה מקבלת מחיר טוב.",
   keywords: ["וילה ל-30 איש", "וילה לקבוצה גדולה", "וילה למשפחה גדולה", "השכרת וילה לקבוצות", "וילה לשבת", "מתחם אירוח לקבוצות", "וילה גדולה להשכרה"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/villa-30-guests' },

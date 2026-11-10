@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ContactClient from './ContactClient';
 
 export const metadata: Metadata = {
-  title: 'צרו קשר | MULTIBRAWN — דברו עם ערדית',
+  title: 'צרו קשר — דברו עם ערדית',
   description: 'צרו קשר עם ערדית מ-MULTIBRAWN ומצאו את הצימר, הוילה או מתחם האירועים המושלם עבורכם. זמינים בוואטסאפ, אינסטגרם ובצ׳אטבוט 24/7.',
   keywords: ['צרו קשר צימר', 'MULTIBRAWN ערדית', 'ייעוץ נופש', 'בקשת הצעת מחיר', 'שבת חתן יעוץ', 'ייעוץ וילה', 'iiuux nxe mulbrawn'],
   alternates: { canonical: 'https://multibrawn.co.il/contact' },

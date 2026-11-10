@@ -151,7 +151,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const dest = destinations[slug];
   if (!dest) return { title: 'Multi-Global' };
   return {
-    title: `${dest.headline} | Multi-Global MULTIBRAWN`,
+    title: `${dest.headline} | Multi-Global`,
     description: dest.description[0],
     alternates: { canonical: `https://multibrawn.co.il/multi-global/${slug}` },
     openGraph: {
