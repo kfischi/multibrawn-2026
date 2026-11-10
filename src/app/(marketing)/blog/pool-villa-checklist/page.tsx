@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: 'צ׳קליסט: 15 שאלות לפני הזמנת וילה עם בריכה | MULTIBRAWN',
+  title: 'צ׳קליסט: 15 שאלות לפני הזמנת וילה עם בריכה',
   description: 'בריכה מחוממת? מגודרת? נקייה? ישנה? 15 שאלות חיוניות שחייבים לשאול לפני שמשלמים על וילה עם בריכה.',
   keywords: ['וילה עם בריכה', 'בריכה מחוממת', 'וילה לפסח', 'צ׳קליסט וילה', 'שאלות לפני הזמנה'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/pool-villa-checklist' },

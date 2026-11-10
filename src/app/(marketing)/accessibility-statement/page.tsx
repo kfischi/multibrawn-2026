@@ -1,7 +1,7 @@
 import styles from './AccessibilityStatement.module.css';
 
 export const metadata = {
-  title: 'הצהרת נגישות | MULTIBRAWN',
+  title: 'הצהרת נגישות',
   description: 'הצהרת הנגישות של מולטיבראון - מחויבות לנגישות דיגיטלית לכולם',
 };
 

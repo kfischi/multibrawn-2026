@@ -4,7 +4,7 @@ import styles from '../Article.module.css';
 import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
-  title: "שף פרטי לאירוע — מתי שווה ומה חייבים לבדוק | MULTIBRAWN",
+  title: "שף פרטי לאירוע — מתי שווה ומה חייבים לבדוק",
   description: "שף פרטי לשבת חתן, לנופש בווילה או לאירוע קבוצתי — מתי זה שווה, כמה עולה, ואיך בוחרים נכון. המדריך של ערדית בראון.",
   keywords: ["שף פרטי", "שף לאירוע", "שף לשבת חתן", "שף לווילה", "שף כשר", "שף חרדי", "MULTIBRAWN", "ערדית בראון"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/private-chef-guide' },

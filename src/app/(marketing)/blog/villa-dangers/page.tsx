@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "ממה להיזהר בוילה — 8 דברים לבדוק עם ההגעה | MULTIBRAWN",
+  title: "ממה להיזהר בוילה — 8 דברים לבדוק עם ההגעה",
   description: "הגעתם לוילה? לפני שמניחים את המזוודות — 8 בדיקות קריטיות. בטיחות, ציוד, רעש, כניסה ויציאה, ואיך להגן על עצמכם.",
   keywords: ["ממה להיזהר בוילה", "בדיקות וילה", "וילה בטוחה", "אחריות בוילה", "הזמנת וילה", "טיפים לנופש בוילה"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/villa-dangers' },

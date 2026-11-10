@@ -4,7 +4,7 @@ import styles from '../Article.module.css';
 import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
-  title: "איך עובד השאלון שלי — ערדית בראון | MULTIBRAWN",
+  title: "איך עובד השאלון שלי — ערדית בראון",
   description: "לפני כל המלצה — שאלון. למה? כי מקום מושלם לאחד הוא אסון לאחר. חמש השאלות שחייבים לענות עליהן לפני שסוגרים מתחם.",
   keywords: ["שאלון התאמה", "ערדית בראון", "MULTIBRAWN", "איך עובד השאלון", "התאמת מקום", "שבת חתן", "השאלון של ערדית"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/my-questionnaire-process' },

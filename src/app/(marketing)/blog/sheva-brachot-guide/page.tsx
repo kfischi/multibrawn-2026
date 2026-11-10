@@ -4,7 +4,7 @@ import styles from '../Article.module.css';
 import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
-  title: "שבע ברכות בלי להתיש אף אחד — המדריך שחסר לכל משפחה | MULTIBRAWN",
+  title: "שבע ברכות בלי להתיש אף אחד — המדריך שחסר לכל משפחה",
   description: "איך מארגנים שבע ברכות נכון: למה לא כל ערב צריך להיות מיני-חתונה, הפורמטים מהקל לכבד, שבת שבע ברכות כפרויקט — וחמשת הדברים ששוכחים תמיד.",
   keywords: ["שבע ברכות", "ארגון שבע ברכות", "שבת שבע ברכות", "מקום לשבע ברכות", "סעודת שבע ברכות", "רעיונות לשבע ברכות"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/sheva-brachot-guide' },

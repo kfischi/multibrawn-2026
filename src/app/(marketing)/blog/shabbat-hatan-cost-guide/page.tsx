@@ -4,7 +4,7 @@ import styles from '../Article.module.css';
 import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
-  title: "כמה עולה שבת חתן? פירוק התקציב המלא | MULTIBRAWN",
+  title: "כמה עולה שבת חתן? פירוק התקציב המלא",
   description: "כמה באמת עולה שבת חתן? פירוק מסודר של כל סעיפי התקציב — מתחם, אוכל, לינה, שינוע והבלת\"מים — עם הטעויות שמייקרות את השבת ואיך להימנע מהן.",
   keywords: ["כמה עולה שבת חתן", "תקציב שבת חתן", "מחיר שבת חתן", "מתחם לשבת חתן", "שבת חתן עלויות", "ארגון שבת חתן", "שבת חתן מחירים"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/shabbat-hatan-cost-guide' },

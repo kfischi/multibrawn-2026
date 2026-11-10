@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: 'וילה פרטית או מלון? מה שווה יותר לכסף שלכם | MULTIBRAWN',
+  title: 'וילה פרטית או מלון? מה שווה יותר לכסף שלכם',
   description: 'השוואה אמיתית בין וילה פרטית למלון: מחירים, פרטיות, שירות, ומה מתאים לכם.',
   keywords: ['וילה פרטית', 'וילה או מלון', 'נופש בווילה', 'השוואת נופש', 'מלון בוטיק'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/villa-vs-hotel' },

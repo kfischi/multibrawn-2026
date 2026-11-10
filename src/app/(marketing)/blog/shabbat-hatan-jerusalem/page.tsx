@@ -4,7 +4,7 @@ import styles from '../Article.module.css';
 import ArticleJsonLd from '@/components/ArticleJsonLd';
 
 export const metadata: Metadata = {
-  title: "מתחם לשבת חתן בירושלים והסביבה — איך בוחרים נכון | MULTIBRAWN",
+  title: "מתחם לשבת חתן בירושלים והסביבה — איך בוחרים נכון",
   description: "מחפשים מתחם לשבת חתן בירושלים, בהרי ירושלים או בסביבה? המדריך לבחירה נכונה: מרחקי הליכה, בית כנסת, לינה לכולם, חורף מול קיץ — וכל השאלות ששוכחים לשאול.",
   keywords: ["שבת חתן בירושלים", "מתחם לשבת חתן בירושלים", "שבת חתן הרי ירושלים", "מתחם אירוח ירושלים", "שבת חתן ליד ירושלים", "מתחם לשבת חתן", "אירוח קבוצות ירושלים"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/shabbat-hatan-jerusalem' },

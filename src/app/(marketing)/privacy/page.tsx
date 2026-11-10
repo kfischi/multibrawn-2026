@@ -1,7 +1,7 @@
 import styles from './Privacy.module.css';
 
 export const metadata = {
-  title: 'מדיניות פרטיות | MULTIBRAWN',
+  title: 'מדיניות פרטיות',
   description: 'מדיניות הפרטיות של מולטיבראון - כיצד אנו שומרים על הפרטיות שלכם',
 };
 

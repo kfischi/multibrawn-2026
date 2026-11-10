@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: 'בלאי בוילות יוקרה — בתמונות הכל חדש, במציאות הספה קרועה | MULTIBRAWN',
+  title: 'בלאי בוילות יוקרה — בתמונות הכל חדש, במציאות הספה קרועה',
   description: 'איך מזהים בלאי בוילת יוקרה לפני שמשלמים? המדריך לבדיקת ריהוט, מיזוג, בריכה ורמת אחזקה — כדי שלא תגיעו לאכזבה.',
   keywords: ['בלאי וילה', 'אחזקת וילה', 'מצב וילה', 'בדיקת וילה', 'וילה יוקרה', 'השכרת וילה ישראל'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/luxury-villa-wear-and-tear' },

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "תמונות מול מציאות בצימרים — איך לא ליפול במלכודת | MULTIBRAWN",
+  title: "תמונות מול מציאות בצימרים — איך לא ליפול במלכודת",
   description: "תמונות מהצימר נראות מדהימות — והמציאות שונה לחלוטין? גלו איך לזהות שהצימר קטן, ישן או לא מה שנראה. 10 סימנים לזהירות.",
   keywords: ["תמונות צימר מול מציאות", "הטעיה בצימרים", "בדיקת צימר לפני הזמנה", "ביקורות צימר", "איך לבחור צימר"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/photos-vs-reality-guide' },

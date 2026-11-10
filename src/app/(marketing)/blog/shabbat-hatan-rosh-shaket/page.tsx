@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "שבת חתן בראש שקט — המדריך המלא לארגון מושלם | MULTIBRAWN",
+  title: "שבת חתן בראש שקט — המדריך המלא לארגון מושלם",
   description: "איך מארגנים שבת חתן בראש שקט, שמח ומסודר? וידאו + מדריך מלא: איפה לשמור, כמה אורחים, כשרות, צניעות ומה חשוב לבדוק.",
   keywords: ["שבת חתן", "ראש שקט", "ארגון שבת חתן", "שבת חתן ירושלים", "מקום לשבת חתן", "שבת חתן דתי"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/shabbat-hatan-rosh-shaket' },

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "מבחן הצניעות — כתוב פרטיות מלאה אבל השכן רואה הכל | MULTIBRAWN",
+  title: "מבחן הצניעות — כתוב פרטיות מלאה אבל השכן רואה הכל",
   description: "צימר לציבור הדתי — איך לבדוק פרטיות אמיתית, צניעות, כשרות ומרחק מבית כנסת. הטיפים שיחסכו לכם אכזבות בחופשה.",
   keywords: ["צימר לדתיים", "צימר כשר", "פרטיות מלאה", "צניעות בצימר", "נופש דתי", "שבת חתן כשר"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/modesty-check-religious' },

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: '10 טעויות שישראלים עושים בהזמנת צימר | MULTIBRAWN',
+  title: '10 טעויות שישראלים עושים בהזמנת צימר',
   description: 'לא בודקים כשרות, לא שואלים על שכנים, לא קוראים ביקורות — רשימת 10 הטעויות הכי נפוצות בהזמנת צימר ואיך להימנע מהן.',
   keywords: ['טעויות הזמנת צימר', 'איך לבחור צימר', 'טיפים לצימר', 'צימר כשר', 'צימר עם בריכה'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/10-zimmer-mistakes' },

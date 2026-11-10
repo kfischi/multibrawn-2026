@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   keywords: ['צימרים בישראל', 'וילות להשכרה', 'מתחמי אירועים', 'שבת חתן', 'בריכה מחוממת', 'צימר רומנטי', 'וילה גליל', 'צימר עם ג׳קוזי', 'נופש בישראל', 'מלון בוטיק', 'דירת נופש', 'multibrawn'],
   alternates: { canonical: 'https://multibrawn.co.il' },
   openGraph: {
-    title: 'MULTIBRAWN | מוצאים לכם את הלוקיישן המושלם',
+    title: 'MULTIBRAWN | מתחמים, וילות ומלונות בוטיק — בהתאמה אישית',
     description: 'וילות, צימרים, מתחמי שבת חתן ואירועים בישראל. שירות אישי עם ערדית — צ׳אטבוט חכם שמבין בדיוק מה אתם צריכים.',
     url: 'https://multibrawn.co.il',
     siteName: 'MULTIBRAWN',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MULTIBRAWN | הלוקיישן המושלם מחכה לכם',
+    title: 'MULTIBRAWN | נסגרים בהתאמה אישית. לא בקטלוג',
     description: 'צימרים, וילות, שבת חתן — ערדית מוצאת לכם את המקום הנכון',
     images: ['https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg'],
   },
@@ -32,7 +32,7 @@ const homeJsonLd = {
   '@graph': [
     {
       '@type': 'VideoObject',
-      name: 'MULTIBRAWN — הלוקיישן המושלם מחכה לכם',
+      name: 'MULTIBRAWN — מתחמים, וילות ומלונות בוטיק בהתאמה אישית',
       description: 'סרטון פתיחה של MULTIBRAWN — מומחים למציאת וילות, צימרים ומתחמי אירועים בישראל',
       thumbnailUrl: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
       contentUrl: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4',

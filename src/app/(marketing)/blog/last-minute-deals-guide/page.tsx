@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "דקה ה-90 בצימרים — מתי כדאי לחכות ומתי לא | MULTIBRAWN",
+  title: "דקה ה-90 בצימרים — מתי כדאי לחכות ומתי לא",
   description: "האם כדאי לחכות לדקה ה-90 ולקבל מחיר טוב יותר? מדריך מלא: מתי מבצעי ברגע האחרון שווים, מתי זה הימור מסוכן, ואיך לחסוך נכון.",
   keywords: ["מבצעי דקה 90", "צימר ברגע האחרון", "הנחה ברגע האחרון", "חיסכון בנופש", "טיפים להזמנת צימר"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/last-minute-deals-guide' },

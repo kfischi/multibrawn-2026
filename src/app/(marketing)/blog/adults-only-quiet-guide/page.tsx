@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "שקט בבקשה — איך למצוא צימר שקט באמת | MULTIBRAWN",
+  title: "שקט בבקשה — איך למצוא צימר שקט באמת",
   description: "חיפשתם צימר שקט ונחת? מדריך מלא לבחירת צימר ווילה ללא רעש שכנים, ילדים ומוזיקה. הטיפים שאף אחד לא יגיד לכם לפני ההזמנה.",
   keywords: ["צימר שקט", "צימר מבוגרים בלבד", "צימר ללא ילדים", "שקט ופרטיות", "נופש שקט"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/adults-only-quiet-guide' },

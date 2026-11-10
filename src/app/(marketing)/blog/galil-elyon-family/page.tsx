@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: 'חופשה משפחתית בגליל העליון — איפה כדאי? | MULTIBRAWN',
+  title: 'חופשה משפחתית בגליל העליון — איפה כדאי?',
   description: 'ראש פינה, קצרין, כנרת ועמק החולה — המדריך המלא לחופשה משפחתית בצפון ישראל.',
   keywords: ['גליל עליון', 'חופשה משפחתית', 'צפון ישראל', 'ראש פינה', 'כנרת', 'צימר גליל', 'וילה גליל'],
   alternates: { canonical: 'https://multibrawn.co.il/blog/galil-elyon-family' },

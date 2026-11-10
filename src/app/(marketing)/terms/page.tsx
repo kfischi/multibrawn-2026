@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import styles from '../privacy/Privacy.module.css';
 
 export const metadata: Metadata = {
-  title: 'תנאי שימוש | MULTIBRAWN',
+  title: 'תנאי שימוש',
   description: 'תנאי השימוש באתר MULTIBRAWN — פלטפורמת השכרת נכסים יוקרתיים.',
   alternates: { canonical: 'https://multibrawn.co.il/terms' },
 };

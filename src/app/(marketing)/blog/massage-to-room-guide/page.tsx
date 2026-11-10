@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "מסאז׳ לחדר בצימר — כל מה שצריך לדעת | MULTIBRAWN",
+  title: "מסאז׳ לחדר בצימר — כל מה שצריך לדעת",
   description: "מסאז׳ לחדר בצימר — מה כלול, כמה עולה, מתי כדאי להזמין. המדריך המלא לניצול שירות המסאז׳ בנכסי נופש בישראל.",
   keywords: ["מסאז׳ לחדר", "ספא בצימר", "מסאז׳ נופש", "שירותי ספא וילה", "חופשת ספא ישראל"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/massage-to-room-guide' },

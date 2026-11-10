@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "ארוחת הבוקר בצימר — חביתה ב-150 שקל? מתי שווה | MULTIBRAWN",
+  title: "ארוחת הבוקר בצימר — חביתה ב-150 שקל? מתי שווה",
   description: "ארוחת בוקר בצימר שווה? מדריך מלא: מתי לשלם, מתי לוותר, ואיך לדעת אם ה-150 שקל מוצדקים. השוואת מחירים וטיפים מהשטח.",
   keywords: ["ארוחת בוקר צימר", "ארוחת בוקר כלולה", "נופש עם ארוחות", "צימר כולל הכל", "מחירי צימרים"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/breakfast-value-guide' },

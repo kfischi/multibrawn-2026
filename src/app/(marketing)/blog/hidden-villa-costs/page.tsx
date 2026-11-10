@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '../Article.module.css';
 
 export const metadata: Metadata = {
-  title: "עלויות נסתרות בוילה — מה לא סיפרו לכם לפני ההזמנה | MULTIBRAWN",
+  title: "עלויות נסתרות בוילה — מה לא סיפרו לכם לפני ההזמנה",
   description: "דמי ניקיון, פיקדון, חשמל, מיזוג — גלו את כל העלויות הנסתרות שצריך לחשב לפני שמזמינים וילה. שקיפות מלאה כדי שלא תופתעו.",
   keywords: ["עלויות נסתרות וילה", "דמי ניקיון צימר", "פיקדון וילה", "מחיר אמיתי צימר", "עלויות נסתרות נופש"],
   alternates: { canonical: 'https://multibrawn.co.il/blog/hidden-villa-costs' },
