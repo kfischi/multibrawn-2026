@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
         budget: leadData.budget || null,
         kashrut: leadData.kashrut || null,
         supervisor: leadData.supervisor || null,
+        notes: leadData.notes || null,
         flow_type: leadData.flowType || 'regular',
         source,
         status: 'new',
