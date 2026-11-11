@@ -288,10 +288,16 @@ export default function VillasClient() {
           cursor: pointer;
           font-size: 15px;
         }
-        /* rotating 3D carousel */
+        /* rotating 3D carousel — framed like a premium device, MULTIBRAWN purple→fuchsia */
         .carousel {
           position: relative;
           margin-top: 34px;
+        }
+        .stageFrame {
+          background: linear-gradient(165deg, var(--purple) 0%, #c400e0 55%, var(--pink) 100%);
+          border-radius: 30px;
+          padding: 14px;
+          box-shadow: 0 25px 70px #5e00ff40;
         }
         .stage {
           position: relative;
@@ -299,6 +305,9 @@ export default function VillasClient() {
           perspective: 1200px;
           perspective-origin: 50% 50%;
           overflow: hidden;
+          border-radius: 22px;
+          border: 2px solid rgba(255, 255, 255, 0.35);
+          background: #0d0a14;
         }
         .ring {
           position: absolute;
@@ -674,6 +683,7 @@ export default function VillasClient() {
             onTouchStart={() => setPaused(true)}
             onTouchEnd={() => setTimeout(() => setPaused(false), 1500)}
           >
+            <div className="stageFrame">
             <div className="stage">
               <div className="ring" ref={ringRef}>
                 {SLIDES.map((s, i) => (
@@ -691,6 +701,7 @@ export default function VillasClient() {
                   </div>
                 ))}
               </div>
+            </div>
             </div>
             <div className="dots">
               {SLIDES.map((_, i) => (
