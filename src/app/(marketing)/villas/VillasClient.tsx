@@ -288,10 +288,33 @@ export default function VillasClient() {
           cursor: pointer;
           font-size: 15px;
         }
+        /* video showcase — same framed look, sits above the carousel */
+        .videoFrame {
+          background: linear-gradient(165deg, var(--purple) 0%, #c400e0 55%, var(--pink) 100%);
+          border-radius: 30px;
+          padding: 14px;
+          box-shadow: 0 25px 70px #5e00ff40;
+          margin-top: 34px;
+        }
+        .videoBox {
+          position: relative;
+          height: clamp(220px, 46vw, 400px);
+          border-radius: 22px;
+          border: 2px solid rgba(255, 255, 255, 0.35);
+          overflow: hidden;
+          background: #0d0a14;
+        }
+        .videoBox video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
         /* rotating 3D carousel — framed like a premium device, MULTIBRAWN purple→fuchsia */
         .carousel {
           position: relative;
-          margin-top: 34px;
+          margin-top: 20px;
         }
         .stageFrame {
           background: linear-gradient(165deg, var(--purple) 0%, #c400e0 55%, var(--pink) 100%);
@@ -675,6 +698,17 @@ export default function VillasClient() {
           <a className="cta" href="#request">
             ספרו לנו מה אתם מחפשים ←
           </a>
+
+          <div className="videoFrame">
+            <div className="videoBox">
+              <video autoPlay loop muted playsInline>
+                <source
+                  src="https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </div>
 
           <div
             className="carousel"
