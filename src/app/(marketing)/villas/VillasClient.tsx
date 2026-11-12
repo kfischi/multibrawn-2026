@@ -317,21 +317,14 @@ export default function VillasClient() {
           cursor: pointer;
           font-size: 15px;
         }
-        /* video showcase — same framed look, sits above the carousel */
-        .videoFrame {
-          background: linear-gradient(165deg, var(--purple) 0%, #c400e0 55%, var(--pink) 100%);
-          border-radius: 30px;
-          padding: 14px;
-          box-shadow: 0 25px 70px #5e00ff40;
-          margin-top: 34px;
-        }
+        /* video showcase — full-bleed, no frame, no box */
         .videoBox {
           position: relative;
-          height: clamp(220px, 46vw, 400px);
-          border-radius: 22px;
-          border: 2px solid rgba(255, 255, 255, 0.35);
+          width: 100%;
+          height: clamp(320px, 70vw, 620px);
           overflow: hidden;
           background: #0d0a14;
+          margin-top: 34px;
         }
         .videoBox video {
           position: absolute;
@@ -739,18 +732,18 @@ export default function VillasClient() {
           <a className="cta" href="#request">
             ספרו לנו מה אתם מחפשים ←
           </a>
+        </div>
 
-          <div className="videoFrame">
-            <div className="videoBox">
-              <video autoPlay loop muted playsInline>
-                <source
-                  src="https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-          </div>
+        <div className="videoBox">
+          <video autoPlay loop muted playsInline>
+            <source
+              src="https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
 
+        <div className="wrap">
           <div
             className="carousel"
             onMouseEnter={() => setPaused(true)}
@@ -853,6 +846,11 @@ export default function VillasClient() {
             <br />
             המחיר שלכם זהה למה שהיה אם הייתם מחפשים לבד בפייסבוק
             ובאינסטגרם.
+            <br />
+            אני אומרת את האמת גם על מי שאני לא עובדת איתו.
+            <br />
+            אני עובדת רק עם מי שמוכן לתת את העשרה האחוזים שחשובים — כדי
+            שיכנסו אליו אנשים טובים.
             <br />
             ההבדל — שאתם מקבלים התאמה אמיתית, לא רק תוצאות חיפוש.
           </p>
