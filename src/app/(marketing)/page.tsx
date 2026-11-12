@@ -3,12 +3,12 @@ import HomeClient from './HomeClient';
 
 export const metadata: Metadata = {
   title: { absolute: 'MULTIBRAWN | צימרים, וילות ומתחמי אירועים בישראל' },
-  description: 'מחפשים צימר רומנטי, וילה למשפחה גדולה או מתחם שבת חתן? ערדית, העוזרת החכמה של MULTIBRAWN, תמצא לכם את המקום המושלם בישראל. התאמה אישית לפי שאלון · היכרות מהשטח · שירות אישי בוואטסאפ.',
+  description: 'מחפשים צימר רומנטי, וילה למשפחה גדולה או מתחם שבת חתן? ב-MULTIBRAWN מספרים מה צריך ומקבלים התאמה אישית מערדית. היכרות מהשטח · שאלון קצר · שירות אישי בוואטסאפ.',
   keywords: ['צימרים בישראל', 'וילות להשכרה', 'מתחמי אירועים', 'שבת חתן', 'בריכה מחוממת', 'צימר רומנטי', 'וילה גליל', 'צימר עם ג׳קוזי', 'נופש בישראל', 'מלון בוטיק', 'דירת נופש', 'multibrawn'],
   alternates: { canonical: 'https://multibrawn.co.il' },
   openGraph: {
     title: 'MULTIBRAWN | מתחמים, וילות ומלונות בוטיק — בהתאמה אישית',
-    description: 'וילות, צימרים, מתחמי שבת חתן ואירועים בישראל. שירות אישי עם ערדית — צ׳אטבוט חכם שמבין בדיוק מה אתם צריכים.',
+    description: 'וילות, צימרים, מתחמי שבת חתן ואירועים בישראל. מספרים מה אתם צריכים, וערדית חוזרת אליכם עם התאמה אישית.',
     url: 'https://multibrawn.co.il',
     siteName: 'MULTIBRAWN',
     locale: 'he_IL',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'MULTIBRAWN | נסגרים בהתאמה אישית. לא בקטלוג',
-    description: 'צימרים, וילות, שבת חתן — ערדית מוצאת לכם את המקום הנכון',
+    description: 'צימרים, וילות ושבת חתן. ערדית מוצאת לכם את המקום הנכון',
     images: ['https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg'],
   },
 };
@@ -33,7 +33,7 @@ const homeJsonLd = {
     {
       '@type': 'VideoObject',
       name: 'MULTIBRAWN — מתחמים, וילות ומלונות בוטיק בהתאמה אישית',
-      description: 'סרטון פתיחה של MULTIBRAWN — מומחים למציאת וילות, צימרים ומתחמי אירועים בישראל',
+      description: 'סרטון פתיחה של MULTIBRAWN: וילות, צימרים ומתחמי אירועים בישראל, בהתאמה אישית',
       thumbnailUrl: 'https://res.cloudinary.com/dptyfvwyo/image/upload/v1760818934/22_tt9jvz.jpg',
       contentUrl: 'https://res.cloudinary.com/dptyfvwyo/video/upload/v1763834667/Video-Multi_b11ehy.mp4',
       uploadDate: '2024-12-01T00:00:00+02:00',
