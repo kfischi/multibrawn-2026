@@ -42,8 +42,8 @@ const SLIDES: Slide[] = [
 ];
 
 const TICKER_LINES = [
-  'וילות, צימרים ומתחמים בכל הארץ — מאילת ועד הגולן',
-  'זוגות, משפחות וקבוצות — כל אחד מקבל התאמה אחרת',
+  'וילות, צימרים ומתחמים בכל הארץ, מאילת ועד הגולן',
+  'זוגות, משפחות וקבוצות. כל אחד מקבל התאמה אחרת',
   'וילות ובתי נופש · מתחמי אירוח · שבתות חתן',
   'התאמה אישית, לא קטלוג',
 ];
@@ -73,9 +73,9 @@ const RADIUS = Math.round(SLIDE_W / 2 / Math.tan(Math.PI / N));
 const DEG_PER_SEC = 10;
 
 function matchMessage(people: number, budget: number): string {
-  if (people <= 3 && budget >= 2500) return 'נשמע כמו זוג שמחפש פרטיות אמיתית — יש לנו כיוון מדויק.';
-  if (people >= 10) return 'הרכב קבוצתי — כאן ההתאמה שלנו הכי מורגשת.';
-  if (budget < 1000) return 'אפשר למצוא התאמה גם במסגרת הזו — נדבר על האזור הנכון.';
+  if (people <= 3 && budget >= 2500) return 'נשמע כמו זוג שמחפש פרטיות אמיתית. יש לנו כיוון מדויק.';
+  if (people >= 10) return 'הרכב קבוצתי. כאן ההתאמה שלנו הכי מורגשת.';
+  if (budget < 1000) return 'אפשר למצוא התאמה גם במסגרת הזו. נדבר על האזור הנכון.';
   return 'יש לנו בדיוק את הכיוון בשבילכם.';
 }
 
@@ -208,7 +208,7 @@ export default function VillasClient() {
   }
 
   function buildSummaryLines(values: Record<string, string>) {
-    const lines = ['פנייה חדשה — וילות וצימרים MULTIBRAWN'];
+    const lines = ['פנייה חדשה · וילות וצימרים MULTIBRAWN'];
     for (const [id, label] of Object.entries(FIELD_LABELS)) {
       const v = values[id];
       if (v) lines.push(`${label}: ${v}`);
@@ -725,7 +725,7 @@ export default function VillasClient() {
             <span>בחירה אישית, בקנה מידה אחר.</span>
           </h1>
           <p className="lead">
-            אני מכירה וילות, בתי נופש, מלונות ומתחמי אירוח בכל הארץ —
+            אני מכירה וילות, בתי נופש, מלונות ומתחמי אירוח בכל הארץ,
             מאילת ועד הגולן. אתם מגדירים את הצורך, אני מאתרת את האפשרויות
             המתאימות להרכב, לאופי האירוח, לאזור ולתקציב שלכם.
           </p>
@@ -760,7 +760,7 @@ export default function VillasClient() {
                     key={i}
                     style={{ transform: `rotateY(${i * STEP}deg) translateZ(${RADIUS}px)` }}
                   >
-                    <img src={s.image} alt={`${s.title} — ${s.location}`} loading={i === 0 ? 'eager' : 'lazy'} />
+                    <img src={s.image} alt={`${s.title}, ${s.location}`} loading={i === 0 ? 'eager' : 'lazy'} />
                     <div className="slideOverlay" />
                     <div className="slideCopy">
                       <h3>{s.title}</h3>
@@ -835,24 +835,24 @@ export default function VillasClient() {
         <div className="whyCard" ref={addReveal}>
           <h3>למה דרך MULTIBRAWN ולא ישירות</h3>
           <p>
-            אני מכירה את הנכסים מהשטח — לא רק מתמונות.
+            אני מכירה את הנכסים מהשטח, לא רק מתמונות.
             <br />
             יש היום הרבה עוקצים, ומקומות שלא תמיד נראים כמו שהם מצטלמים.
             <br />
             אני בודקת לפני שאני ממליצה.
             <br />
             צריכים נגישות, התחשבות, משהו מיוחד? לא תמיד בעל המתחם זמין
-            בשבילכם — אני כן.
+            בשבילכם. אני כן.
             <br />
             המחיר שלכם זהה למה שהיה אם הייתם מחפשים לבד בפייסבוק
             ובאינסטגרם.
             <br />
             אני אומרת את האמת גם על מי שאני לא עובדת איתו.
             <br />
-            אני עובדת רק עם מי שמוכן לתת את העשרה האחוזים שחשובים — כדי
+            אני עובדת רק עם מי שמוכן לתת את התוספת שעושה את ההבדל, כדי
             שיכנסו אליו אנשים טובים.
             <br />
-            ההבדל — שאתם מקבלים התאמה אמיתית, לא רק תוצאות חיפוש.
+            ההבדל: אתם מקבלים התאמה אמיתית, לא רק תוצאות חיפוש.
           </p>
         </div>
       </section>
@@ -884,10 +884,10 @@ export default function VillasClient() {
 
       <section className="section wrap">
         <h2>כל הנכסים במבט אחד</h2>
-        <p className="sub">גלריה של הנכסים הקיימים — לפני שממלאים את הטופס.</p>
+        <p className="sub">גלריה של הנכסים הקיימים, לפני שממלאים את הטופס.</p>
         <div className="gallery">
           {SLIDES.map((s, i) => (
-            <img key={i} src={s.image} alt={`${s.title} — ${s.location}`} loading="lazy" />
+            <img key={i} src={s.image} alt={`${s.title}, ${s.location}`} loading="lazy" />
           ))}
         </div>
       </section>
@@ -1007,7 +1007,7 @@ export default function VillasClient() {
               {status === 'sending' ? 'שולח...' : 'העברת הבקשה בוואטסאפ ←'}
             </button>
             {status === 'error' && (
-              <p className="statusMsg">הפנייה נשלחת בוואטסאפ — שמירה במערכת נכשלה, ניצור קשר ידנית.</p>
+              <p className="statusMsg">הפנייה נשלחת בוואטסאפ. שמירה במערכת נכשלה, ניצור קשר ידנית.</p>
             )}
           </form>
         </div>
