@@ -258,6 +258,35 @@ export default function VillasClient() {
           font-size: 12px;
           font-weight: 700;
         }
+        .founder {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 22px;
+        }
+        .founderPhoto {
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          overflow: hidden;
+          border: 2px solid var(--pink);
+          flex-shrink: 0;
+        }
+        .founderPhoto img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .founderText strong {
+          display: block;
+          font-size: 15px;
+        }
+        .founderText span {
+          display: block;
+          font-size: 13px;
+          color: #d9b9e0;
+        }
         h1 {
           font-size: clamp(32px, 7vw, 68px);
           line-height: 1.15;
@@ -684,16 +713,28 @@ export default function VillasClient() {
 
       <section className="hero">
         <div className="wrap">
-          <div className="eyebrow">PRIVATE HOSPITALITY · PERSONAL MATCHING</div>
+          <div className="founder">
+            <div className="founderPhoto">
+              <img
+                src="https://res.cloudinary.com/dptyfvwyo/image/upload/v1762012646/Ardit_znq9aj.jpg"
+                alt="ערדית בראון"
+              />
+            </div>
+            <div className="founderText">
+              <strong>היי, אני ערדית</strong>
+              <span>מייסדת ומנכ"לית MULTIBRAWN</span>
+            </div>
+          </div>
+          <div className="eyebrow">MULTIBRAWN · התאמה בהתאם ללקוח</div>
           <h1>
             מתחמי נופש ואירוח.
             <br />
             <span>בחירה אישית, בקנה מידה אחר.</span>
           </h1>
           <p className="lead">
-            וילות, בתי נופש, מלונות ומתחמי אירוח בכל הארץ — מאילת ועד הגולן.
-            אתם מגדירים את הצורך, אנחנו מאתרים את האפשרויות המתאימות להרכב,
-            לאופי האירוח, לאזור ולמסגרת התקציב שלכם.
+            אני מכירה וילות, בתי נופש, מלונות ומתחמי אירוח בכל הארץ —
+            מאילת ועד הגולן. אתם מגדירים את הצורך, אני מאתרת את האפשרויות
+            המתאימות להרכב, לאופי האירוח, לאזור ולתקציב שלכם.
           </p>
           <a className="cta" href="#request">
             ספרו לנו מה אתם מחפשים ←
