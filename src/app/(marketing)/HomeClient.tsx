@@ -48,7 +48,11 @@ export default function HomePage() {
           <div className={styles.videoOverlay}>
             <div className={styles.heroContent}>
               <h1 className={styles.heroTitle}>
-                לא מוצאים <span className={styles.heroAccent}>בגלילה.</span>
+                <span className={styles.heroAccent}>MULTIBRAWN</span>
+                <br />
+                רגעים גדולים מתחילים
+                <br />
+                <span className={styles.heroAccent}>בלוקיישן המדויק.</span>
               </h1>
               <div className={styles.ornament} aria-hidden="true">◆</div>
               <p className={styles.heroSubtitle}>
