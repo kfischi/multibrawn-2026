@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import MultibrawnSignature from '@/components/sections/MultibrawnSignature/MultibrawnSignature';
 
 interface Slide {
   image: string;
@@ -1012,6 +1013,8 @@ export default function VillasClient() {
           </form>
         </div>
       </section>
+
+      <MultibrawnSignature />
     </div>
   );
 }
