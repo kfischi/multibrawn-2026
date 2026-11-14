@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import VillasClient from './VillasClient';
 
 export const metadata: Metadata = {
@@ -26,5 +27,9 @@ export const metadata: Metadata = {
 };
 
 export default function VillasPage() {
-  return <VillasClient />;
+  return (
+    <Suspense fallback={null}>
+      <VillasClient />
+    </Suspense>
+  );
 }

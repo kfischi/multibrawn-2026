@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import MultibrawnSignature from '@/components/sections/MultibrawnSignature/MultibrawnSignature';
 
 interface Slide {
@@ -81,6 +82,13 @@ function matchMessage(people: number, budget: number): string {
 }
 
 export default function VillasClient() {
+  const searchParams = useSearchParams();
+  // לינק אישי שערדית שולחת ללקוח ספציפי: ?name=דנה&where=גליל&what=בריכה מחוממת
+  const personName = searchParams?.get('name')?.trim() || '';
+  const personWhere = searchParams?.get('where')?.trim() || '';
+  const personWhat = searchParams?.get('what')?.trim() || '';
+  const isPersonal = Boolean(personName);
+
   const [frontIdx, setFrontIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const [people, setPeople] = useState(6);
@@ -720,15 +728,23 @@ export default function VillasClient() {
             </div>
           </div>
           <div className="eyebrow">MULTIBRAWN · התאמה בהתאם ללקוח</div>
-          <h1>
-            מתחמי נופש ואירוח.
-            <br />
-            <span>בחירה אישית, בקנה מידה אחר.</span>
-          </h1>
+          {isPersonal ? (
+            <h1>
+              {personName}, מצאתי לך בדיוק
+              <br />
+              <span>{personWhere ? `את מה שחיפשת ב${personWhere}.` : 'את מה שחיפשת.'}</span>
+            </h1>
+          ) : (
+            <h1>
+              מתחמי נופש ואירוח.
+              <br />
+              <span>בחירה אישית, בקנה מידה אחר.</span>
+            </h1>
+          )}
           <p className="lead">
-            אני מכירה וילות, בתי נופש, מלונות ומתחמי אירוח בכל הארץ,
-            מאילת ועד הגולן. אתם מגדירים את הצורך, אני מאתרת את האפשרויות
-            המתאימות להרכב, לאופי האירוח, לאזור ולתקציב שלכם.
+            {isPersonal
+              ? `כתבת לי${personWhat ? `: "${personWhat}"` : ''}. בדקתי בשטח, לא רק בתמונות — ומתחתי בניתי כאן בשבילך את הכיוון המדויק.`
+              : 'אני מכירה וילות, בתי נופש, מלונות ומתחמי אירוח בכל הארץ, מאילת ועד הגולן. אתם מגדירים את הצורך, אני מאתרת את האפשרויות המתאימות להרכב, לאופי האירוח, לאזור ולתקציב שלכם.'}
           </p>
           <a className="cta" href="#request">
             ספרו לנו מה אתם מחפשים ←
@@ -939,7 +955,7 @@ export default function VillasClient() {
               </div>
               <div className="field">
                 <label htmlFor="region">אזור מבוקש *</label>
-                <input id="region" name="region" required />
+                <input id="region" name="region" required defaultValue={personWhere} />
               </div>
               <div className="field">
                 <label htmlFor="date">תאריך אירוח *</label>
@@ -985,14 +1001,14 @@ export default function VillasClient() {
               </div>
               <div className="field full">
                 <label htmlFor="needs">מה חשוב לכם במיוחד?</label>
-                <textarea id="needs" name="needs" />
+                <textarea id="needs" name="needs" defaultValue={personWhat} />
                 <button type="button" className="voiceBtn" onClick={handleVoiceClick}>
                   או ספרו לנו בקצרה בוואטסאפ ←
                 </button>
               </div>
               <div className="field">
                 <label htmlFor="name">שם מלא *</label>
-                <input id="name" name="name" required />
+                <input id="name" name="name" required defaultValue={personName} />
               </div>
               <div className="field">
                 <label htmlFor="phone">טלפון לחזרה *</label>
