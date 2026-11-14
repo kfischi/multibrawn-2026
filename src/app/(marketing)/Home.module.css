@@ -5,8 +5,8 @@
 
 .homePage {
   min-height: 100vh;
-  /* light purple surround — the space around the white cards */
-  background: linear-gradient(180deg, #f3eaff 0%, #ecdfff 50%, #f3eaff 100%);
+  /* deep jewel-tone surround — the space around the white cards */
+  background: linear-gradient(180deg, #0d0a14 0%, #1a0b27 50%, #0d0a14 100%);
 }
 
 /* ── Scroll Reveal ── */

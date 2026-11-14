@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Landing pages
   const landingPages = [
+    { url: `${baseUrl}/villas`, lastModified: '2026-11-12' },
     { url: `${baseUrl}/zimmerim-galil-elyon`, lastModified: '2026-09-01' },
     { url: `${baseUrl}/affiliate-gallery`, lastModified: '2026-10-01' },
     { url: `${baseUrl}/multi-global`, lastModified: '2026-09-01' },
